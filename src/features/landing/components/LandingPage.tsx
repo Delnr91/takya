@@ -65,20 +65,20 @@ export function LandingPage() {
             alt="TAKYA" 
             width={160} 
             height={40} 
-            className="h-8 md:h-9 w-auto" 
+            className="h-8 md:h-9 w-auto drop-shadow-[0_2px_8px_rgba(255,255,255,0.8)]" 
             priority
           />
         </div>
         
         {/* Menú Píldora */}
-        <nav className="hidden md:flex items-center space-x-8 rounded-full px-8 py-3 bg-white/70 backdrop-blur-2xl border border-white/80 shadow-[inset_0_1px_1px_rgba(255,255,255,0.8),0_4px_20px_rgba(27,59,43,0.06)] text-xs font-mono uppercase tracking-wider text-[#1B3B2B]">
+        <nav className="hidden md:flex items-center space-x-8 rounded-full px-8 py-3 bg-white/80 backdrop-blur-2xl border border-white/90 shadow-[inset_0_1px_1px_rgba(255,255,255,0.9),0_6px_24px_rgba(27,59,43,0.08)] text-xs font-mono uppercase tracking-wider text-[#1B3B2B]">
           <a href="#problema" onClick={(e) => { e.preventDefault(); scrollTo('problema'); }} className="hover:text-[#E05D44] transition-colors cursor-pointer font-bold">El problema</a>
           <a href="#propuesta" onClick={(e) => { e.preventDefault(); scrollTo('propuesta'); }} className="hover:text-[#E05D44] transition-colors cursor-pointer font-bold">La propuesta</a>
           <a href="#criterio" onClick={(e) => { e.preventDefault(); scrollTo('criterio'); }} className="hover:text-[#E05D44] transition-colors cursor-pointer font-bold">Nuestro criterio</a>
         </nav>
 
         <div>
-          <a href="#criterio" onClick={(e) => { e.preventDefault(); scrollTo('criterio'); }} className="hidden md:inline-flex items-center justify-center rounded-full bg-[#E05D44] px-6 py-2.5 text-xs font-mono uppercase tracking-wider font-bold text-white shadow-md hover:bg-[#c94b34] transition-all hover:scale-105 active:scale-95 cursor-pointer">
+          <a href="#criterio" onClick={(e) => { e.preventDefault(); scrollTo('criterio'); }} className="hidden md:inline-flex items-center justify-center rounded-full bg-[#E05D44] px-6 py-2.5 text-xs font-mono uppercase tracking-wider font-bold text-white shadow-lg hover:bg-[#c94b34] transition-all hover:scale-105 active:scale-95 cursor-pointer">
             Conversemos <ArrowUpRight className="ml-2 h-4 w-4" />
           </a>
         </div>
@@ -89,11 +89,11 @@ export function LandingPage() {
         
         {/* Metadato Científico Superior */}
         <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.2 }} className="flex items-center space-x-3 mb-8">
-          <span className="text-xs font-mono uppercase tracking-[0.25em] text-[#1B3B2B]/70 font-bold">
+          <span className="text-xs font-mono uppercase tracking-[0.25em] text-[#1B3B2B] font-bold drop-shadow-[0_1px_4px_rgba(255,255,255,0.9)]">
             INTELIGENCIA CON CRITERIO HUMANO
           </span>
           <span className="hidden sm:inline text-xs font-mono text-[#7D9B8A]">&bull;</span>
-          <span className="hidden sm:inline text-xs font-mono text-[#7D9B8A] uppercase tracking-widest">
+          <span className="hidden sm:inline text-xs font-mono text-[#1B3B2B]/80 uppercase tracking-widest font-semibold drop-shadow-[0_1px_4px_rgba(255,255,255,0.9)]">
             SISTEMA DE TELEVIGILANCIA COGNITIVA
           </span>
         </motion.div>
@@ -102,38 +102,38 @@ export function LandingPage() {
           
           {/* Columna Izquierda: Gran Titular */}
           <motion.div initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }} className="max-w-3xl">
-            <h1 className="font-display text-[4.5rem] md:text-[7.5rem] font-extrabold leading-[0.85] tracking-tight text-[#1B3B2B] mb-8">
+            <h1 className="font-display text-[4.5rem] md:text-[7.5rem] font-extrabold leading-[0.85] tracking-tight text-[#1B3B2B] mb-8 drop-shadow-[0_2px_12px_rgba(255,255,255,0.9)]">
               Comprender<br />antes de<br />
               <span className="text-[#E05D44]">actuar<span className="text-[#cde467]">.</span></span>
             </h1>
-            <p className="text-xl md:text-2xl text-[#1B3B2B] mb-10 max-w-xs leading-snug font-bold">
+            <p className="text-xl md:text-2xl text-[#1B3B2B] mb-10 max-w-xs leading-snug font-bold drop-shadow-[0_1px_8px_rgba(255,255,255,0.9)]">
               Menos ruido.<br />Más contexto<br />para decidir.
             </p>
             <div className="flex flex-wrap items-center gap-4">
-              <a href="#problema" onClick={(e) => { e.preventDefault(); scrollTo('problema'); }} className="rounded-full border border-[#1B3B2B] bg-transparent px-8 py-3.5 text-xs font-mono uppercase tracking-wider font-bold text-[#1B3B2B] hover:bg-[#1B3B2B] hover:text-white transition-all cursor-pointer">
+              <a href="#problema" onClick={(e) => { e.preventDefault(); scrollTo('problema'); }} className="rounded-full border border-[#1B3B2B] bg-white/70 backdrop-blur-md px-8 py-3.5 text-xs font-mono uppercase tracking-wider font-bold text-[#1B3B2B] hover:bg-[#1B3B2B] hover:text-white transition-all shadow-sm cursor-pointer">
                 Conocer el problema
               </a>
-              <a href="#propuesta" onClick={(e) => { e.preventDefault(); scrollTo('propuesta'); }} className="flex items-center rounded-full bg-[#E05D44] px-8 py-3.5 text-xs font-mono uppercase tracking-wider font-bold text-white shadow-md hover:bg-[#c94b34] transition-all cursor-pointer">
+              <a href="#propuesta" onClick={(e) => { e.preventDefault(); scrollTo('propuesta'); }} className="flex items-center rounded-full bg-[#E05D44] px-8 py-3.5 text-xs font-mono uppercase tracking-wider font-bold text-white shadow-lg hover:bg-[#c94b34] transition-all cursor-pointer">
                 Ver la propuesta <ArrowUpRight className="ml-2 h-4 w-4" />
               </a>
             </div>
           </motion.div>
           
-          {/* Columna Derecha: Editorial Flotante (SIN CUADRADO BLANCO FANTASMA) */}
-          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.4 }} className="hidden lg:flex flex-col items-end text-right mt-16 max-w-xs">
+          {/* Columna Derecha: Editorial Flotante */}
+          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.4 }} className="hidden lg:flex flex-col items-end text-right mt-16 max-w-xs drop-shadow-[0_1px_8px_rgba(255,255,255,0.95)]">
             <div className="flex items-center space-x-2 text-xs font-mono font-bold tracking-widest text-[#1B3B2B] mb-3">
               <span className="w-2.5 h-2.5 rounded-full bg-[#cde467] shadow-[0_0_10px_#cde467]"></span>
               <span>Antofagasta, Chile &mdash;</span>
             </div>
-            <p className="text-[#1B3B2B] text-sm leading-relaxed font-semibold">
+            <p className="text-[#1B3B2B] text-sm leading-relaxed font-bold">
               Tecnología para<br />personas más seguras<br />y comunidades<br />más informadas.
             </p>
           </motion.div>
         </div>
 
-        {/* Submenú Píldora Inferior: Estilo Índice Científico */}
+        {/* Submenú Píldora Inferior */}
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.6 }} className="mt-28 flex justify-center w-full">
-          <div className="flex items-center justify-between w-full max-w-5xl rounded-full bg-white/70 backdrop-blur-2xl border border-white/80 shadow-md px-10 py-5 text-xs font-mono tracking-widest">
+          <div className="flex items-center justify-between w-full max-w-5xl rounded-full bg-white/80 backdrop-blur-2xl border border-white/90 shadow-[0_6px_28px_rgba(27,59,43,0.06)] px-10 py-5 text-xs font-mono tracking-widest">
             <div className="text-[#1B3B2B] font-bold uppercase flex items-center space-x-2">
               <span className="text-[#7D9B8A]">01 /</span> <span>Contexto</span>
             </div>
@@ -153,126 +153,140 @@ export function LandingPage() {
         </motion.div>
       </section>
 
-      {/* ── SECCIÓN 01: EL PROBLEMA ── */}
+      {/* ── SECCIÓN 01: EL PROBLEMA (CON LUZ Y AURA DE LEGIBILIDAD) ── */}
       <section id="problema" className="relative z-10 w-full max-w-[1440px] mx-auto px-6 md:px-12 py-28 scroll-mt-28">
+        
+        {/* Aura de luz de fondo para separar la sección del oleaje y las rocas */}
+        <div className="absolute inset-x-4 md:inset-x-12 inset-y-12 bg-gradient-to-r from-white/95 via-white/85 to-[#F4F1EA]/85 backdrop-blur-md rounded-[3rem] -z-10 shadow-[0_12px_40px_rgba(255,255,255,0.9),0_4px_24px_rgba(27,59,43,0.05)] border border-white/80 pointer-events-none"></div>
+
         <motion.div 
           initial="hidden"
           whileInView="whileInView"
           viewport={{ once: true, margin: "-80px" }}
           variants={fadeUpVariants}
-          className="max-w-6xl mx-auto border-t-2 border-[#1B3B2B] pt-16 flex flex-col md:flex-row justify-between items-start gap-12"
+          className="max-w-6xl mx-auto p-6 md:p-12 flex flex-col md:flex-row justify-between items-start gap-12"
         >
-          {/* Título de Sección Sistemático */}
+          {/* Título de Sección con luz y sombra */}
           <div className="flex-1">
-            <span className="text-xs font-mono uppercase tracking-[0.25em] text-[#E05D44] font-bold block mb-4">
+            <span className="text-xs font-mono uppercase tracking-[0.25em] text-[#E05D44] font-extrabold block mb-4 drop-shadow-sm">
               [ SEC. 01 ] &mdash; EL DOLOR OPERATIVO
             </span>
-            <h2 className="font-display text-4xl sm:text-5xl lg:text-6xl font-extrabold leading-[1.05] tracking-tight text-[#1B3B2B]">
+            <h2 className="font-display text-4xl sm:text-5xl lg:text-6xl font-extrabold leading-[1.05] tracking-tight text-[#1B3B2B] drop-shadow-[0_2px_10px_rgba(255,255,255,0.95)]">
               El volumen de alertas supera nuestra capacidad visual.
             </h2>
           </div>
 
-          {/* Cuerpo Editorial Sistemático */}
+          {/* Cuerpo Editorial de Alta Definición */}
           <div className="flex-1 max-w-xl">
-            <p className="text-lg sm:text-xl font-bold leading-relaxed text-[#1B3B2B] mb-6">
+            <p className="text-lg sm:text-xl font-extrabold leading-relaxed text-[#1B3B2B] mb-6 drop-shadow-[0_1px_4px_rgba(255,255,255,0.9)]">
               El crecimiento exponencial de la televigilancia en Antofagasta (de 130 a 1.245 cámaras) ha generado una sobrecarga visual insostenible.
             </p>
-            <p className="text-base sm:text-lg leading-relaxed font-medium text-[#1B3B2B]/85">
-              La fatiga cognitiva en los centros de control provoca que hasta un <span className="font-bold text-[#E05D44]">50% de los eventos críticos</span> pasen desapercibidos en un mar de ruido visual. La tecnología actual genera alertas masivas; TAKYA genera respuestas operativas con contexto real.
+            <p className="text-base sm:text-lg leading-relaxed font-bold text-[#1B3B2B]/90 drop-shadow-[0_1px_4px_rgba(255,255,255,0.9)]">
+              La fatiga cognitiva en los centros de control provoca que hasta un <span className="font-extrabold text-[#E05D44] underline decoration-[#E05D44]/30 underline-offset-4">50% de los eventos críticos</span> pasen desapercibidos en un mar de ruido visual. La tecnología actual genera alertas masivas; TAKYA genera respuestas operativas con contexto real.
             </p>
           </div>
         </motion.div>
       </section>
 
-      {/* ── SECCIÓN 02: LA PROPUESTA (FORMATO REVISTA / EDITORIAL TÉCNICO) ── */}
+      {/* ── SECCIÓN 02: LA PROPUESTA (EDITORIAL TÉCNICO CON LUZ DE FONDO) ── */}
       <section id="propuesta" className="relative z-10 w-full max-w-[1440px] mx-auto px-6 md:px-12 py-28 scroll-mt-28">
         
-        {/* Encabezado Sistemático */}
-        <motion.div 
-          initial="hidden"
-          whileInView="whileInView"
-          viewport={{ once: true, margin: "-50px" }}
-          variants={fadeUpVariants}
-          className="flex flex-col md:flex-row justify-between items-end mb-20 max-w-6xl mx-auto gap-8 border-t-2 border-[#1B3B2B] pt-16"
-        >
-          <div className="flex-1">
-            <span className="text-xs font-mono uppercase tracking-[0.25em] text-[#E05D44] font-bold block mb-4">
-              [ SEC. 02 ] &mdash; DE LA SEÑAL A LA REVISIÓN
-            </span>
-            <h2 className="font-display text-4xl sm:text-5xl lg:text-6xl font-extrabold leading-[1.05] tracking-tight text-[#1B3B2B]">
-              La claridad cambia<br />cómo miramos.
-            </h2>
-          </div>
-          <div className="flex-1 flex justify-end">
-            <p className="text-lg sm:text-xl font-bold leading-relaxed text-[#1B3B2B] max-w-md">
-              TAKYA reúne alertas dispersas y explica las prioridades con evidencia clara, permitiendo al operador actuar con contexto inmediato y sin saturación.
-            </p>
-          </div>
-        </motion.div>
+        {/* Aura de luz para la propuesta */}
+        <div className="absolute inset-x-4 md:inset-x-12 inset-y-12 bg-white/90 backdrop-blur-xl rounded-[3rem] -z-10 shadow-[0_12px_40px_rgba(255,255,255,0.9),0_4px_24px_rgba(27,59,43,0.05)] border border-white/80 pointer-events-none"></div>
 
-        {/* 3 Columnas Tipográficas Revista Científica */}
-        <motion.div 
-          initial="hidden"
-          whileInView="whileInView"
-          viewport={{ once: true, margin: "-50px" }}
-          variants={{ hidden: { opacity: 0 }, whileInView: { opacity: 1, transition: { staggerChildren: 0.15 } } }}
-          className="grid grid-cols-1 md:grid-cols-3 gap-12 max-w-6xl mx-auto"
-        >
-          {/* Columna 1 */}
-          <motion.div variants={fadeUpVariants} className="flex flex-col border-t border-[#1B3B2B]/30 pt-8">
-            <span className="text-xs font-mono uppercase tracking-[0.2em] text-[#7D9B8A] font-bold block mb-4">
-              Pilar I &bull; Correlación
-            </span>
-            <h3 className="font-display text-2xl sm:text-3xl font-extrabold text-[#1B3B2B] mb-3 tracking-tight">
-              Encontrar contexto.
-            </h3>
-            <p className="text-base text-[#1B3B2B]/85 font-medium leading-relaxed">
-              Agrupamos señales dispersas y cámaras múltiples que pertenecen a un mismo evento de seguridad para eliminar duplicidad y entregar una historia continua.
-            </p>
+        <div className="max-w-6xl mx-auto p-6 md:p-12">
+          
+          {/* Encabezado Sistemático */}
+          <motion.div 
+            initial="hidden"
+            whileInView="whileInView"
+            viewport={{ once: true, margin: "-50px" }}
+            variants={fadeUpVariants}
+            className="flex flex-col md:flex-row justify-between items-end mb-16 gap-8 border-b border-[#1B3B2B]/15 pb-12"
+          >
+            <div className="flex-1">
+              <span className="text-xs font-mono uppercase tracking-[0.25em] text-[#E05D44] font-extrabold block mb-4">
+                [ SEC. 02 ] &mdash; DE LA SEÑAL A LA REVISIÓN
+              </span>
+              <h2 className="font-display text-4xl sm:text-5xl lg:text-6xl font-extrabold leading-[1.05] tracking-tight text-[#1B3B2B] drop-shadow-[0_2px_8px_rgba(255,255,255,0.9)]">
+                La claridad cambia<br />cómo miramos.
+              </h2>
+            </div>
+            <div className="flex-1 flex justify-end">
+              <p className="text-lg sm:text-xl font-bold leading-relaxed text-[#1B3B2B] max-w-md">
+                TAKYA reúne alertas dispersas y explica las prioridades con evidencia clara, permitiendo al operador actuar con contexto inmediato y sin saturación.
+              </p>
+            </div>
           </motion.div>
 
-          {/* Columna 2 */}
-          <motion.div variants={fadeUpVariants} className="flex flex-col border-t border-[#1B3B2B]/30 pt-8">
-            <span className="text-xs font-mono uppercase tracking-[0.2em] text-[#7D9B8A] font-bold block mb-4">
-              Pilar II &bull; Explicabilidad (XAI)
-            </span>
-            <h3 className="font-display text-2xl sm:text-3xl font-extrabold text-[#1B3B2B] mb-3 tracking-tight">
-              Entender la prioridad.
-            </h3>
-            <p className="text-base text-[#1B3B2B]/85 font-medium leading-relaxed">
-              Desglosamos en lenguaje natural el porqué detrás de cada sugerencia antes de actuar. Cero cajas negras: la inteligencia debe ser comprensible y justificable.
-            </p>
-          </motion.div>
+          {/* 3 Columnas Tipográficas Revista Científica */}
+          <motion.div 
+            initial="hidden"
+            whileInView="whileInView"
+            viewport={{ once: true, margin: "-50px" }}
+            variants={{ hidden: { opacity: 0 }, whileInView: { opacity: 1, transition: { staggerChildren: 0.15 } } }}
+            className="grid grid-cols-1 md:grid-cols-3 gap-12"
+          >
+            {/* Columna 1 */}
+            <motion.div variants={fadeUpVariants} className="flex flex-col">
+              <span className="text-xs font-mono uppercase tracking-[0.2em] text-[#7D9B8A] font-extrabold block mb-3">
+                Pilar I &bull; Correlación
+              </span>
+              <h3 className="font-display text-2xl sm:text-3xl font-extrabold text-[#1B3B2B] mb-3 tracking-tight">
+                Encontrar contexto.
+              </h3>
+              <p className="text-base text-[#1B3B2B] font-semibold leading-relaxed">
+                Agrupamos señales dispersas y cámaras múltiples que pertenecen a un mismo evento de seguridad para eliminar duplicidad y entregar una historia continua.
+              </p>
+            </motion.div>
 
-          {/* Columna 3 */}
-          <motion.div variants={fadeUpVariants} className="flex flex-col border-t border-[#1B3B2B]/30 pt-8">
-            <span className="text-xs font-mono uppercase tracking-[0.2em] text-[#7D9B8A] font-bold block mb-4">
-              Pilar III &bull; Decisión Humana
-            </span>
-            <h3 className="font-display text-2xl sm:text-3xl font-extrabold text-[#1B3B2B] mb-3 tracking-tight">
-              Conservar el control.
-            </h3>
-            <p className="text-base text-[#1B3B2B]/85 font-medium leading-relaxed">
-              La persona valida, decide y registra su criterio. La inteligencia artificial propone y sintetiza, pero el operador humano mantiene siempre la última palabra.
-            </p>
+            {/* Columna 2 */}
+            <motion.div variants={fadeUpVariants} className="flex flex-col">
+              <span className="text-xs font-mono uppercase tracking-[0.2em] text-[#7D9B8A] font-extrabold block mb-3">
+                Pilar II &bull; Explicabilidad (XAI)
+              </span>
+              <h3 className="font-display text-2xl sm:text-3xl font-extrabold text-[#1B3B2B] mb-3 tracking-tight">
+                Entender la prioridad.
+              </h3>
+              <p className="text-base text-[#1B3B2B] font-semibold leading-relaxed">
+                Desglosamos en lenguaje natural el porqué detrás de cada sugerencia antes de actuar. Cero cajas negras: la inteligencia debe ser comprensible y justificable.
+              </p>
+            </motion.div>
+
+            {/* Columna 3 */}
+            <motion.div variants={fadeUpVariants} className="flex flex-col">
+              <span className="text-xs font-mono uppercase tracking-[0.2em] text-[#7D9B8A] font-extrabold block mb-3">
+                Pilar III &bull; Decisión Humana
+              </span>
+              <h3 className="font-display text-2xl sm:text-3xl font-extrabold text-[#1B3B2B] mb-3 tracking-tight">
+                Conservar el control.
+              </h3>
+              <p className="text-base text-[#1B3B2B] font-semibold leading-relaxed">
+                La persona valida, decide y registra su criterio. La inteligencia artificial propone y sintetiza, pero el operador humano mantiene siempre la última palabra.
+              </p>
+            </motion.div>
           </motion.div>
-        </motion.div>
+        </div>
       </section>
 
       {/* ── SECCIÓN 03: NUESTRO CRITERIO & CONTACTO DIRECTO ── */}
       <section id="criterio" className="relative z-10 w-full max-w-[1440px] mx-auto px-6 md:px-12 pt-28 pb-40 scroll-mt-28">
+        
+        {/* Aura de luz para contacto */}
+        <div className="absolute inset-x-4 md:inset-x-12 inset-y-12 bg-white/90 backdrop-blur-xl rounded-[3rem] -z-10 shadow-[0_12px_40px_rgba(255,255,255,0.9),0_4px_24px_rgba(27,59,43,0.05)] border border-white/80 pointer-events-none"></div>
+
         <motion.div 
           initial="hidden"
           whileInView="whileInView"
           viewport={{ once: true, margin: "-100px" }}
           variants={fadeUpVariants}
-          className="max-w-6xl mx-auto border-t-2 border-[#1B3B2B] pt-16 flex flex-col md:flex-row items-start justify-between gap-12"
+          className="max-w-6xl mx-auto p-6 md:p-12 flex flex-col md:flex-row items-start justify-between gap-12"
         >
           <div className="max-w-xl">
-            <span className="text-xs font-mono uppercase tracking-[0.25em] text-[#E05D44] font-bold block mb-4">
+            <span className="text-xs font-mono uppercase tracking-[0.25em] text-[#E05D44] font-extrabold block mb-4">
               [ SEC. 03 ] &mdash; CONVERSACIÓN DIRECTA
             </span>
-            <h2 className="font-display text-4xl sm:text-5xl lg:text-6xl font-extrabold leading-[1.05] tracking-tight text-[#1B3B2B] mb-6">
+            <h2 className="font-display text-4xl sm:text-5xl lg:text-6xl font-extrabold leading-[1.05] tracking-tight text-[#1B3B2B] mb-6 drop-shadow-[0_2px_8px_rgba(255,255,255,0.9)]">
               Descubre TAKYA operando en vivo.
             </h2>
             <p className="text-lg sm:text-xl font-bold leading-relaxed text-[#1B3B2B]">
@@ -302,9 +316,9 @@ export function LandingPage() {
               alt="TAKYA" 
               width={100} 
               height={24} 
-              className="h-6 w-auto opacity-90" 
+              className="h-6 w-auto opacity-90 drop-shadow-sm" 
             />
-            <p className="text-xs font-mono text-[#1B3B2B]/70 uppercase tracking-wider">
+            <p className="text-xs font-mono text-[#1B3B2B]/70 uppercase tracking-wider font-semibold">
               &copy; 2026 TAKYA SpA &bull; Criterio Humano en Televigilancia
             </p>
           </div>
