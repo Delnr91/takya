@@ -1,36 +1,39 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# TAKYA
 
-## Getting Started
+MVP interactivo para el Demo Day del Programa Nómada UCN. El proyecto usa Next.js App Router, React, TypeScript estricto y Tailwind CSS. En esta fase, la consola y el acceso serán simulados en el cliente, sin backend ni cámaras reales.
 
-First, run the development server:
+## Estado
+
+Sprint 0 completo. Sprint 1 incluye el enrutamiento físico de `/home`, `/landing`, `/login` y `/demo`, la redirección de `/` a `/home` y el splash con video local, poster, control de reproducción y dos accesos. Las otras tres rutas contienen páginas base identificadas como en construcción; sus funciones se implementarán en los siguientes sprints.
+
+El PRD agrupa el producto en tres features: entrada, vitrina y consola. La experiencia tendrá cuatro rutas: `/home`, `/landing`, `/login` y `/demo`; `/login` es la barrera visual de acceso a la consola.
+
+## Desarrollo
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Abrir `http://localhost:3000`.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Verificación
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+npm run typecheck
+npm run lint
+npm run format:check
+npm run build
+```
 
-## Learn More
+## Organización
 
-To learn more about Next.js, take a look at the following resources:
+- `docs/`: PRD, arquitectura, diseño, ADR y Plan Maestro.
+- `public/brand/`: identidad oficial SVG, PNG y favicons.
+- `public/referencias/`: referencias visuales; las propuestas de fondo blanco guían la landing.
+- `src/app/`: rutas y layout de Next.js.
+- `src/features/`: dominios `home`, `landing`, `login`, `demo` y `shared`.
+- `src/components/ui/`: primitivas reutilizables.
+- `src/lib/`: utilidades transversales.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+La implementación seguirá el ciclo estricto de incidentes y registrará las decisiones del operador en auditoría local. Todo dato de la consola se presentará como simulación para validación conceptual.

@@ -1,0 +1,211 @@
+{
+  "estado": "propuesta para revision; no aprobada",
+  "concepto": "lettering TAKYA con A abiertas; tres senales convergen y operador decide",
+  "archivos": [
+    {
+      "archivo": "01_maestros_svg/takya-a-logotipo-bosque.svg",
+      "bytes": 484,
+      "sha256": "cbc2f0986deb60f14fb821db3d157490ba6a3e0c6934a708f6f86a091c5d9338"
+    },
+    {
+      "archivo": "01_maestros_svg/takya-a-logotipo-marfil.svg",
+      "bytes": 484,
+      "sha256": "4202b710850008750ac6ebedea49b8537cbebfe7a3280cce396d7a6b8e11f779"
+    },
+    {
+      "archivo": "01_maestros_svg/takya-a-monocromo-blanco.svg",
+      "bytes": 809,
+      "sha256": "d3c705290d70f53d289fe130bd0da4109a6cd8739571ce2e55675ca3e8999229"
+    },
+    {
+      "archivo": "01_maestros_svg/takya-a-monocromo-negro.svg",
+      "bytes": 809,
+      "sha256": "8d314e5847c111d1927460b3ef4c35ebd72f29eeb7f4007a261a4c0b4d613f29"
+    },
+    {
+      "archivo": "01_maestros_svg/takya-a-principal-bosque.svg",
+      "bytes": 809,
+      "sha256": "da345f328be03b6175c618ccfb899c6a104b34e674a73c66330f8f58532d0d56"
+    },
+    {
+      "archivo": "01_maestros_svg/takya-a-principal-marfil.svg",
+      "bytes": 809,
+      "sha256": "edffe4a11d7a00e4674e25d1f1af368456c5a2415d2036886748529bc77ae209"
+    },
+    {
+      "archivo": "01_maestros_svg/takya-a-secundario-bosque.svg",
+      "bytes": 807,
+      "sha256": "5eedfcb7e6de1177439756e406fcc5f74e221978fc8e524518bb5af58676626d"
+    },
+    {
+      "archivo": "01_maestros_svg/takya-a-secundario-marfil.svg",
+      "bytes": 807,
+      "sha256": "f82fc3cf700d86cd4adeaee0b7ecc5ac5bf0aea88ce836944414846cd1eb84cb"
+    },
+    {
+      "archivo": "01_maestros_svg/takya-a-simbolo-bosque.svg",
+      "bytes": 379,
+      "sha256": "2d4ea09ddae44471c231192f933126b1d7be49b4e9ec679fbc225cbf2839e464"
+    },
+    {
+      "archivo": "01_maestros_svg/takya-a-simbolo-marfil.svg",
+      "bytes": 379,
+      "sha256": "fc046440a1b6fba467e33be25059b094e8fc5bd51f50f63c7e53e2a02ccdd2bd"
+    },
+    {
+      "archivo": "02_png_transparentes/takya-a-logotipo-bosque-1536.png",
+      "bytes": 33150,
+      "sha256": "870767ee3394a12feabce435fe798420553f1c4699e3fd2652d2eaa6c3316970"
+    },
+    {
+      "archivo": "02_png_transparentes/takya-a-logotipo-marfil-1536.png",
+      "bytes": 32502,
+      "sha256": "57ad9f4900b5e46a5e3a0fbc40c1c64f9cea5b11225771cfa20158e1aaef2f93"
+    },
+    {
+      "archivo": "02_png_transparentes/takya-a-monocromo-blanco-2048.png",
+      "bytes": 33051,
+      "sha256": "4c7685dc18aa4dd439cb7cdec2befd742ee2cda73b9985ab0ff6159ff444f769"
+    },
+    {
+      "archivo": "02_png_transparentes/takya-a-monocromo-negro-2048.png",
+      "bytes": 30062,
+      "sha256": "ea5914b82e49a39e94b1548f0959381e43fc54f769468bba6ed44416c111ffe5"
+    },
+    {
+      "archivo": "02_png_transparentes/takya-a-principal-bosque-2048.png",
+      "bytes": 42660,
+      "sha256": "76495175df54d452c003df1987b8a657e2241b9592f93120290524207327be1a"
+    },
+    {
+      "archivo": "02_png_transparentes/takya-a-principal-marfil-2048.png",
+      "bytes": 41819,
+      "sha256": "e326dab8e0a3be339b7c804d25db0228d23d590ef77158dbb44ccd3de41837cd"
+    },
+    {
+      "archivo": "02_png_transparentes/takya-a-secundario-bosque-1536.png",
+      "bytes": 42899,
+      "sha256": "e159706b61bdfa153facdd94adf23a5c671e67be7eea24bc14af200eaa147e3e"
+    },
+    {
+      "archivo": "02_png_transparentes/takya-a-secundario-marfil-1536.png",
+      "bytes": 41759,
+      "sha256": "cdfe9fdc4e9ab9c137e1fec9d65af0fdd29a46f5570ec8dae363a62862359985"
+    },
+    {
+      "archivo": "02_png_transparentes/takya-a-simbolo-bosque-1024.png",
+      "bytes": 27363,
+      "sha256": "3bd4e40a37bee19071e2ffb5df716b68f4da0f3fd7857c848b5c81a96e8d951b"
+    },
+    {
+      "archivo": "02_png_transparentes/takya-a-simbolo-marfil-1024.png",
+      "bytes": 26676,
+      "sha256": "363fa260beb8d58879846b1ea7911aaee6cd6e2fc6e27fad415d60f704e0404f"
+    },
+    {
+      "archivo": "03_favicon_iconos/apple-touch-icon-180.png",
+      "bytes": 4902,
+      "sha256": "2fe2c782be41c380e8870ca01178406be4e1cad9af33af3f908681991cbdadc0"
+    },
+    {
+      "archivo": "03_favicon_iconos/favicon-16.png",
+      "bytes": 494,
+      "sha256": "ee061e37f1cf279dde2b5d1a10dcede0aa154fddba61e9ab836c2ae45c84a650"
+    },
+    {
+      "archivo": "03_favicon_iconos/favicon-180.png",
+      "bytes": 4902,
+      "sha256": "2fe2c782be41c380e8870ca01178406be4e1cad9af33af3f908681991cbdadc0"
+    },
+    {
+      "archivo": "03_favicon_iconos/favicon-192.png",
+      "bytes": 5318,
+      "sha256": "f7ff4cd8fae85870d33f79e8e61fd35a49683771cfe9b30a4559d0fffa9f6f23"
+    },
+    {
+      "archivo": "03_favicon_iconos/favicon-32.png",
+      "bytes": 880,
+      "sha256": "b0218f28c1d0ece42d74cc9f7b0c9b439b0efb78066105249ffaf10cbffbc08a"
+    },
+    {
+      "archivo": "03_favicon_iconos/favicon-48.png",
+      "bytes": 1407,
+      "sha256": "da3beaa7fdf37749892b11b83667c43cf3a06fca979e949f44645b9fedb2afda"
+    },
+    {
+      "archivo": "03_favicon_iconos/favicon-512.png",
+      "bytes": 15259,
+      "sha256": "2dbf4358af56d6707f6b021ebe6654fd3e59b686495e4aebe165174ecc88d09d"
+    },
+    {
+      "archivo": "03_favicon_iconos/favicon-claro-16.png",
+      "bytes": 496,
+      "sha256": "15ebff2370b68c46267f37bd5df5f958234ea42731d81f1a3967e2f48624c6e8"
+    },
+    {
+      "archivo": "03_favicon_iconos/favicon-claro-180.png",
+      "bytes": 4808,
+      "sha256": "658548c7b77ec49a8ae4df0cbf7c653059dbf618ad48271fce90ee18e7b18542"
+    },
+    {
+      "archivo": "03_favicon_iconos/favicon-claro-192.png",
+      "bytes": 5208,
+      "sha256": "e24609e23e204ee5d5df98765681efb264e43e99c7b1647197ec8a73c10257e5"
+    },
+    {
+      "archivo": "03_favicon_iconos/favicon-claro-32.png",
+      "bytes": 880,
+      "sha256": "3244591bd75b2781fbca8a397c1427fabe382b1eb208a104da51ca0234b9b172"
+    },
+    {
+      "archivo": "03_favicon_iconos/favicon-claro-48.png",
+      "bytes": 1357,
+      "sha256": "0927075c2cf5b4d68d402acdce9ed062644df729ae8816d600c840bacb090cd7"
+    },
+    {
+      "archivo": "03_favicon_iconos/favicon-claro-512.png",
+      "bytes": 14950,
+      "sha256": "9d7fd205a323148dac80e90da8de0066070e91fb49154ae66c483844cce43c79"
+    },
+    {
+      "archivo": "03_favicon_iconos/favicon-claro.svg",
+      "bytes": 484,
+      "sha256": "c4dab06d11cd3228ff7b49e051d9bd78bfb6c4f7af355505fefa8da5e852a1ec"
+    },
+    {
+      "archivo": "03_favicon_iconos/favicon.ico",
+      "bytes": 4344,
+      "sha256": "ab9e21c53bccd3a0c4278030480fc9dac9770fc6af66c9e348eb221c1b82cf6e"
+    },
+    {
+      "archivo": "03_favicon_iconos/favicon.svg",
+      "bytes": 484,
+      "sha256": "94b19de020c87472fa7320c2e8dd94fd6049060f0f5c619ac5d6e2d4617790a9"
+    },
+    {
+      "archivo": "03_favicon_iconos/icono-pwa-maskable-512.png",
+      "bytes": 7325,
+      "sha256": "30df11c537f441997df49c4cb76547c9d5c77ab841fbfd0d9bd852f6c8de909a"
+    },
+    {
+      "archivo": "04_vistas_revision/ESTUDIO_TIPOGRAFICO_A.png",
+      "bytes": 120189,
+      "sha256": "5faf520c15ebad752adedd4fbc0ac3d1f57bb0f50f716630fabeb7a2ca84181d"
+    },
+    {
+      "archivo": "04_vistas_revision/SISTEMA_TIPOGRAFICO_A.png",
+      "bytes": 33680,
+      "sha256": "5d7cfa026c8976ece7e56211d19e1f118312cce20190279ff9b49fcd7abd9a88"
+    },
+    {
+      "archivo": "04_vistas_revision/TABLERO_LOGOS_A.png",
+      "bytes": 113220,
+      "sha256": "29cac2dfb1eb3046c03854f958c76e89b8ec05bb41a0fa09b794bdd9bd4c59e6"
+    },
+    {
+      "archivo": "LEEME_LOGOS_A.md",
+      "bytes": 4008,
+      "sha256": "cc2c2815d83b8708af7fd747b71c9ac4d8e791aa61580b7a78367a79533b2665"
+    }
+  ]
+}
