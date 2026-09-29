@@ -40,3 +40,118 @@ body {
     scroll-behavior: auto;
   }
 }
+
+.takya-ambient-glow {
+  background:
+    radial-gradient(
+      ellipse 70% 46% at 22% 28%,
+      rgba(244, 241, 234, 0.58),
+      transparent 72%
+    ),
+    radial-gradient(
+      ellipse 42% 45% at 72% 30%,
+      rgba(125, 155, 138, 0.18),
+      transparent 80%
+    );
+}
+
+.takya-scene {
+  transform: translate3d(
+    var(--takya-pan-x, 0px),
+    calc(var(--takya-pan-y, 0px) + var(--takya-parallax-y, 0px)),
+    0
+  );
+  transition: transform 500ms cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+html.takya-landing-scroll {
+  background: var(--color-ivory);
+  scrollbar-width: none;
+}
+
+html.takya-landing-scroll body {
+  background: var(--color-ivory);
+}
+
+html.takya-landing-scroll::-webkit-scrollbar {
+  display: none;
+}
+
+@media (max-width: 767px) {
+  .takya-ambient-glow {
+    background:
+      linear-gradient(
+        90deg,
+        rgba(244, 241, 234, 0.7),
+        rgba(244, 241, 234, 0.4)
+      ),
+      radial-gradient(
+        ellipse 100% 44% at 18% 28%,
+        rgba(244, 241, 234, 0.64),
+        transparent 78%
+      ),
+      radial-gradient(
+        ellipse 75% 32% at 85% 35%,
+        rgba(125, 155, 138, 0.12),
+        transparent 82%
+      );
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .takya-ambient-glow {
+    animation: takya-ambient-drift 14s ease-in-out infinite alternate;
+  }
+}
+
+@keyframes takya-ambient-drift {
+  from {
+    opacity: 0.75;
+    transform: translate3d(-1%, 0, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(1%, -1%, 0);
+  }
+}
+
+@media (max-height: 500px) and (min-width: 540px) {
+  .takya-home {
+    display: block;
+    padding: 0;
+  }
+
+  .takya-home-brand {
+    position: absolute;
+    top: 24px;
+    left: 24px;
+  }
+
+  .takya-home-slogan {
+    position: absolute;
+    bottom: 24px;
+    left: 24px;
+  }
+
+  .takya-home-slogan h1 {
+    font-size: clamp(2rem, 8vh, 3rem);
+  }
+
+  .takya-home-cards {
+    position: absolute;
+    right: 24px;
+    bottom: 24px;
+    width: min(40vw, 310px);
+    gap: 8px;
+  }
+
+  .takya-home-cards a {
+    min-height: 72px;
+    padding: 12px 16px;
+    border-radius: 20px;
+  }
+
+  .takya-home-card-title {
+    font-size: clamp(0.875rem, 2.5vw, 1.25rem);
+  }
+}

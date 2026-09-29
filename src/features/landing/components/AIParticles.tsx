@@ -23,11 +23,12 @@ export function AIParticles() {
       x: Math.random() * 100,
       y: Math.random() * 100,
       size: Math.random() * 4 + 2,
-      color: colors[Math.floor(Math.random() * colors.length)],
+      color: colors[Math.floor(Math.random() * colors.length)] ?? "#7D9B8A",
       duration: Math.random() * 20 + 10,
       delay: Math.random() * -20,
     }));
-    setParticles(newParticles);
+    const frame = requestAnimationFrame(() => setParticles(newParticles));
+    return () => cancelAnimationFrame(frame);
   }, []);
 
   return (

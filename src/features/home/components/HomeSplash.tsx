@@ -23,22 +23,22 @@ export function HomeSplash() {
 
   const itemLine = {
     hidden: { opacity: 0, y: 40, filter: "blur(10px)" },
-    show: { opacity: 1, y: 0, filter: "blur(0px)", transition: { duration: 1, ease: [0.16, 1, 0.3, 1] } }
+    show: { opacity: 1, y: 0, filter: "blur(0px)", transition: { duration: 1, ease: [0.16, 1, 0.3, 1] as const } }
   };
 
   return (
-    <main className="relative isolate min-h-dvh overflow-hidden bg-dark-deep font-sans">
+    <main className="takya-home relative isolate grid h-dvh grid-rows-[auto_minmax(0,1fr)_auto] overflow-hidden bg-dark-deep px-6 pb-6 pt-7 font-sans sm:px-10 sm:pb-10 sm:pt-10 lg:block lg:p-0">
       <HomeVideoBackground />
 
       {/* Grid de encuadre */}
-      <div className="pointer-events-none absolute inset-0 z-10 border-[1px] border-white/10 m-6 md:m-10 mix-blend-overlay"></div>
+      <div className="pointer-events-none absolute inset-0 z-10 m-4 border-[1px] border-white/10 mix-blend-overlay md:m-10"></div>
 
       {/* Área Top-Left: Branding */}
       <motion.div 
         initial={{ opacity: 0, x: -30 }}
         animate={{ opacity: 1, x: 0 }}
         transition={{ duration: 1.2, ease: "easeOut", delay: 0.2 }}
-        className="absolute left-10 top-10 md:left-16 md:top-16 z-20"
+        className="takya-home-brand relative z-20 lg:absolute lg:left-16 lg:top-16"
       >
         <Image
           src="/brand/logotipo-marfil.svg"
@@ -59,7 +59,7 @@ export function HomeSplash() {
       </motion.div>
 
       {/* Área Bottom-Left: Eslogan inmersivo con Text Reveal */}
-      <div className="absolute left-10 bottom-10 md:left-16 md:bottom-16 z-20 max-w-[70vw]">
+      <div className="takya-home-slogan relative z-20 self-center lg:absolute lg:bottom-16 lg:left-16 lg:max-w-[70vw]">
         {/* Aura de contraste para asegurar legibilidad sobre el video */}
         <div className="absolute -inset-12 bg-[#060A08]/40 blur-3xl rounded-full z-[-1] pointer-events-none"></div>
         
@@ -67,7 +67,7 @@ export function HomeSplash() {
           variants={containerSlogan}
           initial="hidden"
           animate="show"
-          className="font-display text-5xl md:text-6xl lg:text-[5.5rem] font-bold leading-[1.05] tracking-tight text-[#F4F1EA] drop-shadow-[0_0_30px_rgba(6,10,8,0.9)] flex flex-col"
+          className="flex flex-col font-display text-[clamp(2.7rem,12vw,4.2rem)] font-bold leading-[1.05] tracking-tight text-[#F4F1EA] drop-shadow-[0_0_30px_rgba(6,10,8,0.9)] lg:text-[clamp(3.5rem,6vw,5.5rem)] xl:text-[5.5rem]"
         >
           <motion.span variants={itemLine} className="block">Comprender</motion.span>
           <motion.span variants={itemLine} className="block text-[#F4F1EA]/90">antes de</motion.span>
@@ -86,7 +86,7 @@ export function HomeSplash() {
       </div>
 
       {/* Área Bottom-Right: Botones flotantes (Liquid Glass + Jerarquía) */}
-      <div className="absolute right-6 bottom-10 md:right-16 md:bottom-16 z-20 flex flex-col gap-4 w-[min(85vw,360px)]">
+      <div className="takya-home-cards relative z-20 flex flex-col gap-3 self-end lg:absolute lg:bottom-16 lg:right-16 lg:w-[min(85vw,360px)] lg:gap-4">
         {destinations.map((destination, index) => (
           <motion.div
             key={destination.href}
@@ -98,7 +98,7 @@ export function HomeSplash() {
           >
             <Link
               href={destination.href}
-              className={`group flex min-h-24 md:min-h-28 flex-col justify-between rounded-3xl border p-6 text-ivory backdrop-blur-2xl backdrop-saturate-150 transition-all duration-500 overflow-hidden relative ${
+              className={`group relative flex min-h-[88px] flex-col justify-between overflow-hidden rounded-3xl border p-5 text-ivory backdrop-blur-2xl backdrop-saturate-150 transition-all duration-500 lg:min-h-28 lg:p-6 ${
                 destination.isPrimary 
                 ? "border-[#E05D44]/30 bg-gradient-to-br from-[#1B3B2B]/70 to-[#0C1410]/90 shadow-[inset_0_1px_2px_rgba(224,93,68,0.3),0_8px_32px_rgba(0,0,0,0.8)] hover:border-[#E05D44]/60" 
                 : "border-white/10 bg-gradient-to-br from-[#7D9B8A]/10 to-[#0C1410]/60 shadow-[inset_0_1px_1px_rgba(255,255,255,0.15),0_8px_32px_rgba(0,0,0,0.6)] hover:border-[#7D9B8A]/40"
@@ -115,7 +115,7 @@ export function HomeSplash() {
                   <ArrowUpRight className={`h-5 w-5 transition-transform duration-300 ${destination.isPrimary ? 'text-[#E05D44]' : 'text-ivory motion-safe:group-hover:text-[#7D9B8A]'}`} aria-hidden="true" />
                 </motion.div>
               </span>
-              <span className="font-display text-xl md:text-2xl font-semibold tracking-tight text-[#F4F1EA] group-hover:text-white relative z-10">
+              <span className="takya-home-card-title relative z-10 font-display text-xl font-semibold tracking-tight text-[#F4F1EA] group-hover:text-white lg:text-2xl">
                 {destination.title}
               </span>
             </Link>

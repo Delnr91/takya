@@ -1,13 +1,15 @@
 "use client";
 
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
-import { motion } from "framer-motion";
+import { motion, type Variants } from "framer-motion";
+import { ProblemMetrics } from "./ProblemMetrics";
 
 export function LandingPage() {
-  const fadeUpVariants = {
+  const pageRef = useRef<HTMLDivElement>(null);
+  const fadeUpVariants: Variants = {
     hidden: { opacity: 0, y: 24 },
     whileInView: { opacity: 1, y: 0, transition: { duration: 0.7, ease: "easeOut" } }
   };
@@ -20,6 +22,25 @@ export function LandingPage() {
         window.history.pushState(null, "", `#${id}`);
       }
     }
+  };
+
+  const moveBackground = (event: React.PointerEvent<HTMLDivElement>) => {
+    if (
+      event.pointerType === "touch" ||
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches
+    ) {
+      return;
+    }
+
+    const x = (event.clientX / window.innerWidth - 0.5) * -28;
+    const y = (event.clientY / window.innerHeight - 0.5) * -16;
+    event.currentTarget.style.setProperty("--takya-pan-x", `${x.toFixed(1)}px`);
+    event.currentTarget.style.setProperty("--takya-pan-y", `${y.toFixed(1)}px`);
+  };
+
+  const resetBackground = (event: React.PointerEvent<HTMLDivElement>) => {
+    event.currentTarget.style.setProperty("--takya-pan-x", "0px");
+    event.currentTarget.style.setProperty("--takya-pan-y", "0px");
   };
 
   useEffect(() => {
@@ -40,31 +61,67 @@ export function LandingPage() {
     return () => window.removeEventListener("hashchange", handleInitialHash);
   }, []);
 
+  useEffect(() => {
+    const page = pageRef.current;
+    document.documentElement.classList.add("takya-landing-scroll");
+    if (!page) {
+      return () => document.documentElement.classList.remove("takya-landing-scroll");
+    }
+
+    let frame = 0;
+    const updateParallax = () => {
+      if (frame !== 0) return;
+      frame = window.requestAnimationFrame(() => {
+        const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+        const offset = reducedMotion ? 0 : Math.min(window.scrollY * 0.25, 160);
+        page.style.setProperty("--takya-parallax-y", `${offset.toFixed(1)}px`);
+        frame = 0;
+      });
+    };
+
+    updateParallax();
+    window.addEventListener("scroll", updateParallax, { passive: true });
+    return () => {
+      window.removeEventListener("scroll", updateParallax);
+      if (frame !== 0) window.cancelAnimationFrame(frame);
+      document.documentElement.classList.remove("takya-landing-scroll");
+    };
+  }, []);
+
   return (
-    <div 
-      className="relative min-h-screen font-sans selection:bg-[#E05D44]/20 overflow-x-hidden scroll-smooth text-[#1B3B2B]"
-      style={{ 
-        backgroundImage: 'url("/background2.png")', 
-        backgroundSize: '100% auto', 
-        backgroundPosition: 'top center', 
-        backgroundRepeat: 'no-repeat',
-        backgroundColor: '#F4F1EA'
-      }}
+    <div
+      ref={pageRef}
+      onPointerMove={moveBackground}
+      onPointerLeave={resetBackground}
+      className="relative min-h-screen font-sans selection:bg-[#E05D44]/20 overflow-x-clip scroll-smooth text-[#1B3B2B]"
+      style={{ backgroundColor: "#F4F1EA" }}
     >
-      
+      <div className="pointer-events-none absolute inset-0 z-0 overflow-clip" aria-hidden="true">
+        <div
+          className="takya-scene absolute inset-0"
+          style={{
+            backgroundImage: 'url("/background2.png")',
+            backgroundSize: "100% auto",
+            backgroundPosition: "top center",
+            backgroundRepeat: "no-repeat",
+          }}
+        ></div>
+      </div>
+
       {/* 
         GRADIENTE GLOBAL SUAVE:
         Disuelve la fotografía naturalmente hacia el color Marfil (#F4F1EA) justo después del Hero.
         Esto elimina la necesidad de tarjetas, cajas o fondos blancos en las secciones inferiores.
       */}
       <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#F4F1EA]/80 to-[#F4F1EA] pointer-events-none z-0"></div>
+      <div className="takya-ambient-glow pointer-events-none absolute inset-x-0 top-0 z-0 h-[900px]" aria-hidden="true"></div>
 
       {/* ── NAVEGACIÓN SUPERIOR ── */}
       <motion.header 
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8 }}
-        className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between w-full max-w-[1440px] mx-auto px-6 py-6 md:px-12"
+        className="absolute top-0 left-0 right-0 z-50 flex items-center justify-between w-full max-w-[1440px] mx-auto px-6 py-6 md:fixed md:px-12"
       >
         <div className="flex items-center cursor-pointer" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
           <Image 
@@ -72,7 +129,7 @@ export function LandingPage() {
             alt="TAKYA" 
             width={160} 
             height={40} 
-            className="h-8 md:h-9 w-auto drop-shadow-sm" 
+            className="h-auto w-40 md:w-44 drop-shadow-sm"
             priority
           />
         </div>
@@ -96,7 +153,7 @@ export function LandingPage() {
         
         {/* Metadato Científico Superior */}
         <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.2 }} className="flex items-center space-x-3 mb-8">
-          <span className="text-xs font-mono uppercase tracking-[0.25em] text-[#1B3B2B]/80 font-bold">
+          <span className="text-[10px] sm:text-xs font-mono uppercase tracking-[0.14em] sm:tracking-[0.25em] text-[#1B3B2B]/80 font-bold">
             INTELIGENCIA CON CRITERIO HUMANO
           </span>
           <span className="hidden sm:inline text-xs font-mono text-[#7D9B8A]">&bull;</span>
@@ -109,9 +166,12 @@ export function LandingPage() {
           
           {/* Columna Izquierda: Gran Titular */}
           <motion.div initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }} className="max-w-3xl">
-            <h1 className="font-display text-[4.5rem] md:text-[7.5rem] font-extrabold leading-[0.85] tracking-tight text-[#1B3B2B] mb-8">
-              Comprender<br />antes de<br />
-              <span className="text-[#E05D44]">actuar<span className="text-[#cde467]">.</span></span>
+            <h1 className="font-display text-[clamp(2.75rem,14vw,3.75rem)] md:text-[clamp(5rem,8.2vw,7.5rem)] font-extrabold leading-[0.9] tracking-[-0.07em] text-[#1B3B2B] mb-8">
+              <span className="block">Comprender</span>
+              <span className="block pl-[10%] md:pl-[16%]">antes de</span>
+              <span className="block pl-[3%] md:pl-[7%] text-[#E05D44]">
+                actuar<span className="text-[#cde467]">.</span>
+              </span>
             </h1>
             <p className="text-xl md:text-2xl text-[#1B3B2B] mb-10 max-w-xs leading-snug font-bold">
               Menos ruido.<br />Más contexto<br />para decidir.
@@ -140,19 +200,19 @@ export function LandingPage() {
 
         {/* Submenú Píldora Inferior */}
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.6 }} className="mt-28 flex justify-center w-full">
-          <div className="flex items-center justify-between w-full max-w-5xl rounded-full bg-white/70 backdrop-blur-2xl border border-white/80 shadow-md px-10 py-5 text-xs font-mono tracking-widest">
+          <div className="grid grid-cols-2 gap-x-5 gap-y-4 w-full max-w-5xl rounded-[28px] bg-white/70 backdrop-blur-2xl border border-white/80 shadow-md px-6 py-5 text-[10px] font-mono tracking-wide md:flex md:items-center md:justify-between md:gap-0 md:rounded-full md:px-10 md:text-xs md:tracking-widest">
             <div className="text-[#1B3B2B] font-bold uppercase flex items-center space-x-2">
               <span className="text-[#7D9B8A]">01 /</span> <span>Contexto</span>
             </div>
-            <div className="w-px h-6 bg-[#1B3B2B]/20"></div>
+            <div className="hidden md:block w-px h-6 bg-[#1B3B2B]/20"></div>
             <div className="text-[#1B3B2B] font-bold uppercase flex items-center space-x-2">
               <span className="text-[#7D9B8A]">02 /</span> <span>Evidencia</span>
             </div>
-            <div className="w-px h-6 bg-[#1B3B2B]/20"></div>
+            <div className="hidden md:block w-px h-6 bg-[#1B3B2B]/20"></div>
             <div className="text-[#1B3B2B] font-bold uppercase flex items-center space-x-2">
               <span className="text-[#7D9B8A]">03 /</span> <span>Prioridad</span>
             </div>
-            <div className="w-px h-6 bg-[#1B3B2B]/20"></div>
+            <div className="hidden md:block w-px h-6 bg-[#1B3B2B]/20"></div>
             <div className="text-[#E05D44] font-bold uppercase flex items-center space-x-2">
               <span>04 /</span> <span>Persona</span>
             </div>
@@ -160,7 +220,7 @@ export function LandingPage() {
         </motion.div>
       </section>
 
-      {/* ── SECCIÓN 01: EL PROBLEMA (100% EDITORIAL - CERO CAJAS) ── */}
+      {/* ── SECCIÓN 01: EL PROBLEMA ── */}
       <section id="problema" className="relative z-10 w-full max-w-[1440px] mx-auto px-6 md:px-12 py-28 scroll-mt-28">
         <motion.div 
           initial="hidden"
@@ -175,20 +235,21 @@ export function LandingPage() {
               [ SEC. 01 ] &mdash; EL DOLOR OPERATIVO
             </span>
             <h2 className="font-display text-4xl sm:text-5xl lg:text-6xl font-extrabold leading-[1.05] tracking-tight text-[#1B3B2B]">
-              El volumen de alertas supera nuestra capacidad visual.
+              Más cámaras no significan más claridad.
             </h2>
           </div>
 
           {/* Cuerpo Editorial Directo */}
           <div className="flex-1 max-w-xl">
             <p className="text-lg sm:text-xl font-bold leading-relaxed text-[#1B3B2B] mb-6">
-              El crecimiento exponencial de la televigilancia en Antofagasta (de 130 a 1.245 cámaras) ha generado una sobrecarga visual insostenible.
+              El sistema municipal de Antofagasta alcanzó 130 cámaras. La documentación del proyecto cita 1.245 como proyección regional, una escala que exige revisar más señales sin perder el contexto.
             </p>
             <p className="text-base sm:text-lg leading-relaxed font-semibold text-[#1B3B2B]/90">
-              La fatiga cognitiva en los centros de control provoca que hasta un <span className="font-extrabold text-[#E05D44]">50% de los eventos críticos</span> pasen desapercibidos en un mar de ruido visual. La tecnología actual genera alertas masivas; TAKYA genera respuestas operativas con contexto real.
+              El PRD cita hasta un <span className="font-extrabold text-[#E05D44]">50% de eventos no detectados</span> por fatiga visual como dato de contexto. TAKYA propone reunir alertas relacionadas y explicar prioridades para apoyar la revisión humana.
             </p>
           </div>
         </motion.div>
+        <ProblemMetrics />
       </section>
 
       {/* ── SECCIÓN 02: LA PROPUESTA (FORMATO REVISTA / EDITORIAL - CERO CAJAS) ── */}
@@ -287,11 +348,11 @@ export function LandingPage() {
             </p>
           </div>
           
-          <div className="w-full md:w-auto flex flex-col items-start md:items-end justify-center pt-4">
+          <div className="flex w-full flex-col items-start justify-center pt-4 md:w-auto md:self-center md:items-end md:pt-0">
             <Link 
               href="https://wa.me/56900000000?text=Hola,%20quisiera%20agendar%20una%20demostración%20de%20TAKYA." 
               target="_blank"
-              className="inline-flex items-center justify-center rounded-full bg-[#25D366] px-10 py-5 text-base font-mono uppercase tracking-wider font-bold text-white shadow-xl hover:bg-[#20b858] transition-all hover:scale-105 active:scale-95 whitespace-nowrap"
+              className="inline-flex items-center justify-center whitespace-nowrap rounded-full bg-[#25D366] px-5 py-5 font-mono text-xs font-bold uppercase tracking-wider text-white shadow-xl transition-all hover:scale-105 hover:bg-[#20b858] active:scale-95 sm:px-10 sm:text-base"
             >
               Contactar por WhatsApp
               <svg stroke="currentColor" fill="currentColor" strokeWidth="0" viewBox="0 0 448 512" className="ml-3 h-5 w-5" xmlns="http://www.w3.org/2000/svg"><path d="M380.9 97.1C339 55.1 283.2 32 223.9 32c-122.4 0-222 99.6-222 222 0 39.1 10.2 77.3 29.6 111L0 480l117.7-30.9c32.4 17.7 68.9 27 106.1 27h.1c122.3 0 224.1-99.6 224.1-222 0-59.3-25.2-115-67.1-157.1zm-157 341.6c-33.2 0-65.7-8.9-94-25.7l-6.7-4-69.8 18.3L72 359.2l-4.4-7c-18.5-29.4-28.2-63.3-28.2-98.2 0-101.7 82.8-184.5 184.6-184.5 49.3 0 95.6 19.2 130.4 54.1 34.8 34.9 56.2 81.2 56.1 130.5 0 101.8-84.9 184.6-186.6 184.6zm101.2-138.2c-5.5-2.8-32.8-16.2-37.9-18-5.1-1.9-8.8-2.8-12.5 2.8-3.7 5.6-14.3 18-17.6 21.8-3.2 3.7-6.5 4.2-12 1.4-32.6-16.3-54-29.1-75.5-66-5.7-9.8 5.7-9.1 16.3-30.3 1.8-3.7.9-6.9-.5-9.7-1.4-2.8-12.5-30.1-17.1-41.2-4.5-10.8-9.1-9.3-12.5-9.5-3.2-.2-6.9-.2-10.6-.2-3.7 0-9.7 1.4-14.8 6.9-5.1 5.6-19.4 19-19.4 46.3 0 27.3 19.9 53.7 22.6 57.4 2.8 3.7 39.1 59.7 94.8 83.8 35.2 15.2 49 16.5 66.6 13.9 10.7-1.6 32.8-13.4 37.4-26.4 4.6-13 4.6-24.1 3.2-26.4-1.3-2.5-5-3.9-10.5-6.6z"></path></svg>
@@ -309,7 +370,7 @@ export function LandingPage() {
               alt="TAKYA" 
               width={100} 
               height={24} 
-              className="h-6 w-auto opacity-90" 
+              className="h-auto w-28 opacity-90"
             />
             <p className="text-xs font-mono text-[#1B3B2B]/70 uppercase tracking-wider font-semibold">
               &copy; 2026 TAKYA SpA &bull; Criterio Humano en Televigilancia

@@ -26,17 +26,17 @@ export function XAIPanel() {
         <div className="bg-[#0a0f0d] border border-sage/20 p-4 rounded-sm text-xs text-sage mb-6">
           <pre className="whitespace-pre-wrap leading-relaxed">
             <span className="text-terracotta">{"{"}</span>
-            {"\n  "}<span className="text-ivory">"event_id"</span>: <span className="text-info">"{aiAnalysis.id}"</span>,
-            {"\n  "}<span className="text-ivory">"classification"</span>: <span className="text-info">"{aiAnalysis.classification}"</span>,
-            {"\n  "}<span className="text-ivory">"confidence"</span>: <span className="text-terracotta">{aiAnalysis.confidence}</span>,
-            {"\n  "}<span className="text-ivory">"indicators"</span>: [
+            {"\n  "}<span className="text-ivory">&quot;event_id&quot;</span>: <span className="text-info">&quot;{aiAnalysis.id}&quot;</span>,
+            {"\n  "}<span className="text-ivory">&quot;classification&quot;</span>: <span className="text-info">&quot;{aiAnalysis.classification}&quot;</span>,
+            {"\n  "}<span className="text-ivory">&quot;confidence&quot;</span>: <span className="text-terracotta">{aiAnalysis.confidence}</span>,
+            {"\n  "}<span className="text-ivory">&quot;indicators&quot;</span>: [
             {aiAnalysis.indicators.map((ind, i) => (
               <span key={i}>
-                {"\n    "}<span className="text-medium">"{ind}"</span>{i < aiAnalysis.indicators.length - 1 ? "," : ""}
+                {"\n    "}<span className="text-medium">&quot;{ind}&quot;</span>{i < aiAnalysis.indicators.length - 1 ? "," : ""}
               </span>
             ))}
             {"\n  "}],
-            {"\n  "}<span className="text-ivory">"action_recommended"</span>: <span className="text-terracotta font-bold">"{aiAnalysis.recommendation}"</span>
+            {"\n  "}<span className="text-ivory">&quot;action_recommended&quot;</span>: <span className="text-terracotta font-bold">&quot;{aiAnalysis.recommendation}&quot;</span>
             {"\n"}<span className="text-terracotta">{"}"}</span>
           </pre>
         </div>
