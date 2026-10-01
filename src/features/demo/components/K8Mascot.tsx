@@ -149,7 +149,8 @@ export function K8Mascot({
         }
 
         const head = new THREE.Group();
-        const ears: InstanceType<typeof THREE.Mesh>[] = [];
+        const ears: InstanceType<typeof THREE.Group>[] = [];
+        const eyes: InstanceType<typeof THREE.Group>[] = [];
         const tail = new THREE.Group();
         tail.position.set(0.65, -0.7, -0.3);
         robot.add(tail);
@@ -157,32 +158,69 @@ export function K8Mascot({
         addBall(tail, ivory, [0.58, 0.25, -0.17], [0.13, 0.26, 0.13]);
         head.position.set(0, 0.7, 0.25);
         robot.add(head);
-        addBall(head, forest, [0, 0, 0], [0.76, 0.61, 0.56]);
-        addBall(head, sage, [0, 0.34, 0.39], [0.42, 0.16, 0.19]);
-        addBall(head, ivory, [0, -0.21, 0.46], [0.46, 0.29, 0.24]);
-        addBall(head, dark, [0, -0.18, 0.7], [0.15, 0.09, 0.07]);
+        addBall(head, forest, [0, 0, 0], [0.8, 0.65, 0.56]);
+        addBall(head, sage, [0, 0.4, 0.37], [0.28, 0.2, 0.19]);
+        addBall(head, ivory, [0, -0.4, 0.47], [0.38, 0.16, 0.24]);
         for (const side of [-1, 1]) {
-          const ear = new THREE.Mesh(
-            new THREE.ConeGeometry(0.19, 0.5, 5),
+          addBall(head, ivory, [side * 0.19, -0.25, 0.58], [0.28, 0.24, 0.23]);
+          addBall(head, ivory, [side * 0.36, 0.08, 0.45], [0.25, 0.29, 0.15]);
+        }
+        addBall(head, dark, [0, -0.18, 0.81], [0.16, 0.115, 0.11]);
+        addBall(head, glass, [-0.045, -0.145, 0.902], [0.06, 0.025, 0.012]);
+        const smile = new THREE.CatmullRomCurve3([
+          new THREE.Vector3(-0.25, -0.34, 0.76),
+          new THREE.Vector3(-0.13, -0.4, 0.79),
+          new THREE.Vector3(0, -0.36, 0.8),
+          new THREE.Vector3(0.13, -0.4, 0.79),
+          new THREE.Vector3(0.25, -0.34, 0.76),
+        ]);
+        head.add(
+          new THREE.Mesh(
+            new THREE.TubeGeometry(smile, 20, 0.014, 6, false),
+            dark,
+          ),
+        );
+        addBall(head, orange, [0, 0.43, 0.54], [0.035, 0.09, 0.025]);
+        for (const side of [-1, 1]) {
+          const ear = new THREE.Group();
+          const outline = new THREE.Shape();
+          outline.moveTo(-0.22, 0);
+          outline.quadraticCurveTo(-0.27, 0.3, -0.04, 0.79);
+          outline.quadraticCurveTo(0, 0.88, 0.055, 0.76);
+          outline.quadraticCurveTo(0.29, 0.25, 0.22, 0);
+          outline.quadraticCurveTo(0, -0.1, -0.22, 0);
+          const armor = new THREE.Mesh(
+            new THREE.ExtrudeGeometry(outline, {
+              depth: 0.09,
+              bevelEnabled: true,
+              bevelThickness: 0.035,
+              bevelSize: 0.035,
+              bevelSegments: 2,
+              steps: 1,
+            }),
             forest,
           );
-          ear.position.set(side * 0.51, 0.65, -0.03);
+          ear.add(armor);
+          const inset = new THREE.Mesh(new THREE.ShapeGeometry(outline), sage);
+          inset.scale.set(0.7, 0.78, 1);
+          inset.position.set(0, 0.04, 0.13);
+          ear.add(inset);
+          addBall(ear, dark, [0, 0.3, 0.16], [0.11, 0.12, 0.04]);
+          addBall(ear, orange, [0, 0.3, 0.19], [0.065, 0.07, 0.025]);
+          addBall(ear, dark, [0, 0.3, 0.21], [0.04, 0.045, 0.02]);
+          ear.position.set(side * 0.5, 0.45, -0.05);
           ear.rotation.z = -side * 0.17;
           head.add(ear);
           ears.push(ear);
-          addBall(head, glass, [side * 0.31, 0.07, 0.51], [0.14, 0.11, 0.065]);
-          addBall(
-            head,
-            orange,
-            [side * 0.31, 0.07, 0.573],
-            [0.052, 0.055, 0.022],
-          );
-          addBall(
-            head,
-            ivory,
-            [side * 0.288, 0.09, 0.594],
-            [0.018, 0.018, 0.008],
-          );
+          const eye = new THREE.Group();
+          eye.position.set(side * 0.34, 0.1, 0.58);
+          head.add(eye);
+          eyes.push(eye);
+          addBall(eye, dark, [0, 0, 0], [0.175, 0.205, 0.075]);
+          addBall(eye, orange, [0, 0, 0.045], [0.115, 0.13, 0.05]);
+          addBall(eye, dark, [0, 0.005, 0.08], [0.077, 0.1, 0.04]);
+          addBall(eye, ivory, [-0.04, 0.063, 0.115], [0.038, 0.045, 0.015]);
+          addBall(eye, ivory, [0.043, -0.044, 0.115], [0.015, 0.018, 0.008]);
         }
         const paw = new THREE.Group();
         paw.position.set(0.62, -0.14, 0.45);
@@ -211,15 +249,36 @@ export function K8Mascot({
         resize();
         setReady(true);
         const reduced = window.matchMedia("(prefers-reduced-motion: reduce)");
+        let nextBlink = performance.now() + 2400;
+        let blinkStarted: number | null = null;
         renderer.setAnimationLoop(() => {
           if (document.hidden) return;
-          const time = performance.now() / 1000;
+          const now = performance.now();
+          const time = now / 1000;
           const still = motionOffRef.current || reduced.matches;
+          if (still) {
+            blinkStarted = null;
+            nextBlink = now + 3000;
+          } else if (blinkStarted === null && now >= nextBlink) {
+            blinkStarted = now;
+          }
+          const blinkProgress =
+            blinkStarted === null ? 0 : (now - blinkStarted) / 240;
+          const eyeOpening =
+            blinkStarted === null
+              ? 1
+              : 1 - Math.sin(Math.min(blinkProgress, 1) * Math.PI) * 0.97;
+          for (const eye of eyes) eye.scale.y = eyeOpening;
+          if (blinkProgress >= 1) {
+            blinkStarted = null;
+            nextBlink = now + 2800 + Math.random() * 2800;
+          }
           const wave =
             !still &&
             (performance.now() - waveRef.current < 2100 ||
               (time % 11 > 8.8 && time % 11 < 10.4));
           robot.position.y = still ? 0 : Math.sin(time * 1.5) * 0.035;
+          robot.scale.set(1, still ? 1 : 1 + Math.sin(time * 1.5) * 0.008, 1);
           robot.rotation.y +=
             (turnRef.current +
               (still ? 0 : pointerRef.current * 0.3) -
@@ -229,7 +288,9 @@ export function K8Mascot({
             ((still ? 0 : pointerRef.current * 0.6) - head.rotation.y) * 0.09;
           head.rotation.x +=
             ((still ? 0 : verticalRef.current * 0.35) - head.rotation.x) * 0.09;
-          head.rotation.z = still ? 0 : Math.sin(time * 0.85) * 0.025;
+          head.rotation.z = still
+            ? 0
+            : Math.sin(time * 0.85) * 0.04 + (wave ? 0.09 : 0);
           tail.rotation.x = still ? 0 : Math.sin(time * (wave ? 10 : 3)) * 0.5;
           ears.forEach((ear, index) => {
             ear.rotation.z = (index === 0 ? 1 : -1) * (wave ? 0.06 : 0.17);

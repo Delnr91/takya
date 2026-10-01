@@ -2,6 +2,12 @@
 
 > Para quienes continúen el proyecto: lean este archivo antes de modificar la aplicación y actualícenlo al cerrar cada entrega. Registren el estado real y la verificación realizada.
 
+## K8 expresivo — V2.0.1 · 1 de octubre de 2026
+
+- Se modeló una cara más cercana al prototipo: ojos grandes con iris naranja y reflejos, contornos marfil, hocico dividido, nariz brillante y una pequeña sonrisa. Las orejas pasan de conos a piezas redondeadas con panel interior y sensores. Es una interpretación procedural en Three.js, no una réplica detallada del PNG ni un GLB importado.
+- Los ojos parpadean durante 240 ms con pausas variables de 2,8 a 5,6 segundos. K8 respira suavemente e inclina la cabeza al saludar. «Sin movimiento» y la preferencia del dispositivo mantienen los ojos abiertos y desactivan los gestos ambientales.
+- TypeScript, ESLint del componente y build de producción aprobados. Se revisó la nueva cara en navegador y a 320 × 568 px: botón de 108 px dentro de la pantalla y sin desborde horizontal; no se registraron errores de consola. No se añadieron dependencias ni servicios externos. Se conserva la etiqueta `v2.0.0`; esta mejora se identifica como `v2.0.1`.
+
 ## V2 estable — 1 de octubre de 2026
 
 - K8 flota sin tarjeta y aumenta su tamaño, con ajuste específico para móvil. Sigue el puntero con la cabeza, anima orejas, cola y pata. Arrastrar gira el modelo sin abrir accidentalmente el chat; las flechas del teclado también permiten girarlo y Enter abre la consulta.
