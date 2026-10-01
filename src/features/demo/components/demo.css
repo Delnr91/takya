@@ -2691,3 +2691,52 @@
     padding: 16px;
   }
 }
+/* K8 floats freely; its transparent hit area remains accessible. */
+.demo-k8 {
+  width: 150px;
+  height: 150px;
+  border: 0;
+  background: transparent;
+  box-shadow: none;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  touch-action: none;
+}
+.demo-k8:hover,
+.demo-k8:focus-visible {
+  box-shadow: none;
+}
+.demo-k8:focus-visible {
+  outline: 2px solid #e4774d;
+  outline-offset: 3px;
+}
+.demo-k8-stage {
+  width: 146px;
+  height: 146px;
+  filter: drop-shadow(0 12px 10px #123b2938);
+}
+.demo-ai-fluid {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+.demo-ai-hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background: linear-gradient(90deg, #060a08b8, #060a0860 55%, transparent);
+}
+@media (max-width: 700px) {
+  .demo-k8 {
+    width: 108px;
+    height: 108px;
+  }
+  .demo-k8-stage {
+    width: 104px;
+    height: 104px;
+  }
+}

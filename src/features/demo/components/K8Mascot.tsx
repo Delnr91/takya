@@ -14,6 +14,10 @@ export function K8Mascot({
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const waveRef = useRef(0);
   const pointerRef = useRef(0);
+  const verticalRef = useRef(0);
+  const turnRef = useRef(0);
+  const dragRef = useRef<number | null>(null);
+  const movedRef = useRef(false);
   const motionOffRef = useRef(motionOff);
   const [ready, setReady] = useState(false);
   const [failed, setFailed] = useState(false);
@@ -145,6 +149,12 @@ export function K8Mascot({
         }
 
         const head = new THREE.Group();
+        const ears: InstanceType<typeof THREE.Mesh>[] = [];
+        const tail = new THREE.Group();
+        tail.position.set(0.65, -0.7, -0.3);
+        robot.add(tail);
+        addBall(tail, sage, [0.3, 0.1, -0.15], [0.4, 0.12, 0.12]);
+        addBall(tail, ivory, [0.58, 0.25, -0.17], [0.13, 0.26, 0.13]);
         head.position.set(0, 0.7, 0.25);
         robot.add(head);
         addBall(head, forest, [0, 0, 0], [0.76, 0.61, 0.56]);
@@ -159,6 +169,7 @@ export function K8Mascot({
           ear.position.set(side * 0.51, 0.65, -0.03);
           ear.rotation.z = -side * 0.17;
           head.add(ear);
+          ears.push(ear);
           addBall(head, glass, [side * 0.31, 0.07, 0.51], [0.14, 0.11, 0.065]);
           addBall(
             head,
@@ -202,7 +213,7 @@ export function K8Mascot({
         const reduced = window.matchMedia("(prefers-reduced-motion: reduce)");
         renderer.setAnimationLoop(() => {
           if (document.hidden) return;
-        const time = performance.now() / 1000;
+          const time = performance.now() / 1000;
           const still = motionOffRef.current || reduced.matches;
           const wave =
             !still &&
@@ -210,8 +221,20 @@ export function K8Mascot({
               (time % 11 > 8.8 && time % 11 < 10.4));
           robot.position.y = still ? 0 : Math.sin(time * 1.5) * 0.035;
           robot.rotation.y +=
-            (pointerRef.current * 0.17 - robot.rotation.y) * 0.065;
+            (turnRef.current +
+              (still ? 0 : pointerRef.current * 0.3) -
+              robot.rotation.y) *
+            0.065;
+          head.rotation.y +=
+            ((still ? 0 : pointerRef.current * 0.6) - head.rotation.y) * 0.09;
+          head.rotation.x +=
+            ((still ? 0 : verticalRef.current * 0.35) - head.rotation.x) * 0.09;
           head.rotation.z = still ? 0 : Math.sin(time * 0.85) * 0.025;
+          tail.rotation.x = still ? 0 : Math.sin(time * (wave ? 10 : 3)) * 0.5;
+          ears.forEach((ear, index) => {
+            ear.rotation.z = (index === 0 ? 1 : -1) * (wave ? 0.06 : 0.17);
+            ear.rotation.x = still ? 0 : Math.sin(time * 3 + index) * 0.08;
+          });
           paw.rotation.z +=
             ((wave ? -0.8 + Math.sin(time * 12) * 0.22 : 0) - paw.rotation.z) *
             0.14;
@@ -244,8 +267,19 @@ export function K8Mascot({
       type="button"
       className="demo-k8"
       aria-label="Abrir a K8, acompañante documental"
-      title="Pregúntale a K8"
+      title="Abre el chat con un clic. Arrastra para girar a K8."
+      aria-haspopup="dialog"
+      onKeyDown={(event) => {
+        if (event.key === "ArrowLeft" || event.key === "ArrowRight") {
+          event.preventDefault();
+          turnRef.current += event.key === "ArrowLeft" ? -0.2 : 0.2;
+        }
+      }}
       onClick={() => {
+        if (movedRef.current) {
+          movedRef.current = false;
+          return;
+        }
         waveRef.current = performance.now();
         onOpen();
       }}
@@ -253,13 +287,35 @@ export function K8Mascot({
         waveRef.current = performance.now();
       }}
       onPointerMove={(event) => {
+        const bounds = event.currentTarget.getBoundingClientRect();
+        verticalRef.current =
+          (event.clientY - bounds.top) / bounds.height - 0.5;
+        if (dragRef.current !== null) {
+          const delta = event.clientX - dragRef.current;
+          if (Math.abs(delta) > 3) movedRef.current = true;
+          turnRef.current += delta * 0.015;
+          dragRef.current = event.clientX;
+        }
         pointerRef.current =
           (event.clientX - event.currentTarget.getBoundingClientRect().left) /
             event.currentTarget.clientWidth -
           0.5;
       }}
+      onPointerDown={(event) => {
+        movedRef.current = false;
+        dragRef.current = event.clientX;
+        event.currentTarget.setPointerCapture(event.pointerId);
+      }}
+      onPointerUp={() => {
+        dragRef.current = null;
+      }}
+      onPointerCancel={() => {
+        dragRef.current = null;
+        movedRef.current = false;
+      }}
       onPointerLeave={() => {
         pointerRef.current = 0;
+        verticalRef.current = 0;
       }}
       onFocus={() => {
         waveRef.current = performance.now();
@@ -276,9 +332,6 @@ export function K8Mascot({
           style={{ opacity: ready && !failed ? 0 : 1 }}
         />
         {!failed ? <canvas ref={canvasRef} className="demo-k8-canvas" /> : null}
-      </span>
-      <span className="demo-k8-label">
-        K8 <span>IA</span>
       </span>
     </button>
   );

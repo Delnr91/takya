@@ -2,6 +2,14 @@
 
 > Para quienes continúen el proyecto: lean este archivo antes de modificar la aplicación y actualícenlo al cerrar cada entrega. Registren el estado real y la verificación realizada.
 
+## V2 estable — 1 de octubre de 2026
+
+- K8 flota sin tarjeta y aumenta su tamaño, con ajuste específico para móvil. Sigue el puntero con la cabeza, anima orejas, cola y pata. Arrastrar gira el modelo sin abrir accidentalmente el chat; las flechas del teclado también permiten girarlo y Enter abre la consulta.
+- La cabecera de la consulta incorpora geometría WebGL que se deforma lentamente, iluminación verde y naranja y un anillo 3D. Responde al puntero y se adapta al tamaño del contenedor. Three.js se carga bajo demanda; la escena libera recursos al desmontarse y pausa cuando está fuera de pantalla o la pestaña está oculta.
+- Los efectos respetan «Sin movimiento» y la preferencia del sistema. Se conserva el foco visible, nombre accesible del botón, diálogo con Escape, formulario etiquetado y anuncio de respuestas. La imagen y el fondo CSS sirven de respaldo cuando WebGL no está disponible. Las respuestas siguen siendo una consulta documental local, sin API de IA.
+- Verificación: TypeScript, ESLint de los tres componentes y build de producción aprobados. Navegador: login, apertura de K8, respuesta con fuente, arrastre sin apertura, flechas y Enter, Escape y alternancia de «Sin movimiento» sin errores de consola. Diálogo sin desborde horizontal a 320 × 568 y 768 × 1024; revisión visual en escritorio. No se afirma certificación WCAG ni pruebas en todos los dispositivos físicos.
+- Entrega identificada con la etiqueta Git `v2.0.0`; corresponde a la V2 estable de demostración.
+
 ## K8 interactivo y consulta documental — 30 de septiembre de 2026
 
 - Se añadió **K8**, un perro robot dibujado con geometría 3D real en WebGL/Three.js dentro de la consola. Su pata delantera tiene un pivote propio y saluda al acercar el cursor, recibir foco y periódicamente. El botón flotante abre un diálogo centrado; el menú también ofrece la sección **K8 IA**. La imagen `public/brand/k8-robot.png` sirve solo de respaldo si WebGL falla.

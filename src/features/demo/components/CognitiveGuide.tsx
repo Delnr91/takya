@@ -3,7 +3,7 @@
 import { useState, type FormEvent } from "react";
 import { ArrowRight, BookOpen, Search, ShieldCheck } from "lucide-react";
 import { CojeevAgentState } from "@/components/ui/CojeevAgentState";
-import { CojeevDepthBackground } from "@/components/ui/CojeevDepthBackground";
+import { CognitiveFluidBackground } from "./CognitiveFluidBackground";
 import { CojeevPictogram } from "@/components/ui/CojeevPictogram";
 import { retrieveKnowledge, type RetrievalResult } from "../model/knowledge";
 
@@ -35,13 +35,7 @@ export function CognitiveGuide({
   return (
     <div className={`demo-ai ${compact ? "demo-ai-compact" : ""}`}>
       <section className="demo-ai-hero">
-        <CojeevDepthBackground
-          seed="takya-ai"
-          density={1.2}
-          intensity={0.5}
-          motionOff={motionOff}
-        />
-        <div className="demo-ai-liquid" aria-hidden="true" />
+        <CognitiveFluidBackground motionOff={motionOff} />
         <div className="demo-ai-hero-content">
           <p className="demo-eyebrow">Acompañante cognitivo · K8</p>
           <CojeevAgentState
