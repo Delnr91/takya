@@ -2,7 +2,6 @@
 
 import { useState, type FormEvent } from "react";
 import { ArrowRight, BookOpen, Search, ShieldCheck } from "lucide-react";
-import { CojeevAgentState } from "@/components/ui/CojeevAgentState";
 import { CognitiveFluidBackground } from "./CognitiveFluidBackground";
 import { CojeevPictogram } from "@/components/ui/CojeevPictogram";
 import { retrieveKnowledge, type RetrievalResult } from "../model/knowledge";
@@ -35,16 +34,18 @@ export function CognitiveGuide({
   return (
     <div className={`demo-ai ${compact ? "demo-ai-compact" : ""}`}>
       <section className="demo-ai-hero">
-        <CognitiveFluidBackground motionOff={motionOff} />
         <div className="demo-ai-hero-content">
           <p className="demo-eyebrow">Acompañante cognitivo · K8</p>
-          <CojeevAgentState
-            state={result ? (result.found ? "found" : "unknown") : "idle"}
-            label="Comprender antes de actuar."
-            description="Pregúntame por el flujo de trabajo, el criterio y los límites de esta práctica."
-            motionOff={motionOff}
-            compact={compact}
-          />
+          <div className="demo-ai-organism" aria-hidden="true">
+            <CognitiveFluidBackground motionOff={motionOff} />
+          </div>
+          <div className="demo-ai-presence-copy">
+            <h2>Comprender antes de actuar.</h2>
+            <p>
+              Un espacio para encontrar contexto, explorar el criterio y decidir
+              con claridad.
+            </p>
+          </div>
           <span className="demo-ai-local">
             <ShieldCheck size={15} aria-hidden="true" /> Consulta documental
             local · sin API de IA

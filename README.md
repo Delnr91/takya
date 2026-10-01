@@ -4,7 +4,7 @@
 
 # TAKYA · Comprender antes de actuar
 
-**V2 estable de demostración · `v2.0.1`.** K8 es un perro robot 3D interactivo con ojos expresivos, parpadeo y respiración suave: haz clic para consultar, arrastra para girarlo o usa las flechas y Enter con teclado. El chat incorpora un fondo líquido 3D con la paleta de TAKYA. En Ajustes puedes activar texto grande, alto contraste, paneles sólidos y «Sin movimiento». La V2 se verificó en escritorio, móvil de 320 px y tablet de 768 px; el nuevo rostro se revisó en escritorio y móvil.
+**V2 estable de demostración · `v2.0.2`.** K8 es un perro robot 3D interactivo con ojos expresivos, parpadeo y respiración suave: haz clic para consultar, arrastra para girarlo o usa las flechas y Enter con teclado. El panel de consulta presenta un organismo luminoso sin rostro, centrado y formado por membranas fluidas que reaccionan al puntero. En Ajustes puedes activar texto grande, alto contraste, paneles sólidos y «Sin movimiento». La V2 se verificó en escritorio, móvil de 320 px y tablet de 768 px; la nueva presencia visual se revisó en escritorio y móvil.
 
 Vitrina digital de TAKYA, una propuesta de apoyo a operadores de televigilancia mediante contexto y prioridades explicables. Proyecto desarrollado para el Programa Nómada UCN en Antofagasta.
 

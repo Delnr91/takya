@@ -2,6 +2,13 @@
 
 > Para quienes continúen el proyecto: lean este archivo antes de modificar la aplicación y actualícenlo al cerrar cada entrega. Registren el estado real y la verificación realizada.
 
+## Presencia orgánica sin rostro — V2.0.2 · 1 de octubre de 2026
+
+- Se retiró la carita de `CojeevAgentState` del panel de consulta IA. La presencia visual pasa a ser una sola composición centrada, con tres membranas translúcidas, bordes nacarados y partículas suaves. El título y la explicación tienen su propio espacio debajo del organismo, tanto en la sección como en el diálogo.
+- Los shaders locales de `model/fluidShaders.ts` deforman las membranas en GPU y producen luz suave en sus pliegues. La forma respira, rota lentamente y reacciona al puntero. Se eliminó el anillo rígido de la versión anterior. Sin nuevas dependencias, texturas externas ni servicios.
+- Se mantiene «Sin movimiento» y la preferencia de movimiento reducido; en ese modo se dibuja una imagen estática. El efecto pausa fuera de pantalla y en pestañas ocultas, limita la resolución y libera geometría y materiales al desmontarse.
+- Verificación visual en escritorio y a 320 × 568 px: organismo centrado, sin carita, texto separado, diálogo sin desborde horizontal y cierre con Escape. Sin errores de consola durante la revisión. TypeScript, ESLint de los archivos modificados y build de producción aprobados.
+
 ## K8 expresivo — V2.0.1 · 1 de octubre de 2026
 
 - Se modeló una cara más cercana al prototipo: ojos grandes con iris naranja y reflejos, contornos marfil, hocico dividido, nariz brillante y una pequeña sonrisa. Las orejas pasan de conos a piezas redondeadas con panel interior y sensores. Es una interpretación procedural en Three.js, no una réplica detallada del PNG ni un GLB importado.
