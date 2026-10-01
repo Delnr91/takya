@@ -1,5 +1,10 @@
-import { DemoConsole } from "@/features/demo/components/DemoConsole";
+import { Suspense } from "react";
+import { DemoShell, DemoLoading } from "@/features/demo/components/DemoShell";
 
 export default function DemoPage() {
-  return <DemoConsole />;
+  return (
+    <Suspense fallback={<DemoLoading />}>
+      <DemoShell />
+    </Suspense>
+  );
 }

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { JetBrains_Mono, Plus_Jakarta_Sans, Sora } from "next/font/google";
 import "./globals.css";
+import "../components/ui/cojeev.css";
 
 const sora = Sora({
   subsets: ["latin"],
@@ -31,7 +32,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="es-CL">
+    <html lang="es-CL" data-scroll-behavior="smooth">
       <body
         className={`${sora.variable} ${jakarta.variable} ${jetbrains.variable}`}
       >

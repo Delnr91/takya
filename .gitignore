@@ -8,6 +8,8 @@
 
 # testing
 /coverage
+/.demo-tests/
+/.qa/
 
 # next.js
 /.next/

@@ -1,0 +1,14 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "module": "CommonJS",
+    "moduleResolution": "Node",
+    "target": "ES2022",
+    "noEmit": false,
+    "incremental": false,
+    "rootDir": "src/features/demo",
+    "outDir": ".demo-tests"
+  },
+  "include": ["src/features/demo/model/simulation.test.ts", "src/features/demo/model/knowledge.test.ts"],
+  "exclude": ["node_modules"]
+}

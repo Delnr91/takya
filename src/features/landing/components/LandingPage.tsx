@@ -6,6 +6,8 @@ import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import { motion, type Variants } from "framer-motion";
 import { ProblemMetrics } from "./ProblemMetrics";
+import { CojeevDepthBackground } from "@/components/ui/CojeevDepthBackground";
+import { CojeevPictogram } from "@/components/ui/CojeevPictogram";
 
 export function LandingPage() {
   const pageRef = useRef<HTMLDivElement>(null);
@@ -141,7 +143,14 @@ export function LandingPage() {
           <a href="#criterio" onClick={(e) => { e.preventDefault(); scrollTo('criterio'); }} className="hover:text-[#E05D44] transition-colors cursor-pointer font-bold">Nuestro criterio</a>
         </nav>
 
-        <div>
+        <div className="flex items-center gap-2 md:gap-3">
+          <Link
+            href="/login"
+            className="inline-flex min-h-10 items-center justify-center whitespace-nowrap rounded-full border border-[#1B3B2B]/25 bg-white/75 px-3 text-[10px] font-bold uppercase tracking-wider text-[#1B3B2B] shadow-sm backdrop-blur-2xl transition-colors hover:border-[#1B3B2B] hover:bg-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#E05D44] sm:px-5 sm:text-xs"
+          >
+            <span className="sm:hidden">Ver demo</span>
+            <span className="hidden sm:inline">Explorar demo</span>
+          </Link>
           <a href="#criterio" onClick={(e) => { e.preventDefault(); scrollTo('criterio'); }} className="hidden md:inline-flex items-center justify-center rounded-full bg-[#E05D44] px-6 py-2.5 text-xs font-mono uppercase tracking-wider font-bold text-white shadow-md hover:bg-[#c94b34] transition-all hover:scale-105 active:scale-95 cursor-pointer">
             Conversemos <ArrowUpRight className="ml-2 h-4 w-4" />
           </a>
@@ -150,6 +159,12 @@ export function LandingPage() {
 
       {/* ── HERO SECTION ── */}
       <section className="relative z-10 w-full max-w-[1440px] mx-auto px-6 md:px-12 pt-36 pb-20 flex flex-col min-h-[90vh] justify-center">
+        <CojeevDepthBackground
+          seed="takya-landing"
+          density={0.45}
+          intensity={0.38}
+          className="takya-landing-depth"
+        />
         
         {/* Metadato Científico Superior */}
         <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.2 }} className="flex items-center space-x-3 mb-8">
@@ -181,7 +196,7 @@ export function LandingPage() {
                 Conocer el problema
               </a>
               <a href="#propuesta" onClick={(e) => { e.preventDefault(); scrollTo('propuesta'); }} className="flex items-center rounded-full bg-[#E05D44] px-8 py-3.5 text-xs font-mono uppercase tracking-wider font-bold text-white shadow-md hover:bg-[#c94b34] transition-all cursor-pointer">
-                Ver la propuesta <ArrowUpRight className="ml-2 h-4 w-4" />
+                Ver la propuesta <CojeevPictogram name="arrow-up-right" tone="ivory" size={17} className="ml-2" />
               </a>
             </div>
           </motion.div>

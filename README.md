@@ -6,11 +6,11 @@
 
 Vitrina digital de TAKYA, una propuesta de apoyo a operadores de televigilancia mediante contexto y prioridades explicables. Proyecto desarrollado para el Programa Nómada UCN en Antofagasta.
 
-> **V1 para mostrar:** la experiencia pública comienza en `/landing`. La consola interactiva y el acceso simulado quedan para una siguiente entrega. No hay backend ni conexión a cámaras reales.
+> **Versión de demostración:** la experiencia comienza en `/landing`; `/home` también conduce al acceso de práctica. `/login` permite elegir Operador o Supervisión y `/demo` muestra la consola. Todo funciona en el navegador; no hay backend ni conexión a cámaras reales.
 
 ## Navegación rápida
 
-[Ver la landing](#ver-la-v1) · [Iniciar en local](#iniciar-en-local) · [Entender el proyecto](#qué-muestra-la-landing) · [Mapa técnico](#mapa-técnico) · [Antes de compartir](#antes-de-compartir) · [Documentación](#documentación-del-equipo)
+[Ver la landing](#ver-la-v1) · [Probar la consola](#probar-la-consola) · [Iniciar en local](#iniciar-en-local) · [Entender el proyecto](#qué-muestra-la-landing) · [Mapa técnico](#mapa-técnico) · [Antes de compartir](#antes-de-compartir) · [Documentación](#documentación-del-equipo)
 
 ## Ver la V1
 
@@ -22,8 +22,9 @@ Vitrina digital de TAKYA, una propuesta de apoyo a operadores de televigilancia 
 | ------------------ | ---------------------- | ----------------------------------------------------------------------------- |
 | `/`                | Pública                | Abre la landing.                                                              |
 | `/landing`         | Pública · V1           | Presentación institucional.                                                   |
-| `/home`            | Disponible             | Entrada audiovisual adaptable; fuera del recorrido público de esta V1.        |
-| `/login` y `/demo` | Siguiente entrega      | Acceso y consola simulados; no forman parte de la presentación de la landing. |
+| `/home`            | Disponible             | Entrada audiovisual con enlace a `/login`.                                    |
+| `/login`           | Demo                    | Selección simulada de Operador o Supervisión.                                 |
+| `/demo`            | Demo                    | Consola interactiva de práctica.                                              |
 
 ## Qué muestra la landing
 
@@ -47,6 +48,28 @@ El relato usa las cifras de contexto de la documentación interna: **130 cámara
 
 </details>
 
+## Probar la consola
+
+Desde `/landing`, pulsa **Ver demo** en móvil o **Explorar demo** en escritorio. Desde `/home`, pulsa **Consola Interactiva**. Ambos caminos llevan a `/login`: elige un rol de práctica y entra con el botón o la tecla Enter. Si intentas abrir `/demo` sin iniciar la práctica, volverás a la pantalla de acceso. Este paso es solo navegación simulada, no autenticación real.
+
+<details>
+<summary><strong>Recorrido de cinco minutos</strong></summary>
+
+1. En **Inicio**, compara los avisos recibidos con los casos agrupados.
+2. Abre un caso, observa las **dos vistas disponibles** y marca cada una. La vista aérea se presenta sin conexión.
+3. En **Comprender**, distingue las señales visibles de lo que aún requiere confirmación.
+4. En **Decidir**, verifica, escala o descarta e indica el motivo. Si escalas, cambia a **Supervisión** y marca la derivación recibida.
+5. Pulsa **K8 IA**, o el perrito 3D de la esquina, y pregunta cómo funciona la práctica. K8 muestra respuestas y fuentes de documentos curados; no usa un modelo externo.
+6. En **Historial**, revisa la secuencia de acciones y descarga el registro si quieres conservarlo. En **Ajustes**, cambia lectura y ritmo, edita el nombre o cierra la práctica.
+
+La llegada automática comienza pausada. Puedes generar un caso manualmente, elegir el ritmo, cambiar el tamaño del texto o reiniciar la práctica. El progreso reconoce las tres revisiones iniciales sin puntuar rapidez ni favorecer una decisión.
+
+</details>
+
+Esta es una **simulación en el navegador**: escenas ilustradas, avisos, prioridades y explicaciones de ejemplo. La sesión se guarda en este navegador. Ninguna acción envía alertas ni recursos reales. K8 es un personaje 3D interactivo en WebGL; mueve una pata al acercar el cursor y periódicamente, con respaldo visual si WebGL no está disponible. Las opciones de accesibilidad permiten apagar movimiento y fondo, reforzar contraste, ampliar texto y usar paneles sólidos. Consulta el [recorrido funcional](docs/06_DEMO_OPERATOR_FLOW.md), la [base documental de K8](docs/09_K8_CONOCIMIENTO_Y_ACCESIBILIDAD.md) y la [decisión de arquitectura](docs/adr/0004-demo-guided-practice.md).
+
+Para la siguiente etapa, consulta las [opciones de arquitectura IA-first](docs/07_ARQUITECTURA_IA_FIRST.md) y la [revisión de seguridad](docs/08_REVISION_SEGURIDAD.md). El camino recomendado es un sistema híbrido: detectar eventos cerca de la fuente, reunirlos en casos y producir explicaciones verificables desde un servicio protegido.
+
 ## Iniciar en local
 
 Requisitos: Node.js y npm. Desde la raíz del repositorio:
@@ -64,6 +87,7 @@ Abre [http://localhost:3000](http://localhost:3000). La redirección te llevará
 ```bash
 npm run typecheck
 npm run lint
+npm run test:demo
 npm run format:check
 npm run build
 ```
@@ -81,7 +105,7 @@ En esta entrega, TypeScript, lint y build pasan. `format:check` aún detecta for
 | [`src/app/`](src/app/)                           | Rutas, layout, fuentes y estilos globales de Next.js App Router. |
 | [`src/features/landing/`](src/features/landing/) | Componentes y movimiento de la página pública.                   |
 | [`src/features/home/`](src/features/home/)       | Entrada audiovisual existente.                                   |
-| [`src/features/demo/`](src/features/demo/)       | Trabajo de consola para la siguiente entrega.                    |
+| [`src/features/demo/`](src/features/demo/)       | Motor local, práctica guiada, roles e historial de la consola.   |
 | [`public/brand/`](public/brand/)                 | Logotipos, iconos y poster de marca.                             |
 | [`public/referencias/`](public/referencias/)     | Referencias visuales del equipo.                                 |
 | [`docs/`](docs/)                                 | Producto, arquitectura, diseño y plan maestro.                   |
@@ -95,7 +119,7 @@ En esta entrega, TypeScript, lint y build pasan. `format:check` aún detecta for
 2. Selecciona la rama `main` y deja la **raíz del proyecto** en `/`.
 3. Comprueba que Vercel detecte **Next.js** y use `npm run build`.
 4. Esta landing no necesita variables de entorno.
-5. Despliega y revisa `/` y `/landing` en escritorio y móvil. La raíz debe abrir la landing.
+5. Despliega y revisa `/`, `/landing`, `/home`, `/login` y `/demo` en escritorio y móvil. La raíz debe abrir la landing; el acceso a la consola empieza en `/login`.
 
 Si intentaste desplegar antes de recibir el nuevo commit en `main`, vuelve a ejecutar el despliegue desde ese commit y mira el final de **Build Logs** si Vercel informa otro error.
 
@@ -108,7 +132,7 @@ Si conectas GitHub al proyecto de Vercel, los cambios posteriores en `main` podr
 - Presenta la web como **prototipo de propuesta**, no como sistema conectado a CCTV.
 - Las cifras de contexto provienen de documentos del proyecto; evita describirlas como resultados de TAKYA.
 - El botón de WhatsApp de la versión actual usa un **número de ejemplo**. El equipo debe reemplazarlo por un canal real antes de utilizarlo como contacto comercial.
-- `/login` y `/demo` permanecen en el repositorio para el siguiente sprint; esta V1 se comparte mediante `/landing`.
+- La landing conserva la presentación V1. La consola es una práctica visual y sus roles no representan cuentas o permisos reales.
 
 ## Documentación del equipo
 
@@ -117,6 +141,9 @@ Si conectas GitHub al proyecto de Vercel, los cambios posteriores en `main` podr
 - [Sistema de diseño](docs/03_DESIGN_SYSTEM.md)
 - [Identidad visual](docs/05_IDENTIDAD_VISUAL_PPT_A.md)
 - [Plan maestro](docs/maestros/PLAN_MAESTRO_CONSTRUCCION_TAKYA.md)
+- [Recorrido de la consola](docs/06_DEMO_OPERATOR_FLOW.md)
+- [Arquitectura IA-first](docs/07_ARQUITECTURA_IA_FIRST.md)
+- [Revisión de seguridad](docs/08_REVISION_SEGURIDAD.md)
 - [ENGRAM: estado de construcción](ENGRAM.md)
 
 ---

@@ -1,0 +1,154 @@
+.cojeev-pictogram {
+  display: inline-grid;
+  place-items: center;
+  flex: 0 0 auto;
+  color: #1b3b2b;
+  transform-origin: center;
+}
+.cojeev-pictogram svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+.cojeev-pictogram-sage {
+  color: #7d9b8a;
+}
+.cojeev-pictogram-orange {
+  color: #e05d44;
+}
+.cojeev-pictogram-ivory {
+  color: #f4f1ea;
+}
+a:hover .cojeev-pictogram,
+button:hover .cojeev-pictogram,
+a:focus-visible .cojeev-pictogram,
+button:focus-visible .cojeev-pictogram {
+  transform: translate3d(2px, -2px, 0) rotate(4deg);
+  transition: transform 300ms ease;
+}
+.cojeev-agent {
+  display: flex;
+  align-items: center;
+  gap: clamp(12px, 2vw, 26px);
+  min-width: 0;
+}
+.cojeev-agent-field {
+  display: block;
+  width: clamp(125px, 24vw, 220px);
+  height: auto;
+  flex: 0 0 auto;
+  filter: drop-shadow(0 20px 26px #0c141035);
+}
+.cojeev-agent-copy {
+  display: grid;
+  gap: 6px;
+  min-width: 0;
+}
+.cojeev-agent-copy strong {
+  color: #f4f1ea;
+  font:
+    650 clamp(1.3rem, 2.5vw, 2rem)/1.16 var(--font-sora),
+    sans-serif;
+  letter-spacing: -0.04em;
+}
+.cojeev-agent-copy span {
+  color: #e1ebe0;
+  font:
+    500 0.94rem/1.5 var(--font-jakarta),
+    sans-serif;
+  max-width: 44ch;
+}
+.cojeev-agent-compact .cojeev-agent-field {
+  width: 72px;
+}
+.cojeev-agent-compact .cojeev-agent-copy strong {
+  font-size: 1rem;
+}
+.cojeev-agent-compact .cojeev-agent-copy span {
+  font-size: 0.8rem;
+}
+.cojeev-depth-field {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: clip;
+  pointer-events: none;
+  user-select: none;
+  border-radius: inherit;
+  isolation: isolate;
+  --cojeev-pointer-x: 0px;
+  --cojeev-pointer-y: 0px;
+}
+.takya-landing-depth {
+  z-index: -1;
+  opacity: 0.48;
+  -webkit-mask-image: linear-gradient(
+    to bottom,
+    transparent,
+    black 18%,
+    black 70%,
+    transparent
+  );
+  mask-image: linear-gradient(
+    to bottom,
+    transparent,
+    black 18%,
+    black 70%,
+    transparent
+  );
+}
+.cojeev-depth-scene {
+  position: absolute;
+  inset: 0;
+  perspective: 900px;
+  perspective-origin: 50% 45%;
+  transform-style: preserve-3d;
+}
+.cojeev-depth-piece {
+  position: absolute;
+  display: block;
+  aspect-ratio: 1;
+  transform-style: preserve-3d;
+  backface-visibility: hidden;
+  transform: translate3d(
+      calc(var(--cojeev-pointer-x) * var(--cojeev-speed)),
+      calc(var(--cojeev-pointer-y) * var(--cojeev-speed)),
+      var(--cojeev-z)
+    )
+    rotate(var(--cojeev-angle));
+  transition: transform 450ms ease-out;
+}
+.cojeev-depth-piece svg {
+  width: 100%;
+  height: 100%;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  animation: cojeev-orbit-breathe 13s ease-in-out infinite;
+}
+@keyframes cojeev-orbit-breathe {
+  0%,
+  100% {
+    transform: scale(0.96) rotate(-5deg);
+  }
+  50% {
+    transform: scale(1.07) rotate(5deg);
+  }
+}
+[data-motion-off="true"] .cojeev-depth-piece svg {
+  animation: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  .cojeev-depth-piece svg {
+    animation: none;
+  }
+  .cojeev-depth-piece {
+    transition: none;
+  }
+  a:hover .cojeev-pictogram,
+  button:hover .cojeev-pictogram,
+  a:focus-visible .cojeev-pictogram,
+  button:focus-visible .cojeev-pictogram {
+    transform: none;
+    transition: none;
+  }
+}

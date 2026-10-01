@@ -26,3 +26,7 @@ Configurar estos tokens en `tailwind.config.ts`:
 * **Glassmorphism Sutil:** Fondos translúcidos con blur pesado (ej. `backdrop-blur-xl bg-forest/10`) solo para capas superiores modales.
 * **Micro-interacciones:** Hover states sutiles en los botones de acción (`[Verificar]`, `[Escalar]`), sin rebotes excesivos. Framer Motion reservado para revelar contenido o transición de páginas.
 * **Densidad:** La consola `/demo` usa una densidad alta (textos `text-sm` y `text-xs`) característica de herramientas operativas Pro (Data-heavy). La ruta `/landing` usa densidad baja (mucho aire, grandes tipografías).
+
+## Extensión de la demo, septiembre de 2026
+
+La consola usa ahora paneles de vidrio translúcido con contornos claros a petición del equipo. La preferencia **Paneles sólidos** devuelve superficies opacas para lectura; **Alto contraste**, **Sin movimiento** y **Fondo simple** permiten reducir carga visual. K8 usa una escena 3D pequeña y un campo orgánico solo en su módulo, sin alterar la composición editorial de la landing V1. La landing incorpora detalles de profundidad muy sutiles adaptados de 000h.
