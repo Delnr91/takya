@@ -8,7 +8,7 @@
     "start": "next start",
     "lint": "eslint .",
     "typecheck": "tsc --noEmit",
-    "test:demo": "tsc -p tsconfig.demo-tests.json && node --test .demo-tests/model/simulation.test.js .demo-tests/model/knowledge.test.js",
+    "test:demo": "tsc -p tsconfig.demo-tests.json && node --test .demo-tests/model/simulation.test.js .demo-tests/model/chat.test.js",
     "format:check": "prettier --check \"src/**/*.{ts,tsx,css}\" \"*.{ts,mjs,json}\""
   },
   "dependencies": {

@@ -76,11 +76,11 @@ export function SettingsPanel({
           <strong>Copiloto de demostración activo</strong>
           <p>
             Agrupa señales de ejemplo y explica una prioridad predefinida. K8
-            consulta documentos curados en este navegador. La decisión siempre
-            es humana; esta versión no consulta un modelo de IA.
+            conversa contigo a partir de las guías de TAKYA. Los casos son
+            simulados y la decisión siempre es humana.
           </p>
         </div>
-        <span className="demo-settings-chip">Motor local</span>
+        <span className="demo-settings-chip">Práctica guiada</span>
       </div>
       <div className="demo-settings-grid">
         <section className="demo-panel demo-settings-card">

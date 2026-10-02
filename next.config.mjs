@@ -1,6 +1,9 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   poweredByHeader: false,
+  outputFileTracingIncludes: {
+    "/api/k8/chat": ["./docs/knowledge/*.md"],
+  },
   async headers() {
     return [
       {

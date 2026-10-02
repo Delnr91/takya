@@ -327,7 +327,7 @@ export function K8Mascot({
     <button
       type="button"
       className="demo-k8"
-      aria-label="Abrir a K8, acompañante documental"
+      aria-label="Conversar con K8"
       title="Abre el chat con un clic. Arrastra para girar a K8."
       aria-haspopup="dialog"
       onKeyDown={(event) => {

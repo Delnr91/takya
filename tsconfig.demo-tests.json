@@ -9,6 +9,9 @@
     "rootDir": "src/features/demo",
     "outDir": ".demo-tests"
   },
-  "include": ["src/features/demo/model/simulation.test.ts", "src/features/demo/model/knowledge.test.ts"],
+  "include": [
+    "src/features/demo/model/simulation.test.ts",
+    "src/features/demo/model/chat.test.ts"
+  ],
   "exclude": ["node_modules"]
 }
