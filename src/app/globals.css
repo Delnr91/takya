@@ -155,3 +155,36 @@ html.takya-landing-scroll::-webkit-scrollbar {
     font-size: clamp(0.875rem, 2.5vw, 1.25rem);
   }
 }
+.takya-curtain {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: flex;
+  overflow: hidden;
+}
+.takya-curtain-panel {
+  flex: 1;
+  height: 100%;
+  background: #1b3b2b;
+  border-right: 1px solid #7d9b8a24;
+}
+.takya-curtain-panel:nth-child(even) {
+  background: #183628;
+}
+.takya-curtain-panel:last-child {
+  border-right: 2px solid #e4774d;
+}
+.takya-navigation-notice {
+  position: fixed;
+  z-index: 10000;
+  bottom: 20px;
+  left: 20px;
+  right: 20px;
+  margin: auto;
+  max-width: 560px;
+  padding: 16px;
+  border-radius: 14px;
+  color: #f4f1ea;
+  background: #1b3b2b;
+  font-size: 14px;
+}

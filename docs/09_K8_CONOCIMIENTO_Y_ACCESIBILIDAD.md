@@ -1,5 +1,7 @@
 # K8: acompañante documental de la práctica
 
+> Registro de la primera implementación local. Desde el 6 de octubre de 2026, el chat usa Groq desde una ruta de servidor y recupera guías Markdown curadas de `docs/knowledge/`. La demo incorpora seis clips grabados, señales preparadas y una consulta rápida contextual. Consulta el estado actual en [flujo de la demo](06_DEMO_OPERATOR_FLOW.md) y [decisión de arquitectura](adr/0005-recorded-evidence-and-cognitive-motion.md). Las secciones siguientes describen la versión histórica, no el chat actual.
+
 ## Qué hace hoy
 
 K8 responde preguntas sobre el funcionamiento de TAKYA con contenido curado en `src/features/demo/data/knowledge.ts`. Un recuperador léxico local compara palabras de la pregunta con títulos, términos y resúmenes y muestra la respuesta preescrita y su fuente. Si no existe coincidencia, se abstiene. No usa un modelo generativo, API, búsqueda externa ni video real. No toma decisiones sobre casos.

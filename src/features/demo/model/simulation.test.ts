@@ -2,6 +2,7 @@ import test from "node:test";
 import assert from "node:assert/strict";
 import {
   createSimulation,
+  createIncident,
   transition,
   restoreSimulation,
   getMetrics,
@@ -9,10 +10,75 @@ import {
   type DemoCommand,
 } from "./simulation";
 import { reasons } from "../data/scenarios";
+import { clipsForScenario } from "../data/media";
 import { localAssessment, validateAssessment } from "./cognitive";
 import type { Decision, Simulation } from "../schemas/simulation";
 
 const initial = () => createSimulation(100000, "test-session");
+test("recorded cases point only to curated moments inside their own clips", () => {
+  for (const incident of initial().incidents) {
+    const clips = clipsForScenario(incident.scenario);
+    assert.ok(clips.length);
+    for (const alert of incident.alerts) {
+      const source = incident.cameras.find(
+        (camera) => camera.id === alert.cameraId,
+      );
+      const clip = clips.find((item) => item.id === source?.clipId);
+      assert.ok(clip);
+      assert.ok(alert.second < clip.duration);
+      assert.ok(
+        clip.cues.some(
+          (cue) => cue.second === alert.second && cue.label === alert.signal,
+        ),
+      );
+    }
+  }
+});
+test("one and three clip cases gate decisions on every available source", () => {
+  for (const id of ["DEMO-002", "DEMO-003"]) {
+    let state = run(initial(), { type: "OPEN", incidentId: id }).state;
+    const incident = state.incidents.find((item) => item.id === id)!;
+    for (const camera of incident.cameras.filter((item) => item.available)) {
+      assert.ok(run(state, { type: "READ_EXPLANATION", incidentId: id }).error);
+      state = run(state, {
+        type: "VIEW_EVIDENCE",
+        incidentId: id,
+        cameraId: camera.id,
+      }).state;
+    }
+    const understood = run(state, { type: "READ_EXPLANATION", incidentId: id });
+    assert.equal(understood.error, null);
+    const decided = run(understood.state, {
+      type: "DECIDE",
+      incidentId: id,
+      decision: decision("VERIFIED"),
+    });
+    assert.equal(decided.error, null);
+    assert.ok(restoreSimulation(JSON.stringify(decided.state)));
+  }
+});
+test("restore rejects foreign clips and modified evidence, while preserving illustrated sessions", () => {
+  const edited = initial();
+  edited.incidents[0]!.cameras[0]!.clipId = "fuego-foco";
+  assert.equal(restoreSimulation(JSON.stringify(edited)), null);
+  const wrongTime = initial();
+  wrongTime.incidents[0]!.alerts[0]!.second = 29;
+  assert.equal(restoreSimulation(JSON.stringify(wrongTime)), null);
+  const old = initial();
+  old.incidents = (["smoke", "rubble", "movement"] as const).map(
+    (scenario, index) => createIncident(scenario, index + 1, 100000),
+  );
+  const json = JSON.parse(JSON.stringify(old)) as {
+    incidents: { cameras: Record<string, unknown>[] }[];
+  };
+  json.incidents.forEach((incident) =>
+    incident.cameras.forEach((camera) => delete camera.clipId),
+  );
+  const legacy = restoreSimulation(JSON.stringify(json));
+  assert.ok(legacy);
+  assert.equal(legacy.incidents[0]?.cameras[0]?.clipId, null);
+  assert.equal(localAssessment(legacy.incidents[0]!).origin, "LOCAL_SCENARIO");
+});
 test("older local preferences gain accessible defaults on restore", () => {
   const old = initial();
   const legacy = JSON.parse(JSON.stringify(old)) as Record<string, unknown>;
@@ -221,7 +287,8 @@ test("cognitive output cites alerts belonging to its incident", () => {
   const incident = initial().incidents[0];
   assert.ok(incident);
   const assessment = localAssessment(incident);
-  assert.equal(assessment.origin, "LOCAL_SCENARIO");
+  assert.equal(assessment.origin, "CURATED_VIDEO");
+  assert.equal(assessment.score, null);
   assert.deepEqual(
     assessment.evidence.map((item) => item.alertId),
     incident.alerts.map((alert) => alert.id),

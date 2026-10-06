@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import {
   ArrowLeft,
   ArrowRight,
@@ -13,6 +14,8 @@ import {
   Send,
   ShieldCheck,
   X,
+  PanelRightClose,
+  PanelRightOpen,
 } from "lucide-react";
 import { scenarios, statusLabels } from "../data/scenarios";
 import type { Incident, Outcome, Profile } from "../schemas/simulation";
@@ -26,6 +29,7 @@ import { DecisionDialog } from "./DecisionDialog";
 import { EvidenceViewer } from "./EvidenceViewer";
 import { ExplanationPanel } from "./ExplanationPanel";
 import { Pictogram, StatusBadge, timeLabel } from "./DemoPrimitives";
+import { OperationalBrief } from "./OperationalBrief";
 
 export function ReviewWorkspace({
   incident,
@@ -52,9 +56,15 @@ export function ReviewWorkspace({
         : 0,
   );
   const [outcome, setOutcome] = useState<Outcome | null>(null);
+  const [showHelp, setShowHelp] = useState(true);
+  const reduce = useReducedMotion() || motionOff;
   const resolved = isResolved(incident);
   const readOnly = profile.role === "SUPERVISOR" || resolved;
   const content = scenarios[incident.scenario];
+  const recorded = incident.cameras.some((camera) => camera.clipId);
+  const evidenceCount = incident.cameras.filter(
+    (camera) => camera.available,
+  ).length;
   const steps = [
     { title: "Observar", icon: Eye, done: evidenceComplete(incident) },
     { title: "Comprender", icon: Lightbulb, done: incident.explanationRead },
@@ -120,8 +130,29 @@ export function ReviewWorkspace({
           </li>
         ))}
       </ol>
-      <div className="demo-review-grid">
-        <section
+      <div className="incident-focus-tools">
+        <button
+          type="button"
+          className="demo-button demo-button-secondary"
+          aria-expanded={showHelp}
+          aria-controls="incident-help"
+          onClick={() => setShowHelp(!showHelp)}
+        >
+          {showHelp ? (
+            <PanelRightClose aria-hidden="true" />
+          ) : (
+            <PanelRightOpen aria-hidden="true" />
+          )}
+          {showHelp ? "Ocultar ayuda lateral" : "Mostrar ayuda lateral"}
+        </button>
+      </div>
+      <motion.div
+        layout={!reduce}
+        className={`demo-review-grid ${showHelp ? "" : "incident-focus-mode"}`}
+      >
+        <motion.section
+          layout={!reduce}
+          transition={{ duration: reduce ? 0 : 0.25 }}
           className="demo-panel demo-review-content"
           aria-label={`Paso ${step + 1}: ${steps[step]?.title}`}
         >
@@ -144,6 +175,7 @@ export function ReviewWorkspace({
             <ExplanationPanel
               incident={incident}
               readOnly={readOnly}
+              motionOff={motionOff}
               onContinue={() => {
                 send({ type: "READ_EXPLANATION", incidentId: incident.id });
                 setStep(2);
@@ -280,51 +312,73 @@ export function ReviewWorkspace({
               </div>
             </div>
           ) : null}
-        </section>
-        <aside className="demo-panel demo-coach">
-          <Pictogram icon={CircleHelp} />
-          <p className="demo-eyebrow">A tu lado, paso a paso</p>
-          <h2>
-            {step === 0
-              ? "Mira antes de interpretar."
-              : step === 1
-                ? "Una señal no es una certeza."
-                : resolved
-                  ? "Tu decisión tiene una historia."
-                  : "Tú tienes la última palabra."}
-          </h2>
-          <p>
-            {step === 0
-              ? "Cambia entre las cámaras. Marca cada vista cuando la hayas observado."
-              : step === 1
-                ? "Distingue lo visible de aquello que todavía necesita confirmación."
-                : resolved
-                  ? "Puedes consultar qué revisaste, qué decidiste y el motivo en el historial."
-                  : "TAKYA orienta. La acción y el motivo los registras tú."}
-          </p>
-          <div className="demo-review-checks">
-            <span>
-              <Check
-                data-done={evidenceComplete(incident)}
-                aria-hidden="true"
-              />
-              {incident.viewedCameraIds.length} de 2 vistas observadas
-            </span>
-            <span>
-              <Check data-done={incident.explanationRead} aria-hidden="true" />
-              Contexto{" "}
-              {incident.explanationRead ? "comprendido" : "por revisar"}
-            </span>
-            <span>
-              <Check data-done={resolved} aria-hidden="true" />
-              Decisión {resolved ? "registrada" : "pendiente"}
-            </span>
-          </div>
-          <div className="demo-coach-note">
-            Sin prisa. La meta es revisar con fundamento.
-          </div>
-        </aside>
-      </div>
+        </motion.section>
+        <AnimatePresence initial={false}>
+          {showHelp ? (
+            <motion.aside
+              id="incident-help"
+              layout={!reduce}
+              initial={{ opacity: reduce ? 1 : 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: reduce ? 0 : 0.15 }}
+              className={`demo-panel demo-coach ${recorded ? "incident-coach" : ""}`}
+            >
+              {recorded ? (
+                <OperationalBrief scenario={incident.scenario} />
+              ) : (
+                <>
+                  <Pictogram icon={CircleHelp} />
+                  <p className="demo-eyebrow">A tu lado, paso a paso</p>
+                  <h2>
+                    {step === 0
+                      ? "Mira antes de interpretar."
+                      : step === 1
+                        ? "Una señal no es una certeza."
+                        : resolved
+                          ? "Tu decisión tiene una historia."
+                          : "Tú tienes la última palabra."}
+                  </h2>
+                  <p>
+                    {step === 0
+                      ? "Cambia entre las cámaras. Marca cada vista cuando la hayas observado."
+                      : step === 1
+                        ? "Distingue lo visible de aquello que todavía necesita confirmación."
+                        : resolved
+                          ? "Puedes consultar qué revisaste, qué decidiste y el motivo en el historial."
+                          : "TAKYA orienta. La acción y el motivo los registras tú."}
+                  </p>
+                </>
+              )}
+              <div className="demo-review-checks">
+                <span>
+                  <Check
+                    data-done={evidenceComplete(incident)}
+                    aria-hidden="true"
+                  />
+                  {incident.viewedCameraIds.length} de {evidenceCount}{" "}
+                  {recorded ? "clips revisados" : "vistas observadas"}
+                </span>
+                <span>
+                  <Check
+                    data-done={incident.explanationRead}
+                    aria-hidden="true"
+                  />
+                  Contexto{" "}
+                  {incident.explanationRead ? "comprendido" : "por revisar"}
+                </span>
+                <span>
+                  <Check data-done={resolved} aria-hidden="true" />
+                  Decisión {resolved ? "registrada" : "pendiente"}
+                </span>
+              </div>
+              <div className="demo-coach-note">
+                Sin prisa. La meta es revisar con fundamento.
+              </div>
+            </motion.aside>
+          ) : null}
+        </AnimatePresence>
+      </motion.div>
       {outcome ? (
         <DecisionDialog
           incident={incident}

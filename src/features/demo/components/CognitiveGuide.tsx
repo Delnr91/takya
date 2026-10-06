@@ -42,10 +42,12 @@ export function CognitiveGuide({
   compact = false,
   motionOff = false,
   onGuide,
+  contextLabel,
 }: {
   compact?: boolean;
   motionOff?: boolean;
   onGuide?: () => void;
+  contextLabel?: string;
 }) {
   const { turns, question, setQuestion, pending, error, ask, reset } =
     useCognitiveChat();
@@ -93,26 +95,32 @@ export function CognitiveGuide({
   }
   return (
     <div className={`demo-ai ${compact ? "demo-ai-compact" : ""}`}>
-      <section className="demo-ai-hero">
-        <div className="demo-ai-hero-content">
-          <p className="demo-eyebrow">Acompañante cognitivo · K8</p>
-          <div className="demo-ai-organism" aria-hidden="true">
-            <CognitiveFluidBackground motionOff={motionOff} />
+      {!compact ? (
+        <section className="demo-ai-hero">
+          <div className="demo-ai-hero-content">
+            <p className="demo-eyebrow">Acompañante cognitivo · K8</p>
+            <div className="demo-ai-organism" aria-hidden="true">
+              <CognitiveFluidBackground motionOff={motionOff} />
+            </div>
+            <div className="demo-ai-presence-copy">
+              <h2>Comprender antes de actuar.</h2>
+              <p>Estoy aquí para ayudarte. Vamos paso a paso.</p>
+            </div>
           </div>
-          <div className="demo-ai-presence-copy">
-            <h2>Comprender antes de actuar.</h2>
-            <p>Estoy aquí para ayudarte. Vamos paso a paso.</p>
-          </div>
-        </div>
-      </section>
+        </section>
+      ) : null}
       <section
         className="demo-ai-body demo-panel"
         aria-label="Conversación con K8"
       >
         <div className="demo-ai-intro">
           <div>
-            <p className="demo-eyebrow">Conversa con K8</p>
-            <h2>¿En qué te ayudo?</h2>
+            <p className="demo-eyebrow">
+              {compact
+                ? `Ayuda rápida · ${contextLabel ?? "Consola"}`
+                : "Conversa con K8"}
+            </p>
+            <h2>{compact ? "Vamos paso a paso." : "¿En qué te ayudo?"}</h2>
           </div>
           {turns.length > 0 && (
             <button
@@ -166,14 +174,16 @@ export function CognitiveGuide({
                         {speaking === turn.id ? "Detener lectura" : "Escuchar"}
                       </button>
                     )}
-                    <details>
-                      <summary>Guías consultadas</summary>
-                      <ul>
-                        {turn.response.sources.map((title) => (
-                          <li key={title}>{title}</li>
-                        ))}
-                      </ul>
-                    </details>
+                    {turn.response.sources.length > 0 ? (
+                      <details>
+                        <summary>Guías consultadas</summary>
+                        <ul>
+                          {turn.response.sources.map((title) => (
+                            <li key={title}>{title}</li>
+                          ))}
+                        </ul>
+                      </details>
+                    ) : null}
                   </div>
                 </div>
               )}
@@ -192,7 +202,23 @@ export function CognitiveGuide({
         )}
         {turns.length === 0 ? (
           <div className="k8-starters" aria-label="Elige cómo empezar">
-            {prompts.map((prompt) => (
+            {(compact
+              ? [
+                  {
+                    label: "Ayuda en esta pantalla",
+                    question: `Estoy en ${contextLabel ?? "Inicio"} de TAKYA. Ayúdame con el primer paso.`,
+                    icon: "eye" as const,
+                  },
+                  {
+                    label: "Revisar un video",
+                    question:
+                      "¿Cómo reviso los clips de un caso en TAKYA? Dame el primer paso.",
+                    icon: "brain" as const,
+                  },
+                  prompts[2]!,
+                ]
+              : prompts
+            ).map((prompt) => (
               <button
                 key={prompt.label}
                 type="button"

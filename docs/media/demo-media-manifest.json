@@ -1,0 +1,62 @@
+[
+  {
+    "id": "residuos-descarga",
+    "source": "basura.mp4",
+    "start": 0,
+    "duration": 6,
+    "crop": [1280, 584, 0, 64],
+    "width": 960,
+    "sourceSha256": "ffbdd0e67e099e1c40e977cf7075ff4a39ec80f04f98723a2e339f7d9256653c",
+    "bytes": 589321
+  },
+  {
+    "id": "residuos-salida",
+    "source": "basura.mp4",
+    "start": 16,
+    "duration": 11,
+    "crop": [1280, 584, 0, 64],
+    "width": 960,
+    "sourceSha256": "ffbdd0e67e099e1c40e977cf7075ff4a39ec80f04f98723a2e339f7d9256653c",
+    "bytes": 1168518
+  },
+  {
+    "id": "fuego-foco",
+    "source": "sacarclips.mp4",
+    "start": 540,
+    "duration": 9,
+    "crop": [802, 476, 28, 120],
+    "width": 800,
+    "sourceSha256": "9f8c667e85f11ffb8a5d75093e7aef5cb2cdb40ddc91abad688060323219997d",
+    "bytes": 1099928
+  },
+  {
+    "id": "fuego-respuesta",
+    "source": "sacarclips.mp4",
+    "start": 590,
+    "duration": 18,
+    "crop": [802, 476, 28, 120],
+    "width": 800,
+    "sourceSha256": "9f8c667e85f11ffb8a5d75093e7aef5cb2cdb40ddc91abad688060323219997d",
+    "bytes": 2443709
+  },
+  {
+    "id": "fuego-humo",
+    "source": "sacarclips.mp4",
+    "start": 625,
+    "duration": 28,
+    "crop": [802, 476, 28, 120],
+    "width": 800,
+    "sourceSha256": "9f8c667e85f11ffb8a5d75093e7aef5cb2cdb40ddc91abad688060323219997d",
+    "bytes": 2047187
+  },
+  {
+    "id": "camino-camion",
+    "source": "videoplayback.mp4",
+    "start": 6,
+    "duration": 22,
+    "crop": [324, 550, 468, 0],
+    "width": 324,
+    "sourceSha256": "60b92d343fcc6db672c6c0fc6117b3617fa80948efe22ff9cab702b64ef90cae",
+    "bytes": 1089129
+  }
+]

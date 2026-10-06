@@ -19,7 +19,7 @@ import { nextIncident } from "../model/selectors";
 import { scenarios } from "../data/scenarios";
 import { localAssessment } from "../model/cognitive";
 import type { DemoView } from "../hooks/useDemoNavigation";
-import { EvidenceScene } from "./EvidenceScene";
+import { IncidentPoster } from "./IncidentPoster";
 import { EmptyState, Pictogram, StatusBadge } from "./DemoPrimitives";
 
 export function TurnOverview({
@@ -103,7 +103,7 @@ export function TurnOverview({
         >
           <Pictogram icon={BrainCircuit} tone="orange" small />
           <div>
-            <p className="demo-eyebrow">Copiloto · lógica de ejemplo</p>
+            <p className="demo-eyebrow">Copiloto · lectura del caso</p>
             <h2>Por qué conviene revisar este caso</h2>
             <p>{nextAssessment.explanation}</p>
             <small>Pendiente de confirmar: {nextAssessment.unknown}</small>
@@ -180,8 +180,8 @@ export function TurnOverview({
                   </button>
                 </div>
                 <div className="demo-next-scene">
-                  <EvidenceScene scenario={next.scenario} />
-                  <span>Escena ilustrada · {next.id}</span>
+                  <IncidentPoster scenario={next.scenario} />
+                  <span>Evidencia del caso · {next.id}</span>
                 </div>
               </>
             ) : (
@@ -198,7 +198,9 @@ export function TurnOverview({
               Tres casos. <br />
               Más criterio.
             </h2>
-            <p>Completa una revisión de humo, material y movimiento.</p>
+            <p>
+              Revisa fuego, material y un registro que necesita más contexto.
+            </p>
             <div className="demo-progress-label">
               <strong>{metrics.practiceCompleted} de 3</strong>
               <span>revisiones completas</span>
@@ -240,7 +242,7 @@ export function TurnOverview({
           <Pictogram icon={Camera} small />
           <span>
             <strong>Comparar fuentes</strong>
-            <small>Dos vistas y una fuente sin conexión.</small>
+            <small>Explora los registros disponibles del caso.</small>
           </span>
           <ArrowRight aria-hidden="true" />
         </button>
@@ -286,7 +288,7 @@ export function PracticeGuide({
     {
       icon: Eye,
       title: "Observa",
-      copy: "Compara las dos vistas. Marca cada una cuando la hayas mirado.",
+      copy: "Mira los clips disponibles. Marca cada uno cuando lo hayas revisado.",
     },
     {
       icon: Lightbulb,

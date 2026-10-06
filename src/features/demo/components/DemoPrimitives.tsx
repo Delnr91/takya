@@ -6,6 +6,8 @@ import {
   Leaf,
   TriangleAlert,
   X,
+  Flame,
+  Truck,
   type LucideIcon,
 } from "lucide-react";
 import { useEffect, useId, useRef, type ReactNode } from "react";
@@ -16,6 +18,9 @@ export const scenarioIcons: Record<Scenario, LucideIcon> = {
   smoke: CloudFog,
   rubble: Layers3,
   movement: Leaf,
+  dumping: Truck,
+  fire: Flame,
+  uncertain: CircleHelp,
 };
 export function Pictogram({
   icon: Icon,
@@ -69,15 +74,23 @@ export function Dialog({
   const titleId = useId();
   useEffect(() => {
     const dialog = ref.current;
+    const opener = document.activeElement;
     dialog?.showModal();
-    return () => dialog?.close();
+    return () => {
+      dialog?.close();
+      if (opener instanceof HTMLElement && opener.isConnected)
+        opener.focus({ preventScroll: true });
+    };
   }, []);
   return (
     <dialog
       ref={ref}
       className={`demo-dialog ${className}`}
       aria-labelledby={titleId}
-      onCancel={onClose}
+      onCancel={(event) => {
+        event.preventDefault();
+        onClose();
+      }}
     >
       <div className="demo-dialog-heading">
         <h2 id={titleId}>{title}</h2>

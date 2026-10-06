@@ -3,7 +3,7 @@ import { severitySchema } from "./simulation";
 
 export const cognitiveAssessmentSchema = z.object({
   incidentId: z.string().min(1),
-  origin: z.enum(["LOCAL_SCENARIO", "MODEL_SERVICE"]),
+  origin: z.enum(["LOCAL_SCENARIO", "CURATED_VIDEO", "MODEL_SERVICE"]),
   suggestedPriority: severitySchema,
   explanation: z.string().trim().min(1).max(1000),
   visible: z.string().trim().min(1).max(500),

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { JetBrains_Mono, Plus_Jakarta_Sans, Sora } from "next/font/google";
 import "./globals.css";
 import "../components/ui/cojeev.css";
+import { CurtainNavigation } from "@/components/ui/CurtainNavigation";
 
 const sora = Sora({
   subsets: ["latin"],
@@ -36,7 +37,7 @@ export default function RootLayout({
       <body
         className={`${sora.variable} ${jakarta.variable} ${jetbrains.variable}`}
       >
-        {children}
+        <CurtainNavigation>{children}</CurtainNavigation>
       </body>
     </html>
   );

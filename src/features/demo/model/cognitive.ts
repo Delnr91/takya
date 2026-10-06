@@ -4,13 +4,15 @@ import {
   type CognitiveAssessment,
 } from "../schemas/cognitive";
 import type { Incident } from "../schemas/simulation";
+import { clipsForScenario } from "../data/media";
 
 /** Replace this adapter with a validated server response when real inference exists. */
 export function localAssessment(incident: Incident): CognitiveAssessment {
   const scenario = scenarios[incident.scenario];
+  const recorded = clipsForScenario(incident.scenario).length > 0;
   return cognitiveAssessmentSchema.parse({
     incidentId: incident.id,
-    origin: "LOCAL_SCENARIO",
+    origin: recorded ? "CURATED_VIDEO" : "LOCAL_SCENARIO",
     suggestedPriority: incident.severity,
     explanation: scenario.explanation,
     visible: scenario.visible,
@@ -20,7 +22,7 @@ export function localAssessment(incident: Incident): CognitiveAssessment {
       label: alert.signal,
     })),
     score: scenario.confidence,
-    version: "demo-scenario-v1",
+    version: recorded ? "curated-video-v1" : "demo-scenario-v1",
   });
 }
 

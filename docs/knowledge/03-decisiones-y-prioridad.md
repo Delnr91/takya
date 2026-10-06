@@ -1,4 +1,5 @@
 # Entender las opciones y la prioridad
+
 <!-- temas: verificar escalar descartar decision decidir prioridad confianza alarma riesgo explicar explicacion porque motivo supervision operador humano derivar -->
 
 Verificar registra que revisaste y confirmas tu evaluación en el ejercicio. Escalar registra una derivación a Supervisión para que la reciba. Descartar registra que, según la revisión del operador, el aviso no requiere continuar en esta práctica. Las tres opciones requieren un motivo. K8 puede explicar estas opciones, pero no elegir una por ti ni pulsar el botón.

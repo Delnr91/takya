@@ -1,5 +1,7 @@
 import { createHash } from "node:crypto";
 import {
+  chatScopeResponse,
+  providerMessages,
   chatRequestSchema,
   createChatLimiter,
   selectDocuments,
@@ -63,12 +65,12 @@ export async function POST(request: Request) {
     const parsed = chatRequestSchema.safeParse(json);
     if (!parsed.success)
       return failure("Escribe una pregunta de hasta 600 caracteres.", 400);
-    const documents = selectDocuments(
-      await getCuratedDocuments(),
-      parsed.data.messages,
-    );
+    const redirect = chatScopeResponse(parsed.data.messages);
+    if (redirect) return Response.json(redirect, { headers });
+    const messages = providerMessages(parsed.data.messages);
+    const documents = selectDocuments(await getCuratedDocuments(), messages);
     const answer = await generateAnswer(
-      parsed.data.messages,
+      messages,
       documents,
       AbortSignal.any([request.signal, AbortSignal.timeout(20000)]),
     );

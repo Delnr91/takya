@@ -11,6 +11,7 @@ import {
   type Simulation,
 } from "../schemas/simulation";
 import { reasons, scenarioOrder, scenarios } from "../data/scenarios";
+import { clipsForScenario, evidenceForScenario } from "../data/media";
 
 export const MAX_INCIDENTS = 30;
 export const STORAGE_KEY = "takya.demo.v1";
@@ -38,27 +39,49 @@ export function createIncident(
   at: number,
 ): Incident {
   const id = `DEMO-${String(sequence).padStart(3, "0")}`;
-  const cameras = [
-    {
-      id: `${id}-C1`,
-      name: "Cámara del acceso",
-      kind: "fixed" as const,
-      available: true,
-    },
-    {
-      id: `${id}-C2`,
-      name: "Cámara del móvil",
-      kind: "vehicle" as const,
-      available: true,
-    },
-    {
-      id: `${id}-C3`,
-      name: "Vista aérea",
-      kind: "drone" as const,
-      available: false,
-    },
-  ];
+  const clips = clipsForScenario(scenario);
+  const cameras = clips.length
+    ? [
+        ...clips.map((clip, index) => ({
+          id: `${id}-C${index + 1}`,
+          name: clip.title,
+          kind: "fixed" as const,
+          available: true,
+          clipId: clip.id,
+        })),
+        {
+          id: `${id}-C${clips.length + 1}`,
+          name: "Otra fuente",
+          kind: "drone" as const,
+          available: false,
+          clipId: null,
+        },
+      ]
+    : [
+        {
+          id: `${id}-C1`,
+          name: "Cámara del acceso",
+          kind: "fixed" as const,
+          available: true,
+          clipId: null,
+        },
+        {
+          id: `${id}-C2`,
+          name: "Cámara del móvil",
+          kind: "vehicle" as const,
+          available: true,
+          clipId: null,
+        },
+        {
+          id: `${id}-C3`,
+          name: "Vista aérea",
+          kind: "drone" as const,
+          available: false,
+          clipId: null,
+        },
+      ];
   const content = scenarios[scenario];
+  const evidence = evidenceForScenario(scenario);
   return {
     id,
     scenario,
@@ -68,10 +91,10 @@ export function createIncident(
     cameras,
     alerts: content.signals.map((signal, index) => ({
       id: `${id}-A${index + 1}`,
-      cameraId: `${id}-C${index === 1 ? 2 : 1}`,
+      cameraId: `${id}-C${evidence[index] ? evidence[index]!.cameraIndex + 1 : index === 1 ? 2 : 1}`,
       timestamp: at - (2 - index) * 12000,
-      signal,
-      second: 5 + index * 10,
+      signal: evidence[index]?.label ?? signal,
+      second: evidence[index]?.second ?? 5 + index * 10,
     })),
     viewedCameraIds: [],
     explanationRead: false,
@@ -103,6 +126,7 @@ export function createSimulation(
       highContrast: false,
       motionOff: false,
       backgroundOff: false,
+      mascotHidden: false,
     },
     audit: incidents.map((incident) => ({
       id: `${sessionId}-${incident.id}`,
@@ -297,7 +321,7 @@ export function transition(
   }
   if (event.type === "READ_EXPLANATION") {
     if (incident.status !== "IN_REVIEW" || !evidenceComplete(incident))
-      return fail("Observa las dos vistas disponibles antes de continuar.");
+      return fail("Observa todos los clips disponibles antes de continuar.");
     if (incident.explanationRead) return ok(state);
     return ok(
       appendAudit(
@@ -321,7 +345,7 @@ export function transition(
     incident.explanationRead;
   if (!canDecide(incident) && !laterEscalation)
     return fail(
-      "Antes de decidir, observa ambas vistas y comprende las señales.",
+      "Antes de decidir, observa la evidencia disponible y comprende las señales.",
     );
   const next = replaceIncident(state, {
     ...incident,
@@ -348,7 +372,42 @@ export function restoreSimulation(raw: string | null): Simulation | null {
   try {
     const value: unknown = JSON.parse(raw);
     const parsed = simulationSchema.safeParse(value);
-    return parsed.success ? parsed.data : null;
+    if (!parsed.success) return null;
+    for (const incident of parsed.data.incidents) {
+      const expected = clipsForScenario(incident.scenario);
+      if (!expected.length) {
+        if (incident.cameras.some((camera) => camera.clipId)) return null;
+        continue;
+      }
+      const available = incident.cameras.filter((camera) => camera.available);
+      if (
+        available.length !== expected.length ||
+        available.some(
+          (camera, index) => camera.clipId !== expected[index]?.id,
+        ) ||
+        incident.cameras.some(
+          (camera) => !camera.available && camera.clipId !== null,
+        )
+      )
+        return null;
+      if (
+        incident.alerts.some((alert) => {
+          const camera = incident.cameras.find(
+            (item) => item.id === alert.cameraId,
+          );
+          const clip = expected.find((item) => item.id === camera?.clipId);
+          return (
+            !clip ||
+            !clip.cues.some(
+              (cue) =>
+                cue.second === alert.second && cue.label === alert.signal,
+            )
+          );
+        })
+      )
+        return null;
+    }
+    return parsed.data;
   } catch {
     return null;
   }

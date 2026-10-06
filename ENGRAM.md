@@ -2,6 +2,17 @@
 
 > Para quienes continúen el proyecto: lean este archivo antes de modificar la aplicación y actualícenlo al cerrar cada entrega. Registren el estado real y la verificación realizada.
 
+## Demo funcional con evidencia grabada y Motion — 6 de octubre de 2026
+
+- Se prepararon seis extractos de los videos aportados: dos de actividad junto a residuos, tres de fuego/respuesta/humo y uno de un camión en un camino. Se retiraron entrevistas, audio y zonas con gráfica televisiva; los originales permanecen intactos en `.media-source/`, ignorada por Git. Los derivados H.264, 24 fps, con `faststart`, suman aproximadamente 8 MB en `public/videos/incidents/`. Plan, manifiesto y trazabilidad están en `docs/media/`; los scripts permiten reproducir los cortes.
+- La consola usa los videos en tres casos y conserva `Observar → Comprender → Decidir`. El reproductor incluye momentos, señales preparadas, controles nativos, pausa y manejo de errores. Cada registro disponible debe revisarse antes de avanzar. El operador decide y registra un motivo; Supervisión recibe derivaciones y el historial conserva el recorrido. Las señales y prioridades son curadas, no detección automática sobre video ni despacho real. Las sesiones ilustradas anteriores siguen funcionando y ofrecen cargar los nuevos casos mediante un reinicio confirmado.
+- Se añadió Lista/Carrusel con profundidad, animación, navegación con botones y flechas; el arrastre es opcional. Ocultar ayuda lateral reorganiza el espacio; la cabecera permite ocultar/mostrar K8 y guarda esa preferencia. Las transiciones usan las primitivas gratuitas de Motion ya instaladas. No se incorporaron componentes pagos de Motion+.
+- K8 abre una consulta breve y centrada, conservando la sección actual. El chat responde con Groq desde `/api/k8/chat`, recuperando guías curadas de `docs/knowledge/`; los nombres de archivos no forman parte de las respuestas. La clave permanece en variables privadas del servidor, fuera de Git y del navegador. La validación limita tamaño, caracteres, origen y ritmo; redirige consultas ajenas, intentos de cambiar instrucciones y solicitudes para evadir vigilancia. Los intercambios rechazados se excluyen del historial enviado al proveedor. Son controles para esta demo, no garantía absoluta frente a ataques ni autorización operativa.
+- Las dos tarjetas de `/home` ejecutan una cortina `wipe` antes de abrir `/landing` o `/login`. Se preservan la composición V1 y los enlaces normales para abrir otra pestaña. La preferencia de movimiento reducido omite la cortina y mantiene acceso directo.
+- Accesibilidad: controles con texto y pictogramas, foco visible, diálogo nativo con Escape, ayudas de lectura, texto grande, alto contraste, paneles sólidos y movimiento apagado. Se corrigió y comprobó en producción el retorno de foco a «Conversar con K8» al cerrar con Escape. Video y carrusel se accionan manualmente. El contenido esencial se mantiene en HTML y no depende de WebGL.
+- Verificación: 24 pruebas del dominio y del chat, TypeScript, ESLint y compilación de producción aprobados. Se comprobó en navegador la reproducción, saltos de momentos, bloqueo de avance sin revisión, decisión, recepción de Supervisión y persistencia tras recargar. Groq respondió con una instrucción breve y el filtro redirigió una consulta de compras. Se revisaron carrusel, consulta rápida, ocultación de K8, ayuda lateral y las dos cortinas. A 320 × 568, 390 × 844 y 768 × 1024 no se observó desborde horizontal; `/home` ocupa una sola pantalla a 320 × 568. No se afirma certificación WCAG ni análisis visual por IA.
+- Documentación actualizada: README en español, flujo del operador, corpus del chat, guía de medios y ADR 0005. `docs/09_K8_CONOCIMIENTO_Y_ACCESIBILIDAD.md` conserva la implementación histórica e indica dónde consultar el estado actual.
+
 ## Presencia orgánica sin rostro — V2.0.2 · 1 de octubre de 2026
 
 - Se retiró la carita de `CojeevAgentState` del panel de consulta IA. La presencia visual pasa a ser una sola composición centrada, con tres membranas translúcidas, bordes nacarados y partículas suaves. El título y la explicación tienen su propio espacio debajo del organismo, tanto en la sección como en el diálogo.
@@ -85,11 +96,11 @@ Se construyó una nueva versión local de `/login` y `/demo`, preparada para rev
 
 La V1 pública está preparada para presentarse desde `/landing` y para que el equipo la despliegue manualmente en Vercel desde `main`. El proyecto usa Next.js 16 App Router, Tailwind, TypeScript estricto y componentes organizados por feature. No existe backend ni conexión a cámaras reales.
 
-| Ruta | Estado |
-| --- | --- |
-| `/` | Redirige a `/landing` para la presentación pública. |
-| `/landing` | Vitrina institucional V1. |
-| `/home` | Entrada audiovisual disponible; adaptada a móvil y horizontal sin desplazamiento. |
+| Ruta               | Estado                                                                                          |
+| ------------------ | ----------------------------------------------------------------------------------------------- |
+| `/`                | Redirige a `/landing` para la presentación pública.                                             |
+| `/landing`         | Vitrina institucional V1.                                                                       |
+| `/home`            | Entrada audiovisual disponible; adaptada a móvil y horizontal sin desplazamiento.               |
 | `/login` y `/demo` | Código de simulación existente; el recorrido público de esta entrega no depende de estas rutas. |
 
 ## Diseño y contenido entregados

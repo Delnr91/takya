@@ -10,6 +10,7 @@
 /coverage
 /.demo-tests/
 /.qa/
+/.media-source/
 
 # next.js
 /.next/

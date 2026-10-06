@@ -1,0 +1,53 @@
+{
+  "version": 1,
+  "clips": [
+    {
+      "id": "residuos-descarga",
+      "source": "basura.mp4",
+      "start": 0,
+      "duration": 6,
+      "crop": [1280, 584, 0, 64],
+      "width": 960
+    },
+    {
+      "id": "residuos-salida",
+      "source": "basura.mp4",
+      "start": 16,
+      "duration": 11,
+      "crop": [1280, 584, 0, 64],
+      "width": 960
+    },
+    {
+      "id": "fuego-foco",
+      "source": "sacarclips.mp4",
+      "start": 540,
+      "duration": 9,
+      "crop": [802, 476, 28, 120],
+      "width": 800
+    },
+    {
+      "id": "fuego-respuesta",
+      "source": "sacarclips.mp4",
+      "start": 590,
+      "duration": 18,
+      "crop": [802, 476, 28, 120],
+      "width": 800
+    },
+    {
+      "id": "fuego-humo",
+      "source": "sacarclips.mp4",
+      "start": 625,
+      "duration": 28,
+      "crop": [802, 476, 28, 120],
+      "width": 800
+    },
+    {
+      "id": "camino-camion",
+      "source": "videoplayback.mp4",
+      "start": 6,
+      "duration": 22,
+      "crop": [324, 550, 468, 0],
+      "width": 324
+    }
+  ]
+}

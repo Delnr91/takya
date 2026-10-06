@@ -4,11 +4,11 @@
 
 # TAKYA · Comprender antes de actuar
 
-**V2 estable de demostración · `v2.0.2`.** K8 es un perro robot 3D interactivo con ojos expresivos, parpadeo y respiración suave: haz clic para consultar, arrastra para girarlo o usa las flechas y Enter con teclado. El panel de consulta presenta un organismo luminoso sin rostro, centrado y formado por membranas fluidas que reaccionan al puntero. En Ajustes puedes activar texto grande, alto contraste, paneles sólidos y «Sin movimiento». La V2 se verificó en escritorio, móvil de 320 px y tablet de 768 px; la nueva presencia visual se revisó en escritorio y móvil.
+**Demo funcional con evidencia grabada · octubre de 2026.** Seis clips ligeros permiten observar incidentes, recorrer señales, comprender contexto y registrar una decisión. Casos ofrece Lista o Carrusel con Motion. K8, el perro robot 3D, abre un chat breve centrado sin cambiar de pantalla; puedes ocultarlo desde la cabecera. El chat responde mediante Groq y guías curadas, con validación de entradas y filtro de ámbito en servidor. Home incorpora una cortina al elegir proyecto o consola. Se conserva la identidad visual V1.
 
 Vitrina digital de TAKYA, una propuesta de apoyo a operadores de televigilancia mediante contexto y prioridades explicables. Proyecto desarrollado para el Programa Nómada UCN en Antofagasta.
 
-> **Versión de demostración:** la experiencia comienza en `/landing`; `/home` también conduce al acceso de práctica. `/login` permite elegir Operador o Supervisión y `/demo` muestra la consola. Todo funciona en el navegador; no hay backend ni conexión a cámaras reales.
+> **Versión de demostración:** `/landing` presenta el proyecto; `/home` ofrece acceso audiovisual y `/login` permite elegir Operador o Supervisión. `/demo` reproduce registros grabados con señales curadas. El ejercicio y su historial son locales; el chat usa una ruta de servidor hacia Groq. No hay cámaras conectadas, análisis automático del video ni despacho real.
 
 ## Navegación rápida
 
@@ -20,13 +20,13 @@ Vitrina digital de TAKYA, una propuesta de apoyo a operadores de televigilancia 
 - **Contenido:** problema de la fatiga cognitiva, propuesta de TAKYA y criterio humano en la decisión.
 - **Repositorio:** [Delnr91/takya](https://github.com/Delnr91/takya).
 
-| Ruta               | Estado en esta entrega | Para qué sirve                                                                |
-| ------------------ | ---------------------- | ----------------------------------------------------------------------------- |
-| `/`                | Pública                | Abre la landing.                                                              |
-| `/landing`         | Pública · V1           | Presentación institucional.                                                   |
-| `/home`            | Disponible             | Entrada audiovisual con enlace a `/login`.                                    |
-| `/login`           | Demo                    | Selección simulada de Operador o Supervisión.                                 |
-| `/demo`            | Demo                    | Consola interactiva de práctica.                                              |
+| Ruta       | Estado en esta entrega | Para qué sirve                                |
+| ---------- | ---------------------- | --------------------------------------------- |
+| `/`        | Pública                | Abre la landing.                              |
+| `/landing` | Pública · V1           | Presentación institucional.                   |
+| `/home`    | Disponible             | Entrada audiovisual con enlace a `/login`.    |
+| `/login`   | Demo                   | Selección simulada de Operador o Supervisión. |
+| `/demo`    | Demo                   | Consola interactiva de práctica.              |
 
 ## Qué muestra la landing
 
@@ -58,17 +58,26 @@ Desde `/landing`, pulsa **Ver demo** en móvil o **Explorar demo** en escritorio
 <summary><strong>Recorrido de cinco minutos</strong></summary>
 
 1. En **Inicio**, compara los avisos recibidos con los casos agrupados.
-2. Abre un caso, observa las **dos vistas disponibles** y marca cada una. La vista aérea se presenta sin conexión.
+2. En **Casos**, elige Lista o Carrusel. Abre un caso, reproduce cada **clip disponible**, usa sus momentos importantes y pulsa **Ya revisé este clip**. El número de clips varía por caso.
 3. En **Comprender**, distingue las señales visibles de lo que aún requiere confirmación.
 4. En **Decidir**, verifica, escala o descarta e indica el motivo. Si escalas, cambia a **Supervisión** y marca la derivación recibida.
-5. Pulsa **K8 IA**, o el perrito 3D de la esquina, y pregunta cómo funciona la práctica. K8 muestra respuestas y fuentes de documentos curados; no usa un modelo externo.
+5. Pulsa el perrito 3D para una consulta rápida en la pantalla actual, o abre **K8 IA**. K8 responde con Groq desde guías curadas y puede leer la respuesta en voz alta. Las fuentes quedan opcionales, sin entregar archivos técnicos como respuesta.
 6. En **Historial**, revisa la secuencia de acciones y descarga el registro si quieres conservarlo. En **Ajustes**, cambia lectura y ritmo, edita el nombre o cierra la práctica.
 
 La llegada automática comienza pausada. Puedes generar un caso manualmente, elegir el ritmo, cambiar el tamaño del texto o reiniciar la práctica. El progreso reconoce las tres revisiones iniciales sin puntuar rapidez ni favorecer una decisión.
 
 </details>
 
-Esta es una **simulación en el navegador**: escenas ilustradas, avisos, prioridades y explicaciones de ejemplo. La sesión se guarda en este navegador. Ninguna acción envía alertas ni recursos reales. K8 es un personaje 3D interactivo en WebGL; mueve una pata al acercar el cursor y periódicamente, con respaldo visual si WebGL no está disponible. Las opciones de accesibilidad permiten apagar movimiento y fondo, reforzar contraste, ampliar texto y usar paneles sólidos. Consulta el [recorrido funcional](docs/06_DEMO_OPERATOR_FLOW.md), la [base documental de K8](docs/09_K8_CONOCIMIENTO_Y_ACCESIBILIDAD.md) y la [decisión de arquitectura](docs/adr/0004-demo-guided-practice.md).
+Los nuevos ejercicios usan registros grabados de fuego, residuos y un camión sin descarga visible. La llegada de avisos y la recepción por Supervisión son simuladas; ninguna decisión despacha recursos. Las señales y sugerencias están curadas: K8 no recibe videos ni ve el caso abierto. Las sesiones ilustradas anteriores se conservan hasta reiniciar con confirmación. **Ocultar ayuda lateral** amplía el visor; **Ocultar K8** retira la mascota. Movimiento reducido, texto grande, alto contraste y paneles sólidos ayudan a adaptar la lectura. Consulta el [recorrido funcional](docs/06_DEMO_OPERATOR_FLOW.md), el [registro de edición de videos](docs/media/README.md) y la [decisión de arquitectura](docs/adr/0005-recorded-evidence-and-cognitive-motion.md).
+
+<details>
+<summary><strong>Configurar el chat sin exponer claves</strong></summary>
+
+Configura `GROQ_API_KEY` en `.env.local` y en las variables privadas del servidor de Vercel. Nunca uses el prefijo `NEXT_PUBLIC_` ni subas una clave a Git. `.env*` está excluido del repositorio. Sin la variable, el chat explica que no puede responder y conserva la pregunta.
+
+La ruta valida origen, formato, longitud y orden de mensajes, limita solicitudes y redirige temas ajenos antes del proveedor. Los intentos rechazados y patrones de claves no se reenvían en el historial. Estos filtros reducen abuso conocido; no sustituyen autenticación ni límites distribuidos para una plataforma operativa.
+
+</details>
 
 Para la siguiente etapa, consulta las [opciones de arquitectura IA-first](docs/07_ARQUITECTURA_IA_FIRST.md) y la [revisión de seguridad](docs/08_REVISION_SEGURIDAD.md). El camino recomendado es un sistema híbrido: detectar eventos cerca de la fuente, reunirlos en casos y producir explicaciones verificables desde un servicio protegido.
 
@@ -96,7 +105,7 @@ npm run build
 
 `npm run build` genera la misma compilación de producción que utiliza Vercel. Si alguna comprobación falla, revisa el resultado antes de publicar nuevos cambios.
 
-En esta entrega, TypeScript, lint y build pasan. `format:check` aún detecta formato heredado en archivos anteriores; el detalle está en [ENGRAM.md](ENGRAM.md).
+En esta entrega pasaron TypeScript, ESLint, 24 pruebas del dominio/chat y la compilación de producción. Se comprobó en navegador el recorrido desde los clips hasta la recepción de Supervisión, el chat con Groq, el carrusel, las cortinas y las vistas de 320, 390 y 768 px. La revisión completa y los límites están en [ENGRAM.md](ENGRAM.md). El comando global `format:check` conserva observaciones de formato heredado; los archivos de esta entrega se formatearon.
 
 </details>
 
@@ -131,7 +140,7 @@ Si conectas GitHub al proyecto de Vercel, los cambios posteriores en `main` podr
 
 ## Antes de compartir
 
-- Presenta la web como **prototipo de propuesta**, no como sistema conectado a CCTV.
+- Presenta la consola como **demostración funcional con evidencia grabada**. El flujo se puede completar; las llegadas y la coordinación son simuladas y no hay conexión a CCTV.
 - Las cifras de contexto provienen de documentos del proyecto; evita describirlas como resultados de TAKYA.
 - El botón de WhatsApp de la versión actual usa un **número de ejemplo**. El equipo debe reemplazarlo por un canal real antes de utilizarlo como contacto comercial.
 - La landing conserva la presentación V1. La consola es una práctica visual y sus roles no representan cuentas o permisos reales.

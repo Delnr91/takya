@@ -1,161 +1,96 @@
-import { useEffect, useState } from "react";
-import {
-  ArrowRight,
-  Camera,
-  CarFront,
-  Check,
-  Eye,
-  Pause,
-  Play,
-  VideoOff,
-} from "lucide-react";
-import { useReducedMotion } from "framer-motion";
+import { useState } from "react";
+import { ArrowRight, Check, Film, VideoOff } from "lucide-react";
 import type { Incident } from "../schemas/simulation";
 import { evidenceComplete } from "../model/simulation";
+import { clipForId } from "../data/media";
 import { scenarios } from "../data/scenarios";
-import { EvidenceScene } from "./EvidenceScene";
-import { Pictogram } from "./DemoPrimitives";
+import { IncidentVideoPlayer } from "./IncidentVideoPlayer";
+import { IllustratedEvidenceViewer } from "./IllustratedEvidenceViewer";
 
-export function EvidenceViewer({
+type ViewerProps = {
+  incident: Incident;
+  readOnly: boolean;
+  onViewed: (id: string) => void;
+  onNext: () => void;
+  motionOff?: boolean;
+};
+export function EvidenceViewer(props: ViewerProps) {
+  if (!props.incident.cameras.some((camera) => camera.clipId))
+    return <IllustratedEvidenceViewer {...props} />;
+  return <RecordedEvidenceViewer key={props.incident.id} {...props} />;
+}
+function RecordedEvidenceViewer({
   incident,
   readOnly,
   onViewed,
   onNext,
   motionOff = false,
-}: {
-  incident: Incident;
-  readOnly: boolean;
-  onViewed: (cameraId: string) => void;
-  onNext: () => void;
-  motionOff?: boolean;
-}) {
-  const [activeId, setActiveId] = useState(incident.cameras[0]?.id ?? "");
-  const [second, setSecond] = useState(0);
-  const [playing, setPlaying] = useState(false);
-  const systemReducedMotion = useReducedMotion();
-  const reducedMotion = motionOff || systemReducedMotion;
-  const camera =
-    incident.cameras.find((item) => item.id === activeId) ??
-    incident.cameras[0];
+}: ViewerProps) {
+  const available = incident.cameras.filter((camera) => camera.available);
+  const [activeId, setActiveId] = useState(available[0]?.id);
+  const [readyId, setReadyId] = useState<string | null>(null);
+  const active =
+    available.find((camera) => camera.id === activeId) ?? available[0];
+  const clip = clipForId(active?.clipId);
   const complete = evidenceComplete(incident);
+  const viewed = active ? incident.viewedCameraIds.includes(active.id) : false;
   const content = scenarios[incident.scenario];
-  useEffect(() => {
-    if (!playing || reducedMotion) return;
-    const timer = window.setInterval(
-      () => setSecond((value) => (value >= 30 ? 0 : value + 1)),
-      1000,
-    );
-    return () => window.clearInterval(timer);
-  }, [playing, reducedMotion]);
   return (
     <div className="demo-evidence">
-      <div className="demo-camera-tabs" aria-label="Vistas del caso">
-        {incident.cameras.map((item) => (
+      <div
+        className="incident-clip-tabs"
+        aria-label="Clips de evidencia del caso"
+      >
+        {available.map((camera, index) => (
           <button
-            key={item.id}
+            key={camera.id}
             type="button"
-            className={item.id === camera?.id ? "is-selected" : ""}
-            aria-pressed={item.id === camera?.id}
-            disabled={!item.available}
-            onClick={() => setActiveId(item.id)}
+            aria-pressed={camera.id === active?.id}
+            onClick={() => {
+              if (camera.id !== activeId) {
+                setActiveId(camera.id);
+                setReadyId(null);
+              }
+            }}
           >
-            {item.available ? (
-              item.kind === "vehicle" ? (
-                <CarFront aria-hidden="true" />
-              ) : (
-                <Camera aria-hidden="true" />
-              )
+            {incident.viewedCameraIds.includes(camera.id) ? (
+              <Check aria-hidden="true" />
             ) : (
-              <VideoOff aria-hidden="true" />
+              <Film aria-hidden="true" />
             )}
             <span>
-              {item.name}
-              <small>
-                {item.available
-                  ? incident.viewedCameraIds.includes(item.id)
-                    ? "Vista observada"
-                    : "Lista para observar"
-                  : "Sin conexión"}
-              </small>
+              <small>Clip {index + 1}</small>
+              <strong>{camera.name}</strong>
             </span>
-            {incident.viewedCameraIds.includes(item.id) ? (
-              <Check className="demo-camera-check" aria-hidden="true" />
-            ) : null}
           </button>
         ))}
       </div>
-      <div className="demo-viewer">
-        <div className="demo-viewer-label">
-          <Camera size={15} aria-hidden="true" /> Escena ilustrada ·{" "}
-          {camera?.name}
-        </div>
-        <EvidenceScene
-          scenario={incident.scenario}
-          alternate={camera?.kind === "vehicle"}
-          second={second}
+      {clip && active ? (
+        <IncidentVideoPlayer
+          key={clip.id}
+          clip={clip}
+          motionOff={motionOff}
+          onReady={(ready) => setReadyId(ready ? active.id : null)}
         />
-        <div className="demo-viewer-caption">
-          <span>{content.place}</span>
-          <span>{String(second).padStart(2, "0")} / 30 s · práctica</span>
-        </div>
-      </div>
-      <div className="demo-playback">
-        <button
-          type="button"
-          className="demo-icon-button"
-          disabled={Boolean(reducedMotion)}
-          aria-label={
-            playing ? "Pausar secuencia" : "Reproducir secuencia ilustrada"
-          }
-          onClick={() => setPlaying(!playing)}
-        >
-          {playing ? <Pause aria-hidden="true" /> : <Play aria-hidden="true" />}
-        </button>
-        <label className="demo-timeline">
-          {reducedMotion ? "Elige un momento" : "Recorre los 30 segundos"}
-          <input
-            type="range"
-            min="0"
-            max="30"
-            value={second}
-            aria-label="Momento de la secuencia"
-            onChange={(event) => setSecond(Number(event.target.value))}
-          />
-        </label>
-        <span className="demo-mono">00:{String(second).padStart(2, "0")}</span>
-      </div>
-      <div className="demo-alert-timeline" aria-label="Avisos agrupados">
-        {incident.alerts.map((alert) => (
-          <button
-            type="button"
-            key={alert.id}
-            onClick={() => setSecond(alert.second)}
-            aria-pressed={second === alert.second}
-          >
-            <span>{String(alert.second).padStart(2, "0")} s</span>
-            {alert.signal}
-          </button>
-        ))}
-      </div>
-      <div className="demo-observation">
-        <Pictogram icon={Eye} small />
-        <div>
-          <strong>Lo que puedes observar</strong>
-          <p>{content.visible}</p>
-        </div>
+      ) : null}
+      <div className="incident-quick-reading">
+        <span>
+          <Film aria-hidden="true" /> {available.length}{" "}
+          {available.length === 1 ? "clip disponible" : "clips disponibles"}
+        </span>
+        <strong>{content.verdict}</strong>
+        <p>{content.unknown}</p>
       </div>
       {!readOnly ? (
-        <div className="demo-action-row">
+        <div className="demo-action-row incident-review-actions">
           <button
             type="button"
             className="demo-button demo-button-secondary"
-            disabled={!camera || incident.viewedCameraIds.includes(camera.id)}
-            onClick={() => camera && onViewed(camera.id)}
+            disabled={!active || viewed || readyId !== active.id}
+            onClick={() => active && onViewed(active.id)}
           >
             <Check aria-hidden="true" />
-            {camera && incident.viewedCameraIds.includes(camera.id)
-              ? "Vista observada"
-              : "Ya observé esta vista"}
+            {viewed ? "Clip revisado" : "Ya revisé este clip"}
           </button>
           <button
             type="button"
@@ -163,16 +98,15 @@ export function EvidenceViewer({
             disabled={!complete}
             onClick={onNext}
           >
-            Comprender las señales <ArrowRight aria-hidden="true" />
+            Comprender el caso <ArrowRight aria-hidden="true" />
           </button>
         </div>
       ) : null}
-      {!complete && !readOnly ? (
-        <p className="demo-hint">
-          Observa y marca las dos vistas disponibles. La vista aérea no está
-          disponible en este ejercicio.
-        </p>
-      ) : null}
+      <p className="demo-hint">
+        <VideoOff size={15} aria-hidden="true" /> Solo contamos con los
+        registros disponibles. Los clips de una misma fuente no son
+        confirmaciones independientes.
+      </p>
     </div>
   );
 }

@@ -1,43 +1,39 @@
-# Recorrido de la consola de práctica
+# Recorrido de la demo funcional
 
-## Propósito
+La consola reproduce evidencia grabada, presenta señales sincronizadas, permite comprender contexto, registrar decisiones, recibir derivaciones como Supervisión y conservar/exportar historial local. K8 responde con Groq desde guías curadas. No hay detección automática de video, cámaras conectadas ni despacho real.
 
-`/demo` ilustra cómo TAKYA podría ayudar a revisar avisos simultáneos con contexto y una decisión humana registrada. No ejecuta acciones sobre cámaras o equipos reales.
+## Entrada y presentación
 
-## Entrada y roles
+1. Desde `/home`, las dos tarjetas usan una cortina de transición: proyecto hacia `/landing`, consola hacia `/login`. La landing conserva su identidad y acceso a la demo.
+2. Elige Operador en el login. Es acceso de práctica sin contraseña, no autenticación operativa.
+3. Inicio reúne 9 señales curadas en 3 casos. Son cifras de la sesión, no resultados medidos de eficacia.
+4. En Casos, filtra por prioridad/estado y elige Lista o Carrusel. El carrusel usa botones, flechas y arrastre opcional; no avanza solo ni reproduce varios videos.
+5. En Observar, pulsa Ver el clip, usa los botones de momentos importantes, pausa o retira los recuadros. Marca Ya revisé este clip y repite en cada clip disponible. Un error de carga bloquea la marca y ofrece reintento.
+6. En Comprender, distingue hechos visibles, incertidumbre y siguiente acción sugerida. La explicación cita señales del caso sin inventar porcentajes de certeza.
+7. En Decidir, verifica, escala o descarta, con motivo. No se puede saltar evidencia ni explicación.
+8. Cambia a Supervisión, abre una derivación y confirma recepción. El perfil no sustituye la decisión inicial del operador.
+9. Historial muestra cada acción y permite descargar el registro. Recargar conserva la práctica en este navegador.
+10. La mascota K8 abre una consulta breve centrada sin cambiar de pantalla. La cabecera permite ocultarla; la sección K8 IA permanece. El chat redirige temas ajenos a la plataforma.
+11. Ajustes ofrece lectura, contraste, paneles sólidos, movimiento, fondo, perfil y ritmo. Ocultar ayuda lateral amplía evidencia con Motion; pasos y decisiones siguen visibles.
 
-1. En `/login`, elegir **Operador** o **Supervisión**. El nombre es opcional y sirve solo para identificar el registro local.
-2. `/demo` requiere haber iniciado una práctica en la pestaña. Si no existe el marcador local de acceso, vuelve a `/login`. Este control es visual y no equivale a autenticación. El rol se puede cambiar desde la cabecera durante la práctica.
-3. El operador puede iniciar una revisión, marcar las dos vistas disponibles, comprender señales y decidir. Supervisión puede consultar los casos y confirmar la recepción de una derivación; no puede cambiar la decisión inicial.
+## Casos
 
-## Recorrido sugerido para presentar
+| Caso                         | Clips             | Lectura responsable                                                 | Sugerencia                                                 |
+| ---------------------------- | ----------------- | ------------------------------------------------------------------- | ---------------------------------------------------------- |
+| Posible descarga de residuos | 2 de una cámara   | Material/manipulación visibles; origen y autorización sin confirmar | Solicitar revisión en terreno                              |
+| Fuego y humo visibles        | 3 de un reportaje | Llamas, humo y respuesta; continuidad/estado actual sin comprobar   | Confirmar estado y coordinación antes de duplicar recursos |
+| Camión junto a material      | 1 móvil           | Descarga no visible                                                 | Buscar contexto antes de atribuir el hecho                 |
 
-1. **Inicio:** mostrar cómo 9 avisos de ejemplo se agrupan en 3 casos. Explicar que son cifras de esta sesión, no resultados medidos de TAKYA.
-2. **Casos:** filtrar por prioridad o estado, abrir «Posible humo» y observar los dos puntos de vista. La vista aérea está sin conexión.
-3. **Observar:** recorrer los 30 segundos ilustrados y marcar cada vista. Se puede volver atrás sin perder las marcas.
-4. **Comprender:** revisar los avisos que llevaron a agrupar el caso, la explicación, lo visible y lo que falta confirmar.
-5. **Decidir:** elegir Verificar, Escalar o Descartar, indicar un motivo y confirmar. La interfaz no permite saltar los pasos anteriores.
-6. **Supervisión:** cambiar de rol, abrir la derivación y marcarla recibida.
-7. **Historial:** consultar cada evento y descargar el registro JSON. Al recargar, la sesión continúa en el mismo navegador.
-8. **K8 IA:** abrir la sección o pulsar el perro robot 3D en la esquina. Hacer una pregunta sobre la práctica y comprobar la respuesta y su documento fuente. K8 se abstiene de responder temas fuera de la base curada.
-9. **Ajustes:** editar el nombre, cambiar tamaño de texto, transparencia, contraste, movimiento y fondo; configurar el ritmo, exportar, reiniciar o cerrar la práctica. Cerrar borra perfil, casos e historial locales y vuelve a `/login`.
+Los lugares proceden del material de origen; no son geolocalización calculada. Los tiempos de llegada son de la simulación, no de captura. Recortes de una fuente no son cámaras independientes ni una secuencia continua verificada.
 
-## Variantes y límites
+## Material y compatibilidad
 
-- Los otros casos ilustran material junto a un acceso y movimiento por ramas/sombras. Ambos admiten cualquiera de las tres decisiones si se justifican.
-- La llegada automática comienza pausada y tiene ritmos de 15, 30 o 60 segundos. También existe «Nuevo caso». Se detiene al llegar a 30 casos.
-- «Reiniciar» pide confirmación y reemplaza la sesión local. Conviene descargar el historial antes si se desea conservarlo.
-- El progreso «3 de 3» reconoce terminar las revisiones iniciales. No puntúa rapidez ni favorece escalar.
-- Todo el material visual es ilustrado. Las cámaras, prioridades, explicación y confianza son datos de ejemplo. Una solicitud de apoyo no despacha recursos.
+El [registro de edición](media/README.md) describe cortes, procedencia y límites. Los originales se conservan en `.media-source/`, excluidos de Git y de la web pública. Los derivados están en `public/videos/incidents/`. El plan/manifiesto permiten reproducir los cortes con FFmpeg. No se presenta este material como capturado por TAKYA.
 
-## Mapa técnico
+Las sesiones ilustradas se conservan. Un aviso ofrece cargar casos en video mediante el reinicio con confirmación. No se borran decisiones al migrar. Al recuperar una sesión se validan catálogo, fuentes y momentos, además de Zod y reglas de decisión.
 
-| Carpeta | Responsabilidad |
-| --- | --- |
-| `src/features/demo/schemas/` | Contratos Zod para perfil, caso, decisión, auditoría y sesión. |
-| `src/features/demo/model/` | Máquina de estados pura, filtros, métricas y recuperación. |
-| `src/features/demo/hooks/` | Integración React con almacenamiento, temporizador y URL. |
-| `src/features/demo/components/` | Entrada, consola, pasos, escenas ilustradas, decisiones e historial. |
-| `src/features/demo/data/` | Textos y escenarios deterministas de la práctica. |
+Llegadas pausadas inicialmente, ritmos de 15/30/60 segundos, máximo 30 casos. Nuevo caso reutiliza catálogo; no detecta nuevos hechos. El progreso reconoce completar revisiones, sin puntuar rapidez ni premiar escalar.
 
-La cobertura del motor está en `src/features/demo/model/simulation.test.ts` y se ejecuta con `npm run test:demo`.
+## Arquitectura
+
+`schemas/media.ts` valida el catálogo; `data/media.ts` relaciona clips/momentos; `model/simulation.ts` gobierna estados/persistencia; `IncidentVideoPlayer` reproduce; `ExplanationPanel` explica; `DecisionDialog` registra criterio. El chat generativo es independiente y no recibe videos. Ver [ADR 0005](adr/0005-recorded-evidence-and-cognitive-motion.md).

@@ -1,7 +1,7 @@
 import { ArrowRight, Camera, CarFront, VideoOff } from "lucide-react";
 import type { Incident } from "../schemas/simulation";
 import { scenarios } from "../data/scenarios";
-import { EvidenceScene } from "./EvidenceScene";
+import { IncidentPoster } from "./IncidentPoster";
 import { Pictogram } from "./DemoPrimitives";
 
 export function CameraGallery({
@@ -16,7 +16,7 @@ export function CameraGallery({
       <div className="demo-section-heading">
         <div>
           <p className="demo-eyebrow">Fuentes de evidencia</p>
-          <h1>Distintas vistas. Un contexto.</h1>
+          <h1>Evidencia para comprender.</h1>
           <p>
             {incident.id} · {scenarios[incident.scenario].title}
           </p>
@@ -47,9 +47,9 @@ export function CameraGallery({
               </div>
             </div>
             {camera.available ? (
-              <EvidenceScene
+              <IncidentPoster
                 scenario={incident.scenario}
-                alternate={camera.kind === "vehicle"}
+                clipId={camera.clipId}
               />
             ) : (
               <div className="demo-camera-offline">
@@ -65,11 +65,11 @@ export function CameraGallery({
                   className="demo-button demo-button-secondary"
                   onClick={() => onOpen(incident.id)}
                 >
-                  Revisar estas vistas <ArrowRight aria-hidden="true" />
+                  Revisar evidencia <ArrowRight aria-hidden="true" />
                 </button>
               ) : (
                 <p>
-                  La revisión continúa con las otras dos fuentes. No hay
+                  La revisión continúa con los clips disponibles. No hay
                   conexión a dispositivos reales.
                 </p>
               )}
@@ -79,8 +79,8 @@ export function CameraGallery({
       </div>
       <div className="demo-notice">
         <Camera aria-hidden="true" />
-        Estas escenas son ilustraciones del ejercicio. Cambia de caso en la
-        bandeja para consultar sus fuentes.
+        Los extractos del mismo registro aportan contexto; no son cámaras
+        independientes. Cambia de caso para consultar otra evidencia.
       </div>
     </>
   );

@@ -10,6 +10,8 @@ import {
   House,
   History,
   Bot,
+  Eye,
+  EyeOff,
   LogOut,
   Pause,
   Play,
@@ -40,6 +42,7 @@ import { K8Mascot } from "./K8Mascot";
 import { CognitiveGuide } from "./CognitiveGuide";
 import { CojeevDepthBackground } from "@/components/ui/CojeevDepthBackground";
 import "./demo.css";
+import "./incident-media.css";
 
 const navigation = [
   { id: "turn", label: "Inicio", icon: House },
@@ -154,6 +157,26 @@ export function DemoShell() {
             Modo práctica
           </span>
           <div className="demo-header-tools">
+            <button
+              type="button"
+              className="demo-tool demo-mascot-toggle"
+              aria-label={
+                state.preferences.mascotHidden ? "Mostrar K8" : "Ocultar K8"
+              }
+              aria-pressed={!state.preferences.mascotHidden}
+              onClick={() =>
+                send({ type: "PREFERENCE", preference: "mascotHidden" })
+              }
+            >
+              {state.preferences.mascotHidden ? (
+                <Eye aria-hidden="true" />
+              ) : (
+                <EyeOff aria-hidden="true" />
+              )}
+              <span>
+                {state.preferences.mascotHidden ? "Mostrar K8" : "Ocultar K8"}
+              </span>
+            </button>
             <button
               type="button"
               className="demo-tool"
@@ -314,6 +337,23 @@ export function DemoShell() {
                 terminar las revisiones o reiniciar.
               </div>
             ) : null}
+            {!state.incidents.some((incident) =>
+              incident.cameras.some((camera) => camera.clipId),
+            ) ? (
+              <div className="demo-notice incident-upgrade-notice">
+                <span>
+                  Hay nuevos casos con video. Puedes conservar este historial o
+                  comenzar una nueva práctica.
+                </span>
+                <button
+                  type="button"
+                  className="demo-button demo-button-secondary"
+                  onClick={() => setResetOpen(true)}
+                >
+                  Cargar casos en video
+                </button>
+              </div>
+            ) : null}
             {nav.view === "turn" || (nav.view === "review" && !selected) ? (
               <TurnOverview
                 state={state}
@@ -323,6 +363,7 @@ export function DemoShell() {
             ) : null}
             {nav.view === "cases" ? (
               <CaseList
+                motionOff={state.preferences.motionOff}
                 incidents={state.incidents}
                 severity={nav.severity}
                 status={nav.status}
@@ -388,8 +429,8 @@ export function DemoShell() {
         <footer className="demo-footer">
           <span>
             <ShieldCheck size={15} aria-hidden="true" />
-            Simulación interactiva para validación conceptual · sin conexiones
-            ni acciones reales.
+            Demo con evidencia grabada · las decisiones se registran aquí; no se
+            despachan recursos.
           </span>
           <span>
             {state.profile.name} ·{" "}
@@ -397,10 +438,14 @@ export function DemoShell() {
           </span>
         </footer>
       </div>
-      <K8Mascot
-        onOpen={() => setAiOpen(true)}
-        motionOff={state.preferences.motionOff}
-      />
+      {!state.preferences.mascotHidden ? (
+        <K8Mascot
+          onOpen={() => setAiOpen(true)}
+          motionOff={
+            state.preferences.motionOff || aiOpen || resetOpen || logoutOpen
+          }
+        />
+      ) : null}
       {aiOpen ? (
         <Dialog
           title="K8 · Acompañante cognitivo"
@@ -409,6 +454,12 @@ export function DemoShell() {
         >
           <CognitiveGuide
             compact
+            contextLabel={
+              nav.view === "review"
+                ? "Revisión de un caso"
+                : (navigation.find((item) => item.id === nav.view)?.label ??
+                  "Inicio")
+            }
             motionOff={state.preferences.motionOff}
             onGuide={() => {
               setAiOpen(false);

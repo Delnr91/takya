@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { clipIdSchema } from "./media";
 
 export const roleSchema = z.enum(["OPERATOR", "SUPERVISOR"]);
 export const profileSchema = z.object({
@@ -6,7 +7,14 @@ export const profileSchema = z.object({
   role: roleSchema,
 });
 export const severitySchema = z.enum(["HIGH", "MEDIUM", "INFO"]);
-export const scenarioSchema = z.enum(["smoke", "rubble", "movement"]);
+export const scenarioSchema = z.enum([
+  "smoke",
+  "rubble",
+  "movement",
+  "dumping",
+  "fire",
+  "uncertain",
+]);
 export const outcomeSchema = z.enum(["VERIFIED", "ESCALATED", "DISMISSED"]);
 export const statusSchema = z.enum([
   "PENDING",
@@ -50,6 +58,7 @@ export const cameraSchema = z.object({
   name: z.string(),
   kind: z.enum(["fixed", "vehicle", "drone"]),
   available: z.boolean(),
+  clipId: clipIdSchema.nullable().default(null),
 });
 export const incidentSchema = z
   .object({
@@ -73,7 +82,7 @@ export const incidentSchema = z
       .map((camera) => camera.id);
     const cameraIds = value.cameras.map((camera) => camera.id);
     if (
-      available.length < 2 ||
+      available.length < 1 ||
       new Set(cameraIds).size !== cameraIds.length ||
       value.alerts.some((alert) => !available.includes(alert.cameraId))
     ) {
@@ -116,7 +125,10 @@ export const incidentSchema = z
         message: "Un caso en revisión no puede tener una decisión.",
       });
     }
-    if (value.explanationRead && value.viewedCameraIds.length < 2) {
+    const evidenceComplete = available.every((id) =>
+      value.viewedCameraIds.includes(id),
+    );
+    if (value.explanationRead && !evidenceComplete) {
       ctx.addIssue({
         code: "custom",
         message: "Falta evidencia para la explicación.",
@@ -128,7 +140,7 @@ export const incidentSchema = z
         value.decision.outcome !== value.status ||
         value.decidedAt === null ||
         !value.explanationRead ||
-        value.viewedCameraIds.length < 2)
+        !evidenceComplete)
     ) {
       ctx.addIssue({
         code: "custom",
@@ -191,6 +203,7 @@ export const simulationSchema = z
       highContrast: z.boolean().default(false),
       motionOff: z.boolean().default(false),
       backgroundOff: z.boolean().default(false),
+      mascotHidden: z.boolean().default(false),
     }),
   })
   .superRefine((value, ctx) => {
