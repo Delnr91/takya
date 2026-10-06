@@ -26,6 +26,13 @@ export function useDemoNavigation() {
   const status: "resolved" | "all" | "active" =
     rawStatus === "resolved" || rawStatus === "all" ? rawStatus : "active";
   const query = params.get("q")?.slice(0, 80) ?? "";
+  const caseId = /^DEMO-\d{3,6}$/.test(params.get("case") ?? "")
+    ? params.get("case")
+    : null;
+  const cameraId = /^DEMO-\d{3,6}-C\d{1,2}$/.test(params.get("camera") ?? "")
+    ? params.get("camera")
+    : null;
+  const inspect = params.get("inspect") === "1";
   const update = (values: Record<string, string>, push = false) => {
     const next = new URLSearchParams(window.location.search);
     Object.entries(values).forEach(([key, value]) =>
@@ -43,7 +50,11 @@ export function useDemoNavigation() {
     severity,
     status,
     query,
+    caseId,
+    cameraId,
+    inspect,
     update,
-    navigate: (next: DemoView) => update({ view: next }, true),
+    navigate: (next: DemoView) =>
+      update({ view: next, camera: "", inspect: "" }, true),
   };
 }

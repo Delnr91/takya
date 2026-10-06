@@ -10,7 +10,7 @@
   color: var(--demo-ink);
   color-scheme: light;
   font:
-    calc(16px * var(--demo-scale))/1.55 var(--font-jakarta),
+    calc(18px * var(--demo-scale))/1.55 var(--font-jakarta),
     sans-serif;
   background: #f4f1ea;
   overflow-x: clip;
@@ -229,7 +229,7 @@
   border-radius: 16px;
   padding: 18px 4px;
   color: var(--demo-muted);
-  font-size: 0.7em;
+  font-size: 0.89em;
   font-weight: 650;
   position: relative;
 }
@@ -1879,7 +1879,7 @@
     flex: 1;
     padding: 10px 2px;
     gap: 4px;
-    font-size: 0.62em;
+    font-size: 0.89em;
   }
   .demo-nav button > svg {
     width: 22px;
@@ -2085,7 +2085,7 @@
     margin-left: 0;
   }
   .demo-shell {
-    font-size: calc(15px * var(--demo-scale));
+    font-size: calc(18px * var(--demo-scale));
   }
   .demo-header {
     gap: 10px;
@@ -3030,5 +3030,53 @@
   }
   .demo-ai-intro {
     flex-wrap: wrap;
+  }
+}
+
+/* Clear pictograms and readable labels on narrow operator screens. */
+@media (max-width: 520px) {
+  .demo-nav {
+    position: relative;
+    top: auto;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 6px;
+  }
+  .demo-nav button,
+  .demo-nav button[data-view="guide"] {
+    display: flex;
+    min-height: 68px;
+    padding: 8px 2px;
+    font-size: 0.89em;
+  }
+  .demo-nav button > svg {
+    width: 26px;
+    height: 26px;
+  }
+  .demo-stepper {
+    grid-template-columns: 1fr;
+  }
+  .demo-stepper button {
+    justify-content: flex-start;
+    min-height: 64px;
+    gap: 14px;
+    padding: 10px 14px;
+  }
+  .demo-stepper button > span:first-child {
+    display: grid;
+    width: 38px;
+    height: 38px;
+  }
+  .demo-stepper small {
+    display: block;
+    font-size: 0.75em;
+  }
+  .demo-stepper strong {
+    font-size: 1em;
+  }
+}
+@media (min-width: 941px) {
+  .demo-body {
+    grid-template-columns: 110px minmax(0, 1fr);
   }
 }

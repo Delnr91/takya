@@ -22,14 +22,22 @@ export function IllustratedEvidenceViewer({
   onViewed,
   onNext,
   motionOff = false,
+  initialCameraId,
 }: {
   incident: Incident;
   readOnly: boolean;
   onViewed: (cameraId: string) => void;
   onNext: () => void;
   motionOff?: boolean;
+  initialCameraId?: string;
 }) {
-  const [activeId, setActiveId] = useState(incident.cameras[0]?.id ?? "");
+  const [activeId, setActiveId] = useState(
+    incident.cameras.find(
+      (camera) => camera.available && camera.id === initialCameraId,
+    )?.id ??
+      incident.cameras[0]?.id ??
+      "",
+  );
   const [second, setSecond] = useState(0);
   const [playing, setPlaying] = useState(false);
   const systemReducedMotion = useReducedMotion();

@@ -32,3 +32,17 @@ export function nextIncident(incidents: Incident[]) {
     filterIncidents(incidents, "ALL", "active", "")[0]
   );
 }
+
+/** URL selection takes priority so Back/Forward restores the same case across views. */
+export function selectedIncident(
+  incidents: Incident[],
+  routeId: string | null,
+  savedId: string | null,
+) {
+  return (
+    incidents.find((item) => item.id === routeId) ??
+    incidents.find((item) => item.id === savedId) ??
+    nextIncident(incidents) ??
+    incidents[0]
+  );
+}

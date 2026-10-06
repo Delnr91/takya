@@ -13,6 +13,7 @@ type ViewerProps = {
   onViewed: (id: string) => void;
   onNext: () => void;
   motionOff?: boolean;
+  initialCameraId?: string;
 };
 export function EvidenceViewer(props: ViewerProps) {
   if (!props.incident.cameras.some((camera) => camera.clipId))
@@ -25,9 +26,13 @@ function RecordedEvidenceViewer({
   onViewed,
   onNext,
   motionOff = false,
+  initialCameraId,
 }: ViewerProps) {
   const available = incident.cameras.filter((camera) => camera.available);
-  const [activeId, setActiveId] = useState(available[0]?.id);
+  const [activeId, setActiveId] = useState(
+    available.find((camera) => camera.id === initialCameraId)?.id ??
+      available[0]?.id,
+  );
   const [readyId, setReadyId] = useState<string | null>(null);
   const active =
     available.find((camera) => camera.id === activeId) ?? available[0];

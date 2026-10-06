@@ -13,8 +13,10 @@ La consola reproduce evidencia grabada, presenta señales sincronizadas, permite
 7. En Decidir, verifica, escala o descarta, con motivo. No se puede saltar evidencia ni explicación.
 8. Cambia a Supervisión, abre una derivación y confirma recepción. El perfil no sustituye la decisión inicial del operador.
 9. Historial muestra cada acción y permite descargar el registro. Recargar conserva la práctica en este navegador.
-10. La mascota K8 abre una consulta breve centrada sin cambiar de pantalla. La cabecera permite ocultarla; la sección K8 IA permanece. El chat redirige temas ajenos a la plataforma.
+10. La mascota K8 abre una consulta rápida centrada: organismo fluido vivo, una línea para escribir, Hablar para dictar con permiso y Escuchar para leer respuestas. Guíame aquí ofrece el primer paso según la sección; no toma decisiones. El dictado depende del navegador, puede utilizar su servicio externo y siempre se revisa antes de Enviar. Cerrar la ventana cancela la escucha, lectura y consulta pendientes. La cabecera permite ocultar K8; la sección K8 IA mantiene el chat amplio. El servidor redirige temas ajenos a la plataforma.
 11. Ajustes ofrece lectura, contraste, paneles sólidos, movimiento, fondo, perfil y ritmo. Ocultar ayuda lateral amplía evidencia con Motion; pasos y decisiones siguen visibles.
+
+Cámaras permite elegir caso y abrir el clip seleccionado. Historial conserva ese mismo caso; Volver a la evidencia abre Observar, incluso después de una decisión, sin reescribirla. La URL conserva el identificador del caso para que Atrás y Adelante restauren el contexto. Inicio ofrece el siguiente caso activo por prioridad. Letras principales de 18 px, pictogramas etiquetados, controles amplios y pasos apilados en móvil facilitan el recorrido; Texto grande permite ampliar más.
 
 ## Casos
 

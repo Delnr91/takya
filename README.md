@@ -61,10 +61,12 @@ Desde `/landing`, pulsa **Ver demo** en móvil o **Explorar demo** en escritorio
 2. En **Casos**, elige Lista o Carrusel. Abre un caso, reproduce cada **clip disponible**, usa sus momentos importantes y pulsa **Ya revisé este clip**. El número de clips varía por caso.
 3. En **Comprender**, distingue las señales visibles de lo que aún requiere confirmación.
 4. En **Decidir**, verifica, escala o descarta e indica el motivo. Si escalas, cambia a **Supervisión** y marca la derivación recibida.
-5. Pulsa el perrito 3D para una consulta rápida en la pantalla actual, o abre **K8 IA**. K8 responde con Groq desde guías curadas y puede leer la respuesta en voz alta. Las fuentes quedan opcionales, sin entregar archivos técnicos como respuesta.
-6. En **Historial**, revisa la secuencia de acciones y descarga el registro si quieres conservarlo. En **Ajustes**, cambia lectura y ritmo, edita el nombre o cierra la práctica.
+5. Pulsa el perrito 3D: K8 aparece como un organismo vivo, con una sola línea de consulta y letras grandes. **Guíame aquí** orienta según la sección. **Hablar** permite dictar si el navegador lo admite; revisa el texto y pulsa **Enviar**. **Escuchar** lee la respuesta. También puedes abrir **K8 IA** para una conversación extensa. Las fuentes quedan opcionales, sin entregar archivos técnicos como respuesta.
+6. En **Cámaras**, selecciona un caso y pulsa **Abrir este registro**: abre ese clip concreto. **Historial** conserva el mismo caso; **Volver a la evidencia** permite observarlo de nuevo sin cambiar la decisión. En **Ajustes**, cambia lectura y ritmo, edita el nombre o cierra la práctica.
 
-La llegada automática comienza pausada. Puedes generar un caso manualmente, elegir el ritmo, cambiar el tamaño del texto o reiniciar la práctica. El progreso reconoce las tres revisiones iniciales sin puntuar rapidez ni favorecer una decisión.
+La llegada automática comienza pausada. Puedes generar un caso manualmente, elegir el ritmo, cambiar el tamaño del texto o reiniciar la práctica. El texto principal parte de 18 px; en móvil, la navegación combina pictogramas y etiquetas, y los pasos se apilan para leerlos con comodidad. El progreso reconoce las tres revisiones iniciales sin puntuar rapidez ni favorecer una decisión.
+
+Guíame ofrece un primer paso curado según la pantalla y el rol; las consultas escritas o dictadas se responden con Groq desde las guías del proyecto. El dictado y la lectura usan las funciones de voz del navegador, no una llamada de audio con Groq. El micrófono solo se solicita al pulsar **Hablar**; algunos navegadores usan un servicio externo para transcribir. TAKYA no guarda audio ni envía videos al chat. Si el dictado falla o no está disponible, puedes escribir. Cerrar K8 detiene voz y consulta pendientes.
 
 </details>
 
@@ -105,7 +107,7 @@ npm run build
 
 `npm run build` genera la misma compilación de producción que utiliza Vercel. Si alguna comprobación falla, revisa el resultado antes de publicar nuevos cambios.
 
-En esta entrega pasaron TypeScript, ESLint, 24 pruebas del dominio/chat y la compilación de producción. Se comprobó en navegador el recorrido desde los clips hasta la recepción de Supervisión, el chat con Groq, el carrusel, las cortinas y las vistas de 320, 390 y 768 px. La revisión completa y los límites están en [ENGRAM.md](ENGRAM.md). El comando global `format:check` conserva observaciones de formato heredado; los archivos de esta entrega se formatearon.
+En esta entrega pasaron TypeScript, ESLint, 28 pruebas del dominio/chat y la compilación de producción. Se comprobó en navegador el recorrido desde los clips hasta la recepción de Supervisión, el chat con Groq, el carrusel, las cortinas y las vistas de 320, 390 y 768 px. La revisión completa y los límites están en [ENGRAM.md](ENGRAM.md). El comando global `format:check` conserva observaciones de formato heredado; los archivos de esta entrega se formatearon.
 
 </details>
 

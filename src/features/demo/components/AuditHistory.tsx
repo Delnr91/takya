@@ -27,15 +27,18 @@ export function AuditHistory({
   state,
   onSelect,
   onOpen,
+  incidentId,
 }: {
   state: Simulation;
   onSelect: (id: string) => void;
   onOpen: (id: string) => void;
+  incidentId?: string;
 }) {
   const [query, setQuery] = useState("");
   const incident =
-    state.incidents.find((item) => item.id === state.selectedId) ??
-    state.incidents[0];
+    state.incidents.find(
+      (item) => item.id === (incidentId ?? state.selectedId),
+    ) ?? state.incidents[0];
   const items = state.incidents.filter((item) =>
     `${item.id} ${scenarios[item.scenario].title} ${scenarios[item.scenario].place}`
       .toLowerCase()

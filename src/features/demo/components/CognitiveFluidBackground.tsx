@@ -6,14 +6,20 @@ import { fluidFragmentShader, fluidVertexShader } from "../model/fluidShaders";
 /** Procedural liquid geometry; all interaction stays in the browser. */
 export function CognitiveFluidBackground({
   motionOff,
+  activity = "idle",
 }: {
   motionOff: boolean;
+  activity?: "idle" | "listening" | "thinking" | "speaking";
 }) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const motionRef = useRef(motionOff);
+  const activityRef = useRef(activity);
   useEffect(() => {
     motionRef.current = motionOff;
   }, [motionOff]);
+  useEffect(() => {
+    activityRef.current = activity;
+  }, [activity]);
   useEffect(() => {
     const canvas = canvasRef.current;
     const host = canvas?.parentElement;
@@ -123,12 +129,15 @@ export function CognitiveFluidBackground({
           if (still && staticRendered) return;
           const elapsed = Math.min((now - last) / 1000, 0.05);
           last = now;
-          if (!still) phase += elapsed;
+          const active = activityRef.current !== "idle";
+          if (!still) phase += elapsed * (active ? 1.5 : 1);
           x += ((still ? 0 : targetX) - x) * 0.08;
           y += ((still ? 0 : targetY) - y) * 0.08;
           for (const membrane of membranes)
             membrane.uniforms.uTime.value = phase;
-          liquid.scale.setScalar(1 + Math.sin(phase * 1.1) * 0.045);
+          liquid.scale.setScalar(
+            1 + Math.sin(phase * 1.1) * (active ? 0.07 : 0.045),
+          );
           liquid.rotation.set(
             y * 0.5,
             phase * 0.09 + x * 0.7,

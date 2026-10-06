@@ -11,3 +11,5 @@ En Comprender, lee lo visible, lo que falta confirmar y la siguiente acción sug
 En Decidir, elige Verificar, Escalar o Descartar. Elige un motivo y confirma. La interfaz requiere completar todos los clips disponibles y la explicación antes de decidir. Si no puedes avanzar, comprueba las marcas de los clips y el motivo. La derivación queda pendiente hasta que el perfil Supervisión la recibe; no se despachan recursos reales. En Historial puedes ver y descargar el registro. «Ocultar ayuda lateral» amplía el espacio de evidencia; los pasos y decisiones siguen visibles.
 
 Fuente editorial: recorrido de la consola, pasos Observar → Comprender → Decidir.
+
+En Cámaras, «Elige el caso» permite cambiar el conjunto de registros. «Abrir este registro» abre exactamente ese clip en Observar, incluso si el caso ya tiene una decisión. Historial conserva el caso elegido y «Volver a la evidencia» permite consultar de nuevo sus registros. Inicio propone continuar una revisión pendiente o comenzar el siguiente caso por prioridad. Cambiar entre secciones no borra las marcas de revisión ni decisiones.

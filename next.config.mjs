@@ -22,6 +22,15 @@ const nextConfig = {
           },
         ],
       },
+      {
+        source: "/demo",
+        headers: [
+          {
+            key: "Permissions-Policy",
+            value: "camera=(), microphone=(self), geolocation=()",
+          },
+        ],
+      },
     ];
   },
 };

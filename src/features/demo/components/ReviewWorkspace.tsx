@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import {
   ArrowLeft,
@@ -39,6 +39,8 @@ export function ReviewWorkspace({
   onHistory,
   onNext,
   motionOff = false,
+  initialCameraId,
+  inspect = false,
 }: {
   incident: Incident;
   profile: Profile;
@@ -47,16 +49,33 @@ export function ReviewWorkspace({
   onHistory: () => void;
   onNext: () => void;
   motionOff?: boolean;
+  initialCameraId?: string;
+  inspect?: boolean;
 }) {
   const [step, setStep] = useState(
-    isResolved(incident) || incident.explanationRead
-      ? 2
-      : evidenceComplete(incident)
-        ? 1
-        : 0,
+    inspect
+      ? 0
+      : isResolved(incident) || incident.explanationRead
+        ? 2
+        : evidenceComplete(incident)
+          ? 1
+          : 0,
   );
   const [outcome, setOutcome] = useState<Outcome | null>(null);
   const [showHelp, setShowHelp] = useState(true);
+  const stepContent = useRef<HTMLElement>(null);
+  const previousStep = useRef(step);
+  const previousStatus = useRef(incident.status);
+  useEffect(() => {
+    if (
+      previousStep.current !== step ||
+      previousStatus.current !== incident.status
+    ) {
+      stepContent.current?.focus({ preventScroll: true });
+      previousStep.current = step;
+      previousStatus.current = incident.status;
+    }
+  }, [step, incident.status]);
   const reduce = useReducedMotion() || motionOff;
   const resolved = isResolved(incident);
   const readOnly = profile.role === "SUPERVISOR" || resolved;
@@ -151,6 +170,8 @@ export function ReviewWorkspace({
         className={`demo-review-grid ${showHelp ? "" : "incident-focus-mode"}`}
       >
         <motion.section
+          ref={stepContent}
+          tabIndex={-1}
           layout={!reduce}
           transition={{ duration: reduce ? 0 : 0.25 }}
           className="demo-panel demo-review-content"
@@ -159,6 +180,7 @@ export function ReviewWorkspace({
           {step === 0 ? (
             <EvidenceViewer
               incident={incident}
+              initialCameraId={initialCameraId}
               motionOff={motionOff}
               readOnly={readOnly}
               onViewed={(cameraId) =>

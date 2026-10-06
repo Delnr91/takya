@@ -28,7 +28,7 @@ import { useSimulationTicker } from "../hooks/useSimulationTicker";
 import { scenarioOrder } from "../data/scenarios";
 import { getMetrics, MAX_INCIDENTS } from "../model/simulation";
 import type { Profile, Role } from "../schemas/simulation";
-import { nextIncident } from "../model/selectors";
+import { nextIncident, selectedIncident } from "../model/selectors";
 import { endPractice } from "../model/profile";
 import { downloadPracticeHistory } from "../model/exportPractice";
 import { TurnOverview, PracticeGuide } from "./TurnOverview";
@@ -40,6 +40,7 @@ import { SettingsPanel } from "./SettingsPanel";
 import { Dialog } from "./DemoPrimitives";
 import { K8Mascot } from "./K8Mascot";
 import { CognitiveGuide } from "./CognitiveGuide";
+import { QuickCompanion } from "./QuickCompanion";
 import { CojeevDepthBackground } from "@/components/ui/CojeevDepthBackground";
 import "./demo.css";
 import "./incident-media.css";
@@ -104,12 +105,33 @@ export function DemoShell() {
   }, [nav.view]);
   if (!state) return <DemoLoading />;
   const metrics = getMetrics(state);
-  const selected =
-    state.incidents.find((incident) => incident.id === state.selectedId) ??
-    state.incidents[0];
-  const openCase = (id: string) => {
+  const selected = selectedIncident(
+    state.incidents,
+    nav.caseId,
+    state.selectedId,
+  );
+  const openCase = (id: string, cameraId?: string) => {
     send({ type: "OPEN", incidentId: id });
-    nav.navigate("review");
+    nav.update(
+      {
+        view: "review",
+        case: id,
+        camera: cameraId ?? "",
+        inspect: cameraId ? "1" : "",
+      },
+      true,
+    );
+  };
+  const openEvidence = (id: string, cameraId?: string) => {
+    send({ type: "OPEN", incidentId: id });
+    nav.update(
+      { view: "review", case: id, camera: cameraId ?? "", inspect: "1" },
+      true,
+    );
+  };
+  const selectCase = (id: string) => {
+    send({ type: "SELECT", incidentId: id });
+    nav.update({ case: id, camera: "", inspect: "" });
   };
   const continuePractice = () => {
     const next = nextIncident(state.incidents);
@@ -359,6 +381,18 @@ export function DemoShell() {
                 state={state}
                 onOpen={openCase}
                 navigate={nav.navigate}
+                onSources={(id) => {
+                  if (id) send({ type: "SELECT", incidentId: id });
+                  nav.update(
+                    {
+                      view: "cameras",
+                      case: id ?? selected?.id ?? "",
+                      camera: "",
+                      inspect: "",
+                    },
+                    true,
+                  );
+                }}
               />
             ) : null}
             {nav.view === "cases" ? (
@@ -374,8 +408,10 @@ export function DemoShell() {
             ) : null}
             {nav.view === "review" && selected ? (
               <ReviewWorkspace
-                key={`${selected.id}-${state.profile.role}`}
+                key={`${selected.id}-${state.profile.role}-${nav.cameraId ?? ""}-${nav.inspect}`}
                 incident={selected}
+                initialCameraId={nav.cameraId ?? undefined}
+                inspect={nav.inspect}
                 motionOff={state.preferences.motionOff}
                 profile={state.profile}
                 send={send}
@@ -385,13 +421,19 @@ export function DemoShell() {
               />
             ) : null}
             {nav.view === "cameras" && selected ? (
-              <CameraGallery incident={selected} onOpen={openCase} />
+              <CameraGallery
+                incident={selected}
+                incidents={state.incidents}
+                onSelect={selectCase}
+                onOpen={openEvidence}
+              />
             ) : null}
             {nav.view === "history" ? (
               <AuditHistory
                 state={state}
-                onSelect={(id) => send({ type: "SELECT", incidentId: id })}
-                onOpen={openCase}
+                incidentId={selected?.id}
+                onSelect={selectCase}
+                onOpen={openEvidence}
               />
             ) : null}
             {nav.view === "guide" ? (
@@ -448,12 +490,16 @@ export function DemoShell() {
       ) : null}
       {aiOpen ? (
         <Dialog
-          title="K8 · Acompañante cognitivo"
-          className="demo-ai-dialog"
+          title="K8 · Tu acompañante"
+          className="k8-quick-dialog"
           onClose={() => setAiOpen(false)}
         >
-          <CognitiveGuide
-            compact
+          <QuickCompanion
+            supervisor={state.profile.role === "SUPERVISOR"}
+            hasNextCase={Boolean(nextIncident(state.incidents))}
+            hasPendingReferral={state.incidents.some(
+              (item) => item.status === "ESCALATED" && item.receivedAt === null,
+            )}
             contextLabel={
               nav.view === "review"
                 ? "Revisión de un caso"
@@ -461,10 +507,6 @@ export function DemoShell() {
                   "Inicio")
             }
             motionOff={state.preferences.motionOff}
-            onGuide={() => {
-              setAiOpen(false);
-              nav.navigate("guide");
-            }}
           />
         </Dialog>
       ) : null}

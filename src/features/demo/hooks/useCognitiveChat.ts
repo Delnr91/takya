@@ -74,5 +74,18 @@ export function useCognitiveChat() {
     setError("");
     setPending(false);
   }
-  return { turns, question, setQuestion, pending, error, ask, reset };
+  function guide(prompt: string, answer: string) {
+    if (requestRef.current) return;
+    setError("");
+    setQuestion("");
+    setTurns((current) => [
+      ...current.slice(-19),
+      {
+        id: crypto.randomUUID(),
+        question: prompt,
+        response: { answer, sources: ["Recorrido guiado de la consola"] },
+      },
+    ]);
+  }
+  return { turns, question, setQuestion, pending, error, ask, reset, guide };
 }

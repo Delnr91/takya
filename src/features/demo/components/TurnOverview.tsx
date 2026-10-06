@@ -26,10 +26,12 @@ export function TurnOverview({
   state,
   onOpen,
   navigate,
+  onSources,
 }: {
   state: Simulation;
   onOpen: (id: string) => void;
   navigate: (view: DemoView) => void;
+  onSources: (id?: string) => void;
 }) {
   const metrics = getMetrics(state);
   const next = nextIncident(state.incidents);
@@ -237,7 +239,7 @@ export function TurnOverview({
         <button
           type="button"
           className="demo-panel"
-          onClick={() => navigate("cameras")}
+          onClick={() => onSources(supervisor ? undefined : next?.id)}
         >
           <Pictogram icon={Camera} small />
           <span>

@@ -13,8 +13,42 @@ import { reasons } from "../data/scenarios";
 import { clipsForScenario } from "../data/media";
 import { localAssessment, validateAssessment } from "./cognitive";
 import type { Decision, Simulation } from "../schemas/simulation";
+import { selectedIncident } from "./selectors";
+import { getQuickGuidance } from "../data/quickGuidance";
 
 const initial = () => createSimulation(100000, "test-session");
+test("quick guidance respects supervision and the end of the practice", () => {
+  for (const options of [{ supervisor: true }, { hasNextCase: false }]) {
+    const answer = getQuickGuidance("Inicio", options).answer;
+    assert.doesNotMatch(answer, /Comenzar revisión|Continuar revisión/);
+    assert.match(answer, /Historial/);
+  }
+  assert.match(
+    getQuickGuidance("Inicio", { supervisor: true, hasPendingReferral: true })
+      .answer,
+    /derivación pendiente/,
+  );
+});
+test("camera and history context defaults to the same priority case as Inicio", () => {
+  const state = initial();
+  assert.equal(selectedIncident(state.incidents, null, null)?.scenario, "fire");
+});
+test("navigation restores the URL case before the last saved selection and rejects missing cases", () => {
+  const state = initial();
+  assert.equal(
+    selectedIncident(state.incidents, "DEMO-003", "DEMO-001")?.id,
+    "DEMO-003",
+  );
+  assert.equal(
+    selectedIncident(state.incidents, "DEMO-999", "DEMO-001")?.id,
+    "DEMO-001",
+  );
+  assert.equal(
+    selectedIncident(state.incidents, "DEMO-999", "DEMO-999")?.scenario,
+    "fire",
+  );
+  assert.equal(selectedIncident([], "DEMO-001", null), undefined);
+});
 test("recorded cases point only to curated moments inside their own clips", () => {
   for (const incident of initial().incidents) {
     const clips = clipsForScenario(incident.scenario);

@@ -6,7 +6,9 @@ En Ajustes puedes activar Texto grande para aumentar la lectura, Paneles sólido
 
 Los pictogramas acompañan palabras para reconocer las acciones: Inicio, Casos, Cámaras, Historial, K8 IA y Ajustes. Nunca obligar a adivinar un icono sin nombre. Para explicar una acción, nombrar el botón y su finalidad en una frase. Si la persona pide ayuda sencilla, entregar uno o dos pasos y comprobar que los entiende, sin infantilizarla.
 
-En el chat puedes elegir una pregunta con un botón o escribirla. «Explícalo más fácil» pide una explicación con menos tecnicismos. «Paso a paso» pide instrucciones breves. «Escuchar» lee una respuesta si el navegador dispone de lectura en voz alta; «Detener lectura» la interrumpe. No hay entrada de micrófono. Los mensajes se pueden recorrer con teclado y las respuestas se anuncian a lectores de pantalla.
+En la sección K8 IA puedes elegir una pregunta con un botón o escribirla. «Explícalo más fácil» pide una explicación con menos tecnicismos. «Paso a paso» pide instrucciones breves. «Escuchar» lee una respuesta si el navegador dispone de lectura en voz alta; «Detener lectura» la interrumpe. Los mensajes se pueden recorrer con teclado y las respuestas se anuncian a lectores de pantalla.
+
+Al pulsar la mascota se abre una ventana rápida con el organismo de K8, su respuesta y una línea para escribir. «Guíame aquí» ofrece el primer paso de la sección actual. «Hablar» activa dictado solo cuando el navegador lo admite y la persona autoriza el micrófono. «Terminar» finaliza la escucha; revisa el texto y pulsa la flecha de envío o Enter. El navegador puede usar un servicio de voz externo para transcribir. No se graba audio en TAKYA. «Escuchar» lee la respuesta y «Detener» la interrumpe. Si el dictado no está disponible, escribir sigue funcionando. Cerrar la ventana detiene la voz.
 
 Fuente editorial: ajustes implementados y diseño inclusivo de K8.
 

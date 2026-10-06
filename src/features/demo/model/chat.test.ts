@@ -26,6 +26,31 @@ test("recupera la guía de revisión desde los MD curados", () => {
   assert.match(result[0]?.content ?? "", /clips/);
   assert.ok(result.length <= 3);
 });
+test("la ayuda contextual recupera controles de Historial y Cámaras sin volver al inicio", () => {
+  const history = selectDocuments(documents, [
+    {
+      role: "user",
+      content:
+        "¿Cómo consulto una decisión ya registrada en Historial? Dime solo el primer paso.",
+    },
+  ]);
+  assert.equal(history[0]?.id, "06-navegacion-de-la-consola.md");
+  assert.match(
+    history[0]?.content ?? "",
+    /En Historial, el primer paso es seleccionar el caso/,
+  );
+  const cameras = selectDocuments(documents, [
+    {
+      role: "user",
+      content:
+        "¿Cómo elijo un caso y abro un registro en Cámaras? Dime solo el primer paso.",
+    },
+  ]);
+  assert.ok(
+    cameras.some((item) => item.id === "06-navegacion-de-la-consola.md"),
+  );
+});
+
 test("recupera accesibilidad y mantiene tema en una pregunta de seguimiento", () => {
   const result = selectDocuments(documents, [
     {
