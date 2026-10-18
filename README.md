@@ -4,6 +4,8 @@
 
 # TAKYA · Comprender antes de actuar
 
+**Nuevo dossier de estrategia:** [documento maestro, backend sin BD, evidencia, K8, plan por roles y skills](docs/estrategia/00_INDICE_Y_ESTADO.md). Consolida el siguiente demo de carga/análisis de video y los requisitos para cerrar el pitch; sus capacidades nuevas siguen pendientes de implementación.
+
 **Demo funcional con evidencia grabada · octubre de 2026.** Seis clips ligeros permiten observar incidentes, recorrer señales, comprender contexto y registrar una decisión. Casos ofrece Lista o Carrusel con Motion. K8, el perro robot 3D, abre un chat breve centrado sin cambiar de pantalla; puedes ocultarlo desde la cabecera. El chat responde mediante Groq y guías curadas, con validación de entradas y filtro de ámbito en servidor. Home incorpora una cortina al elegir proyecto o consola. Se conserva la identidad visual V1.
 
 Vitrina digital de TAKYA, una propuesta de apoyo a operadores de televigilancia mediante contexto y prioridades explicables. Proyecto desarrollado para el Programa Nómada UCN en Antofagasta.
@@ -16,13 +18,13 @@ Vitrina digital de TAKYA, una propuesta de apoyo a operadores de televigilancia 
 
 ## Ver la V1
 
-- **Entrada pública:** `/` redirige a `/landing`.
+- **Entrada local:** `/` redirige a `/home`; `/landing` presenta el proyecto.
 - **Contenido:** problema de la fatiga cognitiva, propuesta de TAKYA y criterio humano en la decisión.
 - **Repositorio:** [Delnr91/takya](https://github.com/Delnr91/takya).
 
 | Ruta       | Estado en esta entrega | Para qué sirve                                |
 | ---------- | ---------------------- | --------------------------------------------- |
-| `/`        | Pública                | Abre la landing.                              |
+| `/`        | Pública                | Abre la entrada audiovisual `/home`.          |
 | `/landing` | Pública · V1           | Presentación institucional.                   |
 | `/home`    | Disponible             | Entrada audiovisual con enlace a `/login`.    |
 | `/login`   | Demo                   | Selección simulada de Operador o Supervisión. |
@@ -85,14 +87,20 @@ Para la siguiente etapa, consulta las [opciones de arquitectura IA-first](docs/0
 
 ## Iniciar en local
 
-Requisitos: Node.js y npm. Desde la raíz del repositorio:
+Requisitos: Node.js **20.9 o posterior** y npm. Verificado en este equipo con Node.js 22.23.3 y npm 10.9.9; `.nvmrc` selecciona la rama 22 si usas nvm. Desde la raíz del repositorio:
 
 ```bash
 npm ci
 npm run dev
 ```
 
-Abre [http://localhost:3000](http://localhost:3000). La redirección te llevará a `/landing`.
+Abre [http://127.0.0.1:3000](http://127.0.0.1:3000). La redirección te llevará a `/home`. Para probar la consola directamente, abre [el acceso de práctica](http://127.0.0.1:3000/login), elige Operador y pulsa **Entrar a la práctica**. El servidor de desarrollo escucha solo en este equipo y actualiza los cambios automáticamente; se detiene con `Ctrl+C`.
+
+No necesitas variables de entorno para usar casos, videos, decisiones, supervisión, historial ni **Guíame** de K8. Las consultas libres a Groq sí requieren una clave privada: copia `.env.example` a `.env.local`, completa `GROQ_API_KEY` y reinicia el servidor. Sin clave, el chat conserva la pregunta y muestra un aviso de indisponibilidad. La instalación y la primera compilación necesitan internet, incluida la descarga de tipografías.
+
+Para usar una compilación de producción local, ejecuta `npm run build` y después `npm run start:local`, con el servidor de desarrollo detenido. Ambos modos usan el puerto 3000; si ya está ocupado, puedes iniciar desarrollo con `npm run dev -- --port 3001`.
+
+El [diagnóstico local](docs/10_ESTADO_LOCAL.md) explica la arquitectura, las verificaciones de esta descarga y el punto de partida para construir el backend de casos.
 
 <details>
 <summary><strong>Comandos de verificación</strong></summary>
@@ -107,7 +115,7 @@ npm run build
 
 `npm run build` genera la misma compilación de producción que utiliza Vercel. Si alguna comprobación falla, revisa el resultado antes de publicar nuevos cambios.
 
-En esta entrega pasaron TypeScript, ESLint, 28 pruebas del dominio/chat y la compilación de producción. Se comprobó en navegador el recorrido desde los clips hasta la recepción de Supervisión, el chat con Groq, el carrusel, las cortinas y las vistas de 320, 390 y 768 px. La revisión completa y los límites están en [ENGRAM.md](ENGRAM.md). El comando global `format:check` conserva observaciones de formato heredado; los archivos de esta entrega se formatearon.
+En la puesta en marcha local del 18 de octubre de 2026 pasaron TypeScript, ESLint, 31 pruebas del dominio/chat y la compilación de producción. No se configuró ni comprobó una llamada real a Groq en esta máquina. La evidencia actual y los límites están en el [diagnóstico local](docs/10_ESTADO_LOCAL.md); [ENGRAM.md](ENGRAM.md) conserva también verificaciones históricas de otras entregas. El comando global `format:check` informa observaciones heredadas en cinco archivos; el código modificado en esta puesta en marcha cumple Prettier.
 
 </details>
 
@@ -132,7 +140,7 @@ En esta entrega pasaron TypeScript, ESLint, 28 pruebas del dominio/chat y la com
 2. Selecciona la rama `main` y deja la **raíz del proyecto** en `/`.
 3. Comprueba que Vercel detecte **Next.js** y use `npm run build`.
 4. Esta landing no necesita variables de entorno.
-5. Despliega y revisa `/`, `/landing`, `/home`, `/login` y `/demo` en escritorio y móvil. La raíz debe abrir la landing; el acceso a la consola empieza en `/login`.
+5. Despliega y revisa `/`, `/landing`, `/home`, `/login` y `/demo` en escritorio y móvil. La raíz abre `/home`; la presentación está en `/landing` y el acceso a la consola empieza en `/login`.
 
 Si intentaste desplegar antes de recibir el nuevo commit en `main`, vuelve a ejecutar el despliegue desde ese commit y mira el final de **Build Logs** si Vercel informa otro error.
 

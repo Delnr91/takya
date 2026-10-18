@@ -2,6 +2,15 @@
 
 > Para quienes continúen el proyecto: lean este archivo antes de modificar la aplicación y actualícenlo al cerrar cada entrega. Registren el estado real y la verificación realizada.
 
+## Puesta en marcha de la descarga local — 18 de octubre de 2026
+
+- Dependencias instaladas desde el lockfile con Node.js 22.23.3 y npm 10.9.9. Esta descarga no tiene `.git`; no se hicieron commits, push ni despliegues. `npm run dev` sirve solo en loopback; se añadió `start:local`, `.nvmrc` y una plantilla vacía `.env.example` para la configuración opcional del chat.
+- Corregido un rechazo 403 reproducido en navegador: Next.js construye la URL interna con `localhost` aunque se acceda por `127.0.0.1`. La comprobación usa ahora el protocolo y Host de la solicitud, mantiene rechazo de otros orígenes y no confía en cabeceras de host reenviadas. Se añadieron pruebas para dominio, puerto, protocolo y origen ausente.
+- El servidor omitía la guía 06 de navegación, aunque las pruebas la encontraban leyendo todos los MD. Un manifiesto compartido incluye las seis guías y una regresión comprueba que no falten documentos.
+- TypeScript, ESLint y las 31 pruebas de dominio/chat pasan. Se verificó compilación de producción y se inspeccionaron con ffprobe los seis clips y el video de portada. Persisten cinco observaciones de formato anteriores. No se configuraron credenciales ni se verificó una llamada real a Groq.
+- Navegador local con perfil temporal: seis clips reproducidos, tres decisiones con motivo, recepción de Supervisión, historial y recuperación tras recargar correctos. Inicio sin desborde a 320/390/768 px. Guíame funciona sin clave; consulta libre sin proveedor devuelve 503 y conserva la pregunta. Se verificaron 400/200/403 en validación, ámbito y origen, con acceso válido desde localhost y 127.0.0.1. Sin excepciones JS ni recursos fallidos inesperados; capturas en `.qa/local-dashboard.png`, `.qa/local-history.png` y `.qa/local-mobile.png`.
+- Análisis, arranque, arquitectura y siguientes criterios de aceptación: [diagnóstico local](docs/10_ESTADO_LOCAL.md). La raíz abre `/home`; el README se corrigió para reflejar el comportamiento observado.
+
 ## K8 rápido, pictogramas y continuidad de la práctica — 6 de octubre de 2026
 
 - La mascota abre `QuickCompanion`, una ventana independiente del chat amplio. Presenta el organismo fluido centrado, una respuesta breve y una línea para consultar. Enviar, Hablar, Guíame y Escuchar combinan pictogramas y palabras. El organismo cambia suavemente con los estados de consulta, escucha y lectura; respeta movimiento reducido. No se muestra una copia en miniatura del dashboard ni archivos MD como respuesta.

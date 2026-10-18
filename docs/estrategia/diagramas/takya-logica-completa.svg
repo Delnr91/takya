@@ -1,0 +1,256 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="2800" height="2240" viewBox="0 0 2800 2240" role="img" aria-labelledby="title desc">
+<title id="title">TAKYA: lógica completa del demo, arquitectura, tecnologías y salida verificable</title>
+<desc id="desc">Mapa de arquitectura propuesta. El frontend de práctica existe; carga, inferencia, API de análisis y protección de evidencia siguen por implementar. Sin base de datos. Flujo de izquierda a derecha arriba y de derecha a izquierda abajo.</desc>
+<defs><marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3 z" fill="#253a32"/></marker></defs>
+<rect width="2800" height="2240" fill="#fffefa"/>
+<text x="40" y="72" fill="#253a32" font-family="DejaVu Sans, sans-serif" font-size="52" font-weight="700">
+<tspan x="40" dy="0">TAKYA — lógica completa del demo</tspan>
+</text>
+<text x="43" y="118" fill="#253a32" font-family="DejaVu Sans, sans-serif" font-size="27" font-weight="400">
+<tspan x="43" dy="0">Comprender antes de actuar · un caso completo · arquitectura propuesta sin base de datos</tspan>
+</text>
+<path d="M 58 155 Q 40 155 40 173 L 39.47592925418378 422 Q 40 440 58 440 L 872 440.08845845059193 Q 890 440 890 422 L 889.7399103330962 173 Q 890 155 872 155 Z" fill="#ffe5e3" stroke="#253a32" stroke-width="2.3"/>
+<text x="64" y="202" fill="#253a32" font-family="DejaVu Sans, sans-serif" font-size="29" font-weight="700">
+<tspan x="64" dy="0">1. PROBLEMA → RESULTADO BUSCADO</tspan>
+</text>
+<text x="64" y="251.15" fill="#253a32" font-family="DejaVu Sans, sans-serif" font-size="24" font-weight="400">
+<tspan x="64" dy="0">Operadores de condominios: 2–5 cámaras, según entrevistas</tspan>
+<tspan x="64" dy="32.400000000000006">relatadas.</tspan>
+<tspan x="64" dy="32.400000000000006">Dificultad a validar: encontrar lo relevante, comprender y elegir el</tspan>
+<tspan x="64" dy="32.400000000000006">siguiente paso.</tspan>
+<tspan x="64" dy="32.400000000000006">Objetivo: menos esfuerzo y errores, con evidencia verificable. Aún</tspan>
+<tspan x="64" dy="32.400000000000006">no es un resultado medido.</tspan>
+</text>
+<path d="M 928 155 Q 910 155 910 173 L 910.5866801675234 422 Q 910 440 928 440 L 1792 440.64390808463946 Q 1810 440 1810 422 L 1809.970069255862 173 Q 1810 155 1792 155 Z" fill="#e3f2ff" stroke="#253a32" stroke-width="2.3"/>
+<text x="934" y="202" fill="#253a32" font-family="DejaVu Sans, sans-serif" font-size="29" font-weight="700">
+<tspan x="934" dy="0">2. ENTRADA: SOLO EL DEMO</tspan>
+</text>
+<text x="934" y="251.15" fill="#253a32" font-family="DejaVu Sans, sans-serif" font-size="24" font-weight="400">
+<tspan x="934" dy="0">Un video propio/autorizado de cámara fija + una zona.</tspan>
+<tspan x="934" dy="32.400000000000006">Perfil propuesto: MP4/H.264 · ≤60 s · ≤720p · ≤32 MiB.</tspan>
+<tspan x="934" dy="32.400000000000006">Sesión temporal privada; sin CCTV en vivo ni despacho real.</tspan>
+<tspan x="934" dy="32.400000000000006">No se modifica el original. No se carga video al chat.</tspan>
+</text>
+<path d="M 1848 155 Q 1830 155 1830 173 L 1829.9260147156301 422 Q 1830 440 1848 440 L 2742 439.7466238627901 Q 2760 440 2760 422 L 2759.277078825029 173 Q 2760 155 2742 155 Z" fill="#eee7fb" stroke="#253a32" stroke-width="2.3"/>
+<text x="1854" y="202" fill="#253a32" font-family="DejaVu Sans, sans-serif" font-size="29" font-weight="700">
+<tspan x="1854" dy="0">K8: ASESOR OPCIONAL, SIN PODER DE ACCIÓN</tspan>
+</text>
+<text x="1854" y="251.15" fill="#253a32" font-family="DejaVu Sans, sans-serif" font-size="24" font-weight="400">
+<tspan x="1854" dy="0">Guías aprobadas + recuperación léxica + LLM textual.</tspan>
+<tspan x="1854" dy="32.400000000000006">Hoy: código Groq / gpt-oss-20b; sin visión del caso.</tspan>
+<tspan x="1854" dy="32.400000000000006">Futuro: contexto del caso resuelto y autorizado por servidor.</tspan>
+<tspan x="1854" dy="32.400000000000006">Puede orientar o abstenerse; no confirma, despacha ni borra. La revisión</tspan>
+<tspan x="1854" dy="32.400000000000006">funciona sin K8.</tspan>
+</text>
+<path d="M 58 480 Q 40 480 40 498 L 39.949141357377094 1232 Q 40 1250 58 1250 L 2742 1250.3149450053145 Q 2760 1250 2760 1232 L 2760.33282094225 498 Q 2760 480 2742 480 Z" fill="#f7fbf3" stroke="#253a32" stroke-width="2.3"/>
+<text x="65" y="523" fill="#253a32" font-family="DejaVu Sans, sans-serif" font-size="30" font-weight="700">
+<tspan x="65" dy="0">3. FLUJO COMPLETO — TAKYA CORE / BACKEND → FRONTEND → SALIDA</tspan>
+</text>
+<text x="65" y="558" fill="#615314" font-family="DejaVu Sans, sans-serif" font-size="23" font-weight="400">
+<tspan x="65" dy="0">Recorrido objetivo por construir. Reutiliza la consola de práctica existente. Arriba → / abajo ←</tspan>
+</text>
+<path d="M 83 590 Q 65 590 65 608 L 65.93048428310425 804 Q 65 822 83 822 L 467 821.0233093875843 Q 485 822 485 804 L 485.4719832395937 608 Q 485 590 467 590 Z" fill="#e3f2ff" stroke="#253a32" stroke-width="2.3"/>
+<text x="89" y="632" fill="#253a32" font-family="DejaVu Sans, sans-serif" font-size="24" font-weight="700">
+<tspan x="89" dy="0">01 · INICIAR Y CARGAR</tspan>
+</text>
+<text x="89" y="677.4" fill="#253a32" font-family="DejaVu Sans, sans-serif" font-size="22" font-weight="400">
+<tspan x="89" dy="0">Sesión de práctica aislada</tspan>
+<tspan x="89" dy="29.700000000000003">Archivo en streaming</tspan>
+<tspan x="89" dy="29.700000000000003">Zona y contexto declarados</tspan>
+<tspan x="89" dy="29.700000000000003">Progreso y cancelación</tspan>
+</text>
+<polyline points="485,706 511,706" fill="none" stroke="#253a32" stroke-width="3" marker-end="url(#arrow)"/>
+<path d="M 533 590 Q 515 590 515 608 L 515.3542516536005 804 Q 515 822 533 822 L 917 822.5698227121742 Q 935 822 935 804 L 935.0409323144062 608 Q 935 590 917 590 Z" fill="#e3f2ff" stroke="#253a32" stroke-width="2.3"/>
+<text x="539" y="632" fill="#253a32" font-family="DejaVu Sans, sans-serif" font-size="24" font-weight="700">
+<tspan x="539" dy="0">02 · VALIDAR EN API</tspan>
+</text>
+<text x="539" y="677.4" fill="#253a32" font-family="DejaVu Sans, sans-serif" font-size="22" font-weight="400">
+<tspan x="539" dy="0">Permiso por recurso</tspan>
+<tspan x="539" dy="29.700000000000003">Bytes, formato y duración</tspan>
+<tspan x="539" dy="29.700000000000003">ffprobe: códec, PTS, píxeles</tspan>
+<tspan x="539" dy="29.700000000000003">Rechazo explícito si falla</tspan>
+</text>
+<polyline points="935,706 961,706" fill="none" stroke="#253a32" stroke-width="3" marker-end="url(#arrow)"/>
+<path d="M 983 590 Q 965 590 965 608 L 965.8497305032519 804 Q 965 822 983 822 L 1367 822.8972115559864 Q 1385 822 1385 804 L 1385.784866688097 608 Q 1385 590 1367 590 Z" fill="#fff2cd" stroke="#253a32" stroke-width="2.3"/>
+<text x="989" y="632" fill="#253a32" font-family="DejaVu Sans, sans-serif" font-size="24" font-weight="700">
+<tspan x="989" dy="0">03 · PRESERVAR FUENTE</tspan>
+</text>
+<text x="989" y="677.4" fill="#253a32" font-family="DejaVu Sans, sans-serif" font-size="22" font-weight="400">
+<tspan x="989" dy="0">Completar recepción</tspan>
+<tspan x="989" dy="29.700000000000003">Hash SHA-256 y procedencia</tspan>
+<tspan x="989" dy="29.700000000000003">Fuente privada sin cambios</tspan>
+<tspan x="989" dy="29.700000000000003">No analizar un archivo parcial</tspan>
+</text>
+<polyline points="1385,706 1411,706" fill="none" stroke="#253a32" stroke-width="3" marker-end="url(#arrow)"/>
+<path d="M 1433 590 Q 1415 590 1415 608 L 1415.2969944399579 804 Q 1415 822 1433 822 L 1817 822.4027390819374 Q 1835 822 1835 804 L 1835.9140940053162 608 Q 1835 590 1817 590 Z" fill="#e4f5df" stroke="#253a32" stroke-width="2.3"/>
+<text x="1439" y="632" fill="#253a32" font-family="DejaVu Sans, sans-serif" font-size="24" font-weight="700">
+<tspan x="1439" dy="0">04 · ANALIZAR EN WORKER</tspan>
+</text>
+<text x="1439" y="677.4" fill="#253a32" font-family="DejaVu Sans, sans-serif" font-size="22" font-weight="400">
+<tspan x="1439" dy="0">Muestreo de copia de trabajo</tspan>
+<tspan x="1439" dy="29.700000000000003">Detector pequeño preentrenado</tspan>
+<tspan x="1439" dy="29.700000000000003">Seguimiento si aporta valor</tspan>
+<tspan x="1439" dy="29.700000000000003">Regla de zona y permanencia</tspan>
+</text>
+<polyline points="1835,706 1861,706" fill="none" stroke="#253a32" stroke-width="3" marker-end="url(#arrow)"/>
+<path d="M 1883 590 Q 1865 590 1865 608 L 1864.024556494796 804 Q 1865 822 1883 822 L 2267 821.2247977221605 Q 2285 822 2285 804 L 2284.7856747231017 608 Q 2285 590 2267 590 Z" fill="#e4f5df" stroke="#253a32" stroke-width="2.3"/>
+<text x="1889" y="632" fill="#253a32" font-family="DejaVu Sans, sans-serif" font-size="24" font-weight="700">
+<tspan x="1889" dy="0">05 · CREAR EL CASO</tspan>
+</text>
+<text x="1889" y="677.4" fill="#253a32" font-family="DejaVu Sans, sans-serif" font-size="22" font-weight="400">
+<tspan x="1889" dy="0">Observaciones versionadas</tspan>
+<tspan x="1889" dy="29.700000000000003">Deduplicación por zona/pista</tspan>
+<tspan x="1889" dy="29.700000000000003">Correlación espacio-tiempo</tspan>
+<tspan x="1889" dy="29.700000000000003">Un incidente con referencias</tspan>
+</text>
+<polyline points="2285,706 2311,706" fill="none" stroke="#253a32" stroke-width="3" marker-end="url(#arrow)"/>
+<path d="M 2333 590 Q 2315 590 2315 608 L 2315.0973892112875 804 Q 2315 822 2333 822 L 2717 822.5010819007714 Q 2735 822 2735 804 L 2735.494613458819 608 Q 2735 590 2717 590 Z" fill="#e4f5df" stroke="#253a32" stroke-width="2.3"/>
+<text x="2339" y="632" fill="#253a32" font-family="DejaVu Sans, sans-serif" font-size="24" font-weight="700">
+<tspan x="2339" dy="0">06 · AÑADIR CONTEXTO</tspan>
+</text>
+<text x="2339" y="677.4" fill="#253a32" font-family="DejaVu Sans, sans-serif" font-size="22" font-weight="400">
+<tspan x="2339" dy="0">Clip con antes y después</tspan>
+<tspan x="2339" dy="29.700000000000003">Prioridad por regla explicada</tspan>
+<tspan x="2339" dy="29.700000000000003">Visible / desconocido</tspan>
+<tspan x="2339" dy="29.700000000000003">Sugerencia ≠ decisión</tspan>
+</text>
+<path d="M 2248 953 Q 2230 953 2230 971 L 2230.2789473894404 1167 Q 2230 1185 2248 1185 L 2712 1184.8580419682637 Q 2730 1185 2730 1167 L 2730.4485976413125 971 Q 2730 953 2712 953 Z" fill="#eee7fb" stroke="#253a32" stroke-width="2.3"/>
+<text x="2254" y="1000" fill="#253a32" font-family="DejaVu Sans, sans-serif" font-size="29" font-weight="700">
+<tspan x="2254" dy="0">07 · REVISAR EN CONSOLA</tspan>
+</text>
+<text x="2254" y="1048.15" fill="#253a32" font-family="DejaVu Sans, sans-serif" font-size="23" font-weight="400">
+<tspan x="2254" dy="0">Video + pictograma + etiqueta</tspan>
+<tspan x="2254" dy="31.05">Leer por qué y lo desconocido</tspan>
+<tspan x="2254" dy="31.05">Una fuente, sin inventar otra</tspan>
+<tspan x="2254" dy="31.05">K8 opcional / ayuda curada</tspan>
+</text>
+<path d="M 1708 953 Q 1690 953 1690 971 L 1689.7620413799916 1167 Q 1690 1185 1708 1185 L 2172 1184.461438372621 Q 2190 1185 2190 1167 L 2189.3320734486283 971 Q 2190 953 2172 953 Z" fill="#eee7fb" stroke="#253a32" stroke-width="2.3"/>
+<text x="1714" y="1000" fill="#253a32" font-family="DejaVu Sans, sans-serif" font-size="29" font-weight="700">
+<tspan x="1714" dy="0">08 · DECIDIR COMO PERSONA</tspan>
+</text>
+<text x="1714" y="1048.15" fill="#253a32" font-family="DejaVu Sans, sans-serif" font-size="23" font-weight="400">
+<tspan x="1714" dy="0">Verificar / descartar / escalar</tspan>
+<tspan x="1714" dy="31.05">Motivo obligatorio y revisión</tspan>
+<tspan x="1714" dy="31.05">Validación en servidor</tspan>
+<tspan x="1714" dy="31.05">Escalar solo es una simulación</tspan>
+</text>
+<path d="M 1168 953 Q 1150 953 1150 971 L 1149.817071758509 1167 Q 1150 1185 1168 1185 L 1632 1185.0839440182092 Q 1650 1185 1650 1167 L 1650.7240732329585 971 Q 1650 953 1632 953 Z" fill="#fff2cd" stroke="#253a32" stroke-width="2.3"/>
+<text x="1174" y="1000" fill="#253a32" font-family="DejaVu Sans, sans-serif" font-size="29" font-weight="700">
+<tspan x="1174" dy="0">09 · PREPARAR EVIDENCIA</tspan>
+</text>
+<text x="1174" y="1048.15" fill="#253a32" font-family="DejaVu Sans, sans-serif" font-size="23" font-weight="400">
+<tspan x="1174" dy="0">Fuente + derivado + manifiesto</tspan>
+<tspan x="1174" dy="31.05">Análisis y decisión separados</tspan>
+<tspan x="1174" dy="31.05">Hashes y referencia protegida</tspan>
+<tspan x="1174" dy="31.05">Firma / AEAD según nivel</tspan>
+</text>
+<path d="M 628 953 Q 610 953 610 971 L 609.7036925116557 1167 Q 610 1185 628 1185 L 1092 1184.8603724919801 Q 1110 1185 1110 1167 L 1109.907341727179 971 Q 1110 953 1092 953 Z" fill="#fff2cd" stroke="#253a32" stroke-width="2.3"/>
+<text x="634" y="1000" fill="#253a32" font-family="DejaVu Sans, sans-serif" font-size="29" font-weight="700">
+<tspan x="634" dy="0">10 · VERIFICAR EL PAQUETE</tspan>
+</text>
+<text x="634" y="1048.15" fill="#253a32" font-family="DejaVu Sans, sans-serif" font-size="23" font-weight="400">
+<tspan x="634" dy="0">Verificador separado</tspan>
+<tspan x="634" dy="31.05">Inventario, bytes y huellas</tspan>
+<tspan x="634" dy="31.05">Rechazar cambio o faltantes</tspan>
+<tspan x="634" dy="31.05">E2: probar clave y tag GCM</tspan>
+</text>
+<path d="M 88 953 Q 70 953 70 971 L 69.99507313751721 1167 Q 70 1185 88 1185 L 552 1184.532347446145 Q 570 1185 570 1167 L 570.2748223228874 971 Q 570 953 552 953 Z" fill="#e4f5df" stroke="#253a32" stroke-width="2.3"/>
+<text x="94" y="1000" fill="#253a32" font-family="DejaVu Sans, sans-serif" font-size="29" font-weight="700">
+<tspan x="94" dy="0">11 · DESCARGAR Y CERRAR</tspan>
+</text>
+<text x="94" y="1048.15" fill="#253a32" font-family="DejaVu Sans, sans-serif" font-size="23" font-weight="400">
+<tspan x="94" dy="0">Paquete e informe del ejercicio</tspan>
+<tspan x="94" dy="31.05">Descarga ≠ recepción policial</tspan>
+<tspan x="94" dy="31.05">Temporales con caducidad</tspan>
+<tspan x="94" dy="31.05">Reinicio pierde la sesión</tspan>
+</text>
+<polyline points="2230,1069 2194,1069" fill="none" stroke="#253a32" stroke-width="3" marker-end="url(#arrow)"/>
+<polyline points="1690,1069 1654,1069" fill="none" stroke="#253a32" stroke-width="3" marker-end="url(#arrow)"/>
+<polyline points="1150,1069 1114,1069" fill="none" stroke="#253a32" stroke-width="3" marker-end="url(#arrow)"/>
+<polyline points="610,1069 574,1069" fill="none" stroke="#253a32" stroke-width="3" marker-end="url(#arrow)"/>
+<polyline points="2525,823 2525,883 2480,883 2480,949" fill="none" stroke="#253a32" stroke-width="3" marker-end="url(#arrow)"/>
+<polyline points="1175,823 1175,870 1400,870 1400,948" fill="none" stroke="#253a32" stroke-width="3" marker-end="url(#arrow)" stroke-dasharray="10 8"/>
+<text x="1188" y="855" fill="#725815" font-family="DejaVu Sans, sans-serif" font-size="19" font-weight="400">
+<tspan x="1188" dy="0">Fuente intacta al paquete</tspan>
+</text>
+<text x="70" y="1225" fill="#253a32" font-family="DejaVu Sans, sans-serif" font-size="23" font-weight="700">
+<tspan x="70" dy="0">Cualquier etapa: fallo visible, recursos acotados y cancelación. Un fallo nunca significa “sin incidentes”.</tspan>
+</text>
+<path d="M 58 1290 Q 40 1290 40 1308 L 39.98897487195887 1727 Q 40 1745 58 1745 L 912 1745.1133834602947 Q 930 1745 930 1727 L 930.6194855109906 1308 Q 930 1290 912 1290 Z" fill="#e3f2ff" stroke="#253a32" stroke-width="2.3"/>
+<text x="64" y="1337" fill="#253a32" font-family="DejaVu Sans, sans-serif" font-size="29" font-weight="700">
+<tspan x="64" dy="0">4. STACK FRONTEND · EXISTENTE</tspan>
+</text>
+<text x="64" y="1386.15" fill="#253a32" font-family="DejaVu Sans, sans-serif" font-size="24" font-weight="400">
+<tspan x="64" dy="0">Next.js 16.3.6 · Node 22 · App Router / BFF</tspan>
+<tspan x="64" dy="32.400000000000006">React 19.3 · TypeScript 5.9 · Zod 4.6</tspan>
+<tspan x="64" dy="32.400000000000006">Tailwind CSS 3.4 · Lucide · clsx / tailwind-merge</tspan>
+<tspan x="64" dy="32.400000000000006">Motion 13.4 · Three.js 0.186 para K8 opcional</tspan>
+<tspan x="64" dy="32.400000000000006"></tspan>
+<tspan x="64" dy="32.400000000000006">UI por features; modelo de dominio separado.</tspan>
+<tspan x="64" dy="32.400000000000006">Reutilizar consola, visor, motivos e historial.</tspan>
+<tspan x="64" dy="32.400000000000006">Adaptación pendiente: un video / una fuente.</tspan>
+<tspan x="64" dy="32.400000000000006">El login y localStorage actuales son de práctica.</tspan>
+</text>
+<path d="M 968 1290 Q 950 1290 950 1308 L 949.9523165244586 1727 Q 950 1745 968 1745 L 1822 1745.2604381086378 Q 1840 1745 1840 1727 L 1839.807921939137 1308 Q 1840 1290 1822 1290 Z" fill="#e4f5df" stroke="#253a32" stroke-width="2.3"/>
+<text x="974" y="1337" fill="#253a32" font-family="DejaVu Sans, sans-serif" font-size="29" font-weight="700">
+<tspan x="974" dy="0">5. STACK BACKEND · PROPUESTO</tspan>
+</text>
+<text x="974" y="1386.15" fill="#253a32" font-family="DejaVu Sans, sans-serif" font-size="24" font-weight="400">
+<tspan x="974" dy="0">Python 3.12 · FastAPI · Pydantic · Uvicorn</tspan>
+<tspan x="974" dy="32.400000000000006">FFmpeg / ffprobe: inspección y derivados</tspan>
+<tspan x="974" dy="32.400000000000006">ONNX Runtime CPU + detector a evaluar</tspan>
+<tspan x="974" dy="32.400000000000006">RT-DETR pequeño: candidato, no elección medida</tspan>
+<tspan x="974" dy="32.400000000000006">ByteTrack si mejora continuidad de pistas</tspan>
+<tspan x="974" dy="32.400000000000006">hashlib + cryptography: hash, firma y AES-GCM</tspan>
+<tspan x="974" dy="32.400000000000006"></tspan>
+<tspan x="974" dy="32.400000000000006">Un coordinador + un worker + cola acotada.</tspan>
+<tspan x="974" dy="32.400000000000006">Memoria y temporales privados; sin BD.</tspan>
+<tspan x="974" dy="32.400000000000006">Groq textual opcional; no es el detector.</tspan>
+</text>
+<path d="M 1878 1290 Q 1860 1290 1860 1308 L 1859.1495875137462 1727 Q 1860 1745 1878 1745 L 2742 1745.5320014716444 Q 2760 1745 2760 1727 L 2760.944187335188 1308 Q 2760 1290 2742 1290 Z" fill="#eee7fb" stroke="#253a32" stroke-width="2.3"/>
+<text x="1884" y="1337" fill="#253a32" font-family="DejaVu Sans, sans-serif" font-size="29" font-weight="700">
+<tspan x="1884" dy="0">6. ARQUITECTURA Y PATRONES</tspan>
+</text>
+<text x="1884" y="1386.15" fill="#253a32" font-family="DejaVu Sans, sans-serif" font-size="24" font-weight="400">
+<tspan x="1884" dy="0">Monolito modular + worker aislado por recursos</tspan>
+<tspan x="1884" dy="32.400000000000006">Puertos/adaptadores: video, detector y proveedor</tspan>
+<tspan x="1884" dy="32.400000000000006">Máquinas de estado: trabajo / caso / exportación</tspan>
+<tspan x="1884" dy="32.400000000000006">Comandos + revisión esperada + idempotencia</tspan>
+<tspan x="1884" dy="32.400000000000006">Publicación atómica: no exponer un parcial</tspan>
+<tspan x="1884" dy="32.400000000000006">Contratos versionados y validación en límites</tspan>
+<tspan x="1884" dy="32.400000000000006"></tspan>
+<tspan x="1884" dy="32.400000000000006">Módulos: ingest / video / detection / incidents /</tspan>
+<tspan x="1884" dy="32.400000000000006">evidence / jobs / audit / api.</tspan>
+<tspan x="1884" dy="32.400000000000006">Sin Redis, S3, PostgreSQL ni microservicios ahora.</tspan>
+</text>
+<path d="M 58 1770 Q 40 1770 40 1788 L 40.81953847584774 2027 Q 40 2045 58 2045 L 1712 2044.5881580815173 Q 1730 2045 1730 2027 L 1729.9188677586624 1788 Q 1730 1770 1712 1770 Z" fill="#fff2cd" stroke="#253a32" stroke-width="2.3"/>
+<text x="64" y="1817" fill="#253a32" font-family="DejaVu Sans, sans-serif" font-size="29" font-weight="700">
+<tspan x="64" dy="0">7. SEGURIDAD Y PRUEBAS DESDE EL PRIMER INCREMENTO</tspan>
+</text>
+<text x="64" y="1866.15" fill="#253a32" font-family="DejaVu Sans, sans-serif" font-size="24" font-weight="400">
+<tspan x="64" dy="0">Permisos por sesión/recurso · mínimo privilegio · worker sin red · límites de CPU/RAM/disco/tiempo.</tspan>
+<tspan x="64" dy="32.400000000000006">Fuente intacta · rutas privadas · claves separadas · inventario y referencia confiable para verificar.</tspan>
+<tspan x="64" dy="32.400000000000006">Tests: archivo corrupto, otra sesión, cancelación, disco lleno, bit alterado, red/API caída y cero candidatos.</tspan>
+<tspan x="64" dy="32.400000000000006">Web: node:test + TypeScript + ESLint. Backend: pytest propuesto. E2 solo tras probar cifrado y recuperación.</tspan>
+<tspan x="64" dy="32.400000000000006">Sin BD no equivale a cero tratamiento de datos. Zero Trust es un principio a verificar, no una certificación.</tspan>
+</text>
+<path d="M 1768 1770 Q 1750 1770 1750 1788 L 1749.559630947146 2027 Q 1750 2045 1768 2045 L 2742 2045.0042808872495 Q 2760 2045 2760 2027 L 2760.1282956329455 1788 Q 2760 1770 2742 1770 Z" fill="#ffe5e3" stroke="#253a32" stroke-width="2.3"/>
+<text x="1774" y="1817" fill="#253a32" font-family="DejaVu Sans, sans-serif" font-size="29" font-weight="700">
+<tspan x="1774" dy="0">8. UI / UX PARA EL OPERADOR</tspan>
+</text>
+<text x="1774" y="1865.15" fill="#253a32" font-family="DejaVu Sans, sans-serif" font-size="23" font-weight="400">
+<tspan x="1774" dy="0">Pictograma + texto; color nunca como única señal.</tspan>
+<tspan x="1774" dy="31.05">Evidencia antes de acción. Mostrar incertidumbre.</tspan>
+<tspan x="1774" dy="31.05">Botones grandes, teclado, foco visible y zoom.</tspan>
+<tspan x="1774" dy="31.05">K8 ocultable, movimiento reducido, lectura clara.</tspan>
+<tspan x="1774" dy="31.05">Medir errores y ayudas; no premiar decidir rápido.</tspan>
+<tspan x="1774" dy="31.05">Estados de fallo distintos de “todo seguro”.</tspan>
+</text>
+<path d="M 58 2070 Q 40 2070 40 2088 L 39.741113282192615 2177 Q 40 2195 58 2195 L 2742 2195.9003708718665 Q 2760 2195 2760 2177 L 2759.40009292824 2088 Q 2760 2070 2742 2070 Z" fill="#e9f2dc" stroke="#253a32" stroke-width="2.3"/>
+<text x="65" y="2108" fill="#253a32" font-family="DejaVu Sans, sans-serif" font-size="25" font-weight="700">
+<tspan x="65" dy="0">MEDIR: recall por evento + falsos avisos/h + tiempo total + errores humanos + RAM/CPU + paquetes verificados</tspan>
+</text>
+<text x="65" y="2150" fill="#253a32" font-family="DejaVu Sans, sans-serif" font-size="23" font-weight="400">
+<tspan x="65" dy="0">ESTADO REAL: práctica con clips curados existente; carga automática, detector y paquete verificable pendientes. Perfil de arquitectura, no software terminado.</tspan>
+</text>
+</svg>

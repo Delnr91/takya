@@ -47,6 +47,14 @@ export type CuratedDocument = {
   content: string;
 };
 
+/** Next.js can canonicalize request.url to localhost; Host retains the browser's authority. */
+export function isSameOriginRequest(request: Request): boolean {
+  const url = new URL(request.url);
+  if (url.protocol !== "http:" && url.protocol !== "https:") return false;
+  const host = request.headers.get("host") ?? url.host;
+  return request.headers.get("origin") === `${url.protocol}//${host}`;
+}
+
 export function normalize(value: string): string {
   return value
     .toLowerCase()

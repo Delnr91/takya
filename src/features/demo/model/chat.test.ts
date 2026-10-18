@@ -2,6 +2,7 @@ import assert from "node:assert/strict";
 import test from "node:test";
 import { readFileSync, readdirSync } from "node:fs";
 import path from "node:path";
+import { knowledgeFiles } from "../data/knowledge";
 import {
   chatRequestSchema,
   chatScopeResponse,
@@ -9,15 +10,77 @@ import {
   createChatLimiter,
   parseDocument,
   selectDocuments,
+  isSameOriginRequest,
 } from "./chat";
 
 const root = path.join(process.cwd(), "docs", "knowledge");
-const documents = readdirSync(root)
-  .filter((file) => file.endsWith(".md"))
-  .sort()
-  .map((file) =>
-    parseDocument(file, readFileSync(path.join(root, file), "utf8")),
+test("el origen local usa Host aunque Next.js normalice la URL a localhost", () => {
+  assert.equal(
+    isSameOriginRequest(
+      new Request("http://localhost:3000/api/k8/chat", {
+        headers: { host: "127.0.0.1:3000", origin: "http://127.0.0.1:3000" },
+      }),
+    ),
+    true,
   );
+  assert.equal(
+    isSameOriginRequest(
+      new Request("https://takya.example/api/k8/chat", {
+        headers: { origin: "https://takya.example" },
+      }),
+    ),
+    true,
+  );
+});
+test("el chat rechaza otros dominios, puertos, protocolos y orígenes ausentes", () => {
+  for (const origin of [
+    "https://other.example",
+    "http://localhost:3001",
+    "https://localhost:3000",
+    "http://localhost:3000.evil.example",
+    "http://localhost:3000/path",
+    "null",
+    "",
+  ]) {
+    assert.equal(
+      isSameOriginRequest(
+        new Request("http://localhost:3000/api/k8/chat", {
+          headers: { host: "localhost:3000", origin },
+        }),
+      ),
+      false,
+      origin,
+    );
+  }
+  assert.equal(
+    isSameOriginRequest(new Request("http://localhost:3000/api/k8/chat")),
+    false,
+  );
+  assert.equal(
+    isSameOriginRequest(
+      new Request("http://localhost:3000/api/k8/chat", {
+        headers: {
+          host: "localhost:3000",
+          origin: "https://other.example",
+          "x-forwarded-host": "other.example",
+          "x-forwarded-proto": "https",
+        },
+      }),
+    ),
+    false,
+  );
+});
+const documents = knowledgeFiles.map((id) =>
+  parseDocument(id, readFileSync(path.join(root, `${id}.md`), "utf8")),
+);
+test("el corpus del servidor incluye todas las guías curadas disponibles", () => {
+  assert.deepEqual(
+    knowledgeFiles.map((id) => `${id}.md`).sort(),
+    readdirSync(root)
+      .filter((file) => file.endsWith(".md"))
+      .sort(),
+  );
+});
 test("recupera la guía de revisión desde los MD curados", () => {
   const result = selectDocuments(documents, [
     { role: "user", content: "¿Cómo reviso un caso?" },
@@ -34,7 +97,7 @@ test("la ayuda contextual recupera controles de Historial y Cámaras sin volver 
         "¿Cómo consulto una decisión ya registrada en Historial? Dime solo el primer paso.",
     },
   ]);
-  assert.equal(history[0]?.id, "06-navegacion-de-la-consola.md");
+  assert.equal(history[0]?.id, "06-navegacion-de-la-consola");
   assert.match(
     history[0]?.content ?? "",
     /En Historial, el primer paso es seleccionar el caso/,
@@ -46,9 +109,7 @@ test("la ayuda contextual recupera controles de Historial y Cámaras sin volver 
         "¿Cómo elijo un caso y abro un registro en Cámaras? Dime solo el primer paso.",
     },
   ]);
-  assert.ok(
-    cameras.some((item) => item.id === "06-navegacion-de-la-consola.md"),
-  );
+  assert.ok(cameras.some((item) => item.id === "06-navegacion-de-la-consola"));
 });
 
 test("recupera accesibilidad y mantiene tema en una pregunta de seguimiento", () => {

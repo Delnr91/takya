@@ -5,6 +5,7 @@ import {
   chatRequestSchema,
   createChatLimiter,
   selectDocuments,
+  isSameOriginRequest,
 } from "@/features/demo/model/chat";
 import { getCuratedDocuments } from "@/features/demo/server/documents";
 import { generateAnswer } from "@/features/demo/server/groq";
@@ -21,7 +22,7 @@ function failure(error: string, status: number) {
 }
 
 export async function POST(request: Request) {
-  if (request.headers.get("origin") !== new URL(request.url).origin)
+  if (!isSameOriginRequest(request))
     return failure("Abre el chat desde TAKYA para continuar.", 403);
   if (!request.headers.get("content-type")?.startsWith("application/json"))
     return failure("No pude leer ese mensaje.", 415);

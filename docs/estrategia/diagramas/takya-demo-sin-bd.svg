@@ -1,0 +1,102 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1080" viewBox="0 0 1600 1080" role="img" aria-labelledby="title desc">
+<title id="title">TAKYA: lógica adaptada del demo sin base de datos</title>
+<desc id="desc">Arquitectura propuesta. Un archivo autorizado, análisis separado de preservación, decisión humana y paquete verificable. No describe capacidades ya implementadas.</desc>
+<rect width="1600" height="1080" fill="#fafbf8"/>
+<text x="30" y="52" fill="#1b3b2b" font-family="DejaVu Sans, sans-serif" font-size="32" font-weight="700">
+<tspan x="30" dy="0">TAKYA · Comprender, decidir y verificar</tspan>
+</text>
+<text x="30" y="86" fill="#76560a" font-family="DejaVu Sans, sans-serif" font-size="19" font-weight="400">
+<tspan x="30" dy="0">ARQUITECTURA PROPUESTA · DEMO POR CONSTRUIR · SIN BASE DE DATOS</tspan>
+</text>
+<rect x="30" y="120" width="480" height="365" rx="18" fill="#ffe8e6" stroke="#1b3b2b" stroke-width="1.5"/>
+<text x="50" y="160" fill="#1b3b2b" font-family="DejaVu Sans, sans-serif" font-size="22" font-weight="700">
+<tspan x="50" dy="0">1. DOLOR Y VALIDACIÓN</tspan>
+</text>
+<text x="50" y="212" fill="#1b3b2b" font-family="DejaVu Sans, sans-serif" font-size="17" font-weight="400">
+<tspan x="50" dy="0">Operadores de condominios: 2–5 cámaras</tspan>
+<tspan x="50" dy="22.950000000000003">Entrevistas relatadas por el fundador</tspan>
+<tspan x="50" dy="22.950000000000003"></tspan>
+<tspan x="50" dy="22.950000000000003">Señal: sencillez, confianza y alivio esperado</tspan>
+<tspan x="50" dy="22.950000000000003">Falta medir tareas, tiempo y errores</tspan>
+<tspan x="50" dy="22.950000000000003"></tspan>
+<tspan x="50" dy="22.950000000000003">Pregunta: ¿mejora revisar y decidir?</tspan>
+<tspan x="50" dy="22.950000000000003">La percepción aún no prueba el impacto</tspan>
+</text>
+<rect x="560" y="120" width="480" height="365" rx="18" fill="#e7f3fc" stroke="#1b3b2b" stroke-width="1.5"/>
+<text x="580" y="160" fill="#1b3b2b" font-family="DejaVu Sans, sans-serif" font-size="22" font-weight="700">
+<tspan x="580" dy="0">2. ENTRADA ACOTADA</tspan>
+</text>
+<text x="580" y="212" fill="#1b3b2b" font-family="DejaVu Sans, sans-serif" font-size="17" font-weight="400">
+<tspan x="580" dy="0">Un video propio o autorizado</tspan>
+<tspan x="580" dy="22.950000000000003">Cámara fija · una zona delimitada</tspan>
+<tspan x="580" dy="22.950000000000003"></tspan>
+<tspan x="580" dy="22.950000000000003">Perfil propuesto: H.264 / MP4</tspan>
+<tspan x="580" dy="22.950000000000003">Hasta 60 s · 720p · 32 MiB</tspan>
+<tspan x="580" dy="22.950000000000003"></tspan>
+<tspan x="580" dy="22.950000000000003">Validar contenido, duración y recursos</tspan>
+<tspan x="580" dy="22.950000000000003">Error o cancelación ≠ sin candidatos</tspan>
+</text>
+<rect x="1090" y="120" width="480" height="365" rx="18" fill="#e9f6e5" stroke="#1b3b2b" stroke-width="1.5"/>
+<text x="1110" y="160" fill="#1b3b2b" font-family="DejaVu Sans, sans-serif" font-size="22" font-weight="700">
+<tspan x="1110" dy="0">3. NÚCLEO DE TAKYA</tspan>
+</text>
+<text x="1110" y="212" fill="#1b3b2b" font-family="DejaVu Sans, sans-serif" font-size="17" font-weight="400">
+<tspan x="1110" dy="0">1  Recibir y preservar fuente + hash</tspan>
+<tspan x="1110" dy="22.950000000000003">2  Muestrear copia para el análisis</tspan>
+<tspan x="1110" dy="22.950000000000003">3  Detector + regla de zona y tiempo</tspan>
+<tspan x="1110" dy="22.950000000000003">4  Agrupar observaciones en un caso</tspan>
+<tspan x="1110" dy="22.950000000000003">5  Obtener clip y explicar prioridad</tspan>
+<tspan x="1110" dy="22.950000000000003"></tspan>
+<tspan x="1110" dy="22.950000000000003">K8: apoyo documental opcional</tspan>
+<tspan x="1110" dy="22.950000000000003">No decide ni modifica la fuente</tspan>
+</text>
+<rect x="30" y="555" width="480" height="365" rx="18" fill="#f0eafa" stroke="#1b3b2b" stroke-width="1.5"/>
+<text x="50" y="595" fill="#1b3b2b" font-family="DejaVu Sans, sans-serif" font-size="22" font-weight="700">
+<tspan x="50" dy="0">4. REVISIÓN HUMANA</tspan>
+</text>
+<text x="50" y="647" fill="#1b3b2b" font-family="DejaVu Sans, sans-serif" font-size="17" font-weight="400">
+<tspan x="50" dy="0">Video y contexto antes de la acción</tspan>
+<tspan x="50" dy="22.950000000000003">Pictograma + texto + motivo de prioridad</tspan>
+<tspan x="50" dy="22.950000000000003">Lo visible y lo desconocido separados</tspan>
+<tspan x="50" dy="22.950000000000003"></tspan>
+<tspan x="50" dy="22.950000000000003">Revisar → decidir con motivo</tspan>
+<tspan x="50" dy="22.950000000000003">Verificar / descartar / escalar simulado</tspan>
+<tspan x="50" dy="22.950000000000003"></tspan>
+<tspan x="50" dy="22.950000000000003">Teclado, texto legible y K8 ocultable</tspan>
+</text>
+<rect x="560" y="555" width="480" height="365" rx="18" fill="#fff4d9" stroke="#1b3b2b" stroke-width="1.5"/>
+<text x="580" y="595" fill="#1b3b2b" font-family="DejaVu Sans, sans-serif" font-size="22" font-weight="700">
+<tspan x="580" dy="0">5. EVIDENCIA Y CIERRE</tspan>
+</text>
+<text x="580" y="647" fill="#1b3b2b" font-family="DejaVu Sans, sans-serif" font-size="17" font-weight="400">
+<tspan x="580" dy="0">Fuente + derivados + manifiesto</tspan>
+<tspan x="580" dy="22.950000000000003">Análisis y decisión por separado</tspan>
+<tspan x="580" dy="22.950000000000003"></tspan>
+<tspan x="580" dy="22.950000000000003">E1: inventario, hashes y referencia fiable</tspan>
+<tspan x="580" dy="22.950000000000003">E2: cifrado solo si se implementa y prueba</tspan>
+<tspan x="580" dy="22.950000000000003">Verificador separado rechaza alteraciones</tspan>
+<tspan x="580" dy="22.950000000000003"></tspan>
+<tspan x="580" dy="22.950000000000003">Descargar no acredita recepción policial</tspan>
+</text>
+<rect x="1090" y="555" width="480" height="365" rx="18" fill="#e6f3ef" stroke="#1b3b2b" stroke-width="1.5"/>
+<text x="1110" y="595" fill="#1b3b2b" font-family="DejaVu Sans, sans-serif" font-size="22" font-weight="700">
+<tspan x="1110" dy="0">6. ARQUITECTURA DEL DEMO</tspan>
+</text>
+<text x="1110" y="647" fill="#1b3b2b" font-family="DejaVu Sans, sans-serif" font-size="17" font-weight="400">
+<tspan x="1110" dy="0">Next.js / React / TypeScript existentes</tspan>
+<tspan x="1110" dy="22.950000000000003">BFF privado → FastAPI → worker de video</tspan>
+<tspan x="1110" dy="22.950000000000003">FFmpeg + detector pequeño a evaluar</tspan>
+<tspan x="1110" dy="22.950000000000003"></tspan>
+<tspan x="1110" dy="22.950000000000003">Memoria + temporales privados acotados</tspan>
+<tspan x="1110" dy="22.950000000000003">Un trabajo activo · límites y cancelación</tspan>
+<tspan x="1110" dy="22.950000000000003">Sin BD, Redis, S3 ni gateway en esta fase</tspan>
+<tspan x="1110" dy="22.950000000000003">Reinicio pierde sesión: declararlo</tspan>
+</text>
+<rect x="30" y="965" width="1540" height="88" rx="18" fill="#edf3df" stroke="#1b3b2b" stroke-width="1.5"/>
+<text x="50" y="1001" fill="#1b3b2b" font-family="DejaVu Sans, sans-serif" font-size="19" font-weight="700">
+<tspan x="50" dy="0">MEDIR ANTES DE PROMETER: omisiones + falsos avisos + tiempo total + errores humanos + recursos + paquete verificable</tspan>
+</text>
+<text x="50" y="1031" fill="#1b3b2b" font-family="DejaVu Sans, sans-serif" font-size="17" font-weight="400">
+<tspan x="50" dy="0">Hoy: práctica con clips curados. Carga automática y custodia verificable pendientes. Datos, permisos y pitch final por validar.</tspan>
+</text>
+</svg>
