@@ -2,6 +2,13 @@
 
 > Para quienes continúen el proyecto: lean este archivo antes de modificar la aplicación y actualícenlo al cerrar cada entrega. Registren el estado real y la verificación realizada.
 
+## Demo final: análisis de archivo y documento maestro — 19 de octubre de 2026
+
+- Historial alineado con `origin/main` de github.com/delnr91/takya (push desactivado en la copia local). Trabajo en la rama local `build/demo-final`; nada se subió.
+- Astra construyó H1–H5 (backend FastAPI, worker `bwrap` con YOLOX-Nano ONNX, revisión/decisión de servidor, paquete E1/E2, verificador) y la vista «Analizar archivo». Opus 5.5 lo verificó y continuó: 62 pruebas backend, typecheck, lint y 31 pruebas de práctica pasan; recorrido completo en navegador con un clip de 11 s → 1 candidato, decisión VERIFIED, paquete E2 de 1,56 MB; el verificador offline aceptó el paquete y rechazó byte alterado, clave incorrecta y clave pública sustituida; la fuente empaquetada es idéntica al original.
+- Corregidos textos visibles (plural, estados en español, coma decimal). Pendiente: corpus autorizado (G0/G2), medición en el equipo del evento, `MODEL.md` con procedencia/licencia de los pesos, clip de contexto con mapeo probado y perfil de 5 min.
+- Nuevo [documento maestro end-to-end](docs/maestros/DOCUMENTO_MAESTRO_TAKYA_E2E.md) para el pitch Nómada UCN, con afirmaciones clasificadas y registro de lo que no se debe afirmar.
+
 ## Puesta en marcha de la descarga local — 18 de octubre de 2026
 
 - Dependencias instaladas desde el lockfile con Node.js 22.23.3 y npm 10.9.9. Esta descarga no tiene `.git`; no se hicieron commits, push ni despliegues. `npm run dev` sirve solo en loopback; se añadió `start:local`, `.nvmrc` y una plantilla vacía `.env.example` para la configuración opcional del chat.
