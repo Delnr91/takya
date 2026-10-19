@@ -34,18 +34,23 @@ export function useIconTrigger(
   useEffect(() => {
     const element = node.current;
     if (!element || reduceMotion) return;
-    const target = element.closest(TRIGGER) ?? element;
+    const control = element.closest(TRIGGER);
+    const target = control ?? element;
     const start = () => void handle.current?.startAnimation();
     const stop = () => void handle.current?.stopAnimation();
     target.addEventListener("pointerenter", start);
     target.addEventListener("pointerleave", stop);
-    target.addEventListener("focusin", start);
-    target.addEventListener("focusout", stop);
+    // Escuchar foco en un <svg> suelto lo vuelve tabulable en Chrome: los iconos
+    // decorativos fuera de un control solo reaccionan al puntero.
+    if (control) {
+      control.addEventListener("focusin", start);
+      control.addEventListener("focusout", stop);
+    }
     return () => {
       target.removeEventListener("pointerenter", start);
       target.removeEventListener("pointerleave", stop);
-      target.removeEventListener("focusin", start);
-      target.removeEventListener("focusout", stop);
+      control?.removeEventListener("focusin", start);
+      control?.removeEventListener("focusout", stop);
     };
   }, [handle, reduceMotion]);
 
