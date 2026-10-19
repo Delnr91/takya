@@ -45,7 +45,7 @@ def create_app(root: Path, model: Path, service_token: str):
             )
         try:
             response = await call_next(request)
-        except Exception:
+        except Exception:  # noqa: BLE001 - frontera HTTP: error genérico sin detalles internos
             return JSONResponse(
                 {"code": "INTERNAL", "message": "No se pudo completar la operación."}, 500
             )

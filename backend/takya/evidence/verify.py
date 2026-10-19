@@ -151,7 +151,7 @@ def main():
                 }
             )
         )
-    except Exception:
+    except Exception:  # noqa: BLE001 - verificador: cualquier anomalía rechaza el paquete
         parser.exit(1, "Verificación rechazada: paquete, referencia o clave inválidos.\n")
 
 

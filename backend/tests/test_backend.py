@@ -1,73 +1,13 @@
 import asyncio
 import hashlib
-import json
 import os
-import subprocess
 import time
 from copy import deepcopy
-from pathlib import Path
 
 import pytest
-from fastapi.testclient import TestClient
-from takya.api.app import create_app
-from takya.domain.contracts import CONTRACTS
+from support import MODEL, config, upload
+
 from takya.runtime import sandbox
-
-BACKEND = Path(__file__).resolve().parents[1]
-MODEL = BACKEND / ".tmp/models/yolox_nano.onnx"
-
-
-@pytest.fixture(scope="session")
-def video(tmp_path_factory):
-    path = tmp_path_factory.mktemp("media") / "synthetic-empty.mp4"
-    subprocess.run(
-        [
-            "ffmpeg",
-            "-nostdin",
-            "-v",
-            "error",
-            "-f",
-            "lavfi",
-            "-i",
-            "color=c=gray:s=320x240:r=12:d=4",
-            "-c:v",
-            "libx264",
-            "-threads",
-            "1",
-            "-pix_fmt",
-            "yuv420p",
-            str(path),
-        ],
-        check=True,
-    )
-    return path.read_bytes()
-
-
-@pytest.fixture
-def client(tmp_path):
-    app = create_app(tmp_path / "run", MODEL, "test-service-token")
-    with TestClient(app, headers={"Authorization": "Bearer test-service-token"}) as c:
-        sid = c.post("/sessions").json()["session_id"]
-        c.headers["X-Takya-Session"] = sid
-        yield c, app.state.coordinator, sid
-
-
-def upload(c, data):
-    return c.post(
-        "/uploads",
-        content=data,
-        headers={
-            "Content-Type": "video/mp4",
-            "X-Takya-Authorization-Ack": "true",
-            "X-Takya-Filename": "synthetic.mp4",
-        },
-    )
-
-
-def config(source):
-    result = json.loads((CONTRACTS / "fixtures/valid/zone-config.json").read_text())
-    result.update(source_id=source["id"], polygon=[[0, 0], [1, 0], [1, 1], [0, 1]])
-    return result
 
 
 def test_ingest_hash_range_cross_session_and_cleanup(client, video):

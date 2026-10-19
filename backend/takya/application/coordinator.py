@@ -258,7 +258,7 @@ class Coordinator:
                 "FAILED",
                 error={"code": "TIMEOUT", "message": "El análisis superó 120 segundos."},
             )
-        except Exception:
+        except Exception:  # noqa: BLE001 - todo fallo del worker es FAILED, nunca «sin candidatos»
             self.state(
                 job,
                 "FAILED",

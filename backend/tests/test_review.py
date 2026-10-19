@@ -1,14 +1,13 @@
-from copy import deepcopy
 import hashlib
 import json
+from copy import deepcopy
 
 import pytest
 from PIL import Image
+from support import config, export, upload
 
 from takya.application.coordinator import ident
 from takya.detection.zone import group
-from test_backend import client, config, upload, video
-from test_evidence import export
 from takya.evidence.verify import inspect_package
 
 

@@ -49,7 +49,7 @@ class Exports:
                 + b"\n"
             )
             await writer.drain()
-        except Exception:
+        except Exception:  # noqa: BLE001 - frontera del socket: no filtrar detalles ni claves
             writer.write(b'{"error":"No disponible"}\n')
         finally:
             writer.close()
@@ -171,7 +171,7 @@ class Exports:
             self.keys[pid] = (s.id, key)
             export["state"] = "READY"
             s.audit("export_verified", pid)
-        except Exception:
+        except Exception:  # noqa: BLE001 - cualquier fallo deja la exportación FAILED (cierre seguro)
             export["state"] = "FAILED"
         finally:
             shutil.rmtree(snapshot)

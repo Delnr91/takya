@@ -3,6 +3,7 @@ import math
 from copy import deepcopy
 
 import pytest
+
 from takya.domain.contracts import CONTRACTS, Decision, ZoneConfig, validate
 
 

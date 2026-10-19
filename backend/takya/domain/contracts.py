@@ -93,9 +93,10 @@ def validate(kind: str, data: dict, *, duration_ms: int | None = None):
             context[k]["end_ms"] > duration_ms for k in ("effective", "requested")
         ):
             raise ValueError("Contexto fuera de la fuente")
-    if kind == "source":
-        if (data["capture_time"] is None) != (data["capture_time_provenance"] == "unknown"):
-            raise ValueError("Procedencia de fecha inconsistente")
+    if kind == "source" and (data["capture_time"] is None) != (
+        data["capture_time_provenance"] == "unknown"
+    ):
+        raise ValueError("Procedencia de fecha inconsistente")
     if kind == "observation":
         pts = [s["pts_ms"] for s in data["samples"]]
         if pts != sorted(set(pts)):

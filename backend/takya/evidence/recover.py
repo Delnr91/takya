@@ -39,7 +39,7 @@ def main():
         print(
             "Referencia y recuperación conservadas en archivos privados. Custódialos por separado."
         )
-    except Exception:
+    except Exception:  # noqa: BLE001 - CLI: mensaje único sin revelar material sensible
         parser.exit(
             1, "No se pudo conservar la recuperación; comprueba sesión, paquete y carpeta nueva.\n"
         )

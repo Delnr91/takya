@@ -1,6 +1,6 @@
 """YOLOX nano CPU, COCO person only; no identity or intent inference.
 
-Pre/post processing follows Megvii YOLOX (Apache-2.0). See MODEL.md.
+Pre/post processing follows Megvii YOLOX (Apache-2.0). Procedencia y hash: backend/MODEL.md.
 Boxes emitted as normalized [x, y, width, height] matching v1 fixtures.
 """
 

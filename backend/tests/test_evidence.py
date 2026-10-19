@@ -1,32 +1,16 @@
-import asyncio
-from copy import deepcopy
 import io
 import json
 import os
 import socket
 import stat
-import time
 import zipfile
 
+import pytest
 from cryptography.exceptions import InvalidSignature, InvalidTag
 from cryptography.hazmat.primitives.asymmetric.ed25519 import Ed25519PrivateKey
-import pytest
+from support import export, upload
 
 from takya.evidence.verify import inspect_package, verify_package
-from test_backend import client, video, upload  # pytest fixtures, local synthetic media only
-
-
-def export(c, resource, level, revision=1):
-    response = c.post(f"{resource}/export", json={"level": level, "expected_revision": revision},
-                      headers={"Idempotency-Key": f"export-{level}-0000000000"})
-    assert response.status_code == 202, response.text
-    item = response.json()
-    deadline = time.monotonic() + 10
-    while item["state"] in ("PREPARING", "VERIFYING") and time.monotonic() < deadline:
-        time.sleep(0.05)
-        item = c.get("/exports/" + item["export_id"]).json()
-    assert item["state"] == "READY", item
-    return item
 
 
 @pytest.mark.parametrize("level", ["E1", "E2"])
