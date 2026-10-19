@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { polygonProblem } from "./zone";
 
 const interval = z.object({
   start_ms: z.number().int().nonnegative(),
@@ -94,6 +95,32 @@ export const exportSchema = z.object({
   level: z.enum(["E1", "E2"]),
   fingerprint_public_key: z.string(),
 });
+// Solicitud de análisis (contracts/v1/schemas/zone-config.json + reglas semánticas).
+const unit = z.number().finite().min(0).max(1);
+export const zoneConfigSchema = z
+  .strictObject({
+    source_id: z.string().regex(/^src_[A-Za-z0-9_-]{16,64}$/),
+    polygon: z
+      .array(z.tuple([unit, unit]))
+      .min(3)
+      .max(32),
+    fixed_camera_declared: z.literal(true),
+    rule: z.strictObject({
+      type: z.literal("dwell_in_zone"),
+      reference_point: z.literal("bottom_center"),
+      dwell_ms: z.number().int().min(500).max(10000),
+      rule_version: z.literal("zone-rule-v1"),
+    }),
+    sample_fps: z.union([z.literal(1), z.literal(2)]),
+    min_detector_score: unit,
+    zone_version: z.number().int().min(1).max(1000),
+  })
+  .superRefine((zone, ctx) => {
+    const problem = polygonProblem(zone.polygon);
+    if (problem)
+      ctx.addIssue({ code: "custom", path: ["polygon"], message: problem });
+  });
+export type ZoneConfig = z.infer<typeof zoneConfigSchema>;
 export type Source = z.infer<typeof sourceSchema>;
 export type Job = z.infer<typeof jobSchema>;
 export type Incident = z.infer<typeof incidentSchema>;

@@ -11,7 +11,8 @@
   },
   "include": [
     "src/features/demo/model/simulation.test.ts",
-    "src/features/demo/model/chat.test.ts"
+    "src/features/demo/model/chat.test.ts",
+    "src/features/demo/analysis/contracts.test.ts"
   ],
   "exclude": ["node_modules"]
 }

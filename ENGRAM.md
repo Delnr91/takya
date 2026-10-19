@@ -2,6 +2,16 @@
 
 > Para quienes continúen el proyecto: lean este archivo antes de modificar la aplicación y actualícenlo al cerrar cada entrega. Registren el estado real y la verificación realizada.
 
+## Cierre de lo pendiente de Astra, auditoría de Argon e iconos — 19 de octubre de 2026
+
+- Unida `feat/iconos-animados` (lucide-animated, 43 iconos con `<svg>` como raíz, compatibles con LucideIcon) a `build/demo-final`. Check de congelados OK.
+- Auditoría de Argon (doc 13) verificada contra el código: 6 de 7 hallazgos exactos; corregido el límite de vértices (3–32 según contrato). Doc 12: 13 de 14 enlaces responden; `ui.wtf` no resolvió.
+- Backend: fixtures en `tests/conftest.py`, helpers en `tests/support.py`, `ruff check` limpio, `except` de frontera documentados como cierre seguro, extras `dev` en `pyproject.toml` y `backend/MODEL.md` (YOLOX-Nano idéntico byte a byte al release oficial 0.1.1rc0, Apache-2.0).
+- Web: `ZoneEditor` permite dibujar la zona tocando esquinas sobre el video (3–32 puntos, deshacer y borrar), con alternativa por porcentajes para teclado. Validación inmediata de polígono simple y área > 0 (`zone.ts`), `zoneConfigSchema` estricto y prueba de fixtures del contrato con Zod en `test:demo` (36 pruebas).
+- Navegador: polígono en L válido; zona cruzada marcada en rojo con aviso; el polígono dibujado llegó idéntico al backend y el análisis real terminó «Sin candidatos» (la zona excluía a la persona). Tras reiniciar el backend, la sesión vieja respondió 410 con aviso claro.
+- README con arranque del backend (`npm run analysis:serve`, `npm run analysis:test`); 7 documentos obsoletos marcados como históricos sin borrarlos.
+- Verificado: typecheck, lint, 36 pruebas web, 62 backend + ruff, 33 fixtures, congelados y `npm run build`. Pendiente: corpus autorizado (G0/G2), medición en el equipo del evento, clip de contexto con mapeo probado, prueba con operadores.
+
 ## Demo final: análisis de archivo y documento maestro — 19 de octubre de 2026
 
 - Historial alineado con `origin/main` de github.com/delnr91/takya (push desactivado en la copia local). Trabajo en la rama local `build/demo-final`; nada se subió.

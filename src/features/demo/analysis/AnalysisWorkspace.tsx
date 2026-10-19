@@ -14,7 +14,6 @@ import {
 } from "@/components/icons";
 import {
   api,
-  evidenceUrl,
   exportSchema,
   incidentSchema,
   jobSchema,
@@ -26,6 +25,8 @@ import {
   type Incident,
   type Export,
 } from "./contracts";
+import { ZoneEditor, defaultZone } from "./ZoneEditor";
+import type { Point } from "./zone";
 import {
   candidatesFound,
   mebibytes,
@@ -68,7 +69,7 @@ export function AnalysisWorkspace() {
   const [ack, setAck] = useState(false);
   const [fixed, setFixed] = useState(false);
   const [file, setFile] = useState<File | null>(null);
-  const [zone, setZone] = useState([20, 20, 80, 90]);
+  const [polygon, setPolygon] = useState<Point[] | null>(defaultZone);
   const [fps, setFps] = useState(2);
   const [dwell, setDwell] = useState(2500);
   const [busy, setBusy] = useState(false);
@@ -81,10 +82,7 @@ export function AnalysisWorkspace() {
   const active = job !== null && !terminal(job);
   const exporting =
     exported !== null && ["PREPARING", "VERIFYING"].includes(exported.state);
-  const validZone =
-    zone.every((v) => Number.isFinite(v) && v >= 0 && v <= 100) &&
-    zone[0]! < zone[2]! &&
-    zone[1]! < zone[3]!;
+  const validZone = polygon !== null;
 
   useEffect(() => {
     if (!hasPracticeAccess()) window.location.replace("/login");
@@ -229,6 +227,7 @@ export function AnalysisWorkspace() {
         },
       });
       setSource(received);
+      setPolygon(defaultZone());
       setJob(null);
       setIncidents([]);
       setExported(null);
@@ -238,16 +237,10 @@ export function AnalysisWorkspace() {
   }
 
   async function analyze() {
-    if (!source || !validZone) return;
-    const [left, top, right, bottom] = zone.map((n) => n / 100);
+    if (!source || !polygon) return;
     const config = {
       source_id: source.id,
-      polygon: [
-        [left, top],
-        [right, top],
-        [right, bottom],
-        [left, bottom],
-      ],
+      polygon,
       fixed_camera_declared: fixed,
       rule: {
         type: "dwell_in_zone",
@@ -428,66 +421,11 @@ export function AnalysisWorkspace() {
                   {!job || (terminal(job) && job.state !== "COMPLETED") ? (
                     <>
                       <h3>2. Delimitar una zona</h3>
-                      <div
-                        className="analysis-zone-video"
-                        style={{
-                          aspectRatio: `${source.width} / ${source.height}`,
-                        }}
-                      >
-                        <video
-                          controls
-                          preload="metadata"
-                          src={evidenceUrl(source.id)}
-                          aria-label="Vista de la fuente para definir la zona"
-                        />
-                        <svg
-                          viewBox="0 0 100 100"
-                          preserveAspectRatio="none"
-                          aria-hidden="true"
-                        >
-                          <rect
-                            x={zone[0]}
-                            y={zone[1]}
-                            width={Math.max(0, zone[2]! - zone[0]!)}
-                            height={Math.max(0, zone[3]! - zone[1]!)}
-                          />
-                        </svg>
-                      </div>
-                      <p>
-                        Define un rectángulo con porcentajes de la imagen.
-                        Puedes usar Tab y las flechas del teclado.
-                      </p>
-                      <div className="analysis-fields">
-                        {[
-                          "Izquierda (%)",
-                          "Arriba (%)",
-                          "Derecha (%)",
-                          "Abajo (%)",
-                        ].map((label, i) => (
-                          <label key={label}>
-                            {label}
-                            <input
-                              type="number"
-                              min={0}
-                              max={100}
-                              value={zone[i]}
-                              onChange={(e) =>
-                                setZone((old) =>
-                                  old.map((v, j) =>
-                                    j === i ? Number(e.target.value) : v,
-                                  ),
-                                )
-                              }
-                            />
-                          </label>
-                        ))}
-                      </div>
-                      {!validZone ? (
-                        <p role="alert">
-                          La zona debe tener ancho y alto positivos, dentro de
-                          la imagen.
-                        </p>
-                      ) : null}
+                      <ZoneEditor
+                        key={source.id}
+                        source={source}
+                        onChange={setPolygon}
+                      />
                       <div className="analysis-fields">
                         <label>
                           Muestreo

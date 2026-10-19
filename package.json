@@ -12,7 +12,9 @@
     "start:local": "next start --hostname 127.0.0.1",
     "lint": "eslint .",
     "typecheck": "tsc --noEmit",
-    "test:demo": "tsc -p tsconfig.demo-tests.json && node --test .demo-tests/model/simulation.test.js .demo-tests/model/chat.test.js",
+    "test:demo": "tsc -p tsconfig.demo-tests.json && node --test .demo-tests/model/simulation.test.js .demo-tests/model/chat.test.js .demo-tests/analysis/contracts.test.js",
+    "analysis:serve": "cd backend && PYTHONPATH=. .venv/bin/python -m takya.runtime.serve",
+    "analysis:test": "cd backend && .venv/bin/python -m pytest -q && .venv/bin/ruff check .",
     "format:check": "prettier --check \"src/**/*.{ts,tsx,css}\" \"*.{ts,mjs,json}\""
   },
   "dependencies": {

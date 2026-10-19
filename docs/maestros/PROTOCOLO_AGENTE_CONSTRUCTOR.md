@@ -9,6 +9,9 @@ proposito: "Instrucción maestra y manual de ingeniería para el agente construc
 
 # Protocolo del Agente Constructor · Sistema Operativo de Software Lattice
 
+> **Documento histórico (19-10-2026).** Se conserva como registro; no usar para construir ni para el pitch. Fuente vigente: [documento maestro end-to-end](DOCUMENTO_MAESTRO_TAKYA_E2E.md) y [plan maestro de la demo final](PLAN_MAESTRO_DEMO_FINAL.md). Clasificación en la [auditoría documental](../estrategia/13_AUDITORIA_PALANTIR_ARQUITECTURA_Y_DOCS.md).
+
+
 > **Propósito para el Agente Constructor:**  
 > Este documento condensa el conocimiento del Segundo Cerebro del autor (`03_SOFTWARE_ENGINEERING` y `02_STARTUP`). Funciona como el estándar rector de cómo se diseña, programa, prueba y despliega software: **disciplina grado Silicon Valley siendo un único desarrollador (Solo-Dev)**.
 

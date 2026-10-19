@@ -10,7 +10,7 @@
 
 Vitrina digital de TAKYA, una propuesta de apoyo a operadores de televigilancia mediante contexto y prioridades explicables. Proyecto desarrollado para el Programa Nómada UCN en Antofagasta.
 
-> **Versión de demostración:** `/landing` presenta el proyecto; `/home` ofrece acceso audiovisual y `/login` permite elegir Operador o Supervisión. `/demo` reproduce registros grabados con señales curadas. El ejercicio y su historial son locales; el chat usa una ruta de servidor hacia Groq. No hay cámaras conectadas, análisis automático del video ni despacho real.
+> **Versión de demostración:** `/landing` presenta el proyecto; `/home` ofrece acceso audiovisual y `/login` permite elegir Operador o Supervisión. `/demo` reproduce registros grabados con señales curadas (práctica). `/demo?mode=analysis` analiza un archivo MP4 autorizado con un backend local: detector de personas en CPU, revisión y decisión validadas por el servidor y un paquete de evidencia E1/E2 verificable sin internet. No hay cámaras en vivo ni despacho real; la precisión del detector en CCTV real aún no está medida.
 
 ## Navegación rápida
 
@@ -99,6 +99,26 @@ Abre [http://127.0.0.1:3000](http://127.0.0.1:3000). La redirección te llevará
 No necesitas variables de entorno para usar casos, videos, decisiones, supervisión, historial ni **Guíame** de K8. Las consultas libres a Groq sí requieren una clave privada: copia `.env.example` a `.env.local`, completa `GROQ_API_KEY` y reinicia el servidor. Sin clave, el chat conserva la pregunta y muestra un aviso de indisponibilidad. La instalación y la primera compilación necesitan internet, incluida la descarga de tipografías.
 
 Para usar una compilación de producción local, ejecuta `npm run build` y después `npm run start:local`, con el servidor de desarrollo detenido. Ambos modos usan el puerto 3000; si ya está ocupado, puedes iniciar desarrollo con `npm run dev -- --port 3001`.
+
+### Analizar archivo (backend local)
+
+El modo `/demo?mode=analysis` necesita un segundo proceso: el backend Python (FastAPI + worker aislado), que solo escucha en `127.0.0.1:8765`. Requisitos: Python 3.12, FFmpeg/ffprobe, `bwrap` y `prlimit` (Linux).
+
+```bash
+python3 -m venv backend/.venv
+```
+
+```bash
+backend/.venv/bin/pip install -r backend/requirements.lock
+```
+
+Si tu Python no trae `pip`/`ensurepip`, crea el entorno con `--without-pip` e instala con [pip.pyz](https://bootstrap.pypa.io/pip/pip.pyz). Descarga el detector según [backend/MODEL.md](backend/MODEL.md) y verifica su SHA-256. Luego, en una terminal aparte:
+
+```bash
+npm run analysis:serve
+```
+
+Con `npm run dev` en otra terminal, abre `/demo` y elige **Analizar archivo**. Sin el backend, ese modo muestra «El análisis local no está disponible» y la práctica sigue funcionando. Pruebas del backend: `npm run analysis:test`. Diseño y límites: [plan maestro de la demo](docs/maestros/PLAN_MAESTRO_DEMO_FINAL.md) y [documento maestro](docs/maestros/DOCUMENTO_MAESTRO_TAKYA_E2E.md).
 
 El [diagnóstico local](docs/10_ESTADO_LOCAL.md) explica la arquitectura, las verificaciones de esta descarga y el punto de partida para construir el backend de casos.
 

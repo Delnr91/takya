@@ -224,6 +224,75 @@
   width: 100%;
   pointer-events: none;
 }
+.analysis-zone-video svg.is-drawing {
+  pointer-events: auto;
+  cursor: crosshair;
+  touch-action: none;
+}
+.analysis-zone-video polygon,
+.analysis-zone-video polyline {
+  fill: #ef7c3333;
+  stroke: #ffb36f;
+  stroke-width: 0.7;
+  vector-effect: non-scaling-stroke;
+}
+.analysis-zone-video polyline {
+  fill: none;
+}
+.analysis-zone-video polygon.is-invalid {
+  fill: #e05d4433;
+  stroke: #e05d44;
+}
+.analysis-zone-video circle {
+  fill: #ffb36f;
+  stroke: #142b27;
+  stroke-width: 0.4;
+}
+.analysis-segmented {
+  display: inline-flex;
+  gap: 4px;
+  padding: 4px;
+  border-radius: 999px;
+  background: #e8ebe7;
+}
+.analysis-segmented button {
+  min-height: 48px;
+  padding: 0 18px;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  font: inherit;
+  cursor: pointer;
+}
+.analysis-segmented button[aria-checked="true"] {
+  background: #1b3b2b;
+  color: #f4f1ea;
+}
+.analysis-zone-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.analysis-zone-actions button {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 48px;
+  padding: 0 16px;
+  border: 1px solid #b9c4bd;
+  border-radius: 12px;
+  background: #fff;
+  font: inherit;
+  cursor: pointer;
+}
+.analysis-zone-actions button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+.analysis-zone-actions svg {
+  width: 20px;
+  height: 20px;
+}
 .analysis-zone-video rect {
   fill: #ef7c3333;
   stroke: #ffb36f;

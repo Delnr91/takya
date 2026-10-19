@@ -1,5 +1,8 @@
 # TAKYA - Plan de Implementación (Roadmap)
 
+> **Documento histórico (19-10-2026).** Se conserva como registro; no usar para construir ni para el pitch. Fuente vigente: [documento maestro end-to-end](maestros/DOCUMENTO_MAESTRO_TAKYA_E2E.md) y [plan maestro de la demo final](maestros/PLAN_MAESTRO_DEMO_FINAL.md). Clasificación en la [auditoría documental](estrategia/13_AUDITORIA_PALANTIR_ARQUITECTURA_Y_DOCS.md).
+
+
 ## Sprint 0: Scaffolding y Preparación (Fundamentos)
 - [ ] Iniciar proyecto Next.js 14 App Router.
 - [ ] Limpiar código base, configurar ESLint y Prettier.
