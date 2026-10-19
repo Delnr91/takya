@@ -2,6 +2,7 @@
 // adaptados como reemplazo directo de lucide-react: mismos nombres, mismas props y <svg> como raíz.
 // Los iconos sin versión animada se siguen importando desde "lucide-react".
 
+export { AArrowUpIcon as AArrowUp } from "./a-arrow-up";
 export { ActivityIcon as Activity } from "./activity";
 export { ArrowDownRightIcon as ArrowDownRight } from "./arrow-down-right";
 export { ArrowLeftIcon as ArrowLeft } from "./arrow-left";
@@ -25,6 +26,7 @@ export { CircleHelpIcon as HelpCircle } from "./circle-help";
 export { HistoryIcon as History } from "./history";
 export { HomeIcon as House } from "./home";
 export { LayersIcon as Layers3 } from "./layers";
+export { LogInIcon as LogIn } from "./login";
 export { LeafIcon as Leaf } from "./leaf";
 export { LogoutIcon as LogOut } from "./logout";
 export { MapPinIcon as MapPin } from "./map-pin";
