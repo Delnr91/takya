@@ -1,0 +1,1 @@
+{"source_id":"src_Bb1Bb1Bb1Bb1Bb1Bb1","polygon":[[0.1,0.4],[0.9,0.4],[0.9,0.95],[0.1,0.95]],"fixed_camera_declared":true,"rule":{"type":"dwell_in_zone","reference_point":"bottom_center","dwell_ms":2000,"rule_version":"zone-rule-v1"},"sample_fps":10,"min_detector_score":0.5,"zone_version":1}

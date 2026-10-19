@@ -1,0 +1,12 @@
+{
+  "version": "v1",
+  "note": "Perfil inicial PROPUESTO, pendiente de medir. No habilitar 1 h / 2 GB cambiando constantes.",
+  "source": { "container": "mp4", "video_codec": "h264", "max_duration_ms": 60000, "max_width": 1280, "max_height": 720, "max_bytes": 33554432, "video_streams": 1, "allowed_other_streams": ["aac_audio"] },
+  "package_clear_max_bytes": 67108864,
+  "queue": { "active": 1, "waiting": 1, "global_pending_uploads": 2 },
+  "context": { "pre_ms": 15000, "post_ms": 20000 },
+  "stills_max": 3,
+  "session": { "idle_ttl_s": 1800, "idle_warning_s": 300, "max_s": 7200 },
+  "worker": { "decoder_threads_max": 2, "resident_models": 1 },
+  "paths": { "dirs_mode": "0700", "files_mode": "0600" }
+}

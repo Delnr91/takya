@@ -1,0 +1,56 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://takya.local/contracts/v1/job.json",
+  "title": "Job · trabajo de análisis (autoridad: coordinador)",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["id", "session_id", "source_id", "state", "progress", "error", "result", "config_hash", "revision", "created_at", "updated_at"],
+  "properties": {
+    "id": { "$ref": "defs.json#/definitions/jobId" },
+    "session_id": { "$ref": "defs.json#/definitions/sessionId" },
+    "source_id": { "$ref": "defs.json#/definitions/sourceId" },
+    "state": {
+      "type": "string",
+      "enum": ["RECEIVING", "VALIDATING", "READY", "QUEUED", "ANALYZING", "COMPLETED", "FAILED", "CANCELLED", "EXPIRED"]
+    },
+    "progress": {
+      "type": "object", "additionalProperties": false,
+      "required": ["mode", "stage", "percent", "elapsed_ms"],
+      "properties": {
+        "mode": { "type": "string", "enum": ["determinate", "indeterminate"] },
+        "stage": { "type": "string", "enum": ["receive", "validate", "queue", "decode", "detect", "group", "context", "done"] },
+        "percent": { "oneOf": [{ "type": "null" }, { "type": "number", "minimum": 0, "maximum": 100 }] },
+        "elapsed_ms": { "type": "integer", "minimum": 0 }
+      }
+    },
+    "error": {
+      "oneOf": [
+        { "type": "null" },
+        {
+          "type": "object", "additionalProperties": false, "required": ["code", "message"],
+          "properties": {
+            "code": { "type": "string", "enum": ["DECODE_FAILED", "WORKER_DIED", "TIMEOUT", "DISK_QUOTA", "INVALID_SOURCE", "INTERNAL"] },
+            "message": { "type": "string", "maxLength": 300 }
+          }
+        }
+      ]
+    },
+    "result": {
+      "oneOf": [
+        { "type": "null" },
+        {
+          "type": "object", "additionalProperties": false, "required": ["candidate_count", "incident_ids", "analyzed_interval"],
+          "properties": {
+            "candidate_count": { "type": "integer", "minimum": 0, "maximum": 100 },
+            "incident_ids": { "type": "array", "maxItems": 100, "items": { "$ref": "defs.json#/definitions/incidentId" } },
+            "analyzed_interval": { "$ref": "defs.json#/definitions/interval" }
+          }
+        }
+      ]
+    },
+    "config_hash": { "$ref": "defs.json#/definitions/sha256" },
+    "revision": { "type": "integer", "minimum": 1 },
+    "created_at": { "$ref": "defs.json#/definitions/utc" },
+    "updated_at": { "$ref": "defs.json#/definitions/utc" }
+  }
+}

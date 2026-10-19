@@ -1,0 +1,14 @@
+[project]
+name = "takya-backend"
+version = "0.0.0"
+description = "Backend local de análisis de TAKYA (demo sin BD). Dependencias exactas: las fija y bloquea Astra en H1 (backend/requirements.lock)."
+requires-python = ">=3.12"
+dependencies = []
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"

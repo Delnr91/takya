@@ -1,0 +1,22 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://takya.local/contracts/v1/error.json",
+  "title": "Error de API",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["code", "message"],
+  "properties": {
+    "code": {
+      "type": "string",
+      "enum": [
+        "BAD_REQUEST", "UNAUTHENTICATED_SESSION", "NOT_FOUND", "SESSION_EXPIRED",
+        "PAYLOAD_TOO_LARGE", "UNSUPPORTED_MEDIA", "INVALID_SOURCE", "INVALID_ZONE",
+        "REVISION_CONFLICT", "IDEMPOTENCY_CONFLICT", "AT_CAPACITY", "DISK_QUOTA",
+        "JOB_NOT_TERMINAL", "NOT_REVIEWED", "EXPORT_NOT_READY", "BACKEND_UNAVAILABLE",
+        "INTERNAL"
+      ]
+    },
+    "message": { "type": "string", "maxLength": 300 },
+    "details": { "type": "object" }
+  }
+}

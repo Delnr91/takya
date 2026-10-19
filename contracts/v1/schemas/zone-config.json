@@ -1,0 +1,29 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://takya.local/contracts/v1/zone-config.json",
+  "title": "ZoneConfig · zona y regla (autoridad: servidor). Semántica adicional en README: polígono simple de área positiva.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["source_id", "polygon", "fixed_camera_declared", "rule", "sample_fps", "min_detector_score", "zone_version"],
+  "properties": {
+    "source_id": { "$ref": "defs.json#/definitions/sourceId" },
+    "polygon": {
+      "type": "array", "minItems": 3, "maxItems": 32,
+      "items": { "$ref": "defs.json#/definitions/point" }
+    },
+    "fixed_camera_declared": { "type": "boolean", "const": true },
+    "rule": {
+      "type": "object", "additionalProperties": false,
+      "required": ["type", "reference_point", "dwell_ms", "rule_version"],
+      "properties": {
+        "type": { "type": "string", "const": "dwell_in_zone" },
+        "reference_point": { "type": "string", "const": "bottom_center" },
+        "dwell_ms": { "type": "integer", "minimum": 500, "maximum": 10000 },
+        "rule_version": { "type": "string", "const": "zone-rule-v1" }
+      }
+    },
+    "sample_fps": { "type": "integer", "enum": [1, 2] },
+    "min_detector_score": { "type": "number", "minimum": 0, "maximum": 1 },
+    "zone_version": { "type": "integer", "minimum": 1, "maximum": 1000 }
+  }
+}

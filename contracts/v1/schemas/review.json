@@ -1,0 +1,14 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://takya.local/contracts/v1/review.json",
+  "title": "ReviewMarks · marcas de revisión enviadas por el cliente (el servidor no certifica atención humana)",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["expected_revision", "viewed_clip", "viewed_stills", "acknowledged_unknowns"],
+  "properties": {
+    "expected_revision": { "type": "integer", "minimum": 1 },
+    "viewed_clip": { "type": "boolean" },
+    "viewed_stills": { "type": "array", "maxItems": 3, "items": { "$ref": "defs.json#/definitions/stillId" } },
+    "acknowledged_unknowns": { "type": "boolean" }
+  }
+}

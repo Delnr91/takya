@@ -1,0 +1,15 @@
+src/app/page.tsx
+src/app/home
+src/app/landing
+src/app/login
+src/app/layout.tsx
+src/app/globals.css
+src/app/fonts
+src/features/home
+src/features/landing
+src/features/login
+src/features/shared
+src/components/ui
+tailwind.config.ts
+next.config.mjs
+public

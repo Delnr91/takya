@@ -1,0 +1,136 @@
+openapi: 3.1.0
+info:
+  title: TAKYA /api/analysis (contrato v1)
+  version: 1.0.0
+  description: >
+    Contrato entre navegador, BFF de Next y coordinador FastAPI. Autoridad del servidor.
+    Cookie de sesión efímera HttpOnly/SameSite; no equivale a identidad laboral verificada.
+    Toda mutación valida Origin. Recursos ajenos o inexistentes responden 404 sin revelar existencia.
+    Estado efímero: un reinicio invalida sesiones, mapas e idempotencia (410 SESSION_EXPIRED).
+servers: [{ url: /api/analysis }]
+components:
+  securitySchemes:
+    sessionCookie: { type: apiKey, in: cookie, name: takya_session }
+  parameters:
+    id: { name: id, in: path, required: true, schema: { type: string } }
+    idempotencyKey: { name: Idempotency-Key, in: header, required: true, schema: { type: string, minLength: 16, maxLength: 80 } }
+  responses:
+    Error:
+      description: Error de contrato
+      content: { application/json: { schema: { $ref: schemas/error.json } } }
+paths:
+  /sessions:
+    post:
+      summary: Crea sesión efímera (Set-Cookie). Devuelve límites y TTL a mostrar ANTES de cargar.
+      responses:
+        "201": { description: "Sesión creada; cuerpo: session_id, limits (limits.json), expires_in_s, max_s" }
+        "503": { $ref: "#/components/responses/Error" }
+  /sessions/{id}/close:
+    post:
+      security: [{ sessionCookie: [] }]
+      parameters: [{ $ref: "#/components/parameters/id" }]
+      summary: Cierre explícito. Pide confirmación de pérdida si falta exportar; no borra durante descarga activa.
+      responses:
+        "204": { description: Cerrada }
+        "409": { description: JOB_NOT_TERMINAL o descarga activa }
+        "404": { $ref: "#/components/responses/Error" }
+  /uploads:
+    post:
+      security: [{ sessionCookie: [] }]
+      summary: Carga por streaming (sin buffer completo en RAM). Cabecera X-Takya-Authorization-Ack obligatoria.
+      requestBody:
+        required: true
+        content: { video/mp4: { schema: { type: string, format: binary } } }
+      responses:
+        "201": { description: Fuente aceptada (hash definitivo), content: { application/json: { schema: { $ref: schemas/source.json } } } }
+        "400": { $ref: "#/components/responses/Error" }
+        "413": { $ref: "#/components/responses/Error" }
+        "415": { $ref: "#/components/responses/Error" }
+        "422": { description: INVALID_SOURCE (ffprobe/límites), content: { application/json: { schema: { $ref: schemas/error.json } } } }
+        "429": { $ref: "#/components/responses/Error" }
+        "507": { description: DISK_QUOTA, content: { application/json: { schema: { $ref: schemas/error.json } } } }
+  /jobs:
+    post:
+      security: [{ sessionCookie: [] }]
+      parameters: [{ $ref: "#/components/parameters/idempotencyKey" }]
+      summary: Crea trabajo. Misma clave+payload devuelve el resultado previo; payload distinto ⇒ 409 IDEMPOTENCY_CONFLICT.
+      requestBody:
+        required: true
+        content: { application/json: { schema: { $ref: schemas/zone-config.json } } }
+      responses:
+        "202": { description: Aceptado, content: { application/json: { schema: { $ref: schemas/job.json } } } }
+        "404": { $ref: "#/components/responses/Error" }
+        "409": { $ref: "#/components/responses/Error" }
+        "422": { description: INVALID_ZONE (semántica de polígono), content: { application/json: { schema: { $ref: schemas/error.json } } } }
+        "429": { description: AT_CAPACITY, content: { application/json: { schema: { $ref: schemas/error.json } } } }
+        "503": { $ref: "#/components/responses/Error" }
+  /jobs/{id}:
+    get:
+      security: [{ sessionCookie: [] }]
+      parameters: [{ $ref: "#/components/parameters/id" }]
+      summary: Estado/progreso/resultado. COMPLETED con 0 candidatos es distinto de FAILED/CANCELLED/EXPIRED.
+      responses:
+        "200": { description: Job, content: { application/json: { schema: { $ref: schemas/job.json } } } }
+        "404": { $ref: "#/components/responses/Error" }
+        "410": { $ref: "#/components/responses/Error" }
+  /jobs/{id}/cancel:
+    post:
+      security: [{ sessionCookie: [] }]
+      parameters: [{ $ref: "#/components/parameters/id" }]
+      summary: Cancelación idempotente; termina grupo de procesos; un terminal no se reabre.
+      responses:
+        "200": { description: Job tras cancelar, content: { application/json: { schema: { $ref: schemas/job.json } } } }
+        "404": { $ref: "#/components/responses/Error" }
+  /incidents/{id}:
+    get:
+      security: [{ sessionCookie: [] }]
+      parameters: [{ $ref: "#/components/parameters/id" }]
+      responses:
+        "200": { description: Incidente con evidencia autorizada, content: { application/json: { schema: { $ref: schemas/analysis-incident.json } } } }
+        "404": { $ref: "#/components/responses/Error" }
+  /incidents/{id}/review:
+    post:
+      security: [{ sessionCookie: [] }]
+      parameters: [{ $ref: "#/components/parameters/id" }]
+      summary: Registra marcas de revisión (PENDING→IN_REVIEW). El servidor no certifica atención humana.
+      requestBody: { required: true, content: { application/json: { schema: { $ref: schemas/review.json } } } }
+      responses:
+        "200": { description: Incidente actualizado, content: { application/json: { schema: { $ref: schemas/analysis-incident.json } } } }
+        "409": { $ref: "#/components/responses/Error" }
+  /incidents/{id}/decisions:
+    post:
+      security: [{ sessionCookie: [] }]
+      parameters: [{ $ref: "#/components/parameters/id" }]
+      summary: Decisión humana de ejercicio. Valida expected_revision, estado IN_REVIEW y motivo; simulada (sin despacho).
+      requestBody: { required: true, content: { application/json: { schema: { $ref: schemas/decision.json } } } }
+      responses:
+        "201": { description: Registro, content: { application/json: { schema: { $ref: schemas/decision-record.json } } } }
+        "409": { description: REVISION_CONFLICT o NOT_REVIEWED, content: { application/json: { schema: { $ref: schemas/error.json } } } }
+        "422": { $ref: "#/components/responses/Error" }
+  /evidence/{id}:
+    get:
+      security: [{ sessionCookie: [] }]
+      parameters: [{ $ref: "#/components/parameters/id" }]
+      summary: Streaming privado (clip/PNG) con Range acotado; solo tipos permitidos; jamás desde public/.
+      responses:
+        "200": { description: Bytes completos }
+        "206": { description: Rango parcial }
+        "404": { $ref: "#/components/responses/Error" }
+        "416": { description: Rango inválido }
+  /incidents/{id}/export:
+    post:
+      security: [{ sessionCookie: [] }]
+      parameters: [{ $ref: "#/components/parameters/id" }, { $ref: "#/components/parameters/idempotencyKey" }]
+      summary: Prepara paquete E1/E2 de UNA revisión coherente. Descarga solo cuando está READY (verificado).
+      responses:
+        "202": { description: "Exportación: export_id, state PREPARING|VERIFYING|READY|FAILED, level, fingerprint_public_key" }
+        "409": { $ref: "#/components/responses/Error" }
+  /exports/{id}:
+    get:
+      security: [{ sessionCookie: [] }]
+      parameters: [{ $ref: "#/components/parameters/id" }]
+      summary: Estado; con ?download=1 y READY entrega el paquete (DOWNLOADED es evento aparte; no es recepción institucional).
+      responses:
+        "200": { description: Estado o bytes del paquete }
+        "409": { description: EXPORT_NOT_READY, content: { application/json: { schema: { $ref: schemas/error.json } } } }
+        "404": { $ref: "#/components/responses/Error" }

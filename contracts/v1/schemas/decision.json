@@ -1,0 +1,14 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://takya.local/contracts/v1/decision.json",
+  "title": "Decision · decisión humana de ejercicio (solicitud y registro)",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["expected_revision", "type", "reason_code", "reason_text"],
+  "properties": {
+    "expected_revision": { "type": "integer", "minimum": 1 },
+    "type": { "type": "string", "enum": ["VERIFY", "DISMISS", "ESCALATE"] },
+    "reason_code": { "type": "string", "enum": ["SEEN_IN_VIDEO", "NOT_A_PERSON", "OUTSIDE_ZONE", "AUTHORIZED_ACTIVITY", "UNCLEAR_NEEDS_SUPERVISOR", "OTHER"] },
+    "reason_text": { "type": "string", "minLength": 1, "maxLength": 500 }
+  }
+}
