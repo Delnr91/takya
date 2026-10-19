@@ -238,3 +238,74 @@ De acuerdo con el rigor de TAKYA ([01_DOCUMENTO_MAESTRO.md](01_DOCUMENTO_MAESTRO
   - **ISO 7010**: *Graphical symbols — Safety colours and safety signs*.
   - **MIIT China (2021) / GB/T 37668**: *Mobile Internet Application (App) General Design Specifications for Ageing-Friendly Transformation* (tipografía ampliada, iconos etiquetados, objetivos táctiles amplios, pasos mínimos y asistencia por voz).
 - **Diseño Lúdico y Motivación Intrínseca (*Serious Gameful Design*):** Deterding, S. et al. (2011). *From game design elements to gamefulness: defining "gamification"*. / Ryan, R. M., & Deci, E. L. (2000). *Self-determination theory and the facilitation of intrinsic motivation*.
+
+---
+
+## 9. Motion Cognitivo Anti-«IA Genérico» y Sitios Gratuitos de Inspiración
+
+### 9.1. ¿Por qué una interfaz se siente «IA genérico» y cómo romper ese efecto en TAKYA?
+
+El síndrome de «interfaz hecha por IA» ocurre cuando una web abusa de:
+- Gradientes morados/neón sin propósito operativo.
+- Apariciones genéricas `fade-in + translateY(20px)` con curvas lineales o `ease-in-out` lentas en todos los bloques por igual.
+- Bordes brillantes giratorios (*glowing beams*) que distraen la vista del contenido real.
+- Iconos estáticos mudos dentro de círculos grises idénticos.
+
+Para que TAKYA se sienta como un **instrumento físico de precisión y un juguete táctil con vida propia** (alineado con *Structural Silence* en [03_DESIGN_SYSTEM.md](../03_DESIGN_SYSTEM.md) y `framer-motion` ^13.4.4 ya instalado en `package.json`, sin añadir librerías pesadas), el movimiento debe ser **mecánico, causal y táctil**:
+
+| Qué evitar («IA Genérico») | Qué usar en TAKYA («Instrumento Táctil / Juguete de Precisión») | Primitiva en `framer-motion` / CSS |
+| --- | --- | --- |
+| `opacity: 0 → 1` lento en todo a la vez | **Continuidad espacial (`layoutId`):** cuando el operador pasa de `1. Observar` a `2. Comprender`, el indicador activo o el marco del clip *viaja físicamente* de un paso al siguiente, para que el ojo nunca pierda dónde está. | `<motion.div layout layoutId="active-step" transition={{ type: "spring", stiffness: 380, damping: 30 }} />` |
+| Hover plano que solo cambia de opacidad | **Compresión física de botón de juguete (*Tactile Squish*):** al tocar o presionar un botón grande (`≥48 px`), cede ligeramente (`scale: 0.97`) y al soltar recupera con resorte corto sin rebote exagerado. | `whileTap={{ scale: 0.97 }}` con resorte crítico (`damping: 28, stiffness: 450`) |
+| Iconos estáticos sin reacción | **Micro-cinemática en el pictograma:** cuando el operador marca `Ya revisé este clip`, el trazo del check se dibuja (`pathLength: 0 → 1`); al abrir `Exportar paquete`, el arco del candado baja físicamente y sella la tarjeta. | `<motion.path initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} />` |
+| Saltos bruscos al expandir paneles o mostrar motivos | **Despliegue de bandeja física (*Accordion Layout*):** al abrir «Lo desconocido» o el selector de motivos en `Decidir`, el contenedor empuja suavemente con física de masa real, sin parpadeos de altura. | `layout="position"` + `AnimatePresence initial={false}` |
+| Spinners circulares infinitos que dan ansiedad | **Pulso de escaneo instrumental y contador tabular:** durante el análisis del video, una línea de barrido serena sobre la barra de tiempo y números tabulares (`JetBrains Mono`) que avanzan cuadro a cuadro, con botón `Cancelar` siempre firme. | Interpolación de progreso real del servidor + `font-variant-numeric: tabular-nums` |
+
+> **Regla de oro de accesibilidad en TAKYA:** Todo movimiento usa `useReducedMotion()` y respeta la preferencia **«Sin movimiento»** de Ajustes ([ADR 0005](../adr/0005-recorded-evidence-and-cognitive-motion.md)). Cuando está activo, las transiciones espaciales pasan a cambios instantáneos de estado (`duration: 0`), manteniendo intacta la claridad del pictograma y su etiqueta.
+
+### 9.2. Los mejores sitios gratuitos para inspiración y código Motion aplicable a TAKYA
+
+#### A. Pictogramas e Iconos Animados (Gratis / MIT / Copy-Paste con `framer-motion` y `lucide-react`)
+1. **[Lucide Animated (`lucide-animated.com` / `github.com/pqoqubbw/icons`)](https://lucide-animated.com/)**
+   - **Por qué es ideal para TAKYA:** TAKYA ya usa `lucide-react` y `framer-motion`. Este repositorio gratuito (licencia MIT) convierte los iconos de Lucide en pictogramas con micro-animaciones físicas al tocar o pasar el cursor (el candado se cierra, el ojo parpadea, el escudo confirma, la campana oscila con amortiguación real).
+   - **Uso recomendado:** Aplicar en los botones de los 3 pasos (`Observar`, `Comprender`, `Decidir`) y en el sello del verificador `E1/E2` para que el pictograma enseñe la acción visualmente a personas con baja alfabetización digital.
+2. **[000h by Cojeev (`000h.cojeev.com`)](https://000h.cojeev.com/)**
+   - **Por qué es ideal para TAKYA:** Ya está integrado con licencia MIT en `src/components/ui/` (`CojeevPictogram.tsx`, `CojeevAgentState.tsx`). Sus glifos orgánicos por puntos y estados de respiración son la base perfecta para mantener coherencia visual sin recargar la GPU.
+
+#### B. Primitivas de Interacción Táctil (Gratis / Open Source para React + Tailwind + Motion)
+3. **[Motion Primitives (`motion-primitives.com` / `github.com/ibelick/motion-primitives`)](https://motion-primitives.com/)**
+   - **Qué aporta:** Componentes gratuitos y pequeños en código abierto construidos sobre Motion y Tailwind: *Morphing Dialogs* (una tarjeta que se convierte suavemente en modal sin perder el contexto), *Animated Tabs* con indicador deslizante, *Disclosure/Accordion* táctil y *Animated Number* (contadores tabulares limpios).
+   - **Cómo evita el look IA genérico:** En vez de abrir ventanas emergentes bruscas que asustan al operador mayor, la tarjeta que el operador acaba de tocar se expande desde su propio lugar (*origen espacial*).
+4. **[21st.dev (`21st.dev`)](https://21st.dev/)**
+   - **Qué aporta:** El mayor directorio abierto actual de componentes React + Tailwind + Framer Motion con vista previa interactiva en vivo y código gratuito para copiar.
+   - **Qué buscar ahí para TAKYA:** Buscar por categorías funcionales concretas (*"Step Indicator"*, *"File Upload Dropzone"*, *"Segmented Control"*, *"Status Badge"*) y descartar efectos decorativos de landing page.
+5. **[Cult UI (`cult-ui.com`)](https://www.cult-ui.com/)**
+   - **Qué aporta:** Colección gratuita (estilo shadcn) enfocada en componentes táctiles, *Expandable Cards*, *Sortable Lists* y *Popover Forms* con curvas de resorte muy cuidadas inspiradas en el diseño industrial de Apple y Teenage Engineering.
+
+#### C. Referentes de Artesanía de Micro-Interacción («Anti-IA», Físicas Reales y Tactilidad)
+6. **[Rauno Freiberg — Devouring Details / Craft (`rauno.me/craft`)](https://rauno.me/craft)** y **UI.wtf (`ui.wtf`, no verificado: el dominio no resolvía al comprobarlo el 19-10-2026)**
+   - **Qué aporta:** Experimentos de ingeniería de interfaz donde los controles digitales se comportan como objetos mecánicos reales (ruedas con inercia, selectores con clic visual, barras de tiempo magnéticas). Excelente inspiración para el selector de momentos del reproductor de evidencia y el delimitador de zona poligonal.
+7. **[Emil Kowalski — Animations on the Web (`animations.dev`)](https://animations.dev/) / [Vaul](https://github.com/emilkowalski/vaul) / [Sonner](https://sonner.emilkowal.ski/)**
+   - **Qué aporta:** Las reglas de física de resortes y amortiguación que usan productos como Linear y Vercel para que las bandejas, notificaciones de estado y cajones se sientan instantáneos (nunca lentos ni chiclosos).
+8. **[Godly Website (`godly.website`)](https://godly.website/)** y **[Loaders / Micro-interactions en `uilabs.dev`](https://www.uilabs.dev/)**
+   - **Qué aporta:** Galería curada en video de las mejores transiciones web del mundo (filtrable por *Dark Mode*, *Minimal*, *WebGL* e *Interactive*) y laboratorio experimental de micro-controles.
+9. **[Motion.dev Examples (`motion.dev/examples`)](https://motion.dev/examples)** y **[Easings.net (`easings.net`)](https://easings.net/)**
+   - **Qué aporta:** Documentación oficial de las primitivas gratuitas de Motion (`layout`, `useSpring`, `useTransform`, `AnimatePresence`) junto con el catálogo matemático de curvas `cubic-bezier` para cuando se prefiere transición determinista sobre resorte.
+
+### 9.3. Los 5 «Motions con Alma» recomendados específicamente para el flujo de TAKYA
+
+Para que la consola de TAKYA tenga personalidad propia y guíe al operador casi sin leer:
+
+1. **El «Hilo Conductor» entre Pasos (`layoutId` de Andamiaje):**
+   - Cuando el operador termina `1. Observar` (marca los clips) y se desbloquea `2. Comprender`, un anillo o pastilla luminosa en color Salvia/Bosque (`#4A7C59`) **se desliza físicamente** del paso 1 al paso 2. El ojo del operador sigue esa pastilla de forma automática (procesamiento pre-atentivo de movimiento), sabiendo exactamente dónde tocar ahora sin buscar en la pantalla.
+2. **El Sello Físico de Evidencia (`Stamp & Lock` en E1/E2):**
+   - Al generar o verificar un paquete en el hito de evidencia, en lugar de mostrar solo un texto plano `"OK"`, mostrar el pictograma del candado/escudo cerrando su arco con un resorte seco (`stiffness: 500, damping: 32`) acompañado del estado claro: **🟢 Paquete Íntegro** o **🔴 Alteración Detectada**.
+3. **Píldoras Magnéticas en la Línea de Tiempo del Video (`Moment Seek Pills`):**
+   - En `IncidentVideoPlayer`, los botones de momentos clave (*«00:12 · Ingreso a zona»*) actúan como imanes táctiles: al tocarlos, el cabezal del video viaja suavemente y el recuadro de señal (*bounding box*) hace un breve pulso de enfoque (1 ciclo de 400 ms) para dirigir la mirada del centinela al lugar exacto del fotograma, y luego queda tranquilo sin parpadear.
+4. **Dibujo de Zona tipo «Unir Puntos de Juguete» (`Elastic Polygon`):**
+   - En la etapa `Delimitar` del nuevo análisis, cuando el operador toca 3 o 4 esquinas sobre el fotograma para marcar la zona restringida, cada vértice es un círculo grande (`≥ 32–44 px` de área táctil) que hace un pequeño *pop* elástico al colocarse, y al cerrar el polígono la zona se rellena con una trama translúcida suave.
+5. **Respiración Orgánica de Estado en K8 (ya presente en `QuickCompanion` y `K8Mascot`):**
+   - Mantener la distinción de ritmo físico: reposo lento y calmado (baja fatiga en sala oscura `#0C1410`), ondulación rítmica al escuchar voz (`Hablar`) y pausa inmediata cuando el operador activa «Sin movimiento».
+
+
+> **Verificación del orquestador (19-10-2026):** 13 de 14 enlaces de la sección 9 respondieron HTTP 200; `ui.wtf` no resolvió. La licencia MIT de Cojeev consta en `src/components/ui/COJEEV_NOTICE.txt`. Las afirmaciones sobre qué productos usan ciertas curvas o física (Linear, Vercel, Apple, Teenage Engineering) son referencias de inspiración, no hechos verificados. Los iconos de lucide-animated se integraron en la rama `feat/iconos-animados`.
