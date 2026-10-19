@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowUpRight } from "lucide-react";
+import { ArrowUpRight } from "@/components/icons";
 import { HomeVideoBackground } from "./HomeVideoBackground";
 import { motion } from "framer-motion";
 import { useCurtainNavigation } from "@/components/ui/CurtainNavigation";

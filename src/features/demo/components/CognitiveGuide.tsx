@@ -6,7 +6,8 @@ import {
   useSyncExternalStore,
   type FormEvent,
 } from "react";
-import { ArrowUp, RotateCcw, Volume2, Square, ArrowRight } from "lucide-react";
+import { Square } from "lucide-react";
+import { ArrowUp, RotateCcw, Volume2, ArrowRight } from "@/components/icons";
 import { CognitiveFluidBackground } from "./CognitiveFluidBackground";
 import {
   CojeevPictogram,

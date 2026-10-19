@@ -1,18 +1,20 @@
 import {
-  ArrowRight,
   BadgeCheck,
   BrainCircuit,
   Camera,
+  Flag,
+  Lightbulb,
+} from "lucide-react";
+import {
+  ArrowRight,
   Check,
   Eye,
-  Flag,
   History,
   Layers3,
-  Lightbulb,
   MapPin,
   Send,
   ShieldCheck,
-} from "lucide-react";
+} from "@/components/icons";
 import type { Simulation } from "../schemas/simulation";
 import { getMetrics } from "../model/simulation";
 import { nextIncident } from "../model/selectors";

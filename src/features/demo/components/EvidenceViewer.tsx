@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { ArrowRight, Check, Film, VideoOff } from "lucide-react";
+import { Film, VideoOff } from "lucide-react";
+import { ArrowRight, Check } from "@/components/icons";
 import type { Incident } from "../schemas/simulation";
 import { evidenceComplete } from "../model/simulation";
 import { clipForId } from "../data/media";

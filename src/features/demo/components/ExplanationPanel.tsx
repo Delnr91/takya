@@ -1,3 +1,4 @@
+import { Lightbulb } from "lucide-react";
 import {
   ArrowRight,
   Check,
@@ -5,8 +6,7 @@ import {
   Clock3,
   Eye,
   Layers3,
-  Lightbulb,
-} from "lucide-react";
+} from "@/components/icons";
 import { localAssessment } from "../model/cognitive";
 import type { Incident } from "../schemas/simulation";
 import { Pictogram } from "./DemoPrimitives";

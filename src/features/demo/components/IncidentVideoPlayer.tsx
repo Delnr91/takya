@@ -1,14 +1,7 @@
 import { useRef, useState } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
-import {
-  Check,
-  CircleHelp,
-  Focus,
-  Pause,
-  Play,
-  RotateCcw,
-  ScanLine,
-} from "lucide-react";
+import { Focus, ScanLine } from "lucide-react";
+import { Check, CircleHelp, Pause, Play, RotateCcw } from "@/components/icons";
 import type { MediaClip } from "../schemas/media";
 
 export function clipTime(seconds: number): string {

@@ -1,10 +1,5 @@
-import {
-  ClipboardList,
-  Layers3,
-  ListFilter,
-  Scan,
-  UserCheck,
-} from "lucide-react";
+import { ClipboardList, ListFilter, Scan } from "lucide-react";
+import { Layers3, UserCheck } from "@/components/icons";
 
 const steps = [
   {

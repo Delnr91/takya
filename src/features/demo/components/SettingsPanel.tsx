@@ -1,17 +1,15 @@
 import { useState, type FormEvent } from "react";
+import { BrainCircuit, Monitor, Type } from "lucide-react";
 import {
   Activity,
-  BrainCircuit,
   Download,
   LogOut,
-  Monitor,
   Pause,
   Play,
   RotateCcw,
   ShieldCheck,
-  Type,
   UserRound,
-} from "lucide-react";
+} from "@/components/icons";
 import {
   profileSchema,
   type Profile,
