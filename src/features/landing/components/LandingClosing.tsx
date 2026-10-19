@@ -1,11 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
-import {
-  ArrowUpRight,
-  Building2,
-  DraftingCompass,
-  Laptop2,
-} from "lucide-react";
+import { Building2, DraftingCompass, Laptop2 } from "lucide-react";
+import { ArrowUpRight } from "@/components/icons";
 
 const team = [
   {

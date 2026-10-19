@@ -1,15 +1,13 @@
+import { CloudFog, TriangleAlert, type LucideIcon } from "lucide-react";
 import {
   Check,
   CircleHelp,
-  CloudFog,
   Layers3,
   Leaf,
-  TriangleAlert,
   X,
   Flame,
   Truck,
-  type LucideIcon,
-} from "lucide-react";
+} from "@/components/icons";
 import { useEffect, useId, useRef, type ReactNode } from "react";
 import { severityLabels, statusLabels } from "../data/scenarios";
 import type { Incident, Scenario } from "../schemas/simulation";

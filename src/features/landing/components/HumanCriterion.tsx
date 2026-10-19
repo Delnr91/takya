@@ -1,4 +1,5 @@
-import { ClipboardCheck, SearchCheck, ShieldCheck } from "lucide-react";
+import { SearchCheck } from "lucide-react";
+import { ClipboardCheck, ShieldCheck } from "@/components/icons";
 
 const principles = [
   {

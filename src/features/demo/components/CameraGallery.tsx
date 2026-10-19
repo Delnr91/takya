@@ -1,4 +1,5 @@
-import { ArrowRight, Camera, CarFront, Check, VideoOff } from "lucide-react";
+import { Camera, CarFront, VideoOff } from "lucide-react";
+import { ArrowRight, Check } from "@/components/icons";
 import type { Incident } from "../schemas/simulation";
 import { scenarios } from "../data/scenarios";
 import { IncidentPoster } from "./IncidentPoster";

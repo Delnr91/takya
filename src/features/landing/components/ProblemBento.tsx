@@ -1,4 +1,4 @@
-import { EyeOff, RadioTower } from "lucide-react";
+import { EyeOff, RadioTower } from "@/components/icons";
 
 export function ProblemBento() {
   return (

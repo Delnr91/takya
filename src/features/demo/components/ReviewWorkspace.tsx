@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
+import { Lightbulb, PanelRightClose } from "lucide-react";
 import {
   ArrowLeft,
   ArrowRight,
@@ -9,14 +10,12 @@ import {
   ClipboardCheck,
   Eye,
   History,
-  Lightbulb,
   MapPin,
   Send,
   ShieldCheck,
   X,
-  PanelRightClose,
   PanelRightOpen,
-} from "lucide-react";
+} from "@/components/icons";
 import { scenarios, statusLabels } from "../data/scenarios";
 import type { Incident, Outcome, Profile } from "../schemas/simulation";
 import {

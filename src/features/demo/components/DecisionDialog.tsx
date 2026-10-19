@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Check, Send } from "lucide-react";
+import { Check, Send } from "@/components/icons";
 import {
   decisionSchema,
   type Decision,

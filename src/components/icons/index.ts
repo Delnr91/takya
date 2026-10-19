@@ -1,0 +1,47 @@
+// Iconos animados de lucide-animated (https://lucide-animated.com, licencia MIT, autor pqoqubbw),
+// adaptados como reemplazo directo de lucide-react: mismos nombres, mismas props y <svg> como raíz.
+// Los iconos sin versión animada se siguen importando desde "lucide-react".
+
+export { ActivityIcon as Activity } from "./activity";
+export { ArrowDownRightIcon as ArrowDownRight } from "./arrow-down-right";
+export { ArrowLeftIcon as ArrowLeft } from "./arrow-left";
+export { ArrowRightIcon as ArrowRight } from "./arrow-right";
+export { ArrowUpIcon as ArrowUp } from "./arrow-up";
+export { ArrowUpRightIcon as ArrowUpRight } from "./arrow-up-right";
+export { BlocksIcon as Blocks } from "./blocks";
+export { BotIcon as Bot } from "./bot";
+export { CheckIcon as Check } from "./check";
+export { CheckCheckIcon as CheckCheck } from "./check-check";
+export { ChevronDownIcon as ChevronDown } from "./chevron-down";
+export { CircleHelpIcon as CircleHelp } from "./circle-help";
+export { ClipboardCheckIcon as ClipboardCheck } from "./clipboard-check";
+export { ClockIcon as Clock3 } from "./clock";
+export { CompassIcon as Compass } from "./compass";
+export { DownloadIcon as Download } from "./download";
+export { EyeIcon as Eye } from "./eye";
+export { EyeOffIcon as EyeOff } from "./eye-off";
+export { FlameIcon as Flame } from "./flame";
+export { CircleHelpIcon as HelpCircle } from "./circle-help";
+export { HistoryIcon as History } from "./history";
+export { HomeIcon as House } from "./home";
+export { LayersIcon as Layers3 } from "./layers";
+export { LeafIcon as Leaf } from "./leaf";
+export { LogoutIcon as LogOut } from "./logout";
+export { MapPinIcon as MapPin } from "./map-pin";
+export { MicIcon as Mic } from "./mic";
+export { PanelRightOpenIcon as PanelRightOpen } from "./panel-right-open";
+export { PauseIcon as Pause } from "./pause";
+export { PlayIcon as Play } from "./play";
+export { PlusIcon as Plus } from "./plus";
+export { RadioTowerIcon as RadioTower } from "./radio-tower";
+export { RotateCCWIcon as RotateCcw } from "./rotate-ccw";
+export { SearchIcon as Search } from "./search";
+export { SendIcon as Send } from "./send";
+export { ShieldCheckIcon as ShieldCheck } from "./shield-check";
+export { SlidersHorizontalIcon as SlidersHorizontal } from "./sliders-horizontal";
+export { TruckIcon as Truck } from "./truck";
+export { UploadIcon as Upload } from "./upload";
+export { UserCheckIcon as UserCheck } from "./user-check";
+export { UserIcon as UserRound } from "./user";
+export { VolumeIcon as Volume2 } from "./volume";
+export { XIcon as X } from "./x";

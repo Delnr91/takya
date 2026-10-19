@@ -1,5 +1,11 @@
 import { useState } from "react";
-import { ArrowRight, Download, History, Search, UserRound } from "lucide-react";
+import {
+  ArrowRight,
+  Download,
+  History,
+  Search,
+  UserRound,
+} from "@/components/icons";
 import type { AuditEntry, Simulation } from "../schemas/simulation";
 import { scenarios } from "../data/scenarios";
 import { downloadPracticeHistory } from "../model/exportPractice";

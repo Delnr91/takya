@@ -3,9 +3,8 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useCallback, useEffect, useRef, useState } from "react";
+import { BookOpen, Camera, Settings2, TriangleAlert } from "lucide-react";
 import {
-  BookOpen,
-  Camera,
   ChevronDown,
   House,
   History,
@@ -17,11 +16,9 @@ import {
   Play,
   Plus,
   RotateCcw,
-  Settings2,
   ShieldCheck,
-  TriangleAlert,
   UserRound,
-} from "lucide-react";
+} from "@/components/icons";
 import { useDemoSession } from "../hooks/useDemoSession";
 import { useDemoNavigation, type DemoView } from "../hooks/useDemoNavigation";
 import { useSimulationTicker } from "../hooks/useSimulationTicker";

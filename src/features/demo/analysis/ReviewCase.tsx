@@ -2,7 +2,8 @@
 
 import { useState } from "react";
 import { z } from "zod";
-import { CheckCheck, Eye, Lightbulb, ShieldCheck } from "lucide-react";
+import { Lightbulb } from "lucide-react";
+import { CheckCheck, Eye, ShieldCheck } from "@/components/icons";
 import {
   api,
   evidenceUrl,
