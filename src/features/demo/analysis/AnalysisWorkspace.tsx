@@ -27,6 +27,12 @@ import {
   type Incident,
   type Export,
 } from "./contracts";
+import {
+  candidatesFound,
+  mebibytes,
+  reviewStateLabels,
+  seconds,
+} from "./format";
 import { ReviewCase } from "./ReviewCase";
 import { hasPracticeAccess } from "../model/profile";
 import "./analysis.css";
@@ -406,10 +412,9 @@ export function AnalysisWorkspace() {
                     </div>
                   </div>
                   <p>
-                    {(source.duration_ms / 1000).toFixed(1)} s · {source.width}{" "}
-                    × {source.height} ·{" "}
-                    {(source.size_bytes / 1048576).toFixed(2)} MiB · Fecha de
-                    captura desconocida
+                    {seconds(source.duration_ms)} s · {source.width} ×{" "}
+                    {source.height} · {mebibytes(source.size_bytes)} MiB · Fecha
+                    de captura desconocida
                   </p>
                   <details>
                     <summary>Integridad de los bytes recibidos</summary>
@@ -538,10 +543,10 @@ export function AnalysisWorkspace() {
                     <h2>{stateLabels[job.state]}</h2>
                     <p role="status">
                       {active
-                        ? `Etapa: ${job.progress.stage === "queue" ? "cola" : "detección"}. Tiempo de procesamiento informado: ${(job.progress.elapsed_ms / 1000).toFixed(1)} s.`
+                        ? `Etapa: ${job.progress.stage === "queue" ? "cola" : "detección"}. Tiempo de procesamiento informado: ${seconds(job.progress.elapsed_ms)} s.`
                         : (job.error?.message ??
                           (job.result
-                            ? `${job.result.candidate_count} candidatos encontrados. Revisa el registro aunque no aparezcan candidatos.`
+                            ? `${candidatesFound(job.result.candidate_count)}. Revisa el registro aunque no aparezcan candidatos.`
                             : "No se obtuvo un resultado de análisis."))}
                     </p>
                     {active ? (
@@ -572,7 +577,9 @@ export function AnalysisWorkspace() {
                         >
                           {incidents.map((item, index) => (
                             <option key={item.id} value={item.id}>
-                              Candidato {index + 1} · {item.review_state}
+                              Candidato {index + 1} ·{" "}
+                              {reviewStateLabels[item.review_state] ??
+                                item.review_state}
                             </option>
                           ))}
                         </select>

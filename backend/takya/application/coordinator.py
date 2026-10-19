@@ -329,7 +329,9 @@ class Coordinator:
                 "reasons": [
                     {
                         "code": "DWELL_IN_ZONE",
-                        "text": f"Candidato: detecciones compatibles en zona durante {(end - start) / 1000:g} s. Revisa el registro completo.",
+                        "text": "Candidato: detecciones compatibles en zona durante "
+                        + f"{(end - start) / 1000:g}".replace(".", ",")
+                        + " s. Revisa el registro completo.",
                     }
                 ],
                 "unknowns": unknowns,

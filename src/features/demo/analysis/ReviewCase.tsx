@@ -10,6 +10,7 @@ import {
   post,
   type Incident,
 } from "./contracts";
+import { reviewStateLabels, seconds } from "./format";
 
 const unknownLabels: Record<string, string> = {
   CAPTURE_TIME_UNKNOWN: "La fecha de captura es desconocida.",
@@ -63,11 +64,10 @@ export function ReviewCase({
         aria-label="Fuente completa del candidato"
       />
       <p className="analysis-muted">
-        Contexto solicitado:{" "}
-        {(incident.context.requested.start_ms / 1000).toFixed(1)}–
-        {(incident.context.requested.end_ms / 1000).toFixed(1)} s. Registro
-        mostrado: {(incident.context.effective.start_ms / 1000).toFixed(1)}–
-        {(incident.context.effective.end_ms / 1000).toFixed(1)} s.
+        Contexto solicitado: {seconds(incident.context.requested.start_ms)}–
+        {seconds(incident.context.requested.end_ms)} s. Registro mostrado:{" "}
+        {seconds(incident.context.effective.start_ms)}–
+        {seconds(incident.context.effective.end_ms)} s.
       </p>
       <label className="analysis-check">
         <input
@@ -84,7 +84,7 @@ export function ReviewCase({
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src={evidenceUrl(still.id)}
-              alt={`Fotograma limpio de la fuente a ${(still.pts_ms / 1000).toFixed(2)} segundos`}
+              alt={`Fotograma limpio de la fuente a ${seconds(still.pts_ms, 2)} segundos`}
               loading="lazy"
             />
             <figcaption>
@@ -100,7 +100,7 @@ export function ReviewCase({
                     )
                   }
                 />
-                Revisé {(still.pts_ms / 1000).toFixed(2)} s
+                Revisé {seconds(still.pts_ms, 2)} s
               </label>
             </figcaption>
           </figure>
@@ -242,17 +242,8 @@ export function ReviewCase({
           <div>
             <strong>Decisión registrada por el servidor</strong>
             <p>
-              {
-                (
-                  {
-                    VERIFIED: "Verificado en el ejercicio",
-                    DISMISSED: "Candidato descartado",
-                    ESCALATED:
-                      "Revisión de supervisión solicitada en el ejercicio",
-                  } as Record<string, string>
-                )[incident.review_state]
-              }{" "}
-              · revisión {incident.revision}
+              {reviewStateLabels[incident.review_state]} · revisión{" "}
+              {incident.revision}
             </p>
             <button onClick={onExport} disabled={busy}>
               Preparar evidencia
