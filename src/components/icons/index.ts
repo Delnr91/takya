@@ -2,7 +2,6 @@
 // adaptados como reemplazo directo de lucide-react: mismos nombres, mismas props y <svg> como raíz.
 // Los iconos sin versión animada se siguen importando desde "lucide-react".
 
-export { AArrowUpIcon as AArrowUp } from "./a-arrow-up";
 export { ActivityIcon as Activity } from "./activity";
 export { ArrowDownRightIcon as ArrowDownRight } from "./arrow-down-right";
 export { ArrowLeftIcon as ArrowLeft } from "./arrow-left";

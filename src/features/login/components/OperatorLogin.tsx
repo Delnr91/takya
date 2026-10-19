@@ -2,92 +2,122 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useState, useSyncExternalStore } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import { useAnimate, useReducedMotion } from "framer-motion";
 import { Eye } from "lucide-react";
-import { AArrowUp, ArrowLeft, LogIn, ShieldCheck } from "@/components/icons";
+import { ArrowLeft, LogIn, ShieldCheck } from "@/components/icons";
 import { profileSchema } from "@/features/demo/schemas/simulation";
 import { beginPractice } from "@/features/demo/model/profile";
 import "./login.css";
 
 const DEFAULT_NAME = "Operador 03";
-const INSTRUCTIONS =
-  "Acceso de práctica de TAKYA para operadores. Escribe tu nombre de práctica, " +
-  "o deja el ejemplo Operador 03. Luego toca el botón Entrar como operador. " +
-  "No necesitas contraseña.";
+const LOCK_SIZE = 112;
 
-// Preferencia «Texto grande» (doc. 12 §3.5): persiste en este navegador y se lee
-// sin desajuste de hidratación mediante useSyncExternalStore.
-const LARGE_KEY = "takya.a11y.textoGrande";
-const LARGE_EVENT = "takya:texto-grande";
-let largeFallback = false;
-function readLarge() {
-  try {
-    return window.localStorage.getItem(LARGE_KEY) === "1";
-  } catch {
-    return largeFallback;
-  }
-}
-function writeLarge(value: boolean) {
-  largeFallback = value;
-  try {
-    window.localStorage.setItem(LARGE_KEY, value ? "1" : "0");
-  } catch {
-    /* Sin almacenamiento, la preferencia dura mientras la página esté abierta. */
-  }
-  window.dispatchEvent(new Event(LARGE_EVENT));
-}
-function subscribeLarge(onChange: () => void) {
-  window.addEventListener("storage", onChange);
-  window.addEventListener(LARGE_EVENT, onChange);
-  return () => {
-    window.removeEventListener("storage", onChange);
-    window.removeEventListener(LARGE_EVENT, onChange);
-  };
-}
-const noSubscribe = () => () => {};
-const speechSupported = () =>
-  "speechSynthesis" in window && "SpeechSynthesisUtterance" in window;
+type Phase = "idle" | "locking" | "locked" | "instant";
+
+const PHASE_MESSAGE: Record<Phase, string> = {
+  idle: "",
+  locking: "Asegurando tu sesión…",
+  locked: "Listo. Abriendo la consola…",
+  instant: "Abriendo la consola…",
+};
+
+const MAIN_CLASS: Record<Phase, string> = {
+  idle: "takya-login",
+  locking: "takya-login is-locking",
+  locked: "takya-login is-locking",
+  instant: "takya-login is-instant",
+};
 
 /**
- * Acceso de demostración solo para operador. No es autenticación: abre la
- * práctica en esta pestaña. La supervisión se elige dentro de la consola.
+ * Acceso de demostración solo para operador: entra con el usuario, sin
+ * contraseña. No es autenticación; abre la práctica en esta pestaña. Sin
+ * asistentes ni ayudas en esta pantalla (superficie mínima); la supervisión y
+ * los ajustes de accesibilidad están dentro de la consola.
  */
 export function OperatorLogin() {
   const router = useRouter();
-  const [name, setName] = useState("");
+  const [scope, animate] = useAnimate<HTMLElement>();
+  const reduceMotion = useReducedMotion();
+  const [name, setName] = useState(DEFAULT_NAME);
   const [error, setError] = useState("");
-  const [entering, setEntering] = useState(false);
-  const [speaking, setSpeaking] = useState(false);
-  const large = useSyncExternalStore(subscribeLarge, readLarge, () => false);
-  const canSpeak = useSyncExternalStore(
-    noSubscribe,
-    speechSupported,
-    () => false,
-  );
+  const [phase, setPhase] = useState<Phase>("idle");
 
-  // La lectura en voz alta se detiene al salir del login.
-  useEffect(() => () => window.speechSynthesis?.cancel(), []);
+  // La consola queda precargada para que aparezca apenas cierre el candado.
+  useEffect(() => {
+    router.prefetch("/demo");
+  }, [router]);
 
-  function toggleSpeech() {
-    const synth = window.speechSynthesis;
-    if (speaking) {
-      synth.cancel();
-      setSpeaking(false);
+  // Al entrar, la tarjeta se reduce a un candado que se cierra y da paso a la
+  // consola. Con movimiento reducido se entra directo.
+  async function lockAndEnter() {
+    const main = scope.current;
+    const card = main.querySelector<HTMLElement>(".takya-login-card");
+    if (reduceMotion || !card) {
+      setPhase("instant");
+      router.replace("/demo");
       return;
     }
-    synth.cancel();
-    const utterance = new SpeechSynthesisUtterance(INSTRUCTIONS);
-    utterance.lang = "es-CL";
-    utterance.rate = 0.95;
-    utterance.onend = () => setSpeaking(false);
-    utterance.onerror = () => setSpeaking(false);
-    setSpeaking(true);
-    synth.speak(utterance);
+    setPhase("locking");
+    // En pantallas bajas la tarjeta parte arriba: el candado baja al centro.
+    const rect = card.getBoundingClientRect();
+    const fromTop = getComputedStyle(main).alignItems === "start";
+    const y = fromTop ? window.innerHeight / 2 - LOCK_SIZE / 2 - rect.top : 0;
+
+    await animate(
+      ".takya-login-content, .takya-login-watermark",
+      { opacity: 0, scale: 0.96 },
+      { duration: 0.16, ease: "easeIn" },
+    );
+    // El candado aparece y se cierra mientras la tarjeta termina de asentarse:
+    // no se espera el reposo del resorte.
+    void animate(
+      card,
+      {
+        width: LOCK_SIZE,
+        height: LOCK_SIZE,
+        borderRadius: 34,
+        backgroundColor: "#1b3b2b",
+        y,
+      },
+      { type: "spring", stiffness: 260, damping: 28 },
+    );
+    await Promise.all([
+      animate(
+        ".takya-login-lock",
+        { opacity: [0, 1], scale: [0.7, 1] },
+        { duration: 0.18, delay: 0.3, ease: "easeOut" },
+      ),
+      animate(
+        ".takya-login-lock-caption",
+        { opacity: 1 },
+        { duration: 0.18, delay: 0.3 },
+      ),
+    ]);
+    await Promise.all([
+      animate(
+        ".takya-login-lock-shackle",
+        { y: [-5, 0] },
+        { type: "spring", stiffness: 600, damping: 22 },
+      ),
+      animate(
+        ".takya-login-lock-body",
+        { scale: [1, 0.9, 1] },
+        { duration: 0.26, delay: 0.06 },
+      ),
+    ]);
+    setPhase("locked");
+    animate(
+      ".takya-login-lock-ring",
+      { opacity: [0.9, 0], scale: [1, 1.7] },
+      { duration: 0.7, ease: "easeOut" },
+    );
+    router.replace("/demo");
   }
 
   return (
-    <main className={large ? "takya-login is-large" : "takya-login"}>
+    <main ref={scope} className={MAIN_CLASS[phase]}>
       <div className="takya-login-backdrop" aria-hidden="true">
         <Image src="/background2.png" alt="" fill sizes="100vw" />
       </div>
@@ -102,7 +132,7 @@ export function OperatorLogin() {
           />
         </div>
 
-        <div className="takya-login-content">
+        <div className="takya-login-content" inert={phase !== "idle"}>
           <div className="takya-login-intro">
             <div className="takya-login-top">
               <Image
@@ -119,7 +149,9 @@ export function OperatorLogin() {
               </Link>
             </div>
 
-            <p className="takya-login-eyebrow">Acceso de práctica</p>
+            <p className="takya-login-eyebrow">
+              Acceso de práctica <span>Demo</span>
+            </p>
             <h1 id="takya-login-title">Tu turno, con más claridad.</h1>
             <p className="takya-login-lead">
               Revisa casos, compara fuentes y decide con un motivo.
@@ -142,44 +174,42 @@ export function OperatorLogin() {
               onSubmit={(event) => {
                 event.preventDefault();
                 const result = profileSchema.safeParse({
-                  name: name.trim() || DEFAULT_NAME,
+                  name: name.trim(),
                   role: "OPERATOR",
                 });
                 if (!result.success) {
-                  setError(
-                    result.error.issues[0]?.message ??
-                      "Revisa tu nombre de práctica.",
-                  );
+                  setError("Escribe tu usuario para entrar.");
                   return;
                 }
-                window.speechSynthesis?.cancel();
-                setEntering(true);
+                if (phase !== "idle") return;
                 beginPractice(result.data);
-                router.replace("/demo");
+                void lockAndEnter();
               }}
             >
-              <label className="takya-login-field" htmlFor="takya-login-name">
-                <span id="takya-login-name-label">
-                  Nombre de práctica <em>(opcional)</em>
-                </span>
+              <div className="takya-login-field">
+                <label htmlFor="takya-login-user">Usuario</label>
                 <input
-                  id="takya-login-name"
+                  id="takya-login-user"
                   type="text"
                   value={name}
                   maxLength={32}
-                  placeholder={DEFAULT_NAME}
+                  // Usuario de práctica: que el navegador no lo guarde ni lo sugiera.
                   autoComplete="off"
                   autoCapitalize="words"
                   spellCheck={false}
                   enterKeyHint="go"
                   aria-invalid={error ? true : undefined}
-                  aria-describedby={error ? "takya-login-error" : undefined}
+                  aria-describedby={
+                    error
+                      ? "takya-login-error takya-login-demo-note"
+                      : "takya-login-demo-note"
+                  }
                   onChange={(event) => {
                     setName(event.target.value);
                     setError("");
                   }}
                 />
-              </label>
+              </div>
               {error ? (
                 <p
                   id="takya-login-error"
@@ -189,54 +219,52 @@ export function OperatorLogin() {
                   {error}
                 </p>
               ) : null}
+
               <button
                 type="submit"
                 className="takya-login-submit"
-                disabled={entering}
-                aria-busy={entering || undefined}
+                disabled={phase !== "idle"}
               >
                 <LogIn size={22} aria-hidden="true" />
-                {entering ? "Abriendo la consola…" : "Entrar como operador"}
+                Iniciar sesión
               </button>
             </form>
 
-            <div className="takya-login-aids" role="group" aria-label="Ayudas">
-              {canSpeak ? (
-                <button
-                  type="button"
-                  aria-pressed={speaking}
-                  className={speaking ? "is-speaking" : undefined}
-                  onClick={toggleSpeech}
-                >
-                  <span className="takya-login-k8" aria-hidden="true">
-                    <Image
-                      src="/brand/k8-robot.png"
-                      alt=""
-                      width={28}
-                      height={42}
-                    />
-                  </span>
-                  {speaking ? "Detener a K8" : "K8 te lo explica"}
-                </button>
-              ) : null}
-              <button
-                type="button"
-                aria-pressed={large}
-                onClick={() => writeLarge(!large)}
-              >
-                <AArrowUp size={18} aria-hidden="true" />
-                Texto grande
-              </button>
-            </div>
-
-            <p className="takya-login-note">
+            <p id="takya-login-demo-note" className="takya-login-note">
               <ShieldCheck size={18} aria-hidden="true" />
-              Acceso simulado: no necesitas contraseña. La supervisión se activa
-              dentro de la consola.
+              Modo demo: entras solo con tu usuario, sin contraseña. Nada sale
+              de este navegador.
             </p>
           </div>
         </div>
+
+        <div className="takya-login-lock" aria-hidden="true">
+          <span className="takya-login-lock-ring" />
+          <svg
+            viewBox="0 0 24 24"
+            width="52"
+            height="52"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          >
+            <path
+              className="takya-login-lock-shackle"
+              d="M7 11V7a5 5 0 0 1 10 0v4"
+            />
+            <g className="takya-login-lock-body">
+              <rect x="3" y="11" width="18" height="11" rx="2" />
+              <circle cx="12" cy="16.5" r="1.4" fill="currentColor" />
+            </g>
+          </svg>
+        </div>
       </section>
+
+      <p className="takya-login-lock-caption" role="status">
+        {PHASE_MESSAGE[phase]}
+      </p>
     </main>
   );
 }
