@@ -1,14 +1,6 @@
 import { useEffect, useState } from "react";
-import {
-  ArrowRight,
-  Camera,
-  CarFront,
-  Check,
-  Eye,
-  Pause,
-  Play,
-  VideoOff,
-} from "lucide-react";
+import { Camera, CarFront, VideoOff } from "lucide-react";
+import { ArrowRight, Check, Eye, Pause, Play } from "@/components/icons";
 import { useReducedMotion } from "framer-motion";
 import type { Incident } from "../schemas/simulation";
 import { evidenceComplete } from "../model/simulation";

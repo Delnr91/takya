@@ -1,5 +1,8 @@
 # K8: acompañante documental de la práctica
 
+> **Documento histórico (19-10-2026).** Se conserva como registro; no usar para construir ni para el pitch. Fuente vigente: [documento maestro end-to-end](maestros/DOCUMENTO_MAESTRO_TAKYA_E2E.md) y [plan maestro de la demo final](maestros/PLAN_MAESTRO_DEMO_FINAL.md). Clasificación en la [auditoría documental](estrategia/13_AUDITORIA_PALANTIR_ARQUITECTURA_Y_DOCS.md).
+
+
 > Registro de la primera implementación local. Desde el 6 de octubre de 2026, el chat usa Groq desde una ruta de servidor y recupera guías Markdown curadas de `docs/knowledge/`. La demo incorpora seis clips grabados, señales preparadas y una consulta rápida contextual. Consulta el estado actual en [flujo de la demo](06_DEMO_OPERATOR_FLOW.md) y [decisión de arquitectura](adr/0005-recorded-evidence-and-cognitive-motion.md). Las secciones siguientes describen la versión histórica, no el chat actual.
 
 ## Qué hace hoy

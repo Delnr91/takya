@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { ArrowLeft, ArrowRight, Eye, ShieldCheck } from "lucide-react";
+import { ArrowLeft, ArrowRight, Eye, ShieldCheck } from "@/components/icons";
 import { profileSchema, type Role } from "../schemas/simulation";
 import { beginPractice } from "../model/profile";
 import { Pictogram } from "./DemoPrimitives";

@@ -1,5 +1,8 @@
 # TAKYA - Technical Requirements & Architecture (TRD)
 
+> **Documento histórico (19-10-2026).** Se conserva como registro; no usar para construir ni para el pitch. Fuente vigente: [documento maestro end-to-end](maestros/DOCUMENTO_MAESTRO_TAKYA_E2E.md) y [plan maestro de la demo final](maestros/PLAN_MAESTRO_DEMO_FINAL.md). Clasificación en la [auditoría documental](estrategia/13_AUDITORIA_PALANTIR_ARQUITECTURA_Y_DOCS.md).
+
+
 ## 1. Stack Tecnológico Base
 * **Framework:** Next.js 14+ (App Router).
 * **Lenguaje:** TypeScript v5+ (Estricto: `strict: true`, `noUncheckedIndexedAccess: true`). Prohibido el uso de `any`.

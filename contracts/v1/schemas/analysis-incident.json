@@ -1,0 +1,56 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://takya.local/contracts/v1/analysis-incident.json",
+  "title": "AnalysisIncident · candidato para revisión (separado del esquema de práctica; una sola fuente)",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["id", "job_id", "source_id", "observation_ids", "zone_version", "reasons", "unknowns", "context", "stills", "review_state", "revision", "origin"],
+  "properties": {
+    "id": { "$ref": "defs.json#/definitions/incidentId" },
+    "job_id": { "$ref": "defs.json#/definitions/jobId" },
+    "source_id": { "$ref": "defs.json#/definitions/sourceId" },
+    "observation_ids": { "type": "array", "minItems": 1, "maxItems": 50, "items": { "$ref": "defs.json#/definitions/observationId" } },
+    "zone_version": { "type": "integer", "minimum": 1 },
+    "reasons": {
+      "type": "array", "minItems": 1, "maxItems": 5,
+      "items": {
+        "type": "object", "additionalProperties": false, "required": ["code", "text"],
+        "properties": {
+          "code": { "type": "string", "enum": ["DWELL_IN_ZONE", "TRACK_CONTINUITY", "SCORE_ABOVE_THRESHOLD"] },
+          "text": { "type": "string", "maxLength": 300 }
+        }
+      }
+    },
+    "unknowns": {
+      "type": "array", "maxItems": 8,
+      "items": { "type": "string", "enum": ["CAPTURE_TIME_UNKNOWN", "IDENTITY_NOT_ASSESSED", "INTENT_NOT_ASSESSED", "CONTEXT_INCOMPLETE_START", "CONTEXT_INCOMPLETE_END", "DERIVATIVE_MAPPING_UNPROVEN", "AUDIO_NOT_ASSESSED"] }
+    },
+    "context": {
+      "type": "object", "additionalProperties": false,
+      "required": ["requested", "effective", "truncated_start", "truncated_end", "clip_available", "derivative_mapping_proven"],
+      "properties": {
+        "requested": { "$ref": "defs.json#/definitions/interval" },
+        "effective": { "$ref": "defs.json#/definitions/interval" },
+        "truncated_start": { "type": "boolean" },
+        "truncated_end": { "type": "boolean" },
+        "clip_available": { "type": "boolean" },
+        "derivative_mapping_proven": { "type": "boolean" }
+      }
+    },
+    "stills": {
+      "type": "array", "maxItems": 3,
+      "items": {
+        "type": "object", "additionalProperties": false, "required": ["id", "pts_ms", "sha256", "bbox_norm"],
+        "properties": {
+          "id": { "$ref": "defs.json#/definitions/stillId" },
+          "pts_ms": { "$ref": "defs.json#/definitions/ms" },
+          "sha256": { "$ref": "defs.json#/definitions/sha256" },
+          "bbox_norm": { "$ref": "defs.json#/definitions/bboxNorm" }
+        }
+      }
+    },
+    "review_state": { "type": "string", "enum": ["PENDING", "IN_REVIEW", "VERIFIED", "DISMISSED", "ESCALATED"] },
+    "revision": { "type": "integer", "minimum": 1 },
+    "origin": { "type": "string", "const": "service_analysis" }
+  }
+}

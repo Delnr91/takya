@@ -1,5 +1,8 @@
 # TAKYA · Memoria de Contexto y Base de Conocimiento del Proyecto
 
+> **Documento histórico (19-10-2026).** Se conserva como registro; no usar para construir ni para el pitch. Fuente vigente: [documento maestro end-to-end](DOCUMENTO_MAESTRO_TAKYA_E2E.md) y [plan maestro de la demo final](PLAN_MAESTRO_DEMO_FINAL.md). Clasificación en la [auditoría documental](../estrategia/13_AUDITORIA_PALANTIR_ARQUITECTURA_Y_DOCS.md).
+
+
 > **Archivo de Memoria Viva para el Hilo de Conversación y Desarrollo**  
 > **Ubicación:** `Desktop/TAKYA/MEMORY.md`  
 > **Fecha de Creación:** 28 de septiembre de 2026  

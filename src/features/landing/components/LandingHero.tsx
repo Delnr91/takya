@@ -6,7 +6,7 @@ import {
   Blocks,
   Eye,
   UserRound,
-} from "lucide-react";
+} from "@/components/icons";
 
 const principles = [
   { label: "Contexto", icon: Blocks },

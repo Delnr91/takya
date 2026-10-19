@@ -1,0 +1,51 @@
+{
+  "version": "v1",
+  "job": {
+    "initial": "RECEIVING",
+    "terminal": ["COMPLETED", "FAILED", "CANCELLED", "EXPIRED"],
+    "transitions": {
+      "RECEIVING": ["VALIDATING", "FAILED", "CANCELLED", "EXPIRED"],
+      "VALIDATING": ["READY", "FAILED", "CANCELLED", "EXPIRED"],
+      "READY": ["QUEUED", "CANCELLED", "EXPIRED"],
+      "QUEUED": ["ANALYZING", "CANCELLED", "EXPIRED", "FAILED"],
+      "ANALYZING": ["COMPLETED", "FAILED", "CANCELLED", "EXPIRED"],
+      "COMPLETED": [], "FAILED": [], "CANCELLED": [], "EXPIRED": []
+    },
+    "invariants": [
+      "COMPLETED exige result no nulo; FAILED exige error no nulo; los demás estados tienen result y error nulos.",
+      "Un fallo de preservación (hash/inspección) nunca llega a READY.",
+      "FAILED, CANCELLED y EXPIRED jamás se presentan como COMPLETED con 0 candidatos.",
+      "Un estado terminal no se reabre."
+    ]
+  },
+  "incident": {
+    "initial": "PENDING",
+    "transitions": {
+      "PENDING": ["IN_REVIEW"],
+      "IN_REVIEW": ["VERIFIED", "DISMISSED", "ESCALATED"],
+      "VERIFIED": ["ESCALATED"],
+      "DISMISSED": [],
+      "ESCALATED": []
+    },
+    "invariants": [
+      "Decidir exige IN_REVIEW y expected_revision igual a la revisión actual; si no, 409 REVISION_CONFLICT.",
+      "VERIFIED→ESCALATED añade una transición explícita; no reescribe la anterior.",
+      "Cada mutación incrementa revision en 1."
+    ]
+  },
+  "export": {
+    "initial": "PREPARING",
+    "transitions": {
+      "PREPARING": ["VERIFYING", "FAILED"],
+      "VERIFYING": ["READY", "FAILED"],
+      "READY": ["DOWNLOADED"],
+      "DOWNLOADED": [],
+      "FAILED": []
+    },
+    "invariants": [
+      "READY solo tras verificación del paquete por el verificador separado.",
+      "DOWNLOADED no equivale a recepción institucional.",
+      "Exportación sin decisión se rotula review_status=SOURCE_RECEIVED_NO_HUMAN_REVIEW."
+    ]
+  }
+}

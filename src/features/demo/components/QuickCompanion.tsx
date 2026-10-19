@@ -2,7 +2,8 @@
 
 import { useState, type FormEvent } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
-import { ArrowUp, Mic, Square, Volume2, Info, Compass } from "lucide-react";
+import { Square, Info } from "lucide-react";
+import { ArrowUp, Mic, Volume2, Compass } from "@/components/icons";
 import { CognitiveFluidBackground } from "./CognitiveFluidBackground";
 import { useCognitiveChat } from "../hooks/useCognitiveChat";
 import { useQuickVoice } from "../hooks/useQuickVoice";

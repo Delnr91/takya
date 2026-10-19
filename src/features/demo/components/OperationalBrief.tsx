@@ -1,4 +1,4 @@
-import { Flame, HelpCircle, Send, Truck } from "lucide-react";
+import { Flame, HelpCircle, Send, Truck } from "@/components/icons";
 import type { Scenario } from "../schemas/simulation";
 import { scenarios } from "../data/scenarios";
 import { Pictogram } from "./DemoPrimitives";

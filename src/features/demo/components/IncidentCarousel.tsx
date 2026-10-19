@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
-import { ArrowLeft, ArrowRight, Eye, MapPin } from "lucide-react";
+import { ArrowLeft, ArrowRight, Eye, MapPin } from "@/components/icons";
 import type { Incident } from "../schemas/simulation";
 import { scenarios } from "../data/scenarios";
 import { IncidentPoster } from "./IncidentPoster";

@@ -1,11 +1,10 @@
+import { GalleryHorizontal, List } from "lucide-react";
 import {
   ArrowUpRight,
   MapPin,
   Search,
   SlidersHorizontal,
-  GalleryHorizontal,
-  List,
-} from "lucide-react";
+} from "@/components/icons";
 import { useState } from "react";
 import { motion, useReducedMotion } from "framer-motion";
 import { IncidentCarousel } from "./IncidentCarousel";

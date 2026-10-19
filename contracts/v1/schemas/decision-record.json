@@ -1,0 +1,21 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://takya.local/contracts/v1/decision-record.json",
+  "title": "DecisionRecord · decision.json dentro del paquete (autoridad: servidor)",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["id", "incident_id", "incident_revision", "type", "reason_code", "reason_text", "decided_at", "actor_scope", "identity_scope", "simulated_scope", "review_marks"],
+  "properties": {
+    "id": { "$ref": "defs.json#/definitions/decisionId" },
+    "incident_id": { "$ref": "defs.json#/definitions/incidentId" },
+    "incident_revision": { "type": "integer", "minimum": 1 },
+    "type": { "type": "string", "enum": ["VERIFY", "DISMISS", "ESCALATE"] },
+    "reason_code": { "type": "string" },
+    "reason_text": { "type": "string", "maxLength": 500 },
+    "decided_at": { "$ref": "defs.json#/definitions/utc" },
+    "actor_scope": { "type": "string", "const": "exercise_session_not_verified_identity" },
+    "identity_scope": { "type": "string", "const": "none" },
+    "simulated_scope": { "type": "string", "const": "no_dispatch_no_institutional_receipt" },
+    "review_marks": { "$ref": "review.json" }
+  }
+}
