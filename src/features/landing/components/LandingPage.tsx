@@ -11,11 +11,11 @@ import { HowItWorks } from "./HowItWorks";
 import { TrustByDesign } from "./TrustByDesign";
 import { ImpactODS } from "./ImpactODS";
 import { Audience } from "./Audience";
+import { HeroHeadline } from "./HeroHeadline";
+import { HeroBenefits } from "./HeroBenefits";
 import { GrainGradient } from "./GrainGradient";
-import { ScribbleUnderline } from "./HandDrawn";
 import "./landing.css";
 import { CojeevDepthBackground } from "@/components/ui/CojeevDepthBackground";
-import { CojeevPictogram } from "@/components/ui/CojeevPictogram";
 import { type } from "./typography";
 
 export function LandingPage() {
@@ -256,63 +256,50 @@ export function LandingPage() {
           </motion.div>
 
           <div className="flex flex-col md:flex-row w-full justify-between items-start mt-2">
-            {/* Columna Izquierda: Gran Titular */}
-            <motion.div
-              initial={{ opacity: 0, y: 24 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8 }}
-              className="max-w-3xl"
-            >
-              <h1 className="font-display text-[clamp(2.75rem,14vw,3.75rem)] md:text-[clamp(5rem,8.2vw,7.5rem)] font-extrabold leading-[0.9] tracking-[-0.07em] text-[#1B3B2B] mb-8">
-                <span className="block">Comprender</span>
-                <span className="block pl-[10%] md:pl-[16%]">antes de</span>
-                <span className="block pl-[3%] md:pl-[7%] text-[#E05D44]">
-                  <span className="relative inline-block">
-                    actuar
-                    <ScribbleUnderline
-                      delay={1}
-                      className="absolute -bottom-1 left-0 h-[0.18em] w-full text-[#1B3B2B]/80 md:-bottom-2"
-                    />
-                  </span>
-                  <span className="text-[#cde467]">.</span>
-                </span>
-              </h1>
-              <p className="text-xl md:text-2xl text-[#1B3B2B] mb-10 max-w-xs leading-snug font-bold">
-                Menos ruido.
-                <br />
-                Más contexto
-                <br />
-                para decidir.
-              </p>
-              <div className="flex flex-wrap items-center gap-4">
-                <a
-                  href="#problema"
-                  onClick={(e) => {
-                    e.preventDefault();
-                    scrollTo("problema");
-                  }}
-                  className="rounded-full border border-[#1B3B2B] bg-transparent px-8 py-3.5 text-xs font-mono uppercase tracking-wider font-bold text-[#1B3B2B] hover:bg-[#1B3B2B] hover:text-white transition-all cursor-pointer"
-                >
-                  Conocer el problema
-                </a>
-                <a
-                  href="#propuesta"
-                  onClick={(e) => {
-                    e.preventDefault();
-                    scrollTo("propuesta");
-                  }}
-                  className="flex items-center rounded-full bg-[#E05D44] px-8 py-3.5 text-xs font-mono uppercase tracking-wider font-bold text-white shadow-md hover:bg-[#c94b34] transition-all cursor-pointer"
-                >
-                  Ver la propuesta{" "}
-                  <CojeevPictogram
-                    name="arrow-up-right"
-                    tone="ivory"
-                    size={17}
-                    className="ml-2"
-                  />
-                </a>
-              </div>
-            </motion.div>
+            {/* Columna Izquierda: titular, propuesta de valor y acción */}
+            <div className="max-w-3xl">
+              <HeroHeadline />
+              <motion.div
+                initial={{ opacity: 0, y: 16 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.75, duration: 0.6 }}
+              >
+                <p className="text-xl md:text-2xl text-[#1B3B2B] mb-5 max-w-xs leading-snug font-bold">
+                  Menos ruido.
+                  <br />
+                  Más contexto
+                  <br />
+                  para decidir.
+                </p>
+                <p className="mb-9 max-w-md text-base font-semibold leading-relaxed text-[#1B3B2B]/90 md:text-lg">
+                  TAKYA recibe el video de tus cámaras, encuentra lo relevante,
+                  te lo explica y sella la evidencia. La decisión es siempre
+                  tuya.
+                </p>
+                <div className="flex flex-wrap items-center gap-4">
+                  <Link
+                    href="/login"
+                    className="flex items-center gap-2 rounded-full bg-[#E05D44] px-8 py-3.5 text-xs font-mono uppercase tracking-wider font-bold text-white shadow-md hover:bg-[#c94b34] transition-all"
+                  >
+                    <LogIn size={17} aria-hidden="true" />
+                    Probar la demo
+                  </Link>
+                  <a
+                    href="#como-funciona"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      scrollTo("como-funciona");
+                    }}
+                    className="rounded-full border border-[#1B3B2B] bg-transparent px-8 py-3.5 text-xs font-mono uppercase tracking-wider font-bold text-[#1B3B2B] hover:bg-[#1B3B2B] hover:text-white transition-all cursor-pointer"
+                  >
+                    Ver cómo funciona
+                  </a>
+                </div>
+                <p className={`mt-4 ${type.note}`}>
+                  Demo abierta · sin registro · con casos grabados
+                </p>
+              </motion.div>
+            </div>
 
             {/* Columna Derecha: Editorial Flotante */}
             <motion.div
@@ -336,33 +323,14 @@ export function LandingPage() {
             </motion.div>
           </div>
 
-          {/* Submenú Píldora Inferior */}
+          {/* Barra de conceptos: cada uno lleva a la sección que lo explica */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.6 }}
-            className="mt-28 flex justify-center w-full"
+            transition={{ delay: 1 }}
+            className="mt-20 flex justify-center w-full"
           >
-            <div className="grid grid-cols-2 gap-x-5 gap-y-4 w-full max-w-5xl rounded-[28px] bg-white/70 backdrop-blur-2xl border border-white/80 shadow-md px-6 py-5 text-xs font-mono tracking-wide md:flex md:items-center md:justify-between md:gap-0 md:rounded-full md:px-10 md:tracking-widest">
-              <div className="text-[#1B3B2B] font-bold uppercase flex items-center space-x-2">
-                <span className="text-[#7D9B8A]">01 /</span>{" "}
-                <span>Contexto</span>
-              </div>
-              <div className="hidden md:block w-px h-6 bg-[#1B3B2B]/20"></div>
-              <div className="text-[#1B3B2B] font-bold uppercase flex items-center space-x-2">
-                <span className="text-[#7D9B8A]">02 /</span>{" "}
-                <span>Evidencia</span>
-              </div>
-              <div className="hidden md:block w-px h-6 bg-[#1B3B2B]/20"></div>
-              <div className="text-[#1B3B2B] font-bold uppercase flex items-center space-x-2">
-                <span className="text-[#7D9B8A]">03 /</span>{" "}
-                <span>Prioridad</span>
-              </div>
-              <div className="hidden md:block w-px h-6 bg-[#1B3B2B]/20"></div>
-              <div className="text-[#E05D44] font-bold uppercase flex items-center space-x-2">
-                <span>04 /</span> <span>Persona</span>
-              </div>
-            </div>
+            <HeroBenefits onNavigate={scrollTo} />
           </motion.div>
         </section>
 
@@ -543,7 +511,8 @@ export function LandingPage() {
                 </p>
                 <p className={`${type.body} text-[#1B3B2B]`}>
                   Entra con un usuario y recorre un turno de operador con casos
-                  grabados. Sin registro.
+                  grabados. Es una simulación: el sistema real se instala en tu
+                  central.
                 </p>
                 <Link
                   href="/login"

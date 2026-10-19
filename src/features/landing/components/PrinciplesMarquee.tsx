@@ -10,7 +10,7 @@ import {
 const PRINCIPLES = [
   { icon: UserCheck, label: "Humano al mando" },
   { icon: EyeOff, label: "Sin biometría" },
-  { icon: Cpu, label: "Local primero" },
+  { icon: Cpu, label: "Se instala en tu central" },
   { icon: Lock, label: "Evidencia sellada" },
   { icon: CircleHelp, label: "Muestra lo que no sabe" },
   { icon: FileCheck, label: "Verificable sin internet" },

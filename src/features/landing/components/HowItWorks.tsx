@@ -7,7 +7,7 @@ import {
   Cpu,
   Frame,
   Lock,
-  Upload,
+  RadioTower,
   UserCheck,
 } from "@/components/icons";
 import { SketchArrow } from "./HandDrawn";
@@ -15,9 +15,9 @@ import { type } from "./typography";
 
 const STEPS = [
   {
-    icon: Upload,
-    title: "Cargar",
-    text: "Subes la grabación. El original queda intacto, con su huella digital.",
+    icon: RadioTower,
+    title: "Recibir",
+    text: "El video de tus cámaras pasa a TAKYA. El original queda intacto, con su huella digital.",
   },
   {
     icon: Frame,
@@ -27,7 +27,7 @@ const STEPS = [
   {
     icon: Cpu,
     title: "Analizar",
-    text: "Un detector local revisa una copia, sin internet, y propone candidatos.",
+    text: "Un detector instalado en tu central revisa una copia, sin internet, y propone candidatos.",
   },
   {
     icon: UserCheck,
@@ -66,11 +66,14 @@ export function HowItWorks() {
       >
         <div className="flex-1">
           <span className={type.eyebrow}>CÓMO FUNCIONA</span>
-          <h2 className={type.h2}>De la grabación a una decisión explicada.</h2>
+          <h2 className={type.h2}>
+            Tus cámaras vigilan. TAKYA te dice qué mirar.
+          </h2>
         </div>
         <p className={`flex-1 max-w-md ${type.lead}`}>
-          Cinco pasos en un solo recorrido. La inteligencia artificial propone;
-          la persona siempre decide.
+          Las cámaras siguen operando como siempre y su video pasa a TAKYA, que
+          encuentra lo relevante, lo explica y sella la evidencia. La persona
+          siempre decide.
         </p>
       </motion.div>
 
@@ -99,6 +102,20 @@ export function HowItWorks() {
             </span>
             <h3 className={`mt-5 ${type.h3} text-[#1B3B2B]`}>{title}</h3>
             <p className={`mt-2 ${type.body} text-[#1B3B2B]`}>{text}</p>
+            {index === 0 ? (
+              <span className="mt-4 flex flex-wrap gap-2">
+                <span
+                  className={`${type.label} rounded-full bg-[#1B3B2B] px-3 py-1 text-[#F4F1EA]`}
+                >
+                  Grabación · hoy
+                </span>
+                <span
+                  className={`${type.label} rounded-full border border-[#1B3B2B]/40 px-3 py-1 text-[#1B3B2B]`}
+                >
+                  En vivo · piloto
+                </span>
+              </span>
+            ) : null}
             {index < STEPS.length - 1 ? (
               <SketchArrow
                 delay={0.4 + index * 0.15}
@@ -114,11 +131,21 @@ export function HowItWorks() {
         whileInView="whileInView"
         viewport={{ once: true }}
         variants={fadeUp}
-        className="max-w-6xl mx-auto mt-14 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between"
+        className="max-w-6xl mx-auto mt-14 grid gap-8 border-t border-[#1B3B2B]/30 pt-8 md:grid-cols-[1fr_1fr_auto] md:items-center"
       >
-        <p className={type.note}>
-          Hoy trabaja con grabaciones exportadas. Las cámaras en vivo llegan con
-          el piloto.
+        <p className={`${type.body} text-[#1B3B2B]`}>
+          <span className={`${type.label} mb-2 block text-[#E05D44]`}>
+            Disponible hoy
+          </span>
+          Grabaciones exportadas desde tu grabador: TAKYA encuentra el momento,
+          lo explica y sella la evidencia.
+        </p>
+        <p className={`${type.body} text-[#1B3B2B]`}>
+          <span className={`${type.label} mb-2 block text-[#7D9B8A]`}>
+            En el piloto
+          </span>
+          Conexión directa a la señal en vivo de tus cámaras, dentro de la misma
+          central.
         </p>
         <Link
           href="/login"

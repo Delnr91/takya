@@ -26,8 +26,8 @@ const PRINCIPLES = [
   },
   {
     icon: Cpu,
-    title: "Local primero",
-    text: "El video se analiza en el computador de la central, sin enviarlo a la nube.",
+    title: "Se instala en tu central",
+    text: "El video no sale de ahí: se analiza en un computador de la central, sin enviarlo a la nube.",
   },
   {
     icon: FileCheck,
@@ -51,10 +51,8 @@ const PROOF = [
     value: 3,
     suffix: "/3",
     label:
-      "intentos de alterar la evidencia detectados en nuestras pruebas: un dato cambiado, una clave falsa y una firma suplantada",
+      "intentos de alterar la evidencia detectados en nuestras pruebas. Si alguien cambia un solo dato, la verificación lo detecta.",
   },
-  { value: 0, suffix: "", label: "rostros o identidades reconocidas" },
-  { value: 0, suffix: "", label: "videos enviados a la nube para analizarse" },
 ];
 
 const fadeUp: Variants = {
