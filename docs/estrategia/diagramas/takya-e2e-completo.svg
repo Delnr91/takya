@@ -1,0 +1,480 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="3700" height="3499" viewBox="0 0 3700 3499">
+<defs><marker id="ah" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto"><path d="M0,0 L12,6 L0,12 z" fill="#1e2a24"/></marker></defs>
+<rect width="3700" height="3499" fill="#ffffff"/>
+<rect x="40.0" y="170.0" width="1780.0" height="415.3" rx="14" fill="#f1f3f5" stroke="#868e96" stroke-width="1"/>
+<rect x="1860.0" y="170.0" width="1780.0" height="415.3" rx="14" fill="#f1f3f5" stroke="#868e96" stroke-width="1"/>
+<rect x="40.0" y="625.3" width="3600.0" height="260.6" rx="14" fill="#f1f3f5" stroke="#868e96" stroke-width="1"/>
+<rect x="40.0" y="925.9" width="3600.0" height="495.2" rx="14" fill="#f1f3f5" stroke="#868e96" stroke-width="1"/>
+<rect x="40.0" y="1461.1" width="3600.0" height="446.8" rx="14" fill="#f1f3f5" stroke="#868e96" stroke-width="1"/>
+<rect x="40.0" y="1947.9" width="1780.0" height="304.8" rx="14" fill="#f1f3f5" stroke="#868e96" stroke-width="1"/>
+<rect x="1860.0" y="1947.9" width="1780.0" height="304.8" rx="14" fill="#f1f3f5" stroke="#868e96" stroke-width="1"/>
+<rect x="40.0" y="2292.7" width="1780.0" height="349.0" rx="14" fill="#f1f3f5" stroke="#868e96" stroke-width="1"/>
+<rect x="1860.0" y="2292.7" width="1780.0" height="349.0" rx="14" fill="#f1f3f5" stroke="#868e96" stroke-width="1"/>
+<rect x="40.0" y="2681.7" width="3600.0" height="304.8" rx="14" fill="#f1f3f5" stroke="#868e96" stroke-width="1"/>
+<rect x="40.0" y="3026.5" width="3600.0" height="349.0" rx="14" fill="#f1f3f5" stroke="#868e96" stroke-width="1"/>
+<rect x="2700.0" y="20.0" width="34.0" height="30.0" rx="14" fill="#b2f2bb" stroke="#1e2a24" stroke-width="2"/>
+<rect x="3160.0" y="20.0" width="34.0" height="30.0" rx="14" fill="#ffec99" stroke="#1e2a24" stroke-width="2"/>
+<rect x="2700.0" y="64.0" width="34.0" height="30.0" rx="14" fill="#a5d8ff" stroke="#1e2a24" stroke-width="2"/>
+<rect x="3160.0" y="64.0" width="34.0" height="30.0" rx="14" fill="#ffc9c9" stroke="#1e2a24" stroke-width="2"/>
+<rect x="2700.0" y="108.0" width="34.0" height="30.0" rx="14" fill="#d0bfff" stroke="#1e2a24" stroke-width="2"/>
+<rect x="64.0" y="234.0" width="403.0" height="315.3" rx="14" fill="#a5d8ff" stroke="#1e2a24" stroke-width="2"/>
+<rect x="507.0" y="234.0" width="403.0" height="315.3" rx="14" fill="#a5d8ff" stroke="#1e2a24" stroke-width="2"/>
+<rect x="950.0" y="234.0" width="403.0" height="315.3" rx="14" fill="#a5d8ff" stroke="#1e2a24" stroke-width="2"/>
+<rect x="1393.0" y="234.0" width="403.0" height="315.3" rx="14" fill="#a5d8ff" stroke="#1e2a24" stroke-width="2"/>
+<rect x="1884.0" y="234.0" width="403.0" height="315.3" rx="14" fill="#b2f2bb" stroke="#1e2a24" stroke-width="2"/>
+<rect x="2327.0" y="234.0" width="403.0" height="315.3" rx="14" fill="#b2f2bb" stroke="#1e2a24" stroke-width="2"/>
+<rect x="2770.0" y="234.0" width="403.0" height="315.3" rx="14" fill="#d0bfff" stroke="#1e2a24" stroke-width="2"/>
+<rect x="3213.0" y="234.0" width="403.0" height="315.3" rx="14" fill="#ffc9c9" stroke="#1e2a24" stroke-width="2"/>
+<rect x="64.0" y="689.3" width="678.4" height="160.6" rx="14" fill="#b2f2bb" stroke="#1e2a24" stroke-width="2"/>
+<rect x="782.4" y="689.3" width="678.4" height="160.6" rx="14" fill="#b2f2bb" stroke="#1e2a24" stroke-width="2"/>
+<rect x="1500.8" y="689.3" width="678.4" height="160.6" rx="14" fill="#b2f2bb" stroke="#1e2a24" stroke-width="2"/>
+<rect x="2219.2" y="689.3" width="678.4" height="160.6" rx="14" fill="#b2f2bb" stroke="#1e2a24" stroke-width="2"/>
+<rect x="2937.6" y="689.3" width="678.4" height="160.6" rx="14" fill="#b2f2bb" stroke="#1e2a24" stroke-width="2"/>
+<line x1="742.4" y1="769.6" x2="782.4" y2="769.6" stroke="#1e2a24" stroke-width="3" marker-end="url(#ah)"/>
+<line x1="1460.8" y1="769.6" x2="1500.8" y2="769.6" stroke="#1e2a24" stroke-width="3" marker-end="url(#ah)"/>
+<line x1="2179.2" y1="769.6" x2="2219.2" y2="769.6" stroke="#1e2a24" stroke-width="3" marker-end="url(#ah)"/>
+<line x1="2897.6" y1="769.6" x2="2937.6" y2="769.6" stroke="#1e2a24" stroke-width="3" marker-end="url(#ah)"/>
+<rect x="64.0" y="989.9" width="678.4" height="160.6" rx="14" fill="#b2f2bb" stroke="#1e2a24" stroke-width="2"/>
+<rect x="782.4" y="989.9" width="678.4" height="160.6" rx="14" fill="#b2f2bb" stroke="#1e2a24" stroke-width="2"/>
+<rect x="1500.8" y="989.9" width="678.4" height="160.6" rx="14" fill="#b2f2bb" stroke="#1e2a24" stroke-width="2"/>
+<rect x="2219.2" y="989.9" width="678.4" height="160.6" rx="14" fill="#b2f2bb" stroke="#1e2a24" stroke-width="2"/>
+<rect x="2937.6" y="989.9" width="678.4" height="160.6" rx="14" fill="#b2f2bb" stroke="#1e2a24" stroke-width="2"/>
+<line x1="742.4" y1="1070.2" x2="782.4" y2="1070.2" stroke="#1e2a24" stroke-width="3" marker-end="url(#ah)"/>
+<line x1="1460.8" y1="1070.2" x2="1500.8" y2="1070.2" stroke="#1e2a24" stroke-width="3" marker-end="url(#ah)"/>
+<line x1="2179.2" y1="1070.2" x2="2219.2" y2="1070.2" stroke="#1e2a24" stroke-width="3" marker-end="url(#ah)"/>
+<line x1="2897.6" y1="1070.2" x2="2937.6" y2="1070.2" stroke="#1e2a24" stroke-width="3" marker-end="url(#ah)"/>
+<rect x="64.0" y="1220.5" width="678.4" height="160.6" rx="14" fill="#ffec99" stroke="#1e2a24" stroke-width="2"/>
+<rect x="782.4" y="1220.5" width="678.4" height="160.6" rx="14" fill="#b2f2bb" stroke="#1e2a24" stroke-width="2"/>
+<rect x="1500.8" y="1220.5" width="678.4" height="160.6" rx="14" fill="#b2f2bb" stroke="#1e2a24" stroke-width="2"/>
+<rect x="2219.2" y="1220.5" width="678.4" height="160.6" rx="14" fill="#b2f2bb" stroke="#1e2a24" stroke-width="2"/>
+<rect x="2937.6" y="1220.5" width="678.4" height="160.6" rx="14" fill="#b2f2bb" stroke="#1e2a24" stroke-width="2"/>
+<line x1="2179.2" y1="1300.8" x2="2219.2" y2="1300.8" stroke="#1e2a24" stroke-width="3" marker-end="url(#ah)"/>
+<line x1="2897.6" y1="1300.8" x2="2937.6" y2="1300.8" stroke="#1e2a24" stroke-width="3" marker-end="url(#ah)"/>
+<line x1="403.2" y1="1150.5" x2="403.2" y2="1220.5" stroke="#1e2a24" stroke-width="3" marker-end="url(#ah)" stroke-dasharray="10 8"/>
+<line x1="1840.0" y1="1150.5" x2="1121.6" y2="1220.5" stroke="#1e2a24" stroke-width="3" marker-end="url(#ah)"/>
+<line x1="1840.0" y1="1150.5" x2="1840.0" y2="1220.5" stroke="#1e2a24" stroke-width="3" marker-end="url(#ah)"/>
+<rect x="64.0" y="1525.1" width="476.6" height="116.4" rx="14" fill="#b2f2bb" stroke="#1e2a24" stroke-width="2"/>
+<rect x="576.6" y="1525.1" width="476.6" height="116.4" rx="14" fill="#b2f2bb" stroke="#1e2a24" stroke-width="2"/>
+<rect x="1089.1" y="1525.1" width="476.6" height="116.4" rx="14" fill="#b2f2bb" stroke="#1e2a24" stroke-width="2"/>
+<rect x="1601.7" y="1525.1" width="476.6" height="116.4" rx="14" fill="#b2f2bb" stroke="#1e2a24" stroke-width="2"/>
+<rect x="2114.3" y="1525.1" width="476.6" height="116.4" rx="14" fill="#b2f2bb" stroke="#1e2a24" stroke-width="2"/>
+<rect x="2626.9" y="1525.1" width="476.6" height="116.4" rx="14" fill="#b2f2bb" stroke="#1e2a24" stroke-width="2"/>
+<rect x="3139.4" y="1525.1" width="476.6" height="116.4" rx="14" fill="#b2f2bb" stroke="#1e2a24" stroke-width="2"/>
+<line x1="540.6" y1="1583.3" x2="576.6" y2="1583.3" stroke="#1e2a24" stroke-width="3" marker-end="url(#ah)"/>
+<line x1="1053.1" y1="1583.3" x2="1089.1" y2="1583.3" stroke="#1e2a24" stroke-width="3" marker-end="url(#ah)"/>
+<line x1="1565.7" y1="1583.3" x2="1601.7" y2="1583.3" stroke="#1e2a24" stroke-width="3" marker-end="url(#ah)"/>
+<line x1="2078.3" y1="1583.3" x2="2114.3" y2="1583.3" stroke="#1e2a24" stroke-width="3" marker-end="url(#ah)"/>
+<line x1="2590.9" y1="1583.3" x2="2626.9" y2="1583.3" stroke="#1e2a24" stroke-width="3" marker-end="url(#ah)"/>
+<line x1="3103.4" y1="1583.3" x2="3139.4" y2="1583.3" stroke="#1e2a24" stroke-width="3" marker-end="url(#ah)"/>
+<rect x="64.0" y="1701.5" width="476.6" height="116.4" rx="14" fill="#b2f2bb" stroke="#1e2a24" stroke-width="2"/>
+<rect x="576.6" y="1701.5" width="476.6" height="116.4" rx="14" fill="#b2f2bb" stroke="#1e2a24" stroke-width="2"/>
+<rect x="1089.1" y="1701.5" width="476.6" height="116.4" rx="14" fill="#b2f2bb" stroke="#1e2a24" stroke-width="2"/>
+<rect x="1601.7" y="1701.5" width="476.6" height="116.4" rx="14" fill="#b2f2bb" stroke="#1e2a24" stroke-width="2"/>
+<rect x="2114.3" y="1701.5" width="476.6" height="116.4" rx="14" fill="#b2f2bb" stroke="#1e2a24" stroke-width="2"/>
+<rect x="2626.9" y="1701.5" width="476.6" height="116.4" rx="14" fill="#b2f2bb" stroke="#1e2a24" stroke-width="2"/>
+<rect x="3139.4" y="1701.5" width="476.6" height="116.4" rx="14" fill="#b2f2bb" stroke="#1e2a24" stroke-width="2"/>
+<line x1="540.6" y1="1759.7" x2="576.6" y2="1759.7" stroke="#1e2a24" stroke-width="3" marker-end="url(#ah)"/>
+<line x1="1053.1" y1="1759.7" x2="1089.1" y2="1759.7" stroke="#1e2a24" stroke-width="3" marker-end="url(#ah)"/>
+<line x1="1565.7" y1="1759.7" x2="1601.7" y2="1759.7" stroke="#1e2a24" stroke-width="3" marker-end="url(#ah)"/>
+<line x1="2078.3" y1="1759.7" x2="2114.3" y2="1759.7" stroke="#1e2a24" stroke-width="3" marker-end="url(#ah)"/>
+<line x1="2590.9" y1="1759.7" x2="2626.9" y2="1759.7" stroke="#1e2a24" stroke-width="3" marker-end="url(#ah)"/>
+<line x1="3103.4" y1="1759.7" x2="3139.4" y2="1759.7" stroke="#1e2a24" stroke-width="3" marker-end="url(#ah)"/>
+<line x1="3377.7" y1="1641.5" x2="302.3" y2="1701.5" stroke="#1e2a24" stroke-width="3" marker-end="url(#ah)"/>
+<rect x="64.0" y="2011.9" width="846.0" height="204.8" rx="14" fill="#b2f2bb" stroke="#1e2a24" stroke-width="2"/>
+<rect x="950.0" y="2011.9" width="846.0" height="204.8" rx="14" fill="#b2f2bb" stroke="#1e2a24" stroke-width="2"/>
+<rect x="1884.0" y="2011.9" width="846.0" height="204.8" rx="14" fill="#ffec99" stroke="#1e2a24" stroke-width="2"/>
+<rect x="2770.0" y="2011.9" width="846.0" height="204.8" rx="14" fill="#ffec99" stroke="#1e2a24" stroke-width="2"/>
+<rect x="64.0" y="2356.7" width="846.0" height="249.0" rx="14" fill="#b2f2bb" stroke="#1e2a24" stroke-width="2"/>
+<rect x="950.0" y="2356.7" width="846.0" height="249.0" rx="14" fill="#b2f2bb" stroke="#1e2a24" stroke-width="2"/>
+<rect x="1884.0" y="2356.7" width="846.0" height="249.0" rx="14" fill="#b2f2bb" stroke="#1e2a24" stroke-width="2"/>
+<rect x="2770.0" y="2356.7" width="846.0" height="249.0" rx="14" fill="#b2f2bb" stroke="#1e2a24" stroke-width="2"/>
+<rect x="64.0" y="2745.7" width="858.0" height="204.8" rx="14" fill="#b2f2bb" stroke="#1e2a24" stroke-width="2"/>
+<rect x="962.0" y="2745.7" width="858.0" height="204.8" rx="14" fill="#a5d8ff" stroke="#1e2a24" stroke-width="2"/>
+<rect x="1860.0" y="2745.7" width="858.0" height="204.8" rx="14" fill="#a5d8ff" stroke="#1e2a24" stroke-width="2"/>
+<rect x="2758.0" y="2745.7" width="858.0" height="204.8" rx="14" fill="#ffc9c9" stroke="#1e2a24" stroke-width="2"/>
+<rect x="64.0" y="3090.5" width="678.4" height="249.0" rx="14" fill="#d0bfff" stroke="#1e2a24" stroke-width="2"/>
+<rect x="782.4" y="3090.5" width="678.4" height="249.0" rx="14" fill="#d0bfff" stroke="#1e2a24" stroke-width="2"/>
+<rect x="1500.8" y="3090.5" width="678.4" height="249.0" rx="14" fill="#d0bfff" stroke="#1e2a24" stroke-width="2"/>
+<rect x="2219.2" y="3090.5" width="678.4" height="249.0" rx="14" fill="#ffec99" stroke="#1e2a24" stroke-width="2"/>
+<rect x="2937.6" y="3090.5" width="678.4" height="249.0" rx="14" fill="#ffec99" stroke="#1e2a24" stroke-width="2"/>
+<text x="40.0" y="61.6" font-family="Helvetica, Arial, sans-serif" font-size="52" fill="#1e2a24">TAKYA — lógica end-to-end del proyecto</text>
+<text x="40.0" y="111.6" font-family="Helvetica, Arial, sans-serif" font-size="22" fill="#495057">Comprender antes de actuar · La IA encuentra, la persona decide, la evidencia queda protegida · Corte 19-10-2026 · Programa Nómada UCN / USQAI</text>
+<text x="2744.0" y="37.6" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">Implementado y verificado [O]</text>
+<text x="3204.0" y="37.6" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">Propuesto / pendiente [P]</text>
+<text x="2744.0" y="81.6" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">Contexto, problema o dato con fuente [F]</text>
+<text x="3204.0" y="81.6" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">No afirmar / riesgo</text>
+<text x="2744.0" y="125.6" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">Negocio, ODS y pitch</text>
+<text x="78.0" y="261.6" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">MÁS CÁMARAS, MISMA ATENCIÓN</text>
+<text x="78.0" y="283.7" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24"></text>
+<text x="78.0" y="305.8" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">• Antofagasta: central municipal de 30 →</text>
+<text x="78.0" y="327.9" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">130 cámaras, operación continua [F,</text>
+<text x="78.0" y="350.0" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">11-05-2026].</text>
+<text x="78.0" y="372.1" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">• Condominios: operadores con 2–5 cámaras</text>
+<text x="78.0" y="394.2" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">[R, entrevistas].</text>
+<text x="78.0" y="416.3" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">• Operadores con habilidades digitales</text>
+<text x="78.0" y="438.4" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">diversas, turnos largos, interrupciones.</text>
+<text x="78.0" y="460.5" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">• 1.245 cámaras regionales: NO usar sin</text>
+<text x="78.0" y="482.6" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">fuente primaria.</text>
+<text x="521.0" y="261.6" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">FATIGA COGNITIVA Y OBSERVACIÓN</text>
+<text x="521.0" y="283.7" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24"></text>
+<text x="521.0" y="305.8" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">• Decremento de vigilancia en tareas</text>
+<text x="521.0" y="327.9" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">monótonas (Mackworth, 1948) [F].</text>
+<text x="521.0" y="350.0" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">• Buscar en grilla multiplex es exigente</text>
+<text x="521.0" y="372.1" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">(Tatler et al.) [F].</text>
+<text x="521.0" y="394.2" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">• La automatización cambia carga y</text>
+<text x="521.0" y="416.3" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">desempeño (Dadashi et al.) [F].</text>
+<text x="521.0" y="438.4" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">• Señales de IA influyen: riesgo de</text>
+<text x="521.0" y="460.5" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">complacencia (De Bruyne et al.) [F].</text>
+<text x="521.0" y="482.6" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">• «95 % de atención perdida a los 20</text>
+<text x="521.0" y="504.7" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">min»: NO usar.</text>
+<text x="964.0" y="261.6" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">VIDEO CRUDO: ARITMÉTICA</text>
+<text x="964.0" y="283.7" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24"></text>
+<text x="964.0" y="305.8" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">• 3,5 Mbps → 26,25 MB/min · 1,575 GB/h ·</text>
+<text x="964.0" y="327.9" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">37,8 GB/día por cámara.</text>
+<text x="964.0" y="350.0" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">• 30 días, 10 cámaras a 4 Mbps ≈ 12,96</text>
+<text x="964.0" y="372.1" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">TB.</text>
+<text x="964.0" y="394.2" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">• ZIP casi no reduce H.264/H.265.</text>
+<text x="964.0" y="416.3" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">• Recodificar destruye detalle y cambia</text>
+<text x="964.0" y="438.4" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">el hash.</text>
+<text x="964.0" y="460.5" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">• El ahorro real: no mirar ni guardar lo</text>
+<text x="964.0" y="482.6" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">irrelevante.</text>
+<text x="1407.0" y="261.6" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">DOLOR OPERATIVO</text>
+<text x="1407.0" y="283.7" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24"></text>
+<text x="1407.0" y="305.8" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">• Saben la franja, no el minuto: recorren</text>
+<text x="1407.0" y="327.9" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">la barra del NVR.</text>
+<text x="1407.0" y="350.0" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">• Exportan bloques de 15–60 min; Dahua</text>
+<text x="1407.0" y="372.1" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">.dav no abre en PC común [R].</text>
+<text x="1407.0" y="394.2" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">• Disco lleno → sobrescritura FIFO: el</text>
+<text x="1407.0" y="416.3" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">video se pierde [R].</text>
+<text x="1407.0" y="438.4" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">• Entrega por celular o mensajería, sin</text>
+<text x="1407.0" y="460.5" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">huella ni registro [R].</text>
+<text x="1407.0" y="482.6" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">• Se decide sin registrar por qué.</text>
+<text x="1898.0" y="261.6" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">PROPUESTA DE VALOR</text>
+<text x="1898.0" y="283.7" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24"></text>
+<text x="1898.0" y="305.8" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">1. Encuentra candidatos en la zona</text>
+<text x="1898.0" y="327.9" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">declarada.</text>
+<text x="1898.0" y="350.0" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">2. Explica qué se vio, por qué y QUÉ NO</text>
+<text x="1898.0" y="372.1" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">SE SABE.</text>
+<text x="1898.0" y="394.2" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">3. La persona decide: Verificar /</text>
+<text x="1898.0" y="416.3" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">Descartar / Escalar con motivo.</text>
+<text x="1898.0" y="438.4" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">4. Protege: original intacto + paquete</text>
+<text x="1898.0" y="460.5" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">firmado y cifrado verificable offline.</text>
+<text x="2341.0" y="261.6" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">PRINCIPIOS</text>
+<text x="2341.0" y="283.7" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24"></text>
+<text x="2341.0" y="305.8" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">• Humano al mando: la IA no decide, borra</text>
+<text x="2341.0" y="327.9" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">ni despacha.</text>
+<text x="2341.0" y="350.0" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">• Dos caminos: preservar ≠ analizar.</text>
+<text x="2341.0" y="372.1" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">• Fallido/cancelado ≠ «sin candidatos».</text>
+<text x="2341.0" y="394.2" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">• Sin identidad ni intención; sin</text>
+<text x="2341.0" y="416.3" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">biometría.</text>
+<text x="2341.0" y="438.4" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">• Local primero, sin nube obligatoria.</text>
+<text x="2341.0" y="460.5" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">• Mínimo dato; sin vigilar al trabajador.</text>
+<text x="2784.0" y="261.6" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">DIFERENCIACIÓN (A DEMOSTRAR)</text>
+<text x="2784.0" y="283.7" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24"></text>
+<text x="2784.0" y="305.8" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">• Tarea completa: grabación → decisión</text>
+<text x="2784.0" y="327.9" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">explicada.</text>
+<text x="2784.0" y="350.0" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">• Evidencia verificable de bajo costo.</text>
+<text x="2784.0" y="372.1" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">• UX para fatiga y diversidad digital.</text>
+<text x="2784.0" y="394.2" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">• Muestra lo que no sabe</text>
+<text x="2784.0" y="416.3" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">(anti-complacencia).</text>
+<text x="2784.0" y="438.4" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">• Usa el parque CCTV instalado.</text>
+<text x="2784.0" y="460.5" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">• Cada afirmación se mide.</text>
+<text x="3227.0" y="261.6" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">COMPETENCIA</text>
+<text x="3227.0" y="283.7" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24"></text>
+<text x="3227.0" y="305.8" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">• NVR/VMS (Hikvision AcuSense, Dahua):</text>
+<text x="3227.0" y="327.9" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">graban, filtran; UX técnica.</text>
+<text x="3227.0" y="350.0" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">• Axis Zipstream / edge: requiere gama</text>
+<text x="3227.0" y="372.1" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">alta.</text>
+<text x="3227.0" y="394.2" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">• Frigate: detección local, sin flujo de</text>
+<text x="3227.0" y="416.3" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">decisión ni evidencia.</text>
+<text x="3227.0" y="438.4" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">• BriefCam, Amped FIVE: expertos y caros</text>
+<text x="3227.0" y="460.5" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">[R].</text>
+<text x="3227.0" y="482.6" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">• Verkada/Rhombus: recambio de cámaras</text>
+<text x="3227.0" y="504.7" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">[R].</text>
+<text x="3227.0" y="526.8" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">• NO decir «la competencia es más lenta».</text>
+<text x="60.0" y="206.4" font-family="Helvetica, Arial, sans-serif" font-size="28" fill="#1e2a24">1 · PROBLEMA</text>
+<text x="1880.0" y="206.4" font-family="Helvetica, Arial, sans-serif" font-size="28" fill="#1e2a24">2 · SOLUCIÓN Y DIFERENCIACIÓN</text>
+<text x="78.0" y="716.9" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">1 · CARGAR</text>
+<text x="78.0" y="739.0" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24"></text>
+<text x="78.0" y="761.1" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">MP4/H.264 ≤60 s, ≤1280×720, ≤32 MiB.</text>
+<text x="78.0" y="783.2" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">Declaración de autorización.</text>
+<text x="78.0" y="805.3" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">Límites y caducidad visibles ANTES de cargar.</text>
+<text x="78.0" y="827.4" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">Fuente preservada + SHA-256.</text>
+<text x="796.4" y="716.9" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">2 · DELIMITAR</text>
+<text x="796.4" y="739.0" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24"></text>
+<text x="796.4" y="761.1" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">Zona por porcentajes con teclado (Tab y flechas).</text>
+<text x="796.4" y="783.2" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">Confirmar cámara fija.</text>
+<text x="796.4" y="805.3" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">Muestreo 1 o 2 FPS · permanencia 2 o 2,5 s.</text>
+<text x="1514.8" y="716.9" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">3 · ANALIZAR</text>
+<text x="1514.8" y="739.0" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24"></text>
+<text x="1514.8" y="761.1" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">Progreso real por etapa + Cancelar.</text>
+<text x="1514.8" y="783.2" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">Resultado: N candidatos · sin candidatos ·</text>
+<text x="1514.8" y="805.3" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">fallido · cancelado · expirado (todos distintos).</text>
+<text x="2233.2" y="716.9" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">4 · REVISAR</text>
+<text x="2233.2" y="739.0" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24"></text>
+<text x="2233.2" y="761.1" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">OBSERVAR: fuente completa + hasta 3 fotogramas limpios.</text>
+<text x="2233.2" y="783.2" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">COMPRENDER: motivo + «lo que no sabemos».</text>
+<text x="2233.2" y="805.3" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">DECIDIR: Verificar / Descartar / Escalar con motivo; el servidor valida.</text>
+<text x="2951.6" y="716.9" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">5 · CONSERVAR</text>
+<text x="2951.6" y="739.0" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24"></text>
+<text x="2951.6" y="761.1" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">Paquete E1 (firma) o E2 (firma + cifrado).</text>
+<text x="2951.6" y="783.2" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">Verificador offline.</text>
+<text x="2951.6" y="805.3" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">Descargar ≠ recepción institucional.</text>
+<text x="2951.6" y="827.4" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">Cerrar ejercicio o caducidad 30 min / 2 h.</text>
+<text x="60.0" y="661.7" font-family="Helvetica, Arial, sans-serif" font-size="28" fill="#1e2a24">3 · FLUJO DEL OPERADOR EN /demo · «Analizar archivo» (separado de «Práctica preparada»)</text>
+<text x="78.0" y="1017.5" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">NAVEGADOR · CONSOLA /DEMO</text>
+<text x="78.0" y="1039.6" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24"></text>
+<text x="78.0" y="1061.7" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">Next.js 16 + React 19 + TS.</text>
+<text x="78.0" y="1083.8" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">Práctica preparada (6 clips, decisiones locales).</text>
+<text x="78.0" y="1105.9" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">Analizar archivo (nuevo).</text>
+<text x="78.0" y="1128.0" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">K8 mascota y ayuda (Guíame / Hablar / Escuchar).</text>
+<text x="796.4" y="1017.5" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">NEXT BFF · /API/ANALYSIS</text>
+<text x="796.4" y="1039.6" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24"></text>
+<text x="796.4" y="1061.7" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">Valida origen y ruta.</text>
+<text x="796.4" y="1083.8" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">Streaming sin cargar el video en RAM.</text>
+<text x="796.4" y="1105.9" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">Cookie HttpOnly SameSite.</text>
+<text x="796.4" y="1128.0" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">Token efímero → loopback; nunca a React.</text>
+<text x="1514.8" y="1017.5" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">FASTAPI · COORDINADOR ÚNICO</text>
+<text x="1514.8" y="1039.6" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24"></text>
+<text x="1514.8" y="1061.7" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">Sesiones efímeras en memoria.</text>
+<text x="1514.8" y="1083.8" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">Cola 1 activo + 1 en espera, cuotas de disco.</text>
+<text x="1514.8" y="1105.9" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">Idempotencia + revisión esperada.</text>
+<text x="1514.8" y="1128.0" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">Autoridad de estados y decisiones.</text>
+<text x="2233.2" y="1017.5" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">WORKER AISLADO</text>
+<text x="2233.2" y="1039.6" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24"></text>
+<text x="2233.2" y="1061.7" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">bwrap + prlimit: sin red, sin privilegios, sin shell.</text>
+<text x="2233.2" y="1083.8" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">Fuente y modelo de solo lectura.</text>
+<text x="2233.2" y="1105.9" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">Cancelar mata el grupo de procesos.</text>
+<text x="2233.2" y="1128.0" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">Timeout 120 s.</text>
+<text x="2951.6" y="1017.5" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">VISIÓN Y REGLA</text>
+<text x="2951.6" y="1039.6" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24"></text>
+<text x="2951.6" y="1061.7" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">FFmpeg muestrea 1–2 FPS con PTS originales.</text>
+<text x="2951.6" y="1083.8" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">YOLOX-Nano ONNX CPU (personas, 1 hilo).</text>
+<text x="2951.6" y="1105.9" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">Regla: punto inferior en polígono ≥ permanencia.</text>
+<text x="2951.6" y="1128.0" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">Agrupación por continuidad.</text>
+<text x="78.0" y="1248.1" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">K8 DOCUMENTAL (OPCIONAL)</text>
+<text x="78.0" y="1270.2" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24"></text>
+<text x="78.0" y="1292.3" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">Guías curadas + Groq textual opcional.</text>
+<text x="78.0" y="1314.4" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">No ve video ni caso.</text>
+<text x="78.0" y="1336.5" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">Sin herramientas de decisión, borrado o despacho.</text>
+<text x="78.0" y="1358.6" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">Proveedor caído → la revisión sigue.</text>
+<text x="796.4" y="1248.1" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">TEMPORALES PRIVADOS</text>
+<text x="796.4" y="1270.2" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24"></text>
+<text x="796.4" y="1292.3" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">Directorios 0700, archivos 0600, fuente 0400.</text>
+<text x="796.4" y="1314.4" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">Fuera de public/, git y logs.</text>
+<text x="796.4" y="1336.5" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">Se borran al cerrar, caducar o reiniciar.</text>
+<text x="1514.8" y="1248.1" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">MÓDULO DE EVIDENCIA</text>
+<text x="1514.8" y="1270.2" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24"></text>
+<text x="1514.8" y="1292.3" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">Snapshot coherente de UNA revisión.</text>
+<text x="1514.8" y="1314.4" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">Manifiesto canónico + Ed25519.</text>
+<text x="1514.8" y="1336.5" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">E2: AES-256-GCM, clave aleatoria, nonce nuevo.</text>
+<text x="1514.8" y="1358.6" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">Publicación atómica.</text>
+<text x="2233.2" y="1248.1" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">PAQUETE .TAKYA</text>
+<text x="2233.2" y="1270.2" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24"></text>
+<text x="2233.2" y="1292.3" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">sources/ original intacto · derivatives/ PNG.</text>
+<text x="2233.2" y="1314.4" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">analysis.json · decision.json.</text>
+<text x="2233.2" y="1336.5" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">session-log · manifest + firma.</text>
+<text x="2233.2" y="1358.6" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">Verificado [O]: 1,56 MB en la prueba.</text>
+<text x="2951.6" y="1248.1" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">VERIFICADOR OFFLINE</text>
+<text x="2951.6" y="1270.2" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24"></text>
+<text x="2951.6" y="1292.3" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">Independiente del generador.</text>
+<text x="2951.6" y="1314.4" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">Clave pública confiable por OTRO canal.</text>
+<text x="2951.6" y="1336.5" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">Rechaza: byte alterado, clave incorrecta, clave pública sustituida [O].</text>
+<text x="411.2" y="1187.5" font-family="Helvetica, Arial, sans-serif" font-size="15" fill="#495057">ayuda, sin autoridad</text>
+<text x="1488.8" y="1187.5" font-family="Helvetica, Arial, sans-serif" font-size="15" fill="#495057">archivos privados</text>
+<text x="1848.0" y="1187.5" font-family="Helvetica, Arial, sans-serif" font-size="15" fill="#495057">snapshot de una revisión</text>
+<text x="60.0" y="962.3" font-family="Helvetica, Arial, sans-serif" font-size="28" fill="#1e2a24">4 · ARQUITECTURA (monolito modular + proceso aislado · sin BD, Redis ni nube)</text>
+<text x="78.0" y="1552.7" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">1 SESIÓN</text>
+<text x="78.0" y="1574.8" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24"></text>
+<text x="78.0" y="1596.9" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">Cookie efímera; límites y TTL antes de cargar.</text>
+<text x="590.6" y="1552.7" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">2 CARGA</text>
+<text x="590.6" y="1574.8" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24"></text>
+<text x="590.6" y="1596.9" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">Streaming a .part 0600; SHA-256 incremental; tope</text>
+<text x="590.6" y="1619.0" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">de bytes en BFF y API.</text>
+<text x="1103.1" y="1552.7" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">3 INSPECCIÓN</text>
+<text x="1103.1" y="1574.8" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24"></text>
+<text x="1103.1" y="1596.9" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">ffprobe en sandbox, sin shell: contenedor, códec,</text>
+<text x="1103.1" y="1619.0" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">duración, pistas.</text>
+<text x="1615.7" y="1552.7" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">4 PRESERVACIÓN</text>
+<text x="1615.7" y="1574.8" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24"></text>
+<text x="1615.7" y="1596.9" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">Fuente 0400; contrato validado; hora de captura =</text>
+<text x="1615.7" y="1619.0" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">null si se desconoce.</text>
+<text x="2128.3" y="1552.7" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">5 TRABAJO</text>
+<text x="2128.3" y="1574.8" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24"></text>
+<text x="2128.3" y="1596.9" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">Clave de idempotencia; cola acotada; reserva de</text>
+<text x="2128.3" y="1619.0" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">disco.</text>
+<text x="2640.9" y="1552.7" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">6 WORKER</text>
+<text x="2640.9" y="1574.8" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24"></text>
+<text x="2640.9" y="1596.9" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">bwrap sin red; muestreo FFmpeg por PTS; YOLOX</text>
+<text x="2640.9" y="1619.0" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">ONNX.</text>
+<text x="3153.4" y="1552.7" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">7 REGLA</text>
+<text x="3153.4" y="1574.8" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24"></text>
+<text x="3153.4" y="1596.9" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">Persona en zona ≥ permanencia → candidato (no</text>
+<text x="3153.4" y="1619.0" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">delito, no identidad).</text>
+<text x="78.0" y="1729.1" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">8 INCIDENTE</text>
+<text x="78.0" y="1751.2" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24"></text>
+<text x="78.0" y="1773.3" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">Motivos, desconocidos, contexto 15 s / 20 s,</text>
+<text x="78.0" y="1795.4" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">hasta 3 PNG con hash.</text>
+<text x="590.6" y="1729.1" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">9 REVISIÓN</text>
+<text x="590.6" y="1751.2" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24"></text>
+<text x="590.6" y="1773.3" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">El servidor exige marcar fuente, cada fotograma y</text>
+<text x="590.6" y="1795.4" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">los límites.</text>
+<text x="1103.1" y="1729.1" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">10 DECISIÓN</text>
+<text x="1103.1" y="1751.2" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24"></text>
+<text x="1103.1" y="1773.3" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">Verificar / Descartar / Escalar + motivo;</text>
+<text x="1103.1" y="1795.4" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">revisión esperada (409 si cambió).</text>
+<text x="1615.7" y="1729.1" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">11 PAQUETE</text>
+<text x="1615.7" y="1751.2" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24"></text>
+<text x="1615.7" y="1773.3" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">Snapshot → manifiesto → firma → (E2) cifrado →</text>
+<text x="1615.7" y="1795.4" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">verificación → publicación atómica.</text>
+<text x="2128.3" y="1729.1" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">12 RECUPERACIÓN</text>
+<text x="2128.3" y="1751.2" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24"></text>
+<text x="2128.3" y="1773.3" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">Utilidad local guarda clave pública y clave E2 en</text>
+<text x="2128.3" y="1795.4" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">archivos 0600, fuera del paquete.</text>
+<text x="2640.9" y="1729.1" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">13 VERIFICACIÓN</text>
+<text x="2640.9" y="1751.2" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24"></text>
+<text x="2640.9" y="1773.3" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">Herramienta offline sobre los bytes descargados.</text>
+<text x="3153.4" y="1729.1" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">14 CIERRE</text>
+<text x="3153.4" y="1751.2" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24"></text>
+<text x="3153.4" y="1773.3" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">Cierre explícito o caducidad; descargar no borra.</text>
+<text x="64.0" y="1863.9" font-family="Helvetica, Arial, sans-serif" font-size="20" fill="#c92a2a">¿Comprime? NO. Nunca recomprime el original: analiza menos cuadros sobre una copia reducida, muestra solo lo relevante y describe lo observado en JSON (que no reemplaza al video).</text>
+<text x="60.0" y="1497.5" font-family="Helvetica, Arial, sans-serif" font-size="28" fill="#1e2a24">5 · BACKEND PASO A PASO (implementado y recorrido en navegador el 19-10-2026)</text>
+<text x="78.0" y="2039.5" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">MÁQUINAS DE ESTADO</text>
+<text x="78.0" y="2061.6" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24"></text>
+<text x="78.0" y="2083.7" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">TRABAJO: QUEUED → ANALYZING → COMPLETED | FAILED | CANCELLED | EXPIRED (terminal no se</text>
+<text x="78.0" y="2105.8" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">reabre).</text>
+<text x="78.0" y="2127.9" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">CASO: PENDING → IN_REVIEW → VERIFIED | DISMISSED | ESCALATED (VERIFIED → ESCALATED</text>
+<text x="78.0" y="2150.0" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">explícito).</text>
+<text x="78.0" y="2172.1" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">EXPORTACIÓN: PREPARING → VERIFYING → READY → DOWNLOADED (≠ recepción).</text>
+<text x="78.0" y="2194.2" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">La UI traduce estados al español.</text>
+<text x="964.0" y="2039.5" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">NIVELES DE EVIDENCIA</text>
+<text x="964.0" y="2061.6" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24"></text>
+<text x="964.0" y="2083.7" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">E0 Práctica curada [O].</text>
+<text x="964.0" y="2105.8" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">E1 Integridad: firma Ed25519 + inventario [O].</text>
+<text x="964.0" y="2127.9" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">E2 Confidencialidad: AES-256-GCM + clave separada [O].</text>
+<text x="964.0" y="2150.0" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">E3 Custodia institucional: identidad real, registro durable, receptor autenticado [P,</text>
+<text x="964.0" y="2172.1" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">fuera de la demo].</text>
+<text x="964.0" y="2194.2" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">Hash prueba consistencia desde la recepción, no autenticidad previa.</text>
+<text x="1898.0" y="2039.5" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">FASES DE ENTRADA</text>
+<text x="1898.0" y="2061.6" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24"></text>
+<text x="1898.0" y="2083.7" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">F1 Demo: 1 archivo ≤60 s, 1 zona [O].</text>
+<text x="1898.0" y="2105.8" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">F2 Bloques 5 → 15 → 60 min, .dav/H.265 tras medir [P].</text>
+<text x="1898.0" y="2127.9" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">F3 Piloto en vivo RTSP/ONVIF, substream + búfer circular [P].</text>
+<text x="1898.0" y="2150.0" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">F4 Multicámara/multisitio con persistencia [P].</text>
+<text x="2784.0" y="2039.5" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">TÉCNICAS</text>
+<text x="2784.0" y="2061.6" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24"></text>
+<text x="2784.0" y="2083.7" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">• Muestreo 1–2 FPS: ~92 % menos inferencias [O].</text>
+<text x="2784.0" y="2105.8" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">• Copia reducida; fuente intacta [O].</text>
+<text x="2784.0" y="2127.9" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">• Barrido solo I-frames: solo si conserva el recall [P].</text>
+<text x="2784.0" y="2150.0" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">• Corte -c copy con intervalo pedido/efectivo [P]; hoy fuente completa [O].</text>
+<text x="2784.0" y="2172.1" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">• Contexto 15 s antes / 20 s después [O].</text>
+<text x="2784.0" y="2194.2" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">• «1 hora en 15–35 s»: NO usar sin medir.</text>
+<text x="60.0" y="1984.3" font-family="Helvetica, Arial, sans-serif" font-size="28" fill="#1e2a24">6 · ESTADOS Y EVIDENCIA</text>
+<text x="1880.0" y="1984.3" font-family="Helvetica, Arial, sans-serif" font-size="28" fill="#1e2a24">7 · CÁMARAS Y ESTRATEGIA DE PROCESAMIENTO</text>
+<text x="78.0" y="2384.3" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">STACK (VERSIONES FIJADAS)</text>
+<text x="78.0" y="2406.4" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24"></text>
+<text x="78.0" y="2428.5" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">Web: Next 16.3.6 · React 19.3 · TS · Tailwind · Motion · Three.js.</text>
+<text x="78.0" y="2450.6" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">Contratos: Zod 4.6 · Pydantic 2.14 · JSON Schema/OpenAPI (contracts/v1).</text>
+<text x="78.0" y="2472.7" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">API: FastAPI 0.148 · Uvicorn · Python 3.12 en 127.0.0.1.</text>
+<text x="78.0" y="2494.8" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">Video: FFmpeg 6.1 · Visión: ONNX Runtime 1.31 + YOLOX-Nano.</text>
+<text x="78.0" y="2516.9" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">Cripto: cryptography 50 (Ed25519, AES-GCM) · SHA-256.</text>
+<text x="78.0" y="2539.0" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">Aislamiento: bubblewrap + prlimit.</text>
+<text x="78.0" y="2561.1" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">Pruebas: 62 pytest · 31 node:test · ESLint · tsc.</text>
+<text x="964.0" y="2384.3" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">PATRONES Y PRÁCTICAS</text>
+<text x="964.0" y="2406.4" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24"></text>
+<text x="964.0" y="2428.5" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">Monolito modular · puertos y adaptadores · máquinas de estado · idempotencia · control</text>
+<text x="964.0" y="2450.6" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">optimista · publicación atómica · BFF · contrato primero · módulos profundos.</text>
+<text x="964.0" y="2472.7" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">Home, landing y login congelados por hashes.</text>
+<text x="964.0" y="2494.8" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">Orquestación multiagente: un dueño por módulo, ramas, revisión cruzada basada en pruebas.</text>
+<text x="964.0" y="2516.9" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">Pendiente: MODEL.md con procedencia y licencia de los pesos.</text>
+<text x="1898.0" y="2384.3" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">CAPA COGNITIVA</text>
+<text x="1898.0" y="2406.4" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24"></text>
+<text x="1898.0" y="2428.5" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">«Juguete táctil por fuera, rigor crítico por dentro».</text>
+<text x="1898.0" y="2450.6" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">• Control supervisorio: la máquina entrega episodios.</text>
+<text x="1898.0" y="2472.7" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">• 3 decisiones (Hick-Hyman); botones ≥48 px, texto ≥18 px.</text>
+<text x="1898.0" y="2494.8" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">• 3 bloques: qué se observa / qué NO se sabe / siguiente paso.</text>
+<text x="1898.0" y="2516.9" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">• Sin % de certeza (anti-complacencia).</text>
+<text x="1898.0" y="2539.0" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">• Pictograma + verbo; el carrusel no avanza solo.</text>
+<text x="1898.0" y="2561.1" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">• Sin gamificación de velocidad, sin vigilar al operador.</text>
+<text x="1898.0" y="2583.2" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">Pruebas: comprensión ≥4/5, recorrido sin ayuda, calibración, NASA-TLX/SUS [P].</text>
+<text x="2784.0" y="2384.3" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">CIBERSEGURIDAD</text>
+<text x="2784.0" y="2406.4" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24"></text>
+<text x="2784.0" y="2428.5" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">Zero Trust (NIST 800-207): permiso por recurso y sesión.</text>
+<text x="2784.0" y="2450.6" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">• Otra sesión → 404 sin revelar existencia [O].</text>
+<text x="2784.0" y="2472.7" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">• Límites de archivo, worker sin red, timeout, cuotas [O].</text>
+<text x="2784.0" y="2494.8" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">• IDs opacos; sin traversal ni symlinks [O].</text>
+<text x="2784.0" y="2516.9" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">• Sin shell; cancelación del grupo de procesos [O].</text>
+<text x="2784.0" y="2539.0" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">• K8 sin herramientas de acción (OWASP LLM01).</text>
+<text x="2784.0" y="2561.1" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">Ensayo de 3 fallos: proveedor caído, worker detenido, paquete alterado.</text>
+<text x="2784.0" y="2583.2" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">Piloto: identidad real, auditoría durable, keyring, cifrado de volumen, ISO 27001 [P].</text>
+<text x="60.0" y="2329.1" font-family="Helvetica, Arial, sans-serif" font-size="28" fill="#1e2a24">8 · STACK Y PRÁCTICAS</text>
+<text x="1880.0" y="2329.1" font-family="Helvetica, Arial, sans-serif" font-size="28" fill="#1e2a24">9 · CAPA COGNITIVA Y SEGURIDAD</text>
+<text x="78.0" y="2773.3" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">PRIVACIDAD</text>
+<text x="78.0" y="2795.4" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24"></text>
+<text x="78.0" y="2817.5" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">Finalidad: revisar un incidente y conservar evidencia.</text>
+<text x="78.0" y="2839.6" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">Minimización · sin biometría · sin vigilar al trabajador.</text>
+<text x="78.0" y="2861.7" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">Video local; nunca a proveedores de IA.</text>
+<text x="78.0" y="2883.8" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">Transparencia antes de cargar.</text>
+<text x="78.0" y="2905.9" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">Retención demo: 30 min inactivo, 2 h máx. Piloto: política por cliente + bloqueo legal.</text>
+<text x="78.0" y="2928.0" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">Borrador de política: responsable, datos, derechos, terceros, incidentes.</text>
+<text x="976.0" y="2773.3" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">LEY 19.628 · LEY 21.719</text>
+<text x="976.0" y="2795.4" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24"></text>
+<text x="976.0" y="2817.5" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">19.628: finalidad, responsables y accesos para imágenes.</text>
+<text x="976.0" y="2839.6" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">21.719 (vigente 1-12-2026): minimización, seguridad, derechos, responsabilidad proactiva.</text>
+<text x="976.0" y="2861.7" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">No afirmar que ya rige completa al 19-10-2026.</text>
+<text x="1874.0" y="2773.3" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">LEY 21.659 · DS 209</text>
+<text x="1874.0" y="2795.4" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24"></text>
+<text x="1874.0" y="2817.5" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">Seguridad privada: encuadrar servicio y operadores.</text>
+<text x="1874.0" y="2839.6" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">Art. 4: conservar antecedentes → descartar «enviar y borrar».</text>
+<text x="1874.0" y="2861.7" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">No afirmar que exige AES-256 a todo CCTV.</text>
+<text x="2772.0" y="2773.3" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">LEY 21.663 · GUÍAS</text>
+<text x="2772.0" y="2795.4" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24"></text>
+<text x="2772.0" y="2817.5" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">Ciberseguridad: responsabilidades y respuesta a incidentes si aplica.</text>
+<text x="2772.0" y="2839.6" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">NCh-ISO/IEC 27037 y NIST IR 8387 como buenas prácticas.</text>
+<text x="2772.0" y="2861.7" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">NO: «certificado», «irrefutable», acta NUE/RUC.</text>
+<text x="60.0" y="2718.1" font-family="Helvetica, Arial, sans-serif" font-size="28" fill="#1e2a24">10 · PRIVACIDAD Y NORMATIVA CHILENA (orienta el diseño; requiere revisión jurídica)</text>
+<text x="78.0" y="3118.1" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">INTELIGENCIA COMERCIAL</text>
+<text x="78.0" y="3140.2" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24"></text>
+<text x="78.0" y="3162.3" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">Entrada: condominios (usuario: conserje; comprador: administración).</text>
+<text x="78.0" y="3184.4" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">Canal: empresas de seguridad e integradores CCTV.</text>
+<text x="78.0" y="3206.5" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">Después: comercio/bodegas, minería y puertos, municipios.</text>
+<text x="78.0" y="3228.6" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">Modelo [P]: piloto por sitio → licencia local + soporte; módulo en vivo</text>
+<text x="78.0" y="3250.7" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">aparte.</text>
+<text x="78.0" y="3272.8" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">Contribución = ingreso − (cómputo + APIs + instalación + soporte +</text>
+<text x="78.0" y="3294.9" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">custodia).</text>
+<text x="78.0" y="3317.0" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">Mercado de abajo hacia arriba; sin TAM inventado.</text>
+<text x="796.4" y="3118.1" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">ODS (ALINEACIÓN MEDIBLE)</text>
+<text x="796.4" y="3140.2" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24"></text>
+<text x="796.4" y="3162.3" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">ODS 16 (16.3, 16.6): evidencia trazable, decisiones reconstruibles.</text>
+<text x="796.4" y="3184.4" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">ODS 9 (9.5): innovación local reproducible.</text>
+<text x="796.4" y="3206.5" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">ODS 11 (11.7): condicionado a piloto en espacio público.</text>
+<text x="796.4" y="3228.6" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">ODS 8 (8.8): menos carga, sin vigilancia biométrica.</text>
+<text x="796.4" y="3250.7" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">ODS 12: sin recambio de cámaras ni nube innecesaria.</text>
+<text x="1514.8" y="3118.1" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">PITCH 3 MIN + DEMO 90 S</text>
+<text x="1514.8" y="3140.2" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24"></text>
+<text x="1514.8" y="3162.3" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">0:00 dato 30→130 y dolor · 0:30 propuesta.</text>
+<text x="1514.8" y="3184.4" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">0:50 DEMO: cargar → zona → analizar → revisar → decidir → E2 → alterar</text>
+<text x="1514.8" y="3206.5" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">un byte → RECHAZO.</text>
+<text x="1514.8" y="3228.6" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">2:00 diferenciación + ODS · 2:30 pedir sitio piloto.</text>
+<text x="1514.8" y="3250.7" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">Respaldo: grabación rotulada como grabación.</text>
+<text x="2233.2" y="3118.1" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">ESTADO Y PUERTAS</text>
+<text x="2233.2" y="3140.2" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24"></text>
+<text x="2233.2" y="3162.3" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">G0 datos: PENDIENTE (corpus autorizado = ruta crítica).</text>
+<text x="2233.2" y="3184.4" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">G1 ingesta: construido y probado [O].</text>
+<text x="2233.2" y="3206.5" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">G2 candidato: parcial (falta corpus 10+10).</text>
+<text x="2233.2" y="3228.6" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">G3 decisión y evidencia: demostrado [O].</text>
+<text x="2233.2" y="3250.7" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">G4 medición/UX: pendiente.</text>
+<text x="2233.2" y="3272.8" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">G5 ensayo: pendiente.</text>
+<text x="2951.6" y="3118.1" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">HOJA DE RUTA</text>
+<text x="2951.6" y="3140.2" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24"></text>
+<text x="2951.6" y="3162.3" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">1 Corpus-0 con actores y consentimiento.</text>
+<text x="2951.6" y="3184.4" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">2 Medir tiempo, RAM, recall y FP/h.</text>
+<text x="2951.6" y="3206.5" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">3 Perfil de 5 min.</text>
+<text x="2951.6" y="3228.6" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">4 Clip de contexto con mapeo probado.</text>
+<text x="2951.6" y="3250.7" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">5 Prueba con 3–5 operadores.</text>
+<text x="2951.6" y="3272.8" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">6 Revisión jurídica de 3–5 frases.</text>
+<text x="2951.6" y="3294.9" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">7 Dos ensayos en el equipo del evento.</text>
+<text x="2951.6" y="3317.0" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1e2a24">Después: K8 contextual, 15–60 min, .dav/H.265, piloto en vivo.</text>
+<text x="60.0" y="3062.9" font-family="Helvetica, Arial, sans-serif" font-size="28" fill="#1e2a24">11 · NEGOCIO, AGENDA 2030 Y PITCH</text>
+<text x="40.0" y="3429.9" font-family="Helvetica, Arial, sans-serif" font-size="18" fill="#495057">Fuente: docs/maestros/DOCUMENTO_MAESTRO_TAKYA_E2E.md · Etiquetas: [O] observado · [F] fuente pública · [R] reportado · [P] propuesto. Ninguna cifra sin fuente se usa como resultado.</text>
+</svg>
