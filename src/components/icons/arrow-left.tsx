@@ -15,10 +15,9 @@ export interface ArrowLeftIconHandle {
 }
 
 const PATH_VARIANTS: Variants = {
-  normal: { d: "m12 19-7-7 7-7", translateX: 0 },
+  normal: { translateX: 0 },
   animate: {
-    d: "m12 19-7-7 7-7",
-    translateX: [0, 3, 0],
+    translateX: [0, -3, 0],
     transition: {
       duration: 0.4,
     },
@@ -26,9 +25,9 @@ const PATH_VARIANTS: Variants = {
 };
 
 const SECOND_PATH_VARIANTS: Variants = {
-  normal: { d: "M19 12H5" },
+  normal: { translateX: 0 },
   animate: {
-    d: ["M19 12H5", "M19 12H10", "M19 12H5"],
+    translateX: [0, -3, 0],
     transition: {
       duration: 0.4,
     },

@@ -15,10 +15,9 @@ export interface ArrowUpIconHandle {
 }
 
 const PATH_VARIANTS: Variants = {
-  normal: { d: "m5 12 7-7 7 7", translateY: 0 },
+  normal: { translateY: 0 },
   animate: {
-    d: "m5 12 7-7 7 7",
-    translateY: [0, 3, 0],
+    translateY: [0, -3, 0],
     transition: {
       duration: 0.4,
     },
@@ -26,9 +25,9 @@ const PATH_VARIANTS: Variants = {
 };
 
 const SECOND_PATH_VARIANTS: Variants = {
-  normal: { d: "M12 19V5" },
+  normal: { translateY: 0 },
   animate: {
-    d: ["M12 19V5", "M12 19V10", "M12 19V5"],
+    translateY: [0, -3, 0],
     transition: {
       duration: 0.4,
     },
