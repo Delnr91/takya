@@ -179,6 +179,10 @@ export function DemoShell() {
             Modo práctica
           </span>
           <div className="demo-header-tools">
+            <Link className="demo-tool" href="/demo?mode=analysis">
+              <Eye aria-hidden="true" />
+              <span>Analizar archivo</span>
+            </Link>
             <button
               type="button"
               className="demo-tool demo-mascot-toggle"

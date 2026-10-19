@@ -1,9 +1,9 @@
 [project]
 name = "takya-backend"
-version = "0.0.0"
-description = "Backend local de análisis de TAKYA (demo sin BD). Dependencias exactas: las fija y bloquea Astra en H1 (backend/requirements.lock)."
+version = "0.1.0"
+description = "Demo local de análisis y revisión humana TAKYA, efímera y sin BD."
 requires-python = ">=3.12"
-dependencies = []
+dependencies = ["fastapi==0.148.0", "uvicorn==0.54.0", "pydantic==2.14.1", "cryptography==50.0.2", "jsonschema==4.26.0", "onnxruntime==1.31.0", "numpy==2.5.4", "pillow==13.0.0"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
