@@ -25,6 +25,7 @@ export { CircleHelpIcon as HelpCircle } from "./circle-help";
 export { HistoryIcon as History } from "./history";
 export { HomeIcon as House } from "./home";
 export { LayersIcon as Layers3 } from "./layers";
+export { LogInIcon as LogIn } from "./login";
 export { LeafIcon as Leaf } from "./leaf";
 export { LogoutIcon as LogOut } from "./logout";
 export { MapPinIcon as MapPin } from "./map-pin";

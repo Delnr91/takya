@@ -1,5 +1,5 @@
-import { SessionEntry } from "@/features/demo/components/SessionEntry";
+import { OperatorLogin } from "@/features/login/components/OperatorLogin";
 
 export default function LoginPage() {
-  return <SessionEntry />;
+  return <OperatorLogin />;
 }
