@@ -6,7 +6,7 @@ La consola reproduce evidencia grabada, presenta señales sincronizadas, permite
 
 1. Desde `/home`, las dos tarjetas usan una cortina de transición: proyecto hacia `/landing`, consola hacia `/login`. La landing conserva su identidad y acceso a la demo.
 2. Elige Operador en el login. Es acceso de práctica sin contraseña, no autenticación operativa.
-3. Inicio reúne 9 señales curadas en 3 casos. Son cifras de la sesión, no resultados medidos de eficacia.
+3. Inicio presenta una evidencia protagonista, una bandeja pictográfica y el progreso de tres revisiones. Propone continuar el caso abierto o comenzar por prioridad; elegir otra tarjeta solo cambia la vista previa. «Comenzar revisión» abre el caso elegido. «Ver video» reproduce el clip precargado sin marcarlo como observado. «Ver recorrido» ilustra Cámara → Grabación → TAKYA → Evidencia: es una simulación opcional, no captura ni inferencia real. Los controles de llegadas y reinicio están plegados bajo «Controles de práctica».
 4. En Casos, filtra por prioridad/estado y elige Lista o Carrusel. El carrusel usa botones, flechas y arrastre opcional; no avanza solo ni reproduce varios videos.
 5. En Observar, pulsa Ver el clip, usa los botones de momentos importantes, pausa o retira los recuadros. Marca Ya revisé este clip y repite en cada clip disponible. Un error de carga bloquea la marca y ofrece reintento.
 6. En Comprender, distingue hechos visibles, incertidumbre y siguiente acción sugerida. La explicación cita señales del caso sin inventar porcentajes de certeza.

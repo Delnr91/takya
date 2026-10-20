@@ -135,8 +135,69 @@ export function DemoShell() {
     if (next && state.profile.role === "OPERATOR") openCase(next.id);
     else nav.navigate("turn");
   };
+  const isOverview =
+    nav.view === "turn" || (nav.view === "review" && !selected);
+  const simulationControls = (
+    <div className="demo-simulation-toolbar">
+      <span>
+        <span
+          className={
+            arrivals && !atCapacity ? "demo-dot is-active" : "demo-dot"
+          }
+        />
+        {arrivals && !atCapacity ? "Llegadas automáticas" : "Llegadas en pausa"}
+      </span>
+      <div>
+        <label className="demo-rate">
+          Ritmo
+          <select
+            aria-label="Ritmo de nuevos casos"
+            value={interval}
+            onChange={(event) => setIntervalSeconds(Number(event.target.value))}
+          >
+            <option value={15}>Cada 15 s</option>
+            <option value={30}>Cada 30 s</option>
+            <option value={60}>Cada 60 s</option>
+          </select>
+        </label>
+        <button
+          type="button"
+          className="demo-tool"
+          disabled={atCapacity}
+          onClick={() => setArrivals(!arrivals)}
+        >
+          {arrivals && !atCapacity ? (
+            <Pause aria-hidden="true" />
+          ) : (
+            <Play aria-hidden="true" />
+          )}
+          <span>
+            {arrivals && !atCapacity ? "Pausar llegadas" : "Activar llegadas"}
+          </span>
+        </button>
+        <button
+          type="button"
+          className="demo-tool"
+          disabled={atCapacity}
+          onClick={addIncident}
+        >
+          <Plus aria-hidden="true" />
+          <span>Nuevo caso</span>
+        </button>
+        <button
+          type="button"
+          className="demo-tool"
+          onClick={() => setResetOpen(true)}
+        >
+          <RotateCcw aria-hidden="true" />
+          <span>Reiniciar</span>
+        </button>
+      </div>
+    </div>
+  );
   return (
     <div
+      data-overview={isOverview}
       className={`demo-shell ${state.preferences.largeText ? "demo-large" : ""} ${state.preferences.solid ? "demo-solid" : ""} ${state.preferences.highContrast ? "demo-high-contrast" : ""} ${state.preferences.motionOff ? "demo-motion-off" : ""} ${state.preferences.backgroundOff ? "demo-background-off" : ""}`}
     >
       <div className="demo-backdrop" aria-hidden="true">
@@ -278,75 +339,16 @@ export function DemoShell() {
             id="demo-main"
             className="demo-main"
           >
-            <div className="demo-simulation-toolbar">
-              <span>
-                <span
-                  className={
-                    arrivals && !atCapacity ? "demo-dot is-active" : "demo-dot"
-                  }
-                />
-                {arrivals && !atCapacity
-                  ? "Llegadas automáticas"
-                  : "Llegadas en pausa"}
-              </span>
-              <div>
-                <label className="demo-rate">
-                  Ritmo
-                  <select
-                    aria-label="Ritmo de nuevos casos"
-                    value={interval}
-                    onChange={(event) =>
-                      setIntervalSeconds(Number(event.target.value))
-                    }
-                  >
-                    <option value={15}>Cada 15 s</option>
-                    <option value={30}>Cada 30 s</option>
-                    <option value={60}>Cada 60 s</option>
-                  </select>
-                </label>
-                <button
-                  type="button"
-                  className="demo-tool"
-                  disabled={atCapacity}
-                  onClick={() => setArrivals(!arrivals)}
-                >
-                  {arrivals && !atCapacity ? (
-                    <Pause aria-hidden="true" />
-                  ) : (
-                    <Play aria-hidden="true" />
-                  )}
-                  <span>
-                    {arrivals && !atCapacity
-                      ? "Pausar llegadas"
-                      : "Activar llegadas"}
-                  </span>
-                </button>
-                <button
-                  type="button"
-                  className="demo-tool"
-                  disabled={atCapacity}
-                  onClick={addIncident}
-                >
-                  <Plus aria-hidden="true" />
-                  <span>Nuevo caso</span>
-                </button>
-                <button
-                  type="button"
-                  className="demo-tool"
-                  onClick={() => setResetOpen(true)}
-                >
-                  <RotateCcw aria-hidden="true" />
-                  <span>Reiniciar</span>
-                </button>
-              </div>
-            </div>
+            {!isOverview ? simulationControls : null}
             <p
               className={`demo-live-message ${error ? "demo-error" : ""}`}
               role={error ? "alert" : "status"}
               aria-live={error ? "assertive" : "polite"}
             >
               {message ||
-                "Tú decides. Ninguna acción de esta práctica se envía a terreno."}
+                (isOverview
+                  ? ""
+                  : "Tú decides. Ninguna acción de esta práctica se envía a terreno.")}
             </p>
             {storageUnavailable ? (
               <div className="demo-notice">
@@ -382,19 +384,13 @@ export function DemoShell() {
                 state={state}
                 onOpen={openCase}
                 navigate={nav.navigate}
-                onSources={(id) => {
-                  if (id) send({ type: "SELECT", incidentId: id });
-                  nav.update(
-                    {
-                      view: "cameras",
-                      case: id ?? selected?.id ?? "",
-                      camera: "",
-                      inspect: "",
-                    },
-                    true,
-                  );
-                }}
               />
+            ) : null}
+            {isOverview ? (
+              <details className="start-controls">
+                <summary>Controles de práctica</summary>
+                {simulationControls}
+              </details>
             ) : null}
             {nav.view === "cases" ? (
               <CaseList
