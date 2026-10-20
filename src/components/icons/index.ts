@@ -46,3 +46,8 @@ export { UserCheckIcon as UserCheck } from "./user-check";
 export { UserIcon as UserRound } from "./user";
 export { VolumeIcon as Volume2 } from "./volume";
 export { XIcon as X } from "./x";
+export { FrameIcon as Frame } from "./frame";
+export { LockIcon as Lock } from "./lock";
+export { CpuIcon as Cpu } from "./cpu";
+export { EarthIcon as Earth } from "./earth";
+export { FileCheckIcon as FileCheck } from "./file-check";

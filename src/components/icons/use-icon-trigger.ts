@@ -19,7 +19,8 @@ interface AnimationHandle {
 
 // El icono se anima cuando el control que lo contiene recibe puntero o foco,
 // no solo cuando el puntero toca el trazo de 24 px.
-const TRIGGER = 'a[href], button, [role="button"], summary, label';
+const TRIGGER =
+  'a[href], button, [role="button"], summary, label, [data-icon-trigger]';
 
 export function useIconTrigger(
   forwarded: ForwardedRef<SVGSVGElement>,
