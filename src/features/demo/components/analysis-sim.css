@@ -609,3 +609,196 @@
   height: 22px;
   color: #2f6b45;
 }
+
+/* ══ Cabecera pictográfica de Analizar ══ */
+.analysis-sim-heading {
+  align-items: center;
+  justify-content: flex-start;
+}
+.analysis-sim-mark {
+  display: grid;
+  place-items: center;
+  width: 52px;
+  height: 52px;
+  border-radius: 16px;
+  background: #1b3b2b;
+  color: #f4f1ea;
+}
+.analysis-sim-mark svg {
+  width: 26px;
+  height: 26px;
+}
+.analysis-sim-heading h1 {
+  margin: 0;
+  font-size: clamp(1.6rem, 2.4vw, 2rem);
+}
+.analysis-sim-restart {
+  margin-left: auto;
+}
+/* Camino: cinco pictogramas unidos por una línea que se llena. */
+.analysis-path {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.analysis-path::before,
+.analysis-path-fill {
+  content: "";
+  position: absolute;
+  top: 27px;
+  left: 10%;
+  right: 10%;
+  height: 4px;
+  border-radius: 4px;
+  background: #dfe6da;
+}
+.analysis-path-fill {
+  background: #315c3c;
+  transform-origin: left;
+}
+.analysis-path li {
+  position: relative;
+  display: grid;
+  justify-items: center;
+  gap: 6px;
+  color: var(--demo-muted);
+  font-size: 0.82em;
+  font-weight: 700;
+}
+.analysis-path-icon {
+  display: grid;
+  place-items: center;
+  width: 56px;
+  height: 56px;
+  border: 3px solid #f4f6ef;
+  border-radius: 50%;
+  background: #e5ece1;
+  color: #4d6a57;
+}
+.analysis-path-icon svg {
+  width: 24px;
+  height: 24px;
+}
+.analysis-path li[data-state="done"] .analysis-path-icon {
+  background: #315c3c;
+  color: #fff;
+}
+.analysis-path li[data-state="current"] {
+  color: var(--demo-ink);
+}
+.analysis-path li[data-state="current"] .analysis-path-icon {
+  background: #e05d44;
+  color: #fff;
+  box-shadow: 0 0 0 6px #e05d4426;
+}
+/* Fichas de fuente: grandes, una palabra, pictograma con vida. */
+.analysis-tiles {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+.analysis-tile {
+  display: grid;
+  justify-items: center;
+  gap: 6px;
+  min-height: 230px;
+  padding: 28px 20px;
+  border: 1px solid var(--demo-line);
+  border-radius: 28px;
+  background: rgba(255, 255, 255, 0.62);
+  color: var(--demo-ink);
+  box-shadow: 0 18px 40px -26px #1b3b2b66;
+  cursor: pointer;
+}
+.analysis-tile:focus-visible {
+  outline: 3px solid #2f6b45;
+  outline-offset: 3px;
+}
+.analysis-tile strong {
+  font-family: var(--font-sora), sans-serif;
+  font-size: 1.6em;
+  letter-spacing: -0.03em;
+}
+.analysis-tile small {
+  color: var(--demo-muted);
+  font-size: 0.86em;
+}
+.analysis-tile-art {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 104px;
+  height: 104px;
+  margin-bottom: 8px;
+  border-radius: 32px;
+  background: #e5ece1;
+  color: #244d37;
+}
+.analysis-tile-art svg {
+  position: relative;
+  z-index: 1;
+  width: 48px;
+  height: 48px;
+}
+.analysis-tile.is-live .analysis-tile-art {
+  background: #fbe4dc;
+  color: #b4432c;
+}
+/* Ondas de transmisión que laten alrededor de la antena. */
+.analysis-tile-art i {
+  position: absolute;
+  inset: 0;
+  border: 2px solid #e05d44;
+  border-radius: 32px;
+  opacity: 0;
+  animation: analysis-wave 2.4s ease-out infinite;
+}
+.analysis-tile-art i:nth-child(2) {
+  animation-delay: 1.2s;
+}
+.analysis-tile:not(.is-live):hover .analysis-tile-art svg {
+  animation: analysis-open 0.6s ease-in-out;
+}
+@keyframes analysis-wave {
+  from {
+    opacity: 0.7;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 0;
+    transform: scale(1.45);
+  }
+}
+@keyframes analysis-open {
+  50% {
+    transform: rotate(-8deg) scale(1.1);
+  }
+}
+@media (max-width: 700px) {
+  .analysis-tiles {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .analysis-tile {
+    min-height: 170px;
+  }
+  .analysis-path-icon {
+    width: 44px;
+    height: 44px;
+  }
+  .analysis-path::before,
+  .analysis-path-fill {
+    top: 21px;
+  }
+  .analysis-path li span:last-child {
+    font-size: 0.78em;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .analysis-tile-art i,
+  .analysis-tile:hover .analysis-tile-art svg {
+    animation: none;
+  }
+}

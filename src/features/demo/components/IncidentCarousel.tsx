@@ -24,8 +24,11 @@ export function IncidentCarousel({
   );
   const active = incidents[index];
   if (!active) return null;
+  // Carrusel infinito: del último vuelve al primero y al revés.
+  const wrap = (offset: number) =>
+    incidents[(index + offset + incidents.length) % incidents.length];
   function move(delta: number) {
-    const next = incidents[index + delta];
+    const next = wrap(delta);
     if (next) {
       setDirection(delta);
       setActiveId(next.id);
@@ -59,7 +62,7 @@ export function IncidentCarousel({
           type="button"
           className="incident-carousel-side is-left"
           aria-label="Caso anterior"
-          disabled={index === 0}
+          disabled={incidents.length < 2}
           onClick={() => move(-1)}
         >
           <ArrowLeft aria-hidden="true" />
@@ -68,14 +71,14 @@ export function IncidentCarousel({
           type="button"
           className="incident-carousel-side is-right"
           aria-label="Caso siguiente"
-          disabled={index === incidents.length - 1}
+          disabled={incidents.length < 2}
           onClick={() => move(1)}
         >
           <ArrowRight aria-hidden="true" />
         </button>
         {!reduced
           ? [-1, 1].map((side) => {
-              const item = incidents[index + side];
+              const item = incidents.length > 1 ? wrap(side) : undefined;
               return item ? (
                 <motion.div
                   key={`preview-${side}`}

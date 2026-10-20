@@ -42,9 +42,8 @@ export function CaseList({
     <>
       <div className="demo-section-heading">
         <div>
-          <p className="demo-eyebrow">Bandeja de revisión</p>
-          <h1>Una señal a la vez.</h1>
-          <p>TAKYA reúne los avisos. Tú revisas el contexto y decides.</p>
+          <h1>Casos</h1>
+          <p>Los avisos que TAKYA reunió. Revisa uno a la vez.</p>
         </div>
         <Pictogram icon={SlidersHorizontal} />
       </div>

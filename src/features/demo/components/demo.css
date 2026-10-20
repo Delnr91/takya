@@ -3698,3 +3698,42 @@
     white-space: normal;
   }
 }
+
+/* ══ Encabezado estándar de sección (dashboard) ══
+   Pictograma a la izquierda, nombre de la sección y acción a la derecha;
+   debajo, una sola línea corta. */
+.demo-section-heading {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 4px 16px;
+  padding: 6px 0 22px;
+}
+.demo-section-heading > .demo-pictogram {
+  order: -1;
+}
+.demo-section-heading > div:first-child {
+  grid-column: 2;
+}
+.demo-section-heading h1 {
+  margin: 0;
+  font-size: clamp(1.6rem, 2.4vw, 2rem);
+  letter-spacing: -0.03em;
+}
+.demo-section-heading p:not(.demo-eyebrow) {
+  margin: 4px 0 0;
+  color: var(--demo-muted);
+  font-size: 0.9em;
+}
+.demo-section-heading > :not(div):not(.demo-pictogram) {
+  grid-column: 3;
+}
+@media (max-width: 560px) {
+  .demo-section-heading {
+    grid-template-columns: auto minmax(0, 1fr);
+  }
+  .demo-section-heading > :not(div):not(.demo-pictogram) {
+    grid-column: 1 / -1;
+    justify-self: start;
+  }
+}

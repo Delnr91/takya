@@ -91,48 +91,139 @@
   }
 }
 
-/* «Pensado para»: tarjetas de vidrio que se elevan y brillan al pasar. */
-.takya-audience-card {
+/* «Pensado para»: paneles que se expanden. El activo lleva un degradado con
+   grano (técnica de fffuel) y los demás quedan como pestañas de vidrio. */
+.takya-audience {
+  display: flex;
+  gap: 12px;
+  height: 380px;
+  margin: 48px 0 0;
+  padding: 0;
+  list-style: none;
+}
+.takya-audience-panel {
   position: relative;
+  display: flex;
+  flex: 1 1 0;
+  flex-direction: column;
+  min-width: 0;
   overflow: hidden;
-  border: 1px solid rgba(255, 255, 255, 0.8);
-  background: rgba(255, 255, 255, 0.55);
-  box-shadow: 0 18px 40px -22px #1b3b2b55;
-  backdrop-filter: blur(16px);
-  transition:
-    transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1),
-    box-shadow 0.35s ease;
+  border: 1px solid rgba(255, 255, 255, 0.85);
+  border-radius: 28px;
+  background: rgba(255, 255, 255, 0.5);
+  box-shadow: 0 18px 40px -26px #1b3b2b66;
+  backdrop-filter: blur(14px);
+  color: #1b3b2b;
 }
-.takya-audience-card::before {
-  content: "";
-  position: absolute;
-  inset: -40% -40% auto auto;
-  width: 160px;
-  height: 160px;
-  border-radius: 50%;
-  background: radial-gradient(circle, #e05d4440, transparent 70%);
-  opacity: 0;
-  transition: opacity 0.35s ease;
+.takya-audience-panel[data-open="true"] {
+  flex: 3.2 1 0;
+  border-color: transparent;
+  color: #f4f1ea;
+  box-shadow: 0 34px 70px -30px #0f2a1fa6;
+  background:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.18'/%3E%3C/svg%3E"),
+    radial-gradient(120% 90% at 100% 0%, #e05d44 0%, transparent 55%),
+    radial-gradient(90% 80% at 0% 100%, #7d9b8a 0%, transparent 60%),
+    linear-gradient(150deg, #1b3b2b, #10261c);
 }
-.takya-audience-card:hover {
-  transform: translateY(-6px) rotate(-0.4deg);
-  box-shadow: 0 28px 50px -22px #1b3b2b77;
+.takya-audience-trigger {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 14px;
+  width: 100%;
+  padding: 24px;
+  border: 0;
+  background: none;
+  color: inherit;
+  text-align: left;
+  cursor: pointer;
 }
-.takya-audience-card:hover::before {
-  opacity: 1;
+.takya-audience-trigger:focus-visible {
+  outline: 3px solid #e05d44;
+  outline-offset: -6px;
+  border-radius: 24px;
 }
 .takya-audience-icon {
-  width: 52px !important;
-  height: 52px !important;
-  padding: 12px;
-  border-radius: 16px;
+  display: grid;
+  place-items: center;
+  width: 56px;
+  height: 56px;
+  border-radius: 18px;
   background: #fbe4dc;
+  color: #e05d44;
 }
-@media (prefers-reduced-motion: reduce) {
-  .takya-audience-card,
-  .takya-audience-card:hover {
-    transform: none;
-    transition: none;
+.takya-audience-panel[data-open="true"] .takya-audience-icon {
+  width: 68px;
+  height: 68px;
+  background: rgba(244, 241, 234, 0.16);
+  color: #f4f1ea;
+}
+.takya-audience-name {
+  font-family: var(--font-sora), sans-serif;
+  font-size: 1.15rem;
+  font-weight: 800;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+}
+.takya-audience-panel[data-open="true"] .takya-audience-name {
+  font-size: clamp(1.6rem, 2.6vw, 2.2rem);
+}
+.takya-audience-body {
+  display: grid;
+  gap: 14px;
+  margin-top: auto;
+  padding: 0 28px 28px;
+}
+.takya-audience-tag {
+  justify-self: start;
+  padding: 4px 12px;
+  border-radius: 999px;
+  background: #e05d44;
+  color: #fff;
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+.takya-audience-pain {
+  margin: 0;
+  color: rgba(244, 241, 234, 0.78);
+  font-size: 1.05rem;
+  font-weight: 600;
+}
+.takya-audience-gain {
+  display: flex;
+  gap: 10px;
+  margin: 0;
+  font-size: 1.2rem;
+  font-weight: 800;
+  line-height: 1.35;
+}
+.takya-audience-gain svg {
+  flex-shrink: 0;
+  margin-top: 3px;
+  color: #f4b3a5;
+}
+@media (max-width: 900px) {
+  .takya-audience {
+    flex-direction: column;
+    height: auto;
+  }
+  .takya-audience-panel,
+  .takya-audience-panel[data-open="true"] {
+    flex: none;
+  }
+  .takya-audience-trigger {
+    flex-direction: row;
+    align-items: center;
+    padding: 16px 18px;
+  }
+  .takya-audience-panel[data-open="true"] .takya-audience-name {
+    font-size: 1.4rem;
+  }
+  .takya-audience-body {
+    padding: 0 20px 22px;
   }
 }
 

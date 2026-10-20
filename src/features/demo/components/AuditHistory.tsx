@@ -59,9 +59,8 @@ export function AuditHistory({
     <>
       <div className="demo-section-heading">
         <div>
-          <p className="demo-eyebrow">Trazabilidad de tu práctica</p>
-          <h1>Cada decisión deja contexto.</h1>
-          <p>Consulta qué se revisó, quién decidió y por qué.</p>
+          <h1>Historial</h1>
+          <p>Qué se revisó, quién decidió y por qué.</p>
         </div>
         <button
           type="button"

@@ -1,0 +1,323 @@
+/* K8 IA: el alma de K8 de fondo, voz primero y fichas pictográficas. */
+.k8-assistant {
+  display: grid;
+  gap: 18px;
+}
+.k8-stage {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  min-height: 520px;
+  border: 1px solid #74977e;
+  border-radius: 30px;
+  background: radial-gradient(
+    ellipse at 50% 35%,
+    #254f3e 0%,
+    #102b20 45%,
+    #060e0a 90%
+  );
+  color: #f4f1ea;
+  box-shadow: 0 26px 60px -24px #0f2a1f99;
+}
+.k8-stage-soul {
+  position: absolute;
+  inset: 0 0 auto;
+  z-index: 0;
+  height: 70%;
+  opacity: 0.95;
+}
+.k8-stage-soul canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+.k8-stage-content {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  justify-items: center;
+  gap: 18px;
+  min-height: 520px;
+  padding: 26px 22px 28px;
+  align-content: end;
+}
+.k8-status {
+  position: absolute;
+  top: 22px;
+  left: 50%;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 14px;
+  border: 1px solid #f4f1ea33;
+  border-radius: 999px;
+  background: #0c1f17b3;
+  font-weight: 700;
+  transform: translateX(-50%);
+  backdrop-filter: blur(8px);
+}
+.k8-status i {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: #a5c8ae;
+  box-shadow: 0 0 12px #a5c8ae;
+}
+.k8-stage[data-activity="listening"] .k8-status i {
+  background: #efab7f;
+  box-shadow: 0 0 12px #efab7f;
+}
+.k8-bubble {
+  width: min(680px, 100%);
+  padding: 20px 22px;
+  border: 1px solid #f4f1ea33;
+  border-radius: 24px;
+  background: #0c1f17cc;
+  text-align: center;
+  backdrop-filter: blur(12px);
+}
+.k8-bubble-question {
+  margin: 0 0 8px;
+  color: #b8cbbc;
+  font-size: 0.86em;
+}
+.k8-bubble-answer {
+  margin: 0;
+  font-size: 1.2em;
+  font-weight: 600;
+  line-height: 1.55;
+}
+.k8-listen {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 46px;
+  margin-top: 14px;
+  padding: 8px 18px;
+  border: 1px solid #f4f1ea55;
+  border-radius: 999px;
+  background: transparent;
+  color: inherit;
+  font-weight: 700;
+  cursor: pointer;
+}
+.k8-listen svg {
+  width: 20px;
+  height: 20px;
+}
+.k8-controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+}
+.k8-mic {
+  position: relative;
+  display: grid;
+  place-items: center;
+  gap: 2px;
+  width: 112px;
+  height: 112px;
+  border: 0;
+  border-radius: 50%;
+  background: #e05d44;
+  color: #fff;
+  font-weight: 800;
+  box-shadow: 0 16px 34px -12px #e05d44aa;
+  cursor: pointer;
+}
+.k8-mic:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+.k8-mic > svg {
+  position: relative;
+  z-index: 1;
+  width: 34px;
+  height: 34px;
+}
+.k8-mic > span:last-child {
+  position: relative;
+  z-index: 1;
+  font-size: 0.86em;
+}
+.k8-mic-rings i {
+  position: absolute;
+  inset: 0;
+  border: 2px solid #efab7f;
+  border-radius: 50%;
+  opacity: 0;
+}
+.k8-mic[aria-pressed="true"] .k8-mic-rings i {
+  animation: k8-ring 1.6s ease-out infinite;
+}
+.k8-mic[aria-pressed="true"] .k8-mic-rings i:nth-child(2) {
+  animation-delay: 0.8s;
+}
+.k8-secondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 48px;
+  padding: 8px 16px;
+  border: 1px solid #f4f1ea44;
+  border-radius: 999px;
+  background: #0c1f17aa;
+  color: #f4f1ea;
+  font-weight: 700;
+  cursor: pointer;
+}
+.k8-secondary svg {
+  width: 20px;
+  height: 20px;
+}
+.k8-secondary[aria-pressed="false"] {
+  opacity: 0.75;
+}
+.k8-mic:focus-visible,
+.k8-secondary:focus-visible,
+.k8-listen:focus-visible,
+.k8-tile:focus-visible {
+  outline: 3px solid #efab7f;
+  outline-offset: 3px;
+}
+.k8-hint {
+  margin: 0;
+  color: #b8cbbc;
+  font-size: 0.86em;
+}
+.k8-type {
+  display: flex;
+  gap: 8px;
+  width: min(640px, 100%);
+  padding: 6px;
+  border: 1px solid #f4f1ea44;
+  border-radius: 18px;
+  background: #0c1f17cc;
+}
+.k8-type input {
+  flex: 1;
+  min-width: 0;
+  min-height: 48px;
+  padding: 0 12px;
+  border: 0;
+  background: transparent;
+  color: #fff;
+  font: inherit;
+}
+.k8-type input::placeholder {
+  color: #b8cbbc;
+}
+.k8-type button {
+  display: grid;
+  place-items: center;
+  width: 52px;
+  border: 0;
+  border-radius: 14px;
+  background: #e05d44;
+  color: #fff;
+  cursor: pointer;
+}
+.k8-tiles-title {
+  margin: 6px 0 0;
+  font-family: var(--font-sora), sans-serif;
+  font-size: 1.2em;
+}
+.k8-tiles {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+}
+.k8-tile {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  min-height: 88px;
+  padding: 14px 16px;
+  border: 1px solid var(--demo-line);
+  border-radius: 22px;
+  background: rgba(255, 255, 255, 0.62);
+  color: var(--demo-ink);
+  font-size: 1em;
+  font-weight: 700;
+  text-align: left;
+  box-shadow: 0 14px 30px -24px #1b3b2b66;
+  cursor: pointer;
+}
+.k8-tile-icon {
+  display: grid;
+  flex-shrink: 0;
+  place-items: center;
+  width: 56px;
+  height: 56px;
+  border-radius: 18px;
+  background: #e5ece1;
+  color: #244d37;
+}
+.k8-tile-icon svg {
+  width: 28px;
+  height: 28px;
+}
+.k8-privacy {
+  margin: 0;
+  color: var(--demo-muted);
+  font-size: 0.82em;
+}
+/* Modo noche: el escenario ya es oscuro; se mantiene tal cual. */
+.demo-night .demo-app .k8-stage {
+  filter: invert(1) hue-rotate(180deg);
+}
+.demo-night .demo-app .k8-stage canvas {
+  filter: none;
+}
+@media (max-width: 900px) {
+  .k8-tiles {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+@media (max-width: 560px) {
+  .k8-tiles {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .k8-stage,
+  .k8-stage-content {
+    min-height: 480px;
+  }
+  .k8-mic {
+    width: 96px;
+    height: 96px;
+  }
+}
+@keyframes k8-ring {
+  from {
+    opacity: 0.85;
+    transform: scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: scale(1.5);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .k8-mic[aria-pressed="true"] .k8-mic-rings i {
+    animation: none;
+  }
+}
+/* El alma ocupa la parte alta, a la vista; la conversación va debajo. */
+.k8-stage-soul {
+  height: 300px;
+}
+.k8-stage-content {
+  align-content: start;
+  padding-top: 270px;
+}
+@media (max-width: 560px) {
+  .k8-stage-soul {
+    height: 240px;
+  }
+  .k8-stage-content {
+    padding-top: 220px;
+  }
+}

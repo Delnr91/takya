@@ -49,7 +49,7 @@ import { AuditHistory } from "./AuditHistory";
 import { SettingsPanel } from "./SettingsPanel";
 import { Dialog } from "./DemoPrimitives";
 import { K8Mascot } from "./K8Mascot";
-import { CognitiveGuide } from "./CognitiveGuide";
+import { K8Assistant } from "./K8Assistant";
 import { QuickCompanion } from "./QuickCompanion";
 import { AnalysisSimulator } from "./AnalysisSimulator";
 import { CojeevDepthBackground } from "@/components/ui/CojeevDepthBackground";
@@ -459,7 +459,7 @@ export function DemoShell() {
             {/* Los controles de práctica solo viven plegados en Inicio y en
                 Ajustes: en Casos confundían con Analizar. */}
             <p
-              className={`demo-live-message ${error ? "demo-error" : ""}`}
+              className={`demo-live-message ${error ? "demo-error" : ""} ${!error ? "sr-only" : ""}`}
               role={error ? "alert" : "status"}
               aria-live={error ? "assertive" : "polite"}
             >
@@ -568,10 +568,7 @@ export function DemoShell() {
               />
             ) : null}
             {nav.view === "ai" ? (
-              <CognitiveGuide
-                motionOff={state.preferences.motionOff}
-                onGuide={() => nav.navigate("guide")}
-              />
+              <K8Assistant motionOff={state.preferences.motionOff} />
             ) : null}
             {nav.view === "settings" ? (
               <SettingsPanel
