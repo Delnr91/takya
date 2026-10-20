@@ -412,7 +412,9 @@ export function transition(
   }
   if (event.type === "SEAL_EVIDENCE") {
     if (!isResolved(incident))
-      return fail("Primero registra tu decisión; luego se protege la evidencia.");
+      return fail(
+        "Primero registra tu decisión; luego se protege la evidencia.",
+      );
     const record = evidenceRecordSchema.safeParse(event.evidence);
     if (!record.success) return fail("El paquete de evidencia no es válido.");
     if (incident.evidence) return ok(state);

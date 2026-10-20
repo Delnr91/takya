@@ -5,6 +5,7 @@ import {
   type ChatAnswer,
   type ChatMessage,
 } from "../model/chat";
+import { localAnswer } from "../data/k8Answers";
 type ChatTurn = { id: string; question: string; response?: ChatAnswer };
 export function useCognitiveChat() {
   const [turns, setTurns] = useState<ChatTurn[]>([]);
@@ -53,13 +54,26 @@ export function useCognitiveChat() {
       );
     } catch (cause: unknown) {
       if (!controller.signal.aborted) {
-        setTurns((current) => current.filter((turn) => turn.id !== id));
-        setQuestion(content);
-        setError(
-          cause instanceof Error && cause.message.startsWith("Hagamos")
-            ? cause.message
-            : "No pude responder ahora. Tu pregunta sigue escrita para que puedas enviarla de nuevo.",
-        );
+        if (cause instanceof Error && cause.message.startsWith("Hagamos")) {
+          setTurns((current) => current.filter((turn) => turn.id !== id));
+          setQuestion(content);
+          setError(cause.message);
+        } else {
+          // Sin servicio de IA: K8 responde con su guía local, sin error.
+          setTurns((current) =>
+            current.map((turn) =>
+              turn.id === id
+                ? {
+                    ...turn,
+                    response: {
+                      answer: localAnswer(content),
+                      sources: ["Guía de K8 en este navegador"],
+                    },
+                  }
+                : turn,
+            ),
+          );
+        }
       }
     } finally {
       if (!controller.signal.aborted) setPending(false);
