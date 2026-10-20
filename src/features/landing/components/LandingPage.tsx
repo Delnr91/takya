@@ -11,12 +11,15 @@ import { HowItWorks } from "./HowItWorks";
 import { TrustByDesign } from "./TrustByDesign";
 import { ImpactODS } from "./ImpactODS";
 import { Audience } from "./Audience";
+import { PillarsCarousel } from "./PillarsCarousel";
 import { HeroHeadline } from "./HeroHeadline";
 import { HeroBenefits } from "./HeroBenefits";
-import { GrainGradient } from "./GrainGradient";
+import { GrainGradient } from "@/components/ui/GrainGradient";
 import "./landing.css";
 import { CojeevDepthBackground } from "@/components/ui/CojeevDepthBackground";
 import { type } from "./typography";
+import { SectionTitle } from "./SectionTitle";
+import { SectionDivider } from "./HandDrawn";
 
 export function LandingPage() {
   const pageRef = useRef<HTMLDivElement>(null);
@@ -341,19 +344,22 @@ export function LandingPage() {
           id="problema"
           className="relative z-10 w-full max-w-[1440px] mx-auto px-6 md:px-12 py-28 scroll-mt-28"
         >
+          <SectionDivider />
           <motion.div
             initial="hidden"
             whileInView="whileInView"
             viewport={{ once: true, margin: "-80px" }}
             variants={fadeUpVariants}
-            className="max-w-6xl mx-auto border-t-2 border-[#1B3B2B] pt-16 flex flex-col md:flex-row justify-between items-start gap-12"
+            className="max-w-6xl mx-auto pt-6 flex flex-col md:flex-row justify-between items-start gap-12"
           >
             {/* Título de Sección */}
             <div className="flex-1">
               <span className={type.eyebrow}>EL DOLOR OPERATIVO</span>
-              <h2 className={type.h2}>
-                Más cámaras no significan más claridad.
-              </h2>
+              <SectionTitle
+                lead="Más cámaras no significan más"
+                accent="claridad"
+                after="."
+              />
             </div>
 
             {/* Cuerpo Editorial Directo */}
@@ -364,12 +370,12 @@ export function LandingPage() {
                 mirarlas.
               </p>
               <p className={`${type.body} text-[#1B3B2B]`}>
-                Mirar pantallas por horas agota: la atención{" "}
+                Mirar pantallas por horas agota: la atención{""}
                 <span className="font-extrabold text-[#E05D44]">
                   cae con el tiempo
-                </span>{" "}
-                y una señal importante se pierde entre muchas. TAKYA ordena lo
-                que pasó y explica qué revisar primero, para que la persona
+                </span>
+                {""}y una señal importante se pierde entre muchas. TAKYA ordena
+                lo que pasó y explica qué revisar primero, para que la persona
                 decida con contexto.
               </p>
             </div>
@@ -388,15 +394,15 @@ export function LandingPage() {
             whileInView="whileInView"
             viewport={{ once: true, margin: "-50px" }}
             variants={fadeUpVariants}
-            className="flex flex-col md:flex-row justify-between items-end mb-20 max-w-6xl mx-auto gap-8 border-t-2 border-[#1B3B2B] pt-16"
+            className="flex flex-col md:flex-row justify-between items-end mb-20 max-w-6xl mx-auto gap-8 pt-6"
           >
             <div className="flex-1">
               <span className={type.eyebrow}>DE LA SEÑAL A LA REVISIÓN</span>
-              <h2 className={type.h2}>
-                La claridad cambia
-                <br />
-                cómo miramos.
-              </h2>
+              <SectionTitle
+                lead="La claridad cambia"
+                accent="cómo miramos"
+                after="."
+              />
             </div>
             <div className="flex-1 flex justify-end">
               <p className={`${type.lead} max-w-md`}>
@@ -408,73 +414,7 @@ export function LandingPage() {
           </motion.div>
 
           {/* 3 Columnas Tipográficas Revista Científica */}
-          <motion.div
-            initial="hidden"
-            whileInView="whileInView"
-            viewport={{ once: true, margin: "-50px" }}
-            variants={{
-              hidden: { opacity: 0 },
-              whileInView: {
-                opacity: 1,
-                transition: { staggerChildren: 0.15 },
-              },
-            }}
-            className="grid grid-cols-1 md:grid-cols-3 gap-12 max-w-6xl mx-auto"
-          >
-            {/* Columna 1 */}
-            <motion.div
-              variants={fadeUpVariants}
-              className="flex flex-col border-t border-[#1B3B2B]/30 pt-8"
-            >
-              <span className={`${type.label} mb-4 block text-[#7D9B8A]`}>
-                Pilar I &bull; Correlación
-              </span>
-              <h3 className={`${type.h3} mb-3 text-[#1B3B2B]`}>
-                Encontrar contexto.
-              </h3>
-              <p className={`${type.body} text-[#1B3B2B]`}>
-                Agrupamos señales dispersas y cámaras múltiples que pertenecen a
-                un mismo evento de seguridad para eliminar duplicidad y entregar
-                una historia continua.
-              </p>
-            </motion.div>
-
-            {/* Columna 2 */}
-            <motion.div
-              variants={fadeUpVariants}
-              className="flex flex-col border-t border-[#1B3B2B]/30 pt-8"
-            >
-              <span className={`${type.label} mb-4 block text-[#7D9B8A]`}>
-                Pilar II &bull; Explicación
-              </span>
-              <h3 className={`${type.h3} mb-3 text-[#1B3B2B]`}>
-                Entender la prioridad.
-              </h3>
-              <p className={`${type.body} text-[#1B3B2B]`}>
-                Desglosamos en lenguaje natural el porqué detrás de cada
-                sugerencia antes de actuar. Cero cajas negras: la inteligencia
-                debe ser comprensible y justificable.
-              </p>
-            </motion.div>
-
-            {/* Columna 3 */}
-            <motion.div
-              variants={fadeUpVariants}
-              className="flex flex-col border-t border-[#1B3B2B]/30 pt-8"
-            >
-              <span className={`${type.label} mb-4 block text-[#7D9B8A]`}>
-                Pilar III &bull; Decisión Humana
-              </span>
-              <h3 className={`${type.h3} mb-3 text-[#1B3B2B]`}>
-                Conservar el control.
-              </h3>
-              <p className={`${type.body} text-[#1B3B2B]`}>
-                La persona valida, decide y registra su criterio. La
-                inteligencia artificial propone y sintetiza, pero el operador
-                humano mantiene siempre la última palabra.
-              </p>
-            </motion.div>
-          </motion.div>
+          <PillarsCarousel />
           <Audience />
         </section>
 
@@ -487,16 +427,22 @@ export function LandingPage() {
           id="criterio"
           className="relative z-10 w-full max-w-[1440px] mx-auto px-6 md:px-12 pt-28 pb-40 scroll-mt-28"
         >
+          <SectionDivider />
           <motion.div
             initial="hidden"
             whileInView="whileInView"
             viewport={{ once: true, margin: "-100px" }}
             variants={fadeUpVariants}
-            className="max-w-6xl mx-auto border-t-2 border-[#1B3B2B] pt-16 flex flex-col md:flex-row items-start justify-between gap-12"
+            className="max-w-6xl mx-auto pt-6 flex flex-col md:flex-row items-start justify-between gap-12"
           >
             <div className="max-w-xl">
               <span className={type.eyebrow}>CONVERSACIÓN DIRECTA</span>
-              <h2 className={`${type.h2} mb-6`}>Conoce TAKYA en acción.</h2>
+              <SectionTitle
+                lead="Conoce TAKYA"
+                accent="en acción"
+                after="."
+                className="mb-6"
+              />
               <p className={type.lead}>
                 Prueba la demo ahora o agenda una presentación para tu central,
                 empresa o institución. Te respondemos directamente.
@@ -544,7 +490,7 @@ export function LandingPage() {
         </section>
 
         {/* ── FOOTER INSTITUCIONAL ── */}
-        <footer className="relative z-10 w-full border-t border-[#1B3B2B]/20 bg-transparent">
+        <footer className="relative z-10 w-full bg-transparent">
           <div className="max-w-[1440px] mx-auto px-6 md:px-12 py-12 flex flex-col md:flex-row items-center justify-between gap-6">
             <div className="flex flex-col md:flex-row items-center gap-6">
               <Image

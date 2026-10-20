@@ -10,8 +10,9 @@ import {
   UserCheck,
 } from "@/components/icons";
 import { AnimatedNumber } from "./AnimatedNumber";
-import { ScribbleUnderline } from "./HandDrawn";
+import { SectionDivider } from "./HandDrawn";
 import { type } from "./typography";
+import { SectionTitle } from "./SectionTitle";
 
 const PRINCIPLES = [
   {
@@ -71,21 +72,21 @@ export function TrustByDesign() {
       id="confianza"
       className="relative z-10 w-full max-w-[1440px] mx-auto px-6 md:px-12 py-28 scroll-mt-28"
     >
+      <SectionDivider />
       <motion.div
         initial="hidden"
         whileInView="whileInView"
         viewport={{ once: true, margin: "-60px" }}
         variants={fadeUp}
-        className="max-w-6xl mx-auto border-t-2 border-[#1B3B2B] pt-16"
+        className="max-w-6xl mx-auto pt-6"
       >
         <span className={type.eyebrow}>CONFIANZA POR DISEÑO</span>
-        <h2 className={`max-w-3xl ${type.h2}`}>
-          Evidencia que se puede{" "}
-          <span className="relative inline-block">
-            comprobar.
-            <ScribbleUnderline className="absolute -bottom-3 left-0 h-4 w-full text-[#E05D44]" />
-          </span>
-        </h2>
+        <SectionTitle
+          lead="Evidencia que se puede"
+          accent="comprobar"
+          after="."
+          className="max-w-3xl"
+        />
       </motion.div>
 
       <div className="max-w-6xl mx-auto mt-16 grid gap-14 lg:grid-cols-12">
@@ -103,7 +104,7 @@ export function TrustByDesign() {
             <motion.div
               key={label}
               variants={fadeUp}
-              className="flex flex-col-reverse border-t border-[#1B3B2B]/30 pt-5"
+              className="flex flex-col-reverse pt-5"
             >
               <dt className={`mt-2 max-w-sm ${type.body} text-[#1B3B2B]`}>
                 {label}
@@ -137,7 +138,7 @@ export function TrustByDesign() {
               key={title}
               variants={fadeUp}
               data-icon-trigger=""
-              className="group flex gap-4 border-t border-[#1B3B2B]/30 pt-5"
+              className="group flex gap-4 pt-5"
             >
               <Icon
                 size={24}
@@ -156,9 +157,9 @@ export function TrustByDesign() {
           ))}
           <motion.li
             variants={fadeUp}
-            className={`sm:col-span-2 border-t border-[#1B3B2B]/30 pt-5 ${type.body} text-[#1B3B2B]`}
+            className={`sm:col-span-2 pt-5 ${type.body} text-[#1B3B2B]`}
           >
-            Pensado para la{" "}
+            Pensado para la{""}
             <a
               href="https://www.bcn.cl/leychile/navegar?idNorma=1209272"
               target="_blank"
@@ -166,7 +167,8 @@ export function TrustByDesign() {
               className="underline decoration-[#E05D44] decoration-2 underline-offset-4 hover:text-[#E05D44]"
             >
               Ley 21.719
-            </a>{" "}
+            </a>
+            {""}
             de protección de datos personales, vigente desde el 1 de diciembre
             de 2026. Cada implementación se revisa con asesoría legal.
           </motion.li>

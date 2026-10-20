@@ -2280,7 +2280,6 @@
   background: rgba(255, 255, 255, 0.73);
   border-color: rgba(255, 255, 255, 0.92);
   backdrop-filter: blur(22px) saturate(1.18);
-  -webkit-backdrop-filter: blur(22px) saturate(1.18);
   box-shadow:
     0 15px 46px #102c2117,
     inset 0 1px 0 #ffffffde;
@@ -2336,7 +2335,6 @@
     0 18px 42px #123b293c,
     inset 0 1px 1px #fff;
   backdrop-filter: blur(18px);
-  -webkit-backdrop-filter: blur(18px);
   transition:
     transform 0.25s ease,
     box-shadow 0.25s ease,
@@ -2699,7 +2697,6 @@
   background: transparent;
   box-shadow: none;
   backdrop-filter: none;
-  -webkit-backdrop-filter: none;
   touch-action: none;
 }
 .demo-k8:hover,
@@ -3184,5 +3181,520 @@
   }
   .demo-shell .demo-practice-label svg {
     display: none;
+  }
+}
+
+/* ══ Marco ordenado: cabecera precisa, perfil al pie de la barra ══ */
+.demo-header {
+  min-height: 76px;
+}
+.demo-header-tools {
+  margin-left: auto;
+}
+.demo-night-toggle {
+  min-width: 132px;
+}
+/* Perfil (rol de práctica y salida) al pie de la barra lateral. */
+.demo-nav-profile {
+  display: grid;
+  gap: 6px;
+  margin-top: auto;
+  padding-top: 10px;
+  border-top: 1px solid var(--demo-line);
+}
+.demo-nav-role {
+  position: relative;
+  display: grid;
+  justify-items: center;
+  gap: 4px;
+  padding: 8px 2px 6px;
+  border-radius: 14px;
+  cursor: pointer;
+}
+.demo-nav-role:hover {
+  background: #e6eddf;
+}
+.demo-nav-role > svg:first-child {
+  width: 40px;
+  height: 40px;
+  padding: 9px;
+  border-radius: 50%;
+  background: #e5ece1;
+  color: #244d37;
+}
+.demo-nav-role select {
+  width: 100%;
+  min-height: 28px;
+  border: 0;
+  background: transparent;
+  color: var(--demo-ink);
+  font-size: 0.72em;
+  font-weight: 700;
+  text-align: center;
+  text-align-last: center;
+  appearance: none;
+  cursor: pointer;
+}
+.demo-nav-role > svg:last-child {
+  position: absolute;
+  right: 6px;
+  bottom: 13px;
+  color: var(--demo-muted);
+}
+.demo-nav-role:focus-within {
+  outline: 3px solid #2f6b45;
+  outline-offset: 1px;
+}
+.demo-nav .demo-nav-logout {
+  min-height: 52px;
+  padding: 8px 4px;
+  color: var(--demo-muted);
+  font-size: 0.78em;
+}
+@media (max-width: 800px) {
+  /* En pantallas angostas, rol y salida viven en Ajustes. */
+  .demo-nav-profile {
+    display: none;
+  }
+  .demo-header-tools {
+    order: 0;
+    flex-basis: auto;
+    margin-left: 0;
+    border-top: 0;
+    padding-top: 0;
+  }
+  .demo-header-tools > button {
+    flex: none;
+  }
+}
+@media (max-width: 520px) {
+  .demo-header-tools {
+    display: flex;
+  }
+  .demo-header-tools > .demo-tool.demo-night-toggle {
+    flex-direction: row;
+    min-width: 0;
+    min-height: 44px;
+    padding: 6px 10px;
+    font-size: 0.72em !important;
+  }
+  /* Menú en 4 columnas: aparece Ajustes (rol y salida) sin perder legibilidad. */
+  .demo-nav {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+  .demo-nav button[data-view="settings"] {
+    display: flex;
+  }
+  .demo-nav button,
+  .demo-nav button[data-view="guide"] {
+    font-size: 0.78em;
+  }
+}
+
+/* ══ Glassmorfismo (día) ══ */
+.demo-shell:not(.demo-solid):not(.demo-night) .demo-panel {
+  background: rgba(255, 255, 255, 0.58);
+  border-color: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(26px) saturate(1.45);
+  box-shadow:
+    0 18px 50px #102c211a,
+    0 1px 2px #102c210f,
+    inset 0 1px 0 #ffffffe6;
+}
+.demo-shell:not(.demo-solid):not(.demo-night) .start-overview {
+  --start-paper: rgba(252, 251, 247, 0.64);
+  --start-border: rgba(255, 255, 255, 0.85);
+}
+.demo-shell:not(.demo-solid):not(.demo-night)
+  :is(.start-focus, .start-inbox, .start-progress, .start-shortcut) {
+  backdrop-filter: blur(20px) saturate(1.35);
+  box-shadow:
+    0 14px 40px #102c2114,
+    inset 0 1px 0 #ffffffd9;
+}
+
+/* ══ Modo noche: menos brillo para turnos largos ══
+   La interfaz se oscurece invirtiendo su luz y conservando el tono; videos,
+   fotos y lienzos se restauran para que la evidencia se vea tal cual. */
+.demo-shell.demo-night {
+  background: #0b1310;
+  color-scheme: dark;
+}
+.demo-night .demo-backdrop img {
+  opacity: 0.16;
+  filter: saturate(0.5);
+}
+.demo-night .demo-backdrop-wash {
+  background: linear-gradient(135deg, #0b1310f2, #0e1915f5 58%, #0b1310f0);
+}
+.demo-night .demo-backdrop .cojeev-depth-field {
+  opacity: 0.25;
+}
+.demo-night .demo-app {
+  filter: invert(1) hue-rotate(180deg);
+}
+.demo-night .demo-app :is(video, canvas, img:not(.demo-logo), .start-monitor),
+.demo-night .demo-dialog:not(.k8-quick-dialog) {
+  filter: invert(1) hue-rotate(180deg);
+}
+.demo-night .demo-app .start-monitor :is(video, img, canvas) {
+  filter: none;
+}
+/* Paneles: sin sombras (invertidas serían brillos) y un vidrio más denso. */
+.demo-night .demo-panel,
+.demo-night .start-focus,
+.demo-night .start-inbox,
+.demo-night .start-progress,
+.demo-night .start-shortcut {
+  box-shadow: none;
+}
+.demo-night .demo-panel {
+  background: rgba(255, 255, 255, 0.8);
+}
+
+/* ══ Tipografía única de rótulos (antes monoespaciada de 11 px) ══ */
+.demo-eyebrow {
+  font-family: inherit;
+  font-size: 0.74em;
+  font-weight: 750;
+  letter-spacing: 0.12em;
+  color: #526b59;
+}
+
+/* ══ Lectura del caso: botón junto al estado y panel compacto ══ */
+.demo-case-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 8px;
+}
+.demo-help-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 44px;
+  padding: 8px 14px;
+  border: 1px solid var(--demo-line);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.72);
+  color: var(--demo-ink);
+  font-size: 0.8em;
+  font-weight: 650;
+  cursor: pointer;
+}
+.demo-help-toggle svg {
+  width: 18px;
+  height: 18px;
+}
+.demo-help-toggle[aria-expanded="true"] {
+  border-color: #c9d6c3;
+  background: #e5ece1;
+}
+.demo-help-toggle:focus-visible {
+  outline: 3px solid #2f6b45;
+  outline-offset: 2px;
+}
+.incident-brief h2 {
+  font-size: 1.05em;
+}
+@media (min-width: 1201px) {
+  /* El panel acompaña al desplazarse y termina antes de la zona de K8. */
+  #incident-help {
+    position: sticky;
+    top: 16px;
+    max-height: calc(100dvh - 210px);
+    overflow-y: auto;
+    scrollbar-width: thin;
+  }
+}
+
+/* ══ Menú lateral plegable y barra compacta ══ */
+.demo-menu-toggle {
+  flex-shrink: 0;
+}
+.demo-menu-hidden .demo-nav {
+  display: none;
+}
+.demo-menu-hidden .demo-body {
+  grid-template-columns: minmax(0, 1fr);
+}
+@media (min-width: 801px) {
+  /* La barra cabe entera en un notebook y acompaña al desplazarse. */
+  .demo-nav {
+    min-height: 0;
+    max-height: calc(100dvh - 40px);
+    overflow-y: auto;
+    scrollbar-width: none;
+  }
+  .demo-nav button {
+    padding: 12px 4px;
+  }
+  .demo-shell[data-overview="true"] .demo-nav button {
+    padding: 10px 4px;
+  }
+}
+/* Botón cuadrado con flecha: oculta la barra; otra flecha la trae de vuelta. */
+.demo-nav .demo-nav-collapse,
+.demo-nav-reveal {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  min-height: 44px;
+  padding: 0;
+  border: 1px solid var(--demo-line);
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.7);
+  color: var(--demo-ink);
+  cursor: pointer;
+}
+.demo-nav .demo-nav-collapse {
+  align-self: center;
+  margin-bottom: 4px;
+}
+.demo-nav .demo-nav-collapse:hover,
+.demo-nav-reveal:hover {
+  background: #e6eddf;
+}
+.demo-nav .demo-nav-collapse > svg,
+.demo-nav-reveal > svg {
+  width: 22px;
+  height: 22px;
+}
+.demo-nav-reveal {
+  position: sticky;
+  top: 16px;
+  z-index: 25;
+  align-self: start;
+  margin-bottom: 12px;
+  box-shadow: 0 8px 22px #102c2124;
+}
+.demo-nav .demo-nav-collapse:focus-visible,
+.demo-nav-reveal:focus-visible {
+  outline: 3px solid #2f6b45;
+  outline-offset: 2px;
+}
+.demo-menu-hidden .demo-body {
+  display: block;
+}
+@media (max-width: 800px) {
+  /* Menú arriba en teléfonos: la flecha ocupa una celda propia y discreta. */
+  .demo-nav .demo-nav-collapse {
+    display: none;
+  }
+}
+
+/* Perfil al pie: avatar, rol con flecha y salida, en una tarjeta compacta. */
+.demo-nav-profile {
+  gap: 2px;
+  padding-top: 8px;
+}
+.demo-nav-role {
+  grid-template-columns: 1fr;
+  gap: 2px;
+  padding: 6px 2px 4px;
+}
+.demo-nav-role > svg:first-child {
+  width: 34px;
+  height: 34px;
+  padding: 8px;
+  justify-self: center;
+}
+.demo-nav-role select {
+  padding: 0 12px 0 0;
+  background-image: none;
+  font-size: 0.68em;
+}
+.demo-nav-role > svg:last-child {
+  right: 8px;
+  bottom: 10px;
+  width: 12px;
+  height: 12px;
+}
+.demo-nav .demo-nav-logout {
+  min-height: 46px;
+  gap: 2px;
+  padding: 6px 4px;
+}
+.demo-nav .demo-nav-logout > svg {
+  width: 20px;
+  height: 20px;
+}
+/* La flecha queda fija arriba de la barra; nada se comprime al faltar alto. */
+.demo-nav > * {
+  flex-shrink: 0;
+}
+.demo-nav .demo-nav-collapse {
+  position: sticky;
+  top: 0;
+  z-index: 3;
+  background: #f6f7f2;
+  box-shadow: 0 6px 12px -6px #102c2126;
+}
+@media (min-width: 801px) {
+  /* La barra nunca supera el alto útil: la flecha queda siempre a la vista
+     y el resto se desplaza dentro de la barra si hace falta. */
+  .demo-nav {
+    max-height: calc(100dvh - 130px);
+  }
+  .demo-nav button {
+    padding: 9px 4px;
+  }
+}
+/* Espacio al final para que K8 (fijo en su esquina) nunca tape contenido. */
+.demo-main {
+  padding-bottom: 150px;
+}
+@media (max-width: 700px) {
+  .demo-main {
+    padding-bottom: 110px;
+  }
+}
+
+/* ══ Accesibilidad rápida en la cabecera ══ */
+.demo-a11y-panel {
+  position: fixed;
+  inset: 92px 24px auto auto;
+  width: min(300px, calc(100vw - 24px));
+  margin: 0;
+  padding: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.9);
+  border-radius: 20px;
+  background: rgba(250, 251, 247, 0.96);
+  color: var(--demo-ink);
+  font-size: calc(18px * var(--demo-scale));
+  box-shadow: 0 24px 60px #102c2133;
+  backdrop-filter: blur(20px);
+}
+.demo-a11y-title {
+  margin: 2px 4px 10px;
+  color: #526b59;
+  font-size: 0.74em;
+  font-weight: 750;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+.demo-a11y-option,
+.demo-a11y-more {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  min-height: 52px;
+  padding: 8px 10px;
+  border: 0;
+  border-radius: 12px;
+  background: transparent;
+  color: var(--demo-ink);
+  font-size: 0.88em;
+  font-weight: 650;
+  text-align: left;
+  cursor: pointer;
+}
+.demo-a11y-option:hover,
+.demo-a11y-more:hover {
+  background: #e9efe4;
+}
+.demo-a11y-option > svg,
+.demo-a11y-more > svg {
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+}
+.demo-a11y-option > span:nth-of-type(1) {
+  flex: 1;
+}
+.demo-a11y-more {
+  margin-top: 6px;
+  border-top: 1px solid var(--demo-line);
+  border-radius: 0 0 12px 12px;
+  color: var(--demo-muted);
+}
+.demo-a11y-option:focus-visible,
+.demo-a11y-more:focus-visible {
+  outline: 3px solid #2f6b45;
+  outline-offset: 1px;
+}
+.demo-night .demo-a11y-panel {
+  filter: invert(1) hue-rotate(180deg);
+}
+@media (max-width: 520px) {
+  .demo-a11y-panel {
+    inset: 132px 12px auto 12px;
+    width: auto;
+  }
+  /* Tres herramientas en columnas: pictograma arriba y palabra abajo. */
+  .demo-header-tools {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    flex-basis: 100%;
+    gap: 4px;
+  }
+  .demo-header-tools > .demo-tool,
+  .demo-header-tools > .demo-tool.demo-night-toggle {
+    flex-direction: column;
+    gap: 3px;
+    min-width: 0;
+    min-height: 52px;
+    padding: 6px 2px;
+    font-size: 0.68em !important;
+    line-height: 1.15;
+  }
+}
+.demo-a11y-option[aria-pressed="true"] .demo-switch {
+  background: #315b3a;
+}
+.demo-a11y-option[aria-pressed="true"] .demo-switch::before {
+  transform: translateX(16px);
+}
+
+/* ══ App simple: barra lateral fija (sticky) sin desplazamiento ══
+   Cabe bajo la cabecera al inicio y queda quieta al desplazar el contenido;
+   los botones se reparten el alto disponible. */
+@media (min-width: 801px) {
+  .demo-nav {
+    top: 16px;
+    height: calc(100dvh - 140px);
+    min-height: 470px;
+    max-height: none;
+    overflow: hidden;
+  }
+  .demo-nav > button[data-view] {
+    flex: 1 1 0;
+    justify-content: center;
+    min-height: 50px;
+    padding-top: 4px;
+    padding-bottom: 4px;
+  }
+}
+
+/* Operador en la cabecera: nombre visible; al tocarlo, ajustes y salida. */
+.demo-user-button {
+  max-width: 190px;
+}
+.demo-user-button span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.demo-user-panel {
+  width: min(260px, calc(100vw - 24px));
+}
+.demo-user-name {
+  margin: 0 4px 8px;
+  font-family: var(--font-sora), sans-serif;
+  font-size: 1.05em;
+  font-weight: 700;
+}
+.demo-night .demo-user-panel {
+  filter: invert(1) hue-rotate(180deg);
+}
+@media (max-width: 520px) {
+  .demo-header-tools {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+  .demo-user-button span {
+    white-space: normal;
   }
 }

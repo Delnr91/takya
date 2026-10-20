@@ -3,20 +3,33 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useCallback, useEffect, useRef, useState } from "react";
-import { BookOpen, Camera, Settings2, TriangleAlert } from "lucide-react";
 import {
-  ChevronDown,
+  Accessibility,
+  BookOpen,
+  Camera,
+  ChevronLeft,
+  ChevronRight,
+  Contrast,
+  ScanSearch,
+  Settings2,
+  Snowflake,
+  TriangleAlert,
+  Type,
+} from "lucide-react";
+import {
   House,
   History,
   Bot,
   Eye,
   EyeOff,
   LogOut,
+  Moon,
   Pause,
   Play,
   Plus,
   RotateCcw,
   ShieldCheck,
+  Sun,
   UserRound,
 } from "@/components/icons";
 import { useDemoSession } from "../hooks/useDemoSession";
@@ -38,12 +51,14 @@ import { Dialog } from "./DemoPrimitives";
 import { K8Mascot } from "./K8Mascot";
 import { CognitiveGuide } from "./CognitiveGuide";
 import { QuickCompanion } from "./QuickCompanion";
+import { AnalysisSimulator } from "./AnalysisSimulator";
 import { CojeevDepthBackground } from "@/components/ui/CojeevDepthBackground";
 import "./demo.css";
 import "./incident-media.css";
 
 const navigation = [
   { id: "turn", label: "Inicio", icon: House },
+  { id: "analysis", label: "Analizar", icon: ScanSearch },
   { id: "cases", label: "Casos", icon: TriangleAlert },
   { id: "cameras", label: "Cámaras", icon: Camera },
   { id: "history", label: "Historial", icon: History },
@@ -62,6 +77,8 @@ function profileForRole(profile: Profile, role: Role): Profile {
   };
 }
 
+const MENU_KEY = "takya.demo.menuOculto";
+
 export function DemoShell() {
   const {
     simulation: state,
@@ -77,6 +94,26 @@ export function DemoShell() {
   const [resetOpen, setResetOpen] = useState(false);
   const [logoutOpen, setLogoutOpen] = useState(false);
   const [aiOpen, setAiOpen] = useState(false);
+  // Menú lateral plegable: deja la pantalla de trabajo completa. Se recuerda
+  // en este navegador.
+  const [menuHidden, setMenuHidden] = useState(() => {
+    if (typeof window === "undefined") return false;
+    try {
+      return window.localStorage.getItem(MENU_KEY) === "1";
+    } catch {
+      return false;
+    }
+  });
+  const toggleMenu = () => {
+    setMenuHidden((hidden) => {
+      try {
+        window.localStorage.setItem(MENU_KEY, hidden ? "0" : "1");
+      } catch {
+        /* La preferencia dura mientras la página esté abierta. */
+      }
+      return !hidden;
+    });
+  };
   const mainRef = useRef<HTMLElement>(null);
   const previousView = useRef(nav.view);
   const addIncident = useCallback(
@@ -90,6 +127,14 @@ export function DemoShell() {
     [send],
   );
   const atCapacity = (state?.incidents.length ?? 0) >= MAX_INCIDENTS;
+  const legacySupervisor = state?.profile.role === "SUPERVISOR";
+  useEffect(() => {
+    if (legacySupervisor && state)
+      send({
+        type: "PROFILE",
+        profile: profileForRole(state.profile, "OPERATOR"),
+      });
+  }, [legacySupervisor, send, state]);
   useSimulationTicker(
     Boolean(state) && arrivals && !atCapacity && !resetOpen && !logoutOpen,
     interval,
@@ -198,7 +243,7 @@ export function DemoShell() {
   return (
     <div
       data-overview={isOverview}
-      className={`demo-shell ${state.preferences.largeText ? "demo-large" : ""} ${state.preferences.solid ? "demo-solid" : ""} ${state.preferences.highContrast ? "demo-high-contrast" : ""} ${state.preferences.motionOff ? "demo-motion-off" : ""} ${state.preferences.backgroundOff ? "demo-background-off" : ""}`}
+      className={`demo-shell ${state.preferences.largeText ? "demo-large" : ""} ${state.preferences.solid ? "demo-solid" : ""} ${state.preferences.highContrast ? "demo-high-contrast" : ""} ${state.preferences.motionOff ? "demo-motion-off" : ""} ${state.preferences.backgroundOff ? "demo-background-off" : ""} ${state.preferences.nightMode ? "demo-night" : ""} ${menuHidden ? "demo-menu-hidden" : ""}`}
     >
       <div className="demo-backdrop" aria-hidden="true">
         <Image src="/background2.png" alt="" fill sizes="100vw" />
@@ -237,16 +282,52 @@ export function DemoShell() {
             Modo práctica
           </span>
           <div className="demo-header-tools">
-            <Link className="demo-tool" href="/demo?mode=analysis">
-              <Eye aria-hidden="true" />
-              <span>Analizar archivo</span>
-            </Link>
+            {/* Accesibilidad rápida: menú corto (popover nativo, cierra con Esc
+                o tocando fuera). */}
             <button
               type="button"
-              className="demo-tool demo-mascot-toggle"
-              aria-label={
-                state.preferences.mascotHidden ? "Mostrar K8" : "Ocultar K8"
-              }
+              className="demo-tool"
+              popoverTarget="demo-a11y"
+            >
+              <Accessibility aria-hidden="true" />
+              <span>Accesibilidad</span>
+            </button>
+            <div id="demo-a11y" popover="auto" className="demo-a11y-panel">
+              <p className="demo-a11y-title">Accesibilidad</p>
+              {(
+                [
+                  ["largeText", "Texto grande", Type],
+                  ["highContrast", "Alto contraste", Contrast],
+                  ["motionOff", "Sin movimiento", Snowflake],
+                ] as const
+              ).map(([key, label, Icon]) => (
+                <button
+                  key={key}
+                  type="button"
+                  className="demo-a11y-option"
+                  aria-pressed={state.preferences[key]}
+                  onClick={() => send({ type: "PREFERENCE", preference: key })}
+                >
+                  <Icon aria-hidden="true" />
+                  <span>{label}</span>
+                  <span className="demo-switch" aria-hidden="true" />
+                </button>
+              ))}
+              <button
+                type="button"
+                className="demo-a11y-more"
+                onClick={() => {
+                  document.getElementById("demo-a11y")?.hidePopover();
+                  nav.navigate("settings");
+                }}
+              >
+                <Settings2 aria-hidden="true" />
+                Más ajustes
+              </button>
+            </div>
+            <button
+              type="button"
+              className="demo-tool"
               aria-pressed={!state.preferences.mascotHidden}
               onClick={() =>
                 send({ type: "PREFERENCE", preference: "mascotHidden" })
@@ -263,53 +344,92 @@ export function DemoShell() {
             </button>
             <button
               type="button"
-              className="demo-tool"
-              aria-current={nav.view === "settings" ? "page" : undefined}
-              onClick={() => nav.navigate("settings")}
+              className="demo-tool demo-night-toggle"
+              aria-pressed={state.preferences.nightMode}
+              onClick={() =>
+                send({ type: "PREFERENCE", preference: "nightMode" })
+              }
             >
-              <Settings2 aria-hidden="true" />
-              <span>Ajustes</span>
+              {state.preferences.nightMode ? (
+                <Sun aria-hidden="true" />
+              ) : (
+                <Moon aria-hidden="true" />
+              )}
+              <span>
+                {state.preferences.nightMode ? "Modo día" : "Modo noche"}
+              </span>
             </button>
+            {/* Solo operador en la demo: nombre visible y salida. */}
             <button
               type="button"
-              className="demo-tool"
-              onClick={() => setLogoutOpen(true)}
+              className="demo-tool demo-user-button"
+              popoverTarget="demo-user"
             >
-              <LogOut aria-hidden="true" />
-              <span>Cerrar sesión</span>
+              <UserRound aria-hidden="true" />
+              <span>{state.profile.name}</span>
             </button>
-          </div>
-          <label className="demo-profile">
-            <UserRound aria-hidden="true" />
-            <span>
-              <small>Rol de práctica</small>
-              <select
-                aria-label="Rol de práctica"
-                value={state.profile.role}
-                onChange={(event) =>
-                  send({
-                    type: "PROFILE",
-                    profile: profileForRole(
-                      state.profile,
-                      event.target.value === "SUPERVISOR"
-                        ? "SUPERVISOR"
-                        : "OPERATOR",
-                    ),
-                  })
-                }
+            <div
+              id="demo-user"
+              popover="auto"
+              className="demo-a11y-panel demo-user-panel"
+            >
+              <p className="demo-a11y-title">Operador</p>
+              <p className="demo-user-name">{state.profile.name}</p>
+              <button
+                type="button"
+                className="demo-a11y-more"
+                onClick={() => {
+                  document.getElementById("demo-user")?.hidePopover();
+                  nav.navigate("settings");
+                }}
               >
-                <option value="OPERATOR">Operador</option>
-                <option value="SUPERVISOR">Supervisión</option>
-              </select>
-            </span>
-            <ChevronDown size={14} aria-hidden="true" />
-          </label>
+                <Settings2 aria-hidden="true" />
+                Ajustes
+              </button>
+              <button
+                type="button"
+                className="demo-a11y-more"
+                onClick={() => {
+                  document.getElementById("demo-user")?.hidePopover();
+                  setLogoutOpen(true);
+                }}
+              >
+                <LogOut aria-hidden="true" />
+                Cerrar sesión
+              </button>
+            </div>
+          </div>
         </header>
         <div className="demo-body">
+          {menuHidden ? (
+            <button
+              type="button"
+              className="demo-nav-reveal"
+              aria-label="Mostrar menú"
+              title="Mostrar menú"
+              aria-expanded="false"
+              aria-controls="demo-nav"
+              onClick={toggleMenu}
+            >
+              <ChevronRight aria-hidden="true" />
+            </button>
+          ) : null}
           <nav
+            id="demo-nav"
             className="demo-nav demo-panel"
             aria-label="Secciones de la consola"
           >
+            <button
+              type="button"
+              className="demo-nav-collapse"
+              aria-label="Ocultar menú"
+              title="Ocultar menú"
+              aria-expanded="true"
+              aria-controls="demo-nav"
+              onClick={toggleMenu}
+            >
+              <ChevronLeft aria-hidden="true" />
+            </button>
             {navigation.map(({ id, label, icon: Icon }) => (
               <button
                 type="button"
@@ -329,9 +449,6 @@ export function DemoShell() {
                 ) : null}
               </button>
             ))}
-            <span className="demo-nav-mark" aria-hidden="true">
-              T/
-            </span>
           </nav>
           <main
             ref={mainRef}
@@ -339,7 +456,8 @@ export function DemoShell() {
             id="demo-main"
             className="demo-main"
           >
-            {!isOverview ? simulationControls : null}
+            {/* Los controles de práctica solo viven plegados en Inicio y en
+                Ajustes: en Casos confundían con Analizar. */}
             <p
               className={`demo-live-message ${error ? "demo-error" : ""}`}
               role={error ? "alert" : "status"}
@@ -391,6 +509,16 @@ export function DemoShell() {
                 <summary>Controles de práctica</summary>
                 {simulationControls}
               </details>
+            ) : null}
+            {nav.view === "analysis" ? (
+              <AnalysisSimulator
+                operator={state.profile.name}
+                motionOff={state.preferences.motionOff}
+                nextSequence={state.nextSequence}
+                send={send}
+                onOpenCase={(id) => openCase(id)}
+                onHistory={() => nav.navigate("history")}
+              />
             ) : null}
             {nav.view === "cases" ? (
               <CaseList

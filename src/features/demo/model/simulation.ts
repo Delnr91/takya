@@ -1,10 +1,12 @@
 import {
   decisionSchema,
+  evidenceRecordSchema,
   profileSchema,
   scenarioSchema,
   simulationSchema,
   type AuditEntry,
   type Decision,
+  type EvidenceRecord,
   type Incident,
   type Profile,
   type Scenario,
@@ -27,6 +29,14 @@ export type DemoCommand =
   | { type: "READ_EXPLANATION"; incidentId: string }
   | { type: "DECIDE"; incidentId: string; decision: Decision }
   | { type: "RECEIVE"; incidentId: string }
+  | { type: "SEAL_EVIDENCE"; incidentId: string; evidence: EvidenceRecord }
+  | { type: "ANALYSIS_CLEAR"; camera: string }
+  | {
+      type: "ANALYSIS_DECIDE";
+      scenario: Scenario;
+      camera: string;
+      decision: Decision;
+    }
   | { type: "ADD_INCIDENT"; scenario: Scenario }
   | { type: "PROFILE"; profile: Profile }
   | { type: "PREFERENCE"; preference: keyof Simulation["preferences"] };
@@ -102,6 +112,7 @@ export function createIncident(
     decidedAt: null,
     decision: null,
     receivedAt: null,
+    evidence: null,
   };
 }
 
@@ -127,6 +138,7 @@ export function createSimulation(
       motionOff: false,
       backgroundOff: false,
       mascotHidden: false,
+      nightMode: false,
     },
     audit: incidents.map((incident) => ({
       id: `${sessionId}-${incident.id}`,
@@ -260,6 +272,71 @@ export function transition(
       ),
     );
   }
+  if (event.type === "ANALYSIS_CLEAR")
+    return ok(
+      appendAudit(
+        state,
+        event,
+        null,
+        "ANALYSIS_CLEAR",
+        `${event.camera}: TAKYA revisó la señal y no encontró incidentes. Descartado, sin evidencia que conservar.`,
+      ),
+    );
+  if (event.type === "ANALYSIS_DECIDE") {
+    // Un análisis con hallazgo entra como caso ya revisado y decidido.
+    if (state.profile.role !== "OPERATOR")
+      return fail("La decisión corresponde al operador.");
+    if (state.incidents.length >= MAX_INCIDENTS)
+      return fail(
+        "La práctica llegó a 30 casos. Reiníciala para comenzar otra sesión.",
+      );
+    const decision = decisionSchema.safeParse(event.decision);
+    if (!decision.success)
+      return fail(decision.error.issues[0]?.message ?? "Revisa la decisión.");
+    if (!reasons[decision.data.outcome].includes(decision.data.reason))
+      return fail("Elige uno de los motivos disponibles.");
+    const base = createIncident(event.scenario, state.nextSequence, event.at);
+    const analyzed: Incident = {
+      ...base,
+      status: decision.data.outcome,
+      reviewStartedAt: event.at,
+      viewedCameraIds: base.cameras
+        .filter((camera) => camera.available)
+        .map((camera) => camera.id),
+      explanationRead: true,
+      decidedAt: event.at,
+      decision: decision.data,
+    };
+    const detected = appendAudit(
+      {
+        ...state,
+        incidents: [...state.incidents, analyzed],
+        nextSequence: state.nextSequence + 1,
+        selectedId: analyzed.id,
+      },
+      { id: `${event.id}-detectado`, at: event.at },
+      analyzed.id,
+      "INCIDENT_RECEIVED",
+      `Detectado al analizar ${event.camera}.`,
+      true,
+    );
+    return ok(
+      appendAudit(
+        detected,
+        event,
+        analyzed.id,
+        decision.data.outcome,
+        [
+          decision.data.reason,
+          decision.data.destination
+            ? `Destino simulado: ${decision.data.destination}.`
+            : "",
+        ]
+          .filter(Boolean)
+          .join(" · "),
+      ),
+    );
+  }
   const incident = state.incidents.find((item) => item.id === event.incidentId);
   if (!incident) return fail("Este caso ya no está disponible.");
   if (event.type === "SELECT") return ok({ ...state, selectedId: incident.id });
@@ -330,6 +407,22 @@ export function transition(
         incident.id,
         "EXPLANATION_READ",
         "El operador revisó las señales y lo que aún falta confirmar.",
+      ),
+    );
+  }
+  if (event.type === "SEAL_EVIDENCE") {
+    if (!isResolved(incident))
+      return fail("Primero registra tu decisión; luego se protege la evidencia.");
+    const record = evidenceRecordSchema.safeParse(event.evidence);
+    if (!record.success) return fail("El paquete de evidencia no es válido.");
+    if (incident.evidence) return ok(state);
+    return ok(
+      appendAudit(
+        replaceIncident(state, { ...incident, evidence: record.data }),
+        event,
+        incident.id,
+        "EVIDENCE_SEALED",
+        `Evidencia protegida: ${record.data.clips} ${record.data.clips === 1 ? "clip" : "clips"}, firma ${record.data.signature} y cifrado AES-256-GCM. Huella ${record.data.fingerprint.slice(0, 12)}…`,
       ),
     );
   }

@@ -90,3 +90,160 @@
     display: none;
   }
 }
+
+/* «Pensado para»: tarjetas de vidrio que se elevan y brillan al pasar. */
+.takya-audience-card {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  background: rgba(255, 255, 255, 0.55);
+  box-shadow: 0 18px 40px -22px #1b3b2b55;
+  backdrop-filter: blur(16px);
+  transition:
+    transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1),
+    box-shadow 0.35s ease;
+}
+.takya-audience-card::before {
+  content: "";
+  position: absolute;
+  inset: -40% -40% auto auto;
+  width: 160px;
+  height: 160px;
+  border-radius: 50%;
+  background: radial-gradient(circle, #e05d4440, transparent 70%);
+  opacity: 0;
+  transition: opacity 0.35s ease;
+}
+.takya-audience-card:hover {
+  transform: translateY(-6px) rotate(-0.4deg);
+  box-shadow: 0 28px 50px -22px #1b3b2b77;
+}
+.takya-audience-card:hover::before {
+  opacity: 1;
+}
+.takya-audience-icon {
+  width: 52px !important;
+  height: 52px !important;
+  padding: 12px;
+  border-radius: 16px;
+  background: #fbe4dc;
+}
+@media (prefers-reduced-motion: reduce) {
+  .takya-audience-card,
+  .takya-audience-card:hover {
+    transform: none;
+    transition: none;
+  }
+}
+
+/* Pilares: carrusel 3D sobre el degradado con grano de la tarjeta de contacto. */
+.takya-pillars {
+  position: relative;
+  overflow: hidden;
+  max-width: 72rem;
+  margin: 0 auto;
+  padding: 56px 72px 60px;
+  border-radius: 32px;
+  box-shadow: 0 30px 70px -30px #1b3b2b66;
+}
+.takya-pillars-stage {
+  position: relative;
+  display: grid;
+  place-items: center;
+  min-height: 330px;
+  perspective: 1200px;
+}
+.takya-pillar {
+  position: absolute;
+  width: min(420px, 78%);
+  padding: 30px;
+  border: 1px solid rgba(255, 255, 255, 0.85);
+  border-radius: 26px;
+  background: rgba(250, 249, 244, 0.9);
+  box-shadow:
+    0 30px 60px -24px #0f2a1f80,
+    inset 0 1px 0 #ffffffe6;
+  backdrop-filter: blur(14px);
+  cursor: grab;
+  transform-style: preserve-3d;
+}
+.takya-pillar:active {
+  cursor: grabbing;
+}
+.takya-pillar-icon {
+  display: grid;
+  place-items: center;
+  width: 56px;
+  height: 56px;
+  margin-bottom: 18px;
+  border-radius: 18px;
+  background: #fbe4dc;
+  color: #e05d44;
+}
+.takya-pillars-arrow {
+  position: absolute;
+  top: 50%;
+  z-index: 5;
+  display: grid;
+  place-items: center;
+  width: 52px;
+  height: 52px;
+  margin-top: -26px;
+  border: 1px solid rgba(255, 255, 255, 0.85);
+  border-radius: 50%;
+  background: rgba(250, 249, 244, 0.92);
+  color: #1b3b2b;
+  box-shadow: 0 10px 24px -10px #0f2a1f80;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+.takya-pillars-arrow:hover {
+  transform: scale(1.08);
+}
+.takya-pillars-arrow:focus-visible {
+  outline: 3px solid #1b3b2b;
+  outline-offset: 3px;
+}
+.takya-pillars-arrow.is-left {
+  left: 16px;
+}
+.takya-pillars-arrow.is-right {
+  right: 16px;
+}
+.takya-pillars-dots {
+  position: absolute;
+  bottom: 22px;
+  left: 50%;
+  display: flex;
+  gap: 8px;
+  transform: translateX(-50%);
+}
+.takya-pillars-dots i {
+  width: 8px;
+  height: 8px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.6);
+  transition: width 0.3s ease;
+}
+.takya-pillars-dots i[data-active="true"] {
+  width: 26px;
+  background: #1b3b2b;
+}
+@media (max-width: 640px) {
+  .takya-pillars {
+    padding: 40px 12px 56px;
+  }
+  .takya-pillar {
+    width: 84%;
+    padding: 22px;
+  }
+  .takya-pillars-stage {
+    min-height: 380px;
+  }
+  .takya-pillars-arrow {
+    top: auto;
+    bottom: 10px;
+    width: 44px;
+    height: 44px;
+  }
+}

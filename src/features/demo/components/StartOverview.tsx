@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useRef, useState, useSyncExternalStore } from "react";
-import Link from "next/link";
 import { AnimatePresence, MotionConfig, motion } from "framer-motion";
 import {
   ArrowRight,
@@ -359,82 +358,126 @@ export function StartOverview({
           </span>
         </header>
         <div className="start-workspace">
-          <motion.section
-            ref={focusPanel}
-            tabIndex={-1}
-            className="start-focus"
-            aria-label="Evidencia para revisar"
-            {...enter(0)}
-          >
-            {chosen ? (
-              <>
-                <div className="start-focus-heading">
-                  <span className="start-ready">
-                    <Check size={16} aria-hidden="true" /> Lista para revisar
-                  </span>
-                  <span className="start-case-id">{chosen.id}</span>
-                </div>
-                <div className="start-case-action">
-                  <div className="start-case-identity">
-                    <span
-                      className="start-case-glyph"
-                      data-severity={chosen.severity}
-                    >
-                      <CaseGlyph scenario={chosen.scenario} still={still} />
+          <div className="start-main">
+            <motion.section
+              ref={focusPanel}
+              tabIndex={-1}
+              className="start-focus"
+              aria-label="Evidencia para revisar"
+              {...enter(0)}
+            >
+              {chosen ? (
+                <>
+                  <div className="start-focus-heading">
+                    <span className="start-ready">
+                      <Check size={16} aria-hidden="true" /> Lista para revisar
                     </span>
-                    <div>
-                      <h2>{shortTitles[chosen.scenario]}</h2>
-                      <p>
-                        <MapPin size={15} aria-hidden="true" />
-                        {scenarios[chosen.scenario].place}
-                      </p>
+                    <span className="start-case-id">{chosen.id}</span>
+                  </div>
+                  <div className="start-case-action">
+                    <div className="start-case-identity">
+                      <span
+                        className="start-case-glyph"
+                        data-severity={chosen.severity}
+                      >
+                        <CaseGlyph scenario={chosen.scenario} still={still} />
+                      </span>
+                      <div>
+                        <h2>{shortTitles[chosen.scenario]}</h2>
+                        <p>
+                          <MapPin size={15} aria-hidden="true" />
+                          {scenarios[chosen.scenario].place}
+                        </p>
+                      </div>
+                    </div>
+                    <div className="start-action-row">
+                      <span className="start-clip-count">
+                        <Clapperboard aria-hidden="true" />
+                        {remaining
+                          ? `${remaining} de ${clips} registros por observar`
+                          : "Evidencia observada"}
+                      </span>
+                      <motion.button
+                        type="button"
+                        className="start-primary"
+                        whileTap={still ? undefined : { scale: 0.97, y: 2 }}
+                        onClick={() => onOpen(chosen.id)}
+                      >
+                        <Look aria-hidden="true" />
+                        {chosen.status === "IN_REVIEW"
+                          ? "Continuar revisión"
+                          : "Comenzar revisión"}
+                        <Arrow aria-hidden="true" />
+                      </motion.button>
                     </div>
                   </div>
-                  <div className="start-action-row">
-                    <span className="start-clip-count">
-                      <Clapperboard aria-hidden="true" />
-                      {remaining
-                        ? `${remaining} de ${clips} registros por observar`
-                        : "Evidencia observada"}
-                    </span>
-                    <motion.button
-                      type="button"
-                      className="start-primary"
-                      whileTap={still ? undefined : { scale: 0.97, y: 2 }}
-                      onClick={() => onOpen(chosen.id)}
-                    >
-                      <Look aria-hidden="true" />
-                      {chosen.status === "IN_REVIEW"
-                        ? "Continuar revisión"
-                        : "Comenzar revisión"}
-                      <Arrow aria-hidden="true" />
-                    </motion.button>
-                  </div>
+                  <EvidencePreview
+                    key={chosen.id}
+                    incident={chosen}
+                    still={still}
+                  />
+                </>
+              ) : (
+                <div className="start-complete">
+                  <span className="start-complete-icon">
+                    <Done size={52} aria-hidden="true" />
+                  </span>
+                  <h2>Todo revisado.</h2>
+                  <p>
+                    {metrics.resolved} decisiones guardadas en esta práctica.
+                  </p>
+                  <button
+                    type="button"
+                    className="start-primary"
+                    onClick={() => navigate("history")}
+                  >
+                    <History aria-hidden="true" /> Ver historial{" "}
+                    <Arrow aria-hidden="true" />
+                  </button>
                 </div>
-                <EvidencePreview
-                  key={chosen.id}
-                  incident={chosen}
-                  still={still}
-                />
-              </>
-            ) : (
-              <div className="start-complete">
-                <span className="start-complete-icon">
-                  <Done size={52} aria-hidden="true" />
+              )}
+            </motion.section>
+            <motion.nav
+              className="start-shortcuts"
+              aria-label="Otras acciones"
+              {...enter(3)}
+            >
+              <button
+                type="button"
+                className="start-shortcut"
+                onClick={() => navigate("analysis")}
+              >
+                <span className="start-shortcut-icon">
+                  <UploadGlyph aria-hidden="true" />
                 </span>
-                <h2>Todo revisado.</h2>
-                <p>{metrics.resolved} decisiones guardadas en esta práctica.</p>
-                <button
-                  type="button"
-                  className="start-primary"
-                  onClick={() => navigate("history")}
-                >
-                  <History aria-hidden="true" /> Ver historial{" "}
-                  <Arrow aria-hidden="true" />
-                </button>
-              </div>
-            )}
-          </motion.section>
+                <span>
+                  <strong>Analizar una grabación</strong>
+                  <small>
+                    Señal en vivo o grabación: TAKYA busca lo relevante
+                  </small>
+                </span>
+                <ArrowRight size={18} aria-hidden="true" />
+              </button>
+              <button
+                type="button"
+                className="start-shortcut"
+                onClick={() => navigate("history")}
+              >
+                <span className="start-shortcut-icon">
+                  <HistoryGlyph aria-hidden="true" />
+                </span>
+                <span>
+                  <strong>Historial y decisiones</strong>
+                  <small>
+                    {metrics.resolved === 1
+                      ? "1 decisión guardada"
+                      : `${metrics.resolved} decisiones guardadas`}
+                  </small>
+                </span>
+                <ArrowRight size={18} aria-hidden="true" />
+              </button>
+            </motion.nav>
+          </div>
           <aside className="start-side" aria-label="Bandeja y progreso">
             <motion.section
               className="start-inbox"
@@ -572,48 +615,6 @@ export function StartOverview({
                 <p>Cada revisión completa cuenta.</p>
               )}
             </motion.section>
-            <motion.nav
-              className="start-shortcuts"
-              aria-label="Otras acciones"
-              {...enter(3)}
-            >
-              <Link href="/demo?mode=analysis" className="start-shortcut">
-                <span className="start-shortcut-icon">
-                  <UploadGlyph aria-hidden="true" />
-                </span>
-                <span>
-                  <strong>Analizar una grabación</strong>
-                  <small>Sube un video y TAKYA busca lo relevante</small>
-                </span>
-                <ArrowRight size={18} aria-hidden="true" />
-              </Link>
-              <button
-                type="button"
-                className="start-shortcut"
-                onClick={() => navigate("history")}
-              >
-                <span className="start-shortcut-icon">
-                  <HistoryGlyph aria-hidden="true" />
-                </span>
-                <span>
-                  <strong>Historial y decisiones</strong>
-                  <small>
-                    {metrics.resolved === 1
-                      ? "1 decisión guardada"
-                      : `${metrics.resolved} decisiones guardadas`}
-                  </small>
-                </span>
-                <ArrowRight size={18} aria-hidden="true" />
-              </button>
-            </motion.nav>
-            <div className="start-human-note">
-              <Eye size={22} aria-hidden="true" />
-              <p>
-                TAKYA reúne las señales.
-                <br />
-                <strong>Tú eliges qué hacer.</strong>
-              </p>
-            </div>
           </aside>
         </div>
       </div>

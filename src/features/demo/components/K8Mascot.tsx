@@ -31,8 +31,11 @@ export function K8Mascot({
     if (!canvas) return;
     let cancelled = false;
     let release: (() => void) | undefined;
-    import("three")
-      .then((THREE) => {
+    Promise.all([
+      import("three"),
+      import("three/addons/environments/RoomEnvironment.js"),
+    ])
+      .then(([THREE, { RoomEnvironment }]) => {
         if (cancelled) return;
         let renderer: InstanceType<typeof THREE.WebGLRenderer>;
         try {
@@ -46,41 +49,54 @@ export function K8Mascot({
           setFailed(true);
           return;
         }
-        renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 1.75));
+        renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
         renderer.outputColorSpace = THREE.SRGBColorSpace;
         renderer.toneMapping = THREE.ACESFilmicToneMapping;
-        renderer.toneMappingExposure = 1.6;
+        renderer.toneMappingExposure = 1.05;
         const scene = new THREE.Scene();
+        // Luz de estudio: reflejos reales sobre la carcasa (más realismo).
+        const pmrem = new THREE.PMREMGenerator(renderer);
+        const studio = pmrem.fromScene(new RoomEnvironment(), 0.04).texture;
+        scene.environment = studio;
+        scene.environmentIntensity = 0.55;
         const camera = new THREE.PerspectiveCamera(34, 1, 0.1, 100);
         camera.position.set(0, 0.45, 6.3);
         camera.lookAt(0, 0.1, 0);
-        scene.add(new THREE.AmbientLight(0xffffff, 2.4));
-        const key = new THREE.DirectionalLight(0xffffff, 4.2);
+        scene.add(new THREE.AmbientLight(0xffffff, 0.5));
+        const key = new THREE.DirectionalLight(0xffffff, 2.4);
         key.position.set(-3, 5, 6);
         scene.add(key);
-        const rim = new THREE.DirectionalLight(0xa5c8ae, 3.8);
+        const rim = new THREE.DirectionalLight(0xa5c8ae, 2.2);
         rim.position.set(3, 2, -4);
         scene.add(rim);
 
-        const forest = new THREE.MeshStandardMaterial({
-          color: 0x1b3b2b,
-          metalness: 0.75,
-          roughness: 0.27,
-        });
-        const sage = new THREE.MeshStandardMaterial({
-          color: 0x7d9b8a,
-          metalness: 0.64,
-          roughness: 0.3,
-        });
-        const ivory = new THREE.MeshStandardMaterial({
-          color: 0xf4f1ea,
+        const forest = new THREE.MeshPhysicalMaterial({
+          color: 0x123222,
           metalness: 0.25,
-          roughness: 0.3,
+          roughness: 0.4,
+          clearcoat: 0.9,
+          clearcoatRoughness: 0.16,
         });
-        const dark = new THREE.MeshStandardMaterial({
-          color: 0x06100c,
-          metalness: 0.38,
-          roughness: 0.2,
+        const sage = new THREE.MeshPhysicalMaterial({
+          color: 0x4d6e5c,
+          metalness: 0.25,
+          roughness: 0.42,
+          clearcoat: 0.6,
+          clearcoatRoughness: 0.2,
+        });
+        const ivory = new THREE.MeshPhysicalMaterial({
+          color: 0xefe9dc,
+          metalness: 0.05,
+          roughness: 0.42,
+          clearcoat: 0.7,
+          clearcoatRoughness: 0.18,
+          sheen: 0.4,
+          sheenColor: new THREE.Color(0xffffff),
+        });
+        const dark = new THREE.MeshPhysicalMaterial({
+          color: 0x0b1410,
+          metalness: 0.5,
+          roughness: 0.45,
         });
         const orange = new THREE.MeshStandardMaterial({
           color: 0xe4774d,
@@ -98,16 +114,14 @@ export function K8Mascot({
         });
         const robot = new THREE.Group();
         scene.add(robot);
+        const sphere = new THREE.SphereGeometry(1, 48, 32);
         const addBall = (
           parent: InstanceType<typeof THREE.Group>,
           material: InstanceType<typeof THREE.MeshStandardMaterial>,
           xyz: [number, number, number],
           scale: [number, number, number],
         ) => {
-          const mesh = new THREE.Mesh(
-            new THREE.SphereGeometry(1, 24, 16),
-            material,
-          );
+          const mesh = new THREE.Mesh(sphere, material);
           mesh.position.set(...xyz);
           mesh.scale.set(...scale);
           parent.add(mesh);
@@ -122,7 +136,7 @@ export function K8Mascot({
           height: number,
         ) => {
           const mesh = new THREE.Mesh(
-            new THREE.CylinderGeometry(top, bottom, height, 12),
+            new THREE.CylinderGeometry(top, bottom, height, 32),
             material,
           );
           mesh.position.set(...xyz);
@@ -195,7 +209,7 @@ export function K8Mascot({
               bevelEnabled: true,
               bevelThickness: 0.035,
               bevelSize: 0.035,
-              bevelSegments: 2,
+              bevelSegments: 4,
               steps: 1,
             }),
             forest,
@@ -235,6 +249,37 @@ export function K8Mascot({
         addBall(otherPaw, sage, [0, -0.35, 0], [0.16, 0.4, 0.19]);
         addBall(otherPaw, ivory, [0, -0.72, 0.13], [0.22, 0.15, 0.28]);
 
+        // Sombra suave en el piso: ancla a K8 al suelo.
+        const shadowCanvas = document.createElement("canvas");
+        shadowCanvas.width = shadowCanvas.height = 128;
+        const shadowContext = shadowCanvas.getContext("2d");
+        if (shadowContext) {
+          const gradient = shadowContext.createRadialGradient(
+            64,
+            64,
+            0,
+            64,
+            64,
+            64,
+          );
+          gradient.addColorStop(0, "rgba(15,42,31,0.55)");
+          gradient.addColorStop(1, "rgba(15,42,31,0)");
+          shadowContext.fillStyle = gradient;
+          shadowContext.fillRect(0, 0, 128, 128);
+        }
+        const shadowTexture = new THREE.CanvasTexture(shadowCanvas);
+        const shadowMaterial = new THREE.MeshBasicMaterial({
+          map: shadowTexture,
+          transparent: true,
+          depthWrite: false,
+        });
+        const shadow = new THREE.Mesh(
+          new THREE.PlaneGeometry(2.6, 1.5),
+          shadowMaterial,
+        );
+        shadow.rotation.x = -Math.PI / 2;
+        shadow.position.set(0, -1.43, 0.15);
+        scene.add(shadow);
         const resize = () => {
           const width = canvas.clientWidth;
           const height = canvas.clientHeight;
@@ -278,6 +323,8 @@ export function K8Mascot({
             (performance.now() - waveRef.current < 2100 ||
               (time % 11 > 8.8 && time % 11 < 10.4));
           robot.position.y = still ? 0 : Math.sin(time * 1.5) * 0.035;
+          // La sombra se achica levemente cuando K8 «respira» hacia arriba.
+          shadow.scale.setScalar(1 - robot.position.y * 2.2);
           robot.scale.set(1, still ? 1 : 1 + Math.sin(time * 1.5) * 0.008, 1);
           robot.rotation.y +=
             (turnRef.current +
@@ -308,8 +355,19 @@ export function K8Mascot({
           scene.traverse((item) => {
             if (item instanceof THREE.Mesh) item.geometry.dispose();
           });
-          for (const material of [forest, sage, ivory, dark, orange, glass])
+          for (const material of [
+            forest,
+            sage,
+            ivory,
+            dark,
+            orange,
+            glass,
+            shadowMaterial,
+          ])
             material.dispose();
+          shadowTexture.dispose();
+          studio.dispose();
+          pmrem.dispose();
           renderer.dispose();
           renderer.forceContextLoss();
         };

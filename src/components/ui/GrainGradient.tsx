@@ -86,9 +86,12 @@ function rgb(hex: string) {
 export function GrainGradient({
   colors,
   className,
+  still = false,
 }: {
   colors: [string, string, string];
   className?: string;
+  /** Preferencia propia de la app («Sin movimiento»), además de la del sistema. */
+  still?: boolean;
 }) {
   const ref = useRef<HTMLCanvasElement>(null);
   const palette = colors.join(",");
@@ -161,7 +164,7 @@ export function GrainGradient({
       }
       gl.viewport(0, 0, width, height);
       gl.uniform2f(uRes, width, height);
-      if (visible && !reduced.matches && !document.hidden)
+      if (visible && !still && !reduced.matches && !document.hidden)
         frame = window.requestAnimationFrame(loop);
       else draw();
     };
@@ -187,7 +190,7 @@ export function GrainGradient({
       // estricto) y un contexto perdido ya no dibuja. Se libera con el lienzo.
       gl.deleteProgram(program);
     };
-  }, [palette]);
+  }, [palette, still]);
 
   return <canvas ref={ref} aria-hidden="true" className={className} />;
 }
