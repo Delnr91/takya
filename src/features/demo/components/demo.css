@@ -3648,3 +3648,53 @@
 .demo-a11y-option[aria-pressed="true"] .demo-switch::before {
   transform: translateX(16px);
 }
+
+/* ══ App simple: barra lateral fija (sticky) sin desplazamiento ══
+   Cabe bajo la cabecera al inicio y queda quieta al desplazar el contenido;
+   los botones se reparten el alto disponible. */
+@media (min-width: 801px) {
+  .demo-nav {
+    top: 16px;
+    height: calc(100dvh - 140px);
+    min-height: 470px;
+    max-height: none;
+    overflow: hidden;
+  }
+  .demo-nav > button[data-view] {
+    flex: 1 1 0;
+    justify-content: center;
+    min-height: 50px;
+    padding-top: 4px;
+    padding-bottom: 4px;
+  }
+}
+
+/* Operador en la cabecera: nombre visible; al tocarlo, ajustes y salida. */
+.demo-user-button {
+  max-width: 190px;
+}
+.demo-user-button span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.demo-user-panel {
+  width: min(260px, calc(100vw - 24px));
+}
+.demo-user-name {
+  margin: 0 4px 8px;
+  font-family: var(--font-sora), sans-serif;
+  font-size: 1.05em;
+  font-weight: 700;
+}
+.demo-night .demo-user-panel {
+  filter: invert(1) hue-rotate(180deg);
+}
+@media (max-width: 520px) {
+  .demo-header-tools {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+  .demo-user-button span {
+    white-space: normal;
+  }
+}

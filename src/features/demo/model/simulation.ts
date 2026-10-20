@@ -1,10 +1,12 @@
 import {
   decisionSchema,
+  evidenceRecordSchema,
   profileSchema,
   scenarioSchema,
   simulationSchema,
   type AuditEntry,
   type Decision,
+  type EvidenceRecord,
   type Incident,
   type Profile,
   type Scenario,
@@ -27,6 +29,7 @@ export type DemoCommand =
   | { type: "READ_EXPLANATION"; incidentId: string }
   | { type: "DECIDE"; incidentId: string; decision: Decision }
   | { type: "RECEIVE"; incidentId: string }
+  | { type: "SEAL_EVIDENCE"; incidentId: string; evidence: EvidenceRecord }
   | { type: "ADD_INCIDENT"; scenario: Scenario }
   | { type: "PROFILE"; profile: Profile }
   | { type: "PREFERENCE"; preference: keyof Simulation["preferences"] };
@@ -102,6 +105,7 @@ export function createIncident(
     decidedAt: null,
     decision: null,
     receivedAt: null,
+    evidence: null,
   };
 }
 
@@ -331,6 +335,22 @@ export function transition(
         incident.id,
         "EXPLANATION_READ",
         "El operador revisó las señales y lo que aún falta confirmar.",
+      ),
+    );
+  }
+  if (event.type === "SEAL_EVIDENCE") {
+    if (!isResolved(incident))
+      return fail("Primero registra tu decisión; luego se protege la evidencia.");
+    const record = evidenceRecordSchema.safeParse(event.evidence);
+    if (!record.success) return fail("El paquete de evidencia no es válido.");
+    if (incident.evidence) return ok(state);
+    return ok(
+      appendAudit(
+        replaceIncident(state, { ...incident, evidence: record.data }),
+        event,
+        incident.id,
+        "EVIDENCE_SEALED",
+        `Evidencia protegida: ${record.data.clips} ${record.data.clips === 1 ? "clip" : "clips"}, firma ${record.data.signature} y cifrado AES-256-GCM. Huella ${record.data.fingerprint.slice(0, 12)}…`,
       ),
     );
   }

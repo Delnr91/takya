@@ -10,13 +10,13 @@ import {
   ChevronLeft,
   ChevronRight,
   Contrast,
+  ScanSearch,
   Settings2,
   Snowflake,
   TriangleAlert,
   Type,
 } from "lucide-react";
 import {
-  ChevronDown,
   House,
   History,
   Bot,
@@ -51,12 +51,14 @@ import { Dialog } from "./DemoPrimitives";
 import { K8Mascot } from "./K8Mascot";
 import { CognitiveGuide } from "./CognitiveGuide";
 import { QuickCompanion } from "./QuickCompanion";
+import { AnalysisSimulator } from "./AnalysisSimulator";
 import { CojeevDepthBackground } from "@/components/ui/CojeevDepthBackground";
 import "./demo.css";
 import "./incident-media.css";
 
 const navigation = [
   { id: "turn", label: "Inicio", icon: House },
+  { id: "analysis", label: "Analizar", icon: ScanSearch },
   { id: "cases", label: "Casos", icon: TriangleAlert },
   { id: "cameras", label: "Cámaras", icon: Camera },
   { id: "history", label: "Historial", icon: History },
@@ -125,6 +127,14 @@ export function DemoShell() {
     [send],
   );
   const atCapacity = (state?.incidents.length ?? 0) >= MAX_INCIDENTS;
+  const legacySupervisor = state?.profile.role === "SUPERVISOR";
+  useEffect(() => {
+    if (legacySupervisor && state)
+      send({
+        type: "PROFILE",
+        profile: profileForRole(state.profile, "OPERATOR"),
+      });
+  }, [legacySupervisor, send, state]);
   useSimulationTicker(
     Boolean(state) && arrivals && !atCapacity && !resetOpen && !logoutOpen,
     interval,
@@ -349,6 +359,45 @@ export function DemoShell() {
                 {state.preferences.nightMode ? "Modo día" : "Modo noche"}
               </span>
             </button>
+            {/* Solo operador en la demo: nombre visible y salida. */}
+            <button
+              type="button"
+              className="demo-tool demo-user-button"
+              popoverTarget="demo-user"
+            >
+              <UserRound aria-hidden="true" />
+              <span>{state.profile.name}</span>
+            </button>
+            <div
+              id="demo-user"
+              popover="auto"
+              className="demo-a11y-panel demo-user-panel"
+            >
+              <p className="demo-a11y-title">Operador</p>
+              <p className="demo-user-name">{state.profile.name}</p>
+              <button
+                type="button"
+                className="demo-a11y-more"
+                onClick={() => {
+                  document.getElementById("demo-user")?.hidePopover();
+                  nav.navigate("settings");
+                }}
+              >
+                <Settings2 aria-hidden="true" />
+                Ajustes
+              </button>
+              <button
+                type="button"
+                className="demo-a11y-more"
+                onClick={() => {
+                  document.getElementById("demo-user")?.hidePopover();
+                  setLogoutOpen(true);
+                }}
+              >
+                <LogOut aria-hidden="true" />
+                Cerrar sesión
+              </button>
+            </div>
           </div>
         </header>
         <div className="demo-body">
@@ -400,40 +449,6 @@ export function DemoShell() {
                 ) : null}
               </button>
             ))}
-            {/* Perfil al pie de la barra: rol de práctica y salida. */}
-            <div className="demo-nav-profile">
-              <label className="demo-nav-role">
-                <UserRound aria-hidden="true" />
-                <span className="sr-only">Rol de práctica</span>
-                <select
-                  aria-label="Rol de práctica"
-                  value={state.profile.role}
-                  onChange={(event) =>
-                    send({
-                      type: "PROFILE",
-                      profile: profileForRole(
-                        state.profile,
-                        event.target.value === "SUPERVISOR"
-                          ? "SUPERVISOR"
-                          : "OPERATOR",
-                      ),
-                    })
-                  }
-                >
-                  <option value="OPERATOR">Operador</option>
-                  <option value="SUPERVISOR">Supervisión</option>
-                </select>
-                <ChevronDown size={14} aria-hidden="true" />
-              </label>
-              <button
-                type="button"
-                className="demo-nav-logout"
-                onClick={() => setLogoutOpen(true)}
-              >
-                <LogOut aria-hidden="true" />
-                <span>Salir</span>
-              </button>
-            </div>
           </nav>
           <main
             ref={mainRef}
@@ -441,7 +456,7 @@ export function DemoShell() {
             id="demo-main"
             className="demo-main"
           >
-            {!isOverview ? simulationControls : null}
+            {!isOverview && nav.view !== "analysis" ? simulationControls : null}
             <p
               className={`demo-live-message ${error ? "demo-error" : ""}`}
               role={error ? "alert" : "status"}
@@ -493,6 +508,12 @@ export function DemoShell() {
                 <summary>Controles de práctica</summary>
                 {simulationControls}
               </details>
+            ) : null}
+            {nav.view === "analysis" ? (
+              <AnalysisSimulator
+                operator={state.profile.name}
+                motionOff={state.preferences.motionOff}
+              />
             ) : null}
             {nav.view === "cases" ? (
               <CaseList

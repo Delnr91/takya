@@ -60,6 +60,15 @@ export const cameraSchema = z.object({
   available: z.boolean(),
   clipId: clipIdSchema.nullable().default(null),
 });
+/** Resumen del paquete sellado (el contenido cifrado vive solo en memoria). */
+export const evidenceRecordSchema = z.object({
+  sealedAt: z.number().finite(),
+  fingerprint: z.string().regex(/^[0-9a-f]{64}$/),
+  signature: z.enum(["Ed25519", "ECDSA P-256"]),
+  cipher: z.literal("AES-256-GCM"),
+  bytes: z.number().int().nonnegative(),
+  clips: z.number().int().positive(),
+});
 export const incidentSchema = z
   .object({
     id: z.string(),
@@ -75,6 +84,7 @@ export const incidentSchema = z
     decidedAt: z.number().finite().nullable(),
     decision: decisionSchema.nullable(),
     receivedAt: z.number().finite().nullable(),
+    evidence: evidenceRecordSchema.nullable().default(null),
   })
   .superRefine((value, ctx) => {
     const available = value.cameras
@@ -147,6 +157,15 @@ export const incidentSchema = z
         message: "La decisión requiere una revisión completa.",
       });
     }
+    if (
+      value.evidence !== null &&
+      !["VERIFIED", "ESCALATED", "DISMISSED"].includes(value.status)
+    ) {
+      ctx.addIssue({
+        code: "custom",
+        message: "La evidencia se protege después de decidir.",
+      });
+    }
     if (value.receivedAt !== null && value.status !== "ESCALATED") {
       ctx.addIssue({
         code: "custom",
@@ -176,6 +195,7 @@ export const auditActionSchema = z.enum([
   "ESCALATED",
   "DISMISSED",
   "RECEIVED",
+  "EVIDENCE_SEALED",
   "ROLE_CHANGED",
   "PROFILE_UPDATED",
 ]);
@@ -225,6 +245,7 @@ export const simulationSchema = z
 
 export type Role = z.infer<typeof roleSchema>;
 export type Profile = z.infer<typeof profileSchema>;
+export type EvidenceRecord = z.infer<typeof evidenceRecordSchema>;
 export type Severity = z.infer<typeof severitySchema>;
 export type Scenario = z.infer<typeof scenarioSchema>;
 export type Outcome = z.infer<typeof outcomeSchema>;

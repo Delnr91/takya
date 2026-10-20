@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useRef, useState, useSyncExternalStore } from "react";
-import Link from "next/link";
 import { AnimatePresence, MotionConfig, motion } from "framer-motion";
 import {
   ArrowRight,
@@ -443,16 +442,22 @@ export function StartOverview({
               aria-label="Otras acciones"
               {...enter(3)}
             >
-              <Link href="/demo?mode=analysis" className="start-shortcut">
+              <button
+                type="button"
+                className="start-shortcut"
+                onClick={() => navigate("analysis")}
+              >
                 <span className="start-shortcut-icon">
                   <UploadGlyph aria-hidden="true" />
                 </span>
                 <span>
                   <strong>Analizar una grabación</strong>
-                  <small>Sube un video y TAKYA busca lo relevante</small>
+                  <small>
+                    Señal en vivo o grabación: TAKYA busca lo relevante
+                  </small>
                 </span>
                 <ArrowRight size={18} aria-hidden="true" />
-              </Link>
+              </button>
               <button
                 type="button"
                 className="start-shortcut"

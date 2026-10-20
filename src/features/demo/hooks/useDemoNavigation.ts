@@ -5,6 +5,7 @@ import { severitySchema, type Severity } from "../schemas/simulation";
 
 const views = [
   "turn",
+  "analysis",
   "cases",
   "review",
   "cameras",
@@ -17,7 +18,9 @@ export type DemoView = (typeof views)[number];
 export function useDemoNavigation() {
   const params = useSearchParams();
   const rawView = params.get("view");
-  const view: DemoView = views.find((item) => item === rawView) ?? "turn";
+  const view: DemoView =
+    views.find((item) => item === rawView) ??
+    (params.get("mode") === "analysis" ? "analysis" : "turn");
   const parsedSeverity = severitySchema.safeParse(params.get("severity"));
   const severity: Severity | "ALL" = parsedSeverity.success
     ? parsedSeverity.data

@@ -12,7 +12,10 @@ const AnalysisWorkspace = dynamic(
 
 export function DemoExperience() {
   const params = useSearchParams();
-  return params.get("mode") === "analysis" ? (
+  // El motor real (subir archivos) solo con ?mode=analysis&motor=local; en la
+  // demo pública «Analizar» es una sección de la consola con videos cargados.
+  return params.get("mode") === "analysis" &&
+    params.get("motor") === "local" ? (
     <AnalysisWorkspace />
   ) : (
     <DemoShell />

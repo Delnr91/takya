@@ -94,8 +94,7 @@ export function SettingsPanel({
             <strong>
               {state.profile.role === "OPERATOR" ? "Operador" : "Supervisión"}
             </strong>
-            . Puedes cambiar el rol al pie de la barra lateral para recorrer
-            ambas vistas.
+            . Tu nombre aparece en el historial y en la evidencia que protejas.
           </p>
           <form onSubmit={saveName} className="demo-settings-form">
             <label className="demo-field">

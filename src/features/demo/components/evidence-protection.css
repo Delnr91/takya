@@ -1,0 +1,210 @@
+/* Paso «Proteger la evidencia». Mismo lenguaje visual de la consola. */
+.evidence-protect {
+  display: grid;
+  gap: 18px;
+}
+.evidence-head {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+}
+.evidence-head h2 {
+  margin: 2px 0 4px;
+  font-family: var(--font-sora), sans-serif;
+  font-size: 1.3em;
+  letter-spacing: -0.03em;
+}
+.evidence-head p:not(.demo-eyebrow) {
+  margin: 0;
+  color: var(--demo-muted);
+}
+.evidence-lock {
+  display: grid;
+  flex-shrink: 0;
+  place-items: center;
+  width: 72px;
+  height: 72px;
+  border-radius: 22px;
+  background: #e5ece1;
+  color: #244d37;
+  transition:
+    background 0.3s ease,
+    color 0.3s ease;
+}
+.evidence-lock.is-locked {
+  background: #1b3b2b;
+  color: #f4f1ea;
+}
+.evidence-lock svg {
+  width: 38px;
+  height: 38px;
+  overflow: visible;
+}
+.evidence-steps {
+  display: grid;
+  gap: 10px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.evidence-steps li {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  padding: 12px 14px;
+  border: 1px solid var(--demo-line);
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.55);
+  transition:
+    border-color 0.2s ease,
+    background 0.2s ease;
+}
+.evidence-steps li[data-state="current"] {
+  border-color: #6b8257;
+  background: #f0f3e8;
+}
+.evidence-steps li[data-state="done"] {
+  border-color: #b9cdb2;
+}
+.evidence-step-icon {
+  display: grid;
+  flex-shrink: 0;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: #e5ece1;
+  color: #244d37;
+  font-weight: 800;
+}
+.evidence-steps li[data-state="done"] .evidence-step-icon {
+  background: #315c3c;
+  color: #fff;
+}
+.evidence-steps li[data-state="current"] .evidence-step-icon {
+  animation: evidence-pulse 1s ease-in-out infinite;
+}
+.evidence-step-icon svg {
+  width: 18px;
+  height: 18px;
+}
+.evidence-steps strong,
+.evidence-steps small {
+  display: block;
+}
+.evidence-steps small {
+  color: var(--demo-muted);
+  font-size: 0.8em;
+}
+.evidence-main {
+  justify-self: start;
+  min-height: 56px;
+}
+.evidence-error {
+  margin: 0;
+  color: #a5352a;
+  font-weight: 600;
+}
+.evidence-facts {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 10px;
+  margin: 0;
+}
+.evidence-facts > div {
+  padding: 12px 14px;
+  border: 1px solid var(--demo-line);
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.55);
+}
+.evidence-facts dt {
+  color: var(--demo-muted);
+  font-size: 0.78em;
+  font-weight: 700;
+}
+.evidence-facts dd {
+  margin: 2px 0 0;
+  font-weight: 700;
+  overflow-wrap: anywhere;
+}
+.evidence-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.evidence-verdict {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  padding: 14px 16px;
+  border-radius: 16px;
+}
+.evidence-verdict.is-ok {
+  border: 1px solid #9cc1a4;
+  background: #e8f2e9;
+}
+.evidence-verdict.is-bad {
+  border: 1px solid #e3a597;
+  background: #fbebe6;
+}
+.evidence-verdict-icon svg {
+  width: 30px;
+  height: 30px;
+}
+.evidence-verdict.is-ok .evidence-verdict-icon {
+  color: #2f6b45;
+}
+.evidence-verdict.is-bad .evidence-verdict-icon {
+  color: #a5352a;
+}
+.evidence-verdict strong,
+.evidence-verdict small {
+  display: block;
+}
+.evidence-verdict small {
+  color: var(--demo-muted);
+  font-size: 0.82em;
+}
+.evidence-verdict ul {
+  display: grid;
+  gap: 2px;
+  margin: 8px 0 0;
+  padding: 0;
+  list-style: none;
+  font-size: 0.86em;
+  font-weight: 600;
+}
+.evidence-verdict li[data-ok="false"] {
+  color: #a5352a;
+}
+.evidence-delivery {
+  display: grid;
+  gap: 10px;
+  padding-top: 14px;
+  border-top: 1px solid var(--demo-line);
+}
+.evidence-delivery p {
+  display: flex;
+  gap: 10px;
+  margin: 0;
+}
+.evidence-delivery p > svg {
+  flex-shrink: 0;
+  width: 22px;
+  height: 22px;
+  color: #244d37;
+}
+.evidence-delivery > small {
+  color: var(--demo-muted);
+  font-size: 0.8em;
+}
+@keyframes evidence-pulse {
+  50% {
+    transform: scale(1.1);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .evidence-steps li[data-state="current"] .evidence-step-icon {
+    animation: none;
+  }
+}
