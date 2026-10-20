@@ -13,7 +13,7 @@ import { ImpactODS } from "./ImpactODS";
 import { Audience } from "./Audience";
 import { HeroHeadline } from "./HeroHeadline";
 import { HeroBenefits } from "./HeroBenefits";
-import { GrainGradient } from "./GrainGradient";
+import { GrainGradient } from "@/components/ui/GrainGradient";
 import "./landing.css";
 import { CojeevDepthBackground } from "@/components/ui/CojeevDepthBackground";
 import { type } from "./typography";
