@@ -8,6 +8,8 @@ import {
   ShieldCheck,
 } from "@/components/icons";
 import { type } from "./typography";
+import { SectionTitle } from "./SectionTitle";
+import { SectionDivider } from "./HandDrawn";
 
 const AUDIENCES = [
   {
@@ -54,21 +56,29 @@ export function Audience() {
       }}
       className="max-w-6xl mx-auto mt-20"
     >
-      <motion.h3 variants={fadeUp} className={`${type.label} text-[#7D9B8A]`}>
-        Pensado para
-      </motion.h3>
-      <ul className="mt-6 grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
+      <SectionDivider />
+      <SectionTitle
+        lead=""
+        accent="Pensado para"
+        after=" quienes cuidan la ciudad."
+        className="max-w-4xl"
+      />
+      <motion.p variants={fadeUp} className={`mt-5 max-w-2xl ${type.lead}`}>
+        Nuestra prioridad: centrales y equipos que miran muchas cámaras y
+        necesitan decidir rápido y entregar evidencia que se sostenga.
+      </motion.p>
+      <ul className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
         {AUDIENCES.map(({ icon: Icon, title, text }) => (
           <motion.li
             key={title}
             variants={fadeUp}
             data-icon-trigger=""
-            className="group flex flex-col border-t border-[#1B3B2B]/30 pt-5"
+            className="takya-audience-card group flex flex-col rounded-[24px] p-6"
           >
             <Icon
               size={26}
               aria-hidden="true"
-              className="text-[#1B3B2B] transition-colors group-hover:text-[#E05D44]"
+              className="takya-audience-icon text-[#E05D44]"
             />
             <strong className={`mt-4 ${type.h3} text-[#1B3B2B]`}>
               {title}

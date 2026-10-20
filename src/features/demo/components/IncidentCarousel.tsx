@@ -54,6 +54,25 @@ export function IncidentCarousel({
         </span>
       </div>
       <div className="incident-carousel-stage">
+        {/* Flechas a los costados de la tarjeta. */}
+        <button
+          type="button"
+          className="incident-carousel-side is-left"
+          aria-label="Caso anterior"
+          disabled={index === 0}
+          onClick={() => move(-1)}
+        >
+          <ArrowLeft aria-hidden="true" />
+        </button>
+        <button
+          type="button"
+          className="incident-carousel-side is-right"
+          aria-label="Caso siguiente"
+          disabled={index === incidents.length - 1}
+          onClick={() => move(1)}
+        >
+          <ArrowRight aria-hidden="true" />
+        </button>
         {!reduced
           ? [-1, 1].map((side) => {
               const item = incidents[index + side];
@@ -64,11 +83,13 @@ export function IncidentCarousel({
                   className="incident-carousel-preview"
                   initial={false}
                   animate={{
-                    x: `${side * 34}%`,
-                    rotateY: side * -22,
-                    scale: 0.82,
-                    opacity: 0.38,
+                    x: `${side * 38}%`,
+                    rotateY: side * -28,
+                    scale: 0.8,
+                    opacity: 0.55,
                   }}
+                  whileHover={{ opacity: 0.8, scale: 0.83 }}
+                  onClick={() => move(side)}
                   transition={{ type: "spring", stiffness: 160, damping: 24 }}
                 >
                   <IncidentPoster scenario={item.scenario} />
@@ -84,14 +105,22 @@ export function IncidentCarousel({
             aria-label={`${index + 1} de ${incidents.length}: ${scenarios[active.scenario].title}`}
             initial={{
               opacity: reduced ? 1 : 0,
-              x: reduced ? 0 : direction * 45,
+              x: reduced ? 0 : direction * 120,
+              rotateY: reduced ? 0 : direction * -18,
+              scale: reduced ? 1 : 0.92,
             }}
-            animate={{ opacity: 1, x: 0 }}
+            animate={{ opacity: 1, x: 0, rotateY: 0, scale: 1 }}
             exit={{
               opacity: reduced ? 1 : 0,
-              x: reduced ? 0 : direction * -45,
+              x: reduced ? 0 : direction * -120,
+              rotateY: reduced ? 0 : direction * 18,
+              scale: reduced ? 1 : 0.92,
             }}
-            transition={{ duration: reduced ? 0 : 0.2 }}
+            transition={
+              reduced
+                ? { duration: 0 }
+                : { type: "spring", stiffness: 260, damping: 28 }
+            }
           >
             <motion.div
               className="incident-carousel-image"
@@ -130,33 +159,13 @@ export function IncidentCarousel({
           </motion.article>
         </AnimatePresence>
       </div>
-      <div className="incident-carousel-controls">
-        <motion.button
-          whileTap={reduced ? undefined : { scale: 0.96 }}
-          type="button"
-          className="demo-button demo-button-secondary"
-          disabled={index === 0}
-          onClick={() => move(-1)}
-        >
-          <ArrowLeft aria-hidden="true" />
-          <span>Anterior</span>
-        </motion.button>
-        <span className="incident-carousel-counter">
-          {index + 1} / {incidents.length}
-        </span>
-        <motion.button
-          whileTap={reduced ? undefined : { scale: 0.96 }}
-          type="button"
-          className="demo-button demo-button-secondary"
-          disabled={index === incidents.length - 1}
-          onClick={() => move(1)}
-        >
-          <span>Siguiente</span>
-          <ArrowRight aria-hidden="true" />
-        </motion.button>
+      <div className="incident-carousel-controls" aria-hidden="true">
+        {incidents.map((item, dot) => (
+          <i key={item.id} data-active={dot === index} />
+        ))}
       </div>
       <p className="demo-hint">
-        Usa los botones o las flechas del teclado para cambiar de caso.
+        Usa las flechas de los costados, arrastra la imagen o las teclas ← →.
       </p>
     </section>
   );

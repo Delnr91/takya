@@ -2,8 +2,9 @@
 
 import { motion, type Variants } from "framer-motion";
 import { Earth, MapPin } from "@/components/icons";
-import { ContourLines } from "./HandDrawn";
+import { ContourLines, SectionDivider } from "./HandDrawn";
 import { type } from "./typography";
+import { SectionTitle } from "./SectionTitle";
 
 // Colores oficiales de los ODS; el número va en el tono que da contraste AA.
 const GOALS = [
@@ -59,18 +60,22 @@ export function ImpactODS() {
     >
       <ContourLines className="pointer-events-none absolute inset-x-0 top-24 -z-10 h-[420px] w-full text-[#7D9B8A]/35" />
 
+      <SectionDivider />
+
       <motion.div
         initial="hidden"
         whileInView="whileInView"
         viewport={{ once: true, margin: "-60px" }}
         variants={fadeUp}
-        className="max-w-6xl mx-auto border-t-2 border-[#1B3B2B] pt-16 flex flex-col md:flex-row justify-between items-end gap-8"
+        className="max-w-6xl mx-auto pt-6 flex flex-col md:flex-row justify-between items-end gap-8"
       >
         <div className="flex-1">
           <span className={type.eyebrow}>IMPACTO · AGENDA 2030</span>
-          <h2 className={type.h2}>
-            Hecho en el norte, con impacto que se mide.
-          </h2>
+          <SectionTitle
+            lead="Hecho en el norte, con impacto que"
+            accent="se mide"
+            after="."
+          />
         </div>
         <div className="flex-1 max-w-md" data-icon-trigger="">
           <p
@@ -106,7 +111,7 @@ export function ImpactODS() {
           <motion.li
             key={number}
             variants={fadeUp}
-            className="flex flex-col border-t border-[#1B3B2B]/30 pt-6"
+            className="flex flex-col pt-6"
           >
             <span
               className="grid size-16 place-items-center rounded-2xl font-display text-3xl font-extrabold"

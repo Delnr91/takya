@@ -34,7 +34,7 @@ export function PrinciplesMarquee() {
   return (
     <section
       aria-label="Principios de TAKYA"
-      className="takya-marquee relative z-10 border-y border-[#1B3B2B]/15 py-5"
+      className="takya-marquee relative z-10 py-5"
     >
       <div className="takya-marquee-rail">
         <Track />

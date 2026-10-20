@@ -456,7 +456,8 @@ export function DemoShell() {
             id="demo-main"
             className="demo-main"
           >
-            {!isOverview && nav.view !== "analysis" ? simulationControls : null}
+            {/* Los controles de práctica solo viven plegados en Inicio y en
+                Ajustes: en Casos confundían con Analizar. */}
             <p
               className={`demo-live-message ${error ? "demo-error" : ""}`}
               role={error ? "alert" : "status"}

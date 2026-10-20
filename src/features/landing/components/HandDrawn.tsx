@@ -111,3 +111,38 @@ export function ContourLines({ className }: { className?: string }) {
     </svg>
   );
 }
+
+/** Separador entre secciones: una onda corta trazada a mano, no una línea. */
+export function SectionDivider({ className = "" }: { className?: string }) {
+  return (
+    <div
+      className={`mx-auto mb-10 flex w-full max-w-6xl justify-center ${className}`}
+      aria-hidden="true"
+    >
+      <svg viewBox="0 0 140 24" fill="none" className="h-6 w-36">
+        <motion.path
+          d="M4 14c10-9 20-9 30 0s20 9 30 0 20-9 30 0 20 9 30 0 6-4 8-4"
+          stroke="#E05D44"
+          strokeWidth="3"
+          strokeLinecap="round"
+          {...draw(0, 1.1)}
+        />
+        <motion.circle
+          cx="70"
+          cy="14"
+          r="3.5"
+          fill="#7D9B8A"
+          initial={{ scale: 0, opacity: 0 }}
+          whileInView={{ scale: 1, opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{
+            delay: 0.9,
+            type: "spring",
+            stiffness: 300,
+            damping: 14,
+          }}
+        />
+      </svg>
+    </div>
+  );
+}
