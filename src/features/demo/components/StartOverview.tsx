@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState, useSyncExternalStore } from "react";
+import Link from "next/link";
 import { AnimatePresence, MotionConfig, motion } from "framer-motion";
 import {
   ArrowRight,
@@ -18,6 +19,7 @@ import {
   Play,
   RotateCcw,
   Truck,
+  Upload,
 } from "lucide-react";
 import {
   ArrowRight as AnimatedArrow,
@@ -25,6 +27,8 @@ import {
   Eye as AnimatedEye,
   Flame as AnimatedFlame,
   Truck as AnimatedTruck,
+  History as AnimatedHistory,
+  Upload as AnimatedUpload,
 } from "@/components/icons";
 import type { Incident, Scenario, Simulation } from "../schemas/simulation";
 import type { DemoView } from "../hooks/useDemoNavigation";
@@ -81,6 +85,24 @@ function CaseGlyph({
           ? Layers3
           : CircleHelp;
   return <Icon aria-hidden="true" strokeWidth={1.7} />;
+}
+
+/** ✓ que se dibuja al completar un caso; queda fijo con movimiento reducido. */
+function DrawnCheck({ still }: { still: boolean }) {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+      <motion.path
+        d="M5 12.5l4.5 4.5L19 7.5"
+        stroke="currentColor"
+        strokeWidth="2.6"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        initial={still ? false : { pathLength: 0 }}
+        animate={{ pathLength: 1 }}
+        transition={{ duration: 0.5, ease: "easeOut", delay: 0.15 }}
+      />
+    </svg>
+  );
 }
 
 /** A preview never marks evidence as reviewed or advances the decision gates. */
@@ -305,6 +327,20 @@ export function StartOverview({
       ].slice(0, 3)
     : [];
   const focusPanel = useRef<HTMLElement>(null);
+  const UploadGlyph = still ? Upload : AnimatedUpload;
+  const HistoryGlyph = still ? History : AnimatedHistory;
+  // Entrada escalonada de los bloques; sin movimiento, aparecen de inmediato.
+  const enter = (index: number) => ({
+    initial: still ? false : ({ opacity: 0, y: 14 } as const),
+    animate: { opacity: 1, y: 0 },
+    transition: still
+      ? { duration: 0 }
+      : {
+          duration: 0.45,
+          ease: "easeOut" as const,
+          delay: 0.06 + index * 0.08,
+        },
+  });
   return (
     <MotionConfig
       reducedMotion={still ? "always" : "user"}
@@ -323,11 +359,12 @@ export function StartOverview({
           </span>
         </header>
         <div className="start-workspace">
-          <section
+          <motion.section
             ref={focusPanel}
             tabIndex={-1}
             className="start-focus"
             aria-label="Evidencia para revisar"
+            {...enter(0)}
           >
             {chosen ? (
               <>
@@ -397,11 +434,12 @@ export function StartOverview({
                 </button>
               </div>
             )}
-          </section>
+          </motion.section>
           <aside className="start-side" aria-label="Bandeja y progreso">
-            <section
+            <motion.section
               className="start-inbox"
               aria-labelledby="start-inbox-title"
+              {...enter(1)}
             >
               <div className="start-side-heading">
                 <h2 id="start-inbox-title">Por revisar</h2>
@@ -475,10 +513,11 @@ export function StartOverview({
                   <ArrowRight size={18} aria-hidden="true" />
                 </button>
               ) : null}
-            </section>
-            <section
+            </motion.section>
+            <motion.section
               className="start-progress"
               aria-labelledby="start-progress-title"
+              {...enter(2)}
             >
               <div className="start-side-heading">
                 <h2 id="start-progress-title">Tu recorrido</h2>
@@ -495,7 +534,7 @@ export function StartOverview({
                   <li key={incident.id} data-complete={isResolved(incident)}>
                     <span>
                       {isResolved(incident) ? (
-                        <Done aria-hidden="true" />
+                        <DrawnCheck still={still} />
                       ) : (
                         <CaseGlyph scenario={incident.scenario} still={still} />
                       )}
@@ -509,12 +548,64 @@ export function StartOverview({
                   </li>
                 ))}
               </ol>
-              <p>
-                {metrics.practiceCompleted === 3
-                  ? "Tres revisiones completas. Buen trabajo."
-                  : "Cada revisión completa cuenta."}
-              </p>
-            </section>
+              {metrics.practiceCompleted === 3 ? (
+                <motion.p
+                  className="start-stamp"
+                  initial={
+                    still ? false : { opacity: 0, scale: 1.35, rotate: -9 }
+                  }
+                  animate={{ opacity: 1, scale: 1, rotate: -3 }}
+                  transition={
+                    still
+                      ? { duration: 0 }
+                      : {
+                          type: "spring",
+                          stiffness: 320,
+                          damping: 14,
+                          delay: 0.3,
+                        }
+                  }
+                >
+                  <Check size={18} aria-hidden="true" /> Turno completo
+                </motion.p>
+              ) : (
+                <p>Cada revisión completa cuenta.</p>
+              )}
+            </motion.section>
+            <motion.nav
+              className="start-shortcuts"
+              aria-label="Otras acciones"
+              {...enter(3)}
+            >
+              <Link href="/demo?mode=analysis" className="start-shortcut">
+                <span className="start-shortcut-icon">
+                  <UploadGlyph aria-hidden="true" />
+                </span>
+                <span>
+                  <strong>Analizar una grabación</strong>
+                  <small>Sube un video y TAKYA busca lo relevante</small>
+                </span>
+                <ArrowRight size={18} aria-hidden="true" />
+              </Link>
+              <button
+                type="button"
+                className="start-shortcut"
+                onClick={() => navigate("history")}
+              >
+                <span className="start-shortcut-icon">
+                  <HistoryGlyph aria-hidden="true" />
+                </span>
+                <span>
+                  <strong>Historial y decisiones</strong>
+                  <small>
+                    {metrics.resolved === 1
+                      ? "1 decisión guardada"
+                      : `${metrics.resolved} decisiones guardadas`}
+                  </small>
+                </span>
+                <ArrowRight size={18} aria-hidden="true" />
+              </button>
+            </motion.nav>
             <div className="start-human-note">
               <Eye size={22} aria-hidden="true" />
               <p>
