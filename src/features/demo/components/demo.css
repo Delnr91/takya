@@ -3080,3 +3080,109 @@
     grid-template-columns: 110px minmax(0, 1fr);
   }
 }
+
+/* Marco de la consola: correcciones sin cambiar la estructura.
+   1) La cabecera cabe en una fila en notebooks (801–1365 px).
+   2) En teléfonos, los botones de la cabecera no se cortan.
+   3) En teléfonos, cabecera y menú ocupan menos alto (unos 70 px menos). */
+@media (min-width: 1201px) and (max-width: 1365px) {
+  .demo-header-title,
+  .demo-header-divider {
+    display: none;
+  }
+}
+@media (min-width: 801px) and (max-width: 1365px) {
+  .demo-header {
+    gap: 10px;
+  }
+  .demo-logo {
+    width: 124px;
+  }
+  .demo-practice-label {
+    padding: 7px 9px;
+  }
+  .demo-header-tools {
+    gap: 2px;
+  }
+  .demo-tool {
+    gap: 6px;
+    padding: 8px 7px;
+  }
+  .demo-profile {
+    padding-left: 10px;
+  }
+  .demo-profile > svg:first-child {
+    display: none;
+  }
+}
+@media (max-width: 520px) {
+  .demo-shell .demo-header {
+    gap: 8px 6px;
+    padding: 12px 14px;
+  }
+  .demo-shell .demo-logo {
+    width: 92px;
+  }
+  .demo-shell .demo-practice-label {
+    gap: 5px;
+    padding: 6px 7px;
+    font-size: 0.62em;
+  }
+  /* El rol va en la primera fila, junto al logo, en todas las secciones. */
+  .demo-shell .demo-profile {
+    flex-basis: auto;
+    gap: 2px;
+    margin-left: auto;
+    padding-left: 0;
+    border-left: 0;
+  }
+  .demo-shell .demo-profile select {
+    font-size: 0.78em;
+  }
+  .demo-shell .demo-profile small {
+    display: none;
+  }
+  /* Herramientas: pictograma arriba y palabra abajo, en cuatro columnas que
+     siempre caben (sin recorte a 320 px). */
+  .demo-header-tools {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 4px;
+  }
+  .demo-header-tools > .demo-tool {
+    flex-direction: column;
+    gap: 3px;
+    min-width: 0;
+    min-height: 52px;
+    padding: 6px 2px;
+    font-size: 0.68em !important;
+    line-height: 1.15;
+    text-align: center;
+  }
+  .demo-header-tools > .demo-tool span {
+    overflow-wrap: anywhere;
+  }
+  /* Menú: misma grilla de 3 columnas y etiquetas legibles, botones más bajos. */
+  .demo-nav {
+    gap: 4px;
+    margin-bottom: 12px;
+  }
+  .demo-nav button,
+  .demo-nav button[data-view="guide"] {
+    min-height: 56px;
+    gap: 2px;
+    padding: 6px 2px;
+  }
+  .demo-nav button > svg {
+    width: 22px;
+    height: 22px;
+  }
+}
+@media (max-width: 380px) {
+  .demo-shell .demo-logo {
+    width: 84px;
+  }
+  .demo-shell .demo-practice-label svg {
+    display: none;
+  }
+}
