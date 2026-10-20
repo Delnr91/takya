@@ -4,6 +4,10 @@
 
 # TAKYA · Comprender antes de actuar
 
+> **📋 Visita de validación con PDI y policías locales:** [qué mostrar, qué preguntar y qué no decir](docs/validacion/VISITA_PDI_POLICIAS.md). Recorrido de la demo en 10 pasos (Analizar → evidencia protegida → probar una alteración), preguntas por tema, hipótesis a validar y plantilla de notas.
+>
+> **Demo publicada en [takya.cl](https://takya.cl):** login solo de operador; **Analizar** (señal en vivo simulada o archivo) con detección, decisión y **protección de evidencia real** (huella SHA-256, firma Ed25519, cifrado AES-256-GCM, verificación y prueba de alteración); K8 IA con voz; modo noche y accesibilidad en la cabecera.
+
 **Nuevo dossier de estrategia:** [documento maestro, backend sin BD, evidencia, K8, plan por roles y skills](docs/estrategia/00_INDICE_Y_ESTADO.md). Consolida el siguiente demo de carga/análisis de video y los requisitos para cerrar el pitch; sus capacidades nuevas siguen pendientes de implementación.
 
 **Demo funcional con evidencia grabada · octubre de 2026.** Seis clips ligeros permiten observar incidentes, recorrer señales, comprender contexto y registrar una decisión. Casos ofrece Lista o Carrusel con Motion. K8, el perro robot 3D, abre un chat breve centrado sin cambiar de pantalla; puedes ocultarlo desde la cabecera. El chat responde mediante Groq y guías curadas, con validación de entradas y filtro de ámbito en servidor. Home incorpora una cortina al elegir proyecto o consola. Se conserva la identidad visual V1.
