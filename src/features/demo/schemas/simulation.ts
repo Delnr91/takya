@@ -196,6 +196,7 @@ export const auditActionSchema = z.enum([
   "DISMISSED",
   "RECEIVED",
   "EVIDENCE_SEALED",
+  "ANALYSIS_CLEAR",
   "ROLE_CHANGED",
   "PROFILE_UPDATED",
 ]);

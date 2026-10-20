@@ -571,3 +571,41 @@
     transition: none;
   }
 }
+.analysis-saved {
+  display: grid;
+  gap: 10px;
+  padding-top: 14px;
+  border-top: 1px solid var(--demo-line);
+}
+.analysis-saved p {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0;
+  font-weight: 700;
+}
+.analysis-saved p svg {
+  flex-shrink: 0;
+  width: 22px;
+  height: 22px;
+  color: #2f6b45;
+}
+.analysis-saved {
+  display: grid;
+  gap: 10px;
+  padding-top: 14px;
+  border-top: 1px solid var(--demo-line);
+}
+.analysis-saved p {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0;
+  font-weight: 700;
+}
+.analysis-saved p svg {
+  flex-shrink: 0;
+  width: 22px;
+  height: 22px;
+  color: #2f6b45;
+}

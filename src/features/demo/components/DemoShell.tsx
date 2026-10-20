@@ -513,6 +513,10 @@ export function DemoShell() {
               <AnalysisSimulator
                 operator={state.profile.name}
                 motionOff={state.preferences.motionOff}
+                nextSequence={state.nextSequence}
+                send={send}
+                onOpenCase={(id) => openCase(id)}
+                onHistory={() => nav.navigate("history")}
               />
             ) : null}
             {nav.view === "cases" ? (

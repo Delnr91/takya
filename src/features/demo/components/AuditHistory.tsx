@@ -26,6 +26,7 @@ const actionLabels: Record<AuditEntry["action"], string> = {
   DISMISSED: "Caso descartado",
   RECEIVED: "Derivación recibida",
   EVIDENCE_SEALED: "Evidencia protegida",
+  ANALYSIS_CLEAR: "Señal revisada sin hallazgos",
   ROLE_CHANGED: "Rol de práctica cambiado",
   PROFILE_UPDATED: "Nombre de práctica actualizado",
 };

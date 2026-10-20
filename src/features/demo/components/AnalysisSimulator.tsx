@@ -19,6 +19,8 @@ import {
   X,
 } from "lucide-react";
 import { mediaClips } from "../data/media";
+import { reasons } from "../data/scenarios";
+import type { DemoCommand } from "../model/simulation";
 import { EvidenceProtection } from "./EvidenceProtection";
 import "./analysis-sim.css";
 
@@ -75,35 +77,20 @@ const CHECKS = [
   "Objetos o material",
 ];
 
+// Mismas decisiones y motivos que la revisión de casos.
 const OUTCOMES: Record<
   Outcome,
-  { label: string; detail: string; icon: typeof Check; reasons: string[] }
+  { label: string; detail: string; icon: typeof Check }
 > = {
   VERIFIED: {
     label: "Verificar",
     detail: "Confirmo lo que veo",
     icon: CircleCheck,
-    reasons: [
-      "Se ve la descarga de residuos",
-      "Coincide con un reporte vecinal",
-    ],
   },
-  ESCALATED: {
-    label: "Derivar",
-    detail: "Pido apoyo",
-    icon: ArrowUpRight,
-    reasons: [
-      "Requiere fiscalización municipal",
-      "Hay que identificar el vehículo",
-    ],
-  },
-  DISMISSED: {
-    label: "Descartar",
-    detail: "No corresponde",
-    icon: X,
-    reasons: ["Es un retiro autorizado", "No se ve una infracción"],
-  },
+  ESCALATED: { label: "Derivar", detail: "Pido apoyo", icon: ArrowUpRight },
+  DISMISSED: { label: "Descartar", detail: "No corresponde", icon: X },
 };
+const DESTINATIONS = ["Supervisión municipal", "Equipo en terreno"] as const;
 
 function clock() {
   return new Date().toLocaleTimeString("es-CL", { hour12: false });
@@ -112,14 +99,23 @@ function clock() {
 /**
  * «Analizar»: demostración de punta a punta con videos ya cargados. La señal
  * transmitida y el análisis se simulan (para usarla desde un iPad, sin subir
- * archivos); la protección de la evidencia es criptografía real.
+ * archivos); la protección de la evidencia es criptografía real. Lo que
+ * resulta queda en la bandeja y en el historial de la práctica.
  */
 export function AnalysisSimulator({
   operator,
   motionOff,
+  nextSequence,
+  send,
+  onOpenCase,
+  onHistory,
 }: {
   operator: string;
   motionOff: boolean;
+  nextSequence: number;
+  send: (command: DemoCommand) => void;
+  onOpenCase: (id: string) => void;
+  onHistory: () => void;
 }) {
   const reduce = Boolean(useReducedMotion()) || motionOff;
   const [phase, setPhase] = useState<Phase>("fuente");
@@ -128,13 +124,17 @@ export function AnalysisSimulator({
   const [progress, setProgress] = useState(0);
   const [outcome, setOutcome] = useState<Outcome | null>(null);
   const [reason, setReason] = useState("");
+  const [destination, setDestination] = useState<
+    (typeof DESTINATIONS)[number] | null
+  >(null);
+  const [savedId, setSavedId] = useState<string | null>(null);
+  const [sealed, setSealed] = useState(false);
   const [now, setNow] = useState(clock);
-  const [caseId] = useState(
-    () => `AN-${new Date().toISOString().slice(11, 19).replaceAll(":", "")}`,
-  );
+  const clearLogged = useRef(false);
   const video = useRef<HTMLVideoElement>(null);
   const source = SOURCES[sourceId];
   const live = mode === "senal";
+  const caseId = savedId ?? `DEMO-${String(nextSequence).padStart(3, "0")}`;
 
   // Reloj de la señal «en vivo».
   useEffect(() => {
@@ -168,11 +168,47 @@ export function AnalysisSimulator({
       void video.current?.play().catch(() => undefined);
   }, [phase]);
 
+  // Una señal sin hallazgos también queda anotada en el historial.
+  useEffect(() => {
+    if (phase !== "resultado" || source.finding || clearLogged.current) return;
+    clearLogged.current = true;
+    send({ type: "ANALYSIS_CLEAR", camera: source.camera });
+  }, [phase, source, send]);
+
+  function analyze(id: SourceId) {
+    setSourceId(id);
+    setProgress(0);
+    clearLogged.current = false;
+    setPhase("conectando");
+  }
+
   function restart() {
-    setPhase("fuente");
+    clearLogged.current = false;
+    setSavedId(null);
+    setSealed(false);
+    setDestination(null);
     setOutcome(null);
     setReason("");
     setProgress(0);
+    setPhase("fuente");
+  }
+
+  function registerDecision() {
+    if (!outcome) return;
+    const id = `DEMO-${String(nextSequence).padStart(3, "0")}`;
+    send({
+      type: "ANALYSIS_DECIDE",
+      scenario: "dumping",
+      camera: source.camera,
+      decision: {
+        outcome,
+        reason,
+        notes: "",
+        destination: outcome === "ESCALATED" ? destination : null,
+      },
+    });
+    setSavedId(id);
+    setPhase("proteger");
   }
 
   const stepIndex = {
@@ -293,11 +329,7 @@ export function AnalysisSimulator({
                     type="button"
                     key={id}
                     className="analysis-sim-source"
-                    onClick={() => {
-                      setSourceId(id);
-                      setProgress(0);
-                      setPhase("conectando");
-                    }}
+                    onClick={() => analyze(id)}
                   >
                     <span className="analysis-sim-thumb">
                       <Image
@@ -419,17 +451,13 @@ export function AnalysisSimulator({
                 <p>
                   TAKYA revisó la señal y no encontró nada que requiera tu
                   atención. No hay evidencia que conservar: no pierdes tiempo
-                  mirando lo que no importa.
+                  mirando lo que no importa. Quedó anotado en tu historial.
                 </p>
                 <div className="analysis-actions">
                   <button
                     type="button"
                     className="demo-button demo-button-primary"
-                    onClick={() => {
-                      setSourceId("basura");
-                      setProgress(0);
-                      setPhase("conectando");
-                    }}
+                    onClick={() => analyze("basura")}
                   >
                     <RadioTower aria-hidden="true" /> Probar con la Cámara 12
                   </button>
@@ -543,6 +571,7 @@ export function AnalysisSimulator({
                       onClick={() => {
                         setOutcome(key);
                         setReason("");
+                        setDestination(null);
                       }}
                     >
                       <Icon aria-hidden="true" />
@@ -555,7 +584,7 @@ export function AnalysisSimulator({
               {outcome ? (
                 <fieldset className="analysis-reasons">
                   <legend>¿Por qué?</legend>
-                  {OUTCOMES[outcome].reasons.map((item) => (
+                  {reasons[outcome].map((item) => (
                     <label key={item}>
                       <input
                         type="radio"
@@ -568,11 +597,31 @@ export function AnalysisSimulator({
                   ))}
                 </fieldset>
               ) : null}
+              {outcome === "ESCALATED" ? (
+                <fieldset className="analysis-reasons">
+                  <legend>¿A quién derivas?</legend>
+                  {DESTINATIONS.map((item) => (
+                    <label key={item}>
+                      <input
+                        type="radio"
+                        name="analysis-destination"
+                        checked={destination === item}
+                        onChange={() => setDestination(item)}
+                      />
+                      {item}
+                    </label>
+                  ))}
+                </fieldset>
+              ) : null}
               <button
                 type="button"
                 className="demo-button demo-button-primary analysis-next"
-                disabled={!outcome || !reason}
-                onClick={() => setPhase("proteger")}
+                disabled={
+                  !outcome ||
+                  !reason ||
+                  (outcome === "ESCALATED" && !destination)
+                }
+                onClick={registerDecision}
               >
                 <Check aria-hidden="true" /> Registrar decisión
               </button>
@@ -596,7 +645,49 @@ export function AnalysisSimulator({
                   decision: { outcome: OUTCOMES[outcome].label, reason },
                   clips: [{ name: source.file, src: source.src }],
                 }}
+                onProtected={(evidence) => {
+                  setSealed(true);
+                  if (!savedId) return;
+                  send({
+                    type: "SEAL_EVIDENCE",
+                    incidentId: savedId,
+                    evidence: {
+                      sealedAt: Date.now(),
+                      fingerprint: evidence.fingerprint,
+                      signature: evidence.signature,
+                      cipher: "AES-256-GCM",
+                      bytes: evidence.bytes,
+                      clips: evidence.clips,
+                    },
+                  });
+                }}
               />
+              {savedId ? (
+                <div className="analysis-saved">
+                  <p>
+                    <CircleCheck aria-hidden="true" />
+                    {sealed
+                      ? `Caso ${savedId} guardado con su evidencia protegida.`
+                      : `Caso ${savedId} guardado en tu bandeja e historial.`}
+                  </p>
+                  <div className="analysis-actions">
+                    <button
+                      type="button"
+                      className="demo-button demo-button-secondary"
+                      onClick={() => onOpenCase(savedId)}
+                    >
+                      <ArrowUpRight aria-hidden="true" /> Ver el caso
+                    </button>
+                    <button
+                      type="button"
+                      className="demo-button demo-button-secondary"
+                      onClick={onHistory}
+                    >
+                      <Clock3 aria-hidden="true" /> Ver en el historial
+                    </button>
+                  </div>
+                </div>
+              ) : null}
             </>
           ) : null}
         </motion.section>

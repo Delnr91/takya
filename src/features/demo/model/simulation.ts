@@ -30,6 +30,13 @@ export type DemoCommand =
   | { type: "DECIDE"; incidentId: string; decision: Decision }
   | { type: "RECEIVE"; incidentId: string }
   | { type: "SEAL_EVIDENCE"; incidentId: string; evidence: EvidenceRecord }
+  | { type: "ANALYSIS_CLEAR"; camera: string }
+  | {
+      type: "ANALYSIS_DECIDE";
+      scenario: Scenario;
+      camera: string;
+      decision: Decision;
+    }
   | { type: "ADD_INCIDENT"; scenario: Scenario }
   | { type: "PROFILE"; profile: Profile }
   | { type: "PREFERENCE"; preference: keyof Simulation["preferences"] };
@@ -262,6 +269,71 @@ export function transition(
         "INCIDENT_RECEIVED",
         "Tres avisos simulados agrupados en un nuevo caso.",
         true,
+      ),
+    );
+  }
+  if (event.type === "ANALYSIS_CLEAR")
+    return ok(
+      appendAudit(
+        state,
+        event,
+        null,
+        "ANALYSIS_CLEAR",
+        `${event.camera}: TAKYA revisó la señal y no encontró incidentes. Descartado, sin evidencia que conservar.`,
+      ),
+    );
+  if (event.type === "ANALYSIS_DECIDE") {
+    // Un análisis con hallazgo entra como caso ya revisado y decidido.
+    if (state.profile.role !== "OPERATOR")
+      return fail("La decisión corresponde al operador.");
+    if (state.incidents.length >= MAX_INCIDENTS)
+      return fail(
+        "La práctica llegó a 30 casos. Reiníciala para comenzar otra sesión.",
+      );
+    const decision = decisionSchema.safeParse(event.decision);
+    if (!decision.success)
+      return fail(decision.error.issues[0]?.message ?? "Revisa la decisión.");
+    if (!reasons[decision.data.outcome].includes(decision.data.reason))
+      return fail("Elige uno de los motivos disponibles.");
+    const base = createIncident(event.scenario, state.nextSequence, event.at);
+    const analyzed: Incident = {
+      ...base,
+      status: decision.data.outcome,
+      reviewStartedAt: event.at,
+      viewedCameraIds: base.cameras
+        .filter((camera) => camera.available)
+        .map((camera) => camera.id),
+      explanationRead: true,
+      decidedAt: event.at,
+      decision: decision.data,
+    };
+    const detected = appendAudit(
+      {
+        ...state,
+        incidents: [...state.incidents, analyzed],
+        nextSequence: state.nextSequence + 1,
+        selectedId: analyzed.id,
+      },
+      { id: `${event.id}-detectado`, at: event.at },
+      analyzed.id,
+      "INCIDENT_RECEIVED",
+      `Detectado al analizar ${event.camera}.`,
+      true,
+    );
+    return ok(
+      appendAudit(
+        detected,
+        event,
+        analyzed.id,
+        decision.data.outcome,
+        [
+          decision.data.reason,
+          decision.data.destination
+            ? `Destino simulado: ${decision.data.destination}.`
+            : "",
+        ]
+          .filter(Boolean)
+          .join(" · "),
       ),
     );
   }
