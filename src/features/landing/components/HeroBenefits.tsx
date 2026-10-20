@@ -65,7 +65,7 @@ export function HeroBenefits({
             <span
               className={`${type.label} block ${index === 3 ? "text-[#E05D44]" : "text-[#1B3B2B]"}`}
             >
-              <span className="text-[#7D9B8A]">0{index + 1} /</span> {label}
+              {label}
             </span>
             <span className="hidden text-sm font-semibold leading-snug text-[#1B3B2B]/90 lg:block">
               {text}

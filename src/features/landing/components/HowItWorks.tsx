@@ -94,10 +94,7 @@ export function HowItWorks() {
             data-icon-trigger=""
             className="group relative flex flex-col border-t border-[#1B3B2B]/30 pt-6"
           >
-            <span className={`${type.label} text-[#7D9B8A]`}>
-              {String(index + 1).padStart(2, "0")} /
-            </span>
-            <span className="mt-4 grid size-14 place-items-center rounded-full border-[1.5px] border-[#1B3B2B]/35 text-[#1B3B2B] transition-colors group-hover:border-[#E05D44] group-hover:text-[#E05D44]">
+            <span className="grid size-14 place-items-center rounded-full border-[1.5px] border-[#1B3B2B]/35 text-[#1B3B2B] transition-colors group-hover:border-[#E05D44] group-hover:text-[#E05D44]">
               <Icon size={26} aria-hidden="true" />
             </span>
             <h3 className={`mt-5 ${type.h3} text-[#1B3B2B]`}>{title}</h3>

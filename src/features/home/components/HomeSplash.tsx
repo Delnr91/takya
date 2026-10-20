@@ -11,7 +11,6 @@ import "./home.css";
 
 const destinations = [
   {
-    number: "01 / VISIÓN",
     title: "Conocer el Proyecto",
     hint: "Problema, solución e impacto",
     icon: Compass,
@@ -19,7 +18,6 @@ const destinations = [
     isPrimary: false,
   },
   {
-    number: "02 / DEMO",
     title: "Consola Interactiva",
     hint: "Prueba un turno de operador",
     icon: LogIn,
@@ -152,7 +150,7 @@ export function HomeSplash() {
                 navigate(destination.href);
               }}
               onPointerMove={moveSpotlight}
-              className={`takya-home-card group relative flex min-h-[88px] flex-col justify-between overflow-hidden rounded-3xl border p-5 text-ivory backdrop-blur-2xl backdrop-saturate-150 transition-all duration-500 lg:min-h-28 lg:p-6 ${
+              className={`takya-home-card group relative flex min-h-[88px] flex-col justify-center overflow-hidden rounded-3xl border p-5 text-ivory backdrop-blur-2xl backdrop-saturate-150 transition-all duration-500 lg:min-h-28 lg:p-6 ${
                 destination.isPrimary
                   ? "border-[#E05D44]/30 bg-gradient-to-br from-[#1B3B2B]/70 to-[#0C1410]/90 shadow-[inset_0_1px_2px_rgba(224,93,68,0.3),0_8px_32px_rgba(0,0,0,0.8)] hover:border-[#E05D44]/60"
                   : "border-white/10 bg-gradient-to-br from-[#7D9B8A]/10 to-[#0C1410]/60 shadow-[inset_0_1px_1px_rgba(255,255,255,0.15),0_8px_32px_rgba(0,0,0,0.6)] hover:border-[#7D9B8A]/40"
@@ -170,17 +168,6 @@ export function HomeSplash() {
                 <div className="absolute -right-10 -top-10 w-32 h-32 bg-[#E05D44]/20 blur-3xl rounded-full pointer-events-none group-hover:bg-[#E05D44]/30 transition-colors"></div>
               )}
 
-              <span
-                className={`flex items-center justify-between font-mono text-[10px] uppercase tracking-[0.2em] ${destination.isPrimary ? "text-[#E05D44]" : "text-[#7D9B8A]"}`}
-              >
-                {destination.number}
-                <motion.div initial={{ rotate: 0 }} whileHover={{ rotate: 45 }}>
-                  <ArrowUpRight
-                    className={`h-5 w-5 transition-transform duration-300 ${destination.isPrimary ? "text-[#E05D44]" : "text-ivory motion-safe:group-hover:text-[#7D9B8A]"}`}
-                    aria-hidden="true"
-                  />
-                </motion.div>
-              </span>
               <span className="relative z-10 flex items-center gap-3">
                 <span
                   className={`takya-home-card-icon ${destination.isPrimary ? "is-primary" : ""}`}
@@ -195,6 +182,10 @@ export function HomeSplash() {
                     {destination.hint}
                   </span>
                 </span>
+                <ArrowUpRight
+                  className={`ml-auto h-5 w-5 shrink-0 transition-transform duration-300 motion-safe:group-hover:-translate-y-0.5 motion-safe:group-hover:translate-x-0.5 ${destination.isPrimary ? "text-[#E05D44]" : "text-ivory/80"}`}
+                  aria-hidden="true"
+                />
               </span>
             </Link>
           </motion.div>
