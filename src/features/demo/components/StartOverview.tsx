@@ -256,14 +256,36 @@ function EvidencePreview({
                 }
                 aria-current={index === phase ? "step" : undefined}
               >
-                <span className="start-pipeline-icon">
+                <motion.span
+                  className="start-pipeline-icon"
+                  // Ola suave que recorre los cuatro pasos; el paso actual late.
+                  animate={
+                    still
+                      ? undefined
+                      : index === phase && running
+                        ? { scale: [1, 1.12, 1], y: 0 }
+                        : { y: [0, -5, 0], scale: 1 }
+                  }
+                  transition={
+                    index === phase && running
+                      ? { duration: 0.9, repeat: Infinity }
+                      : {
+                          duration: 0.7,
+                          ease: "easeInOut",
+                          repeat: Infinity,
+                          repeatDelay: 2.6,
+                          delay: index * 0.25,
+                        }
+                  }
+                  whileHover={still ? undefined : { rotate: [0, -8, 8, 0] }}
+                >
                   <Icon aria-hidden="true" strokeWidth={1.7} />
                   {index < phase ? (
                     <span className="start-step-check">
                       <Check size={10} aria-hidden="true" />
                     </span>
                   ) : null}
-                </span>
+                </motion.span>
                 <strong>{label}</strong>
                 <small>{detail}</small>
               </li>

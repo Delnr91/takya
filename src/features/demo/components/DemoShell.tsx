@@ -459,7 +459,7 @@ export function DemoShell() {
             {/* Los controles de práctica solo viven plegados en Inicio y en
                 Ajustes: en Casos confundían con Analizar. */}
             <p
-              className={`demo-live-message ${error ? "demo-error" : ""}`}
+              className={`demo-live-message ${error ? "demo-error" : ""} ${!error ? "sr-only" : ""}`}
               role={error ? "alert" : "status"}
               aria-live={error ? "assertive" : "polite"}
             >

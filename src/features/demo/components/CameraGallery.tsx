@@ -24,8 +24,7 @@ export function CameraGallery({
     <>
       <div className="demo-section-heading">
         <div>
-          <p className="demo-eyebrow">Fuentes de evidencia</p>
-          <h1>Evidencia para comprender.</h1>
+          <h1>Cámaras</h1>
           <p>
             {incident.id} · {scenarios[incident.scenario].title}
           </p>

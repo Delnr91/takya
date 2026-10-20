@@ -60,8 +60,7 @@ export function SettingsPanel({
     <>
       <div className="demo-section-heading">
         <div>
-          <p className="demo-eyebrow">Centro de control</p>
-          <h1>Ajustes de la práctica.</h1>
+          <h1>Ajustes</h1>
           <p>
             Configura tu espacio, el ritmo de casos y los datos de esta sesión.
           </p>

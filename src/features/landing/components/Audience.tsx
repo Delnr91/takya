@@ -1,61 +1,68 @@
 "use client";
 
-import { motion, type Variants } from "framer-motion";
+import { useState } from "react";
 import {
+  AnimatePresence,
+  LayoutGroup,
+  motion,
+  useReducedMotion,
+} from "framer-motion";
+import {
+  ArrowUpRight,
   FileCheck,
   Layers3,
   RadioTower,
   ShieldCheck,
 } from "@/components/icons";
-import { type } from "./typography";
 import { SectionTitle } from "./SectionTitle";
 import { SectionDivider } from "./HandDrawn";
+import { type } from "./typography";
 
 const AUDIENCES = [
   {
     icon: RadioTower,
     title: "Centrales municipales",
-    text: "Más cámaras sin más carga para quien las mira.",
+    tag: "Prioridad 1",
+    pain: "Cientos de cámaras y pocas personas mirándolas.",
+    gain: "TAKYA ordena lo que pasó y dice qué revisar primero.",
   },
   {
     icon: ShieldCheck,
     title: "Seguridad privada y condominios",
-    text: "Encontrar y entregar el video justo después de un hecho.",
+    tag: "Prioridad 1",
+    pain: "Después de un hecho, buscar el minuto exacto toma horas.",
+    gain: "Encuentra el momento y lo entrega listo para presentar.",
   },
   {
     icon: Layers3,
     title: "Comercio, industria y minería",
-    text: "Revisar largas grabaciones con foco en lo que importa.",
+    tag: "Siguiente paso",
+    pain: "Perímetros extensos y grabaciones largas.",
+    gain: "Foco en lo que importa, sin mirar horas de video.",
   },
   {
     icon: FileCheck,
     title: "Policías y fiscalía",
-    text: "Recibir evidencia ordenada, explicada y verificable.",
+    tag: "Quien recibe",
+    pain: "Videos grabados con el celular, sin huella ni registro.",
+    gain: "Evidencia ordenada, explicada y que se puede verificar.",
   },
 ];
 
-const fadeUp: Variants = {
-  hidden: { opacity: 0, y: 24 },
-  whileInView: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.6, ease: "easeOut" },
-  },
-};
-
-/** «Pensado para»: a quién sirve TAKYA, en una línea por público. */
+/**
+ * «Pensado para»: paneles que se expanden al pasar, tocar o enfocar (idea de
+ * acordeón animado de motion-primitives). El panel activo muestra el dolor y
+ * lo que cambia con TAKYA; los demás quedan como pestañas con su pictograma.
+ */
 export function Audience() {
+  const reduce = useReducedMotion();
+  const [active, setActive] = useState(0);
+  const spring = reduce
+    ? { duration: 0 }
+    : { type: "spring" as const, stiffness: 260, damping: 30 };
+
   return (
-    <motion.div
-      initial="hidden"
-      whileInView="whileInView"
-      viewport={{ once: true, margin: "-60px" }}
-      variants={{
-        hidden: {},
-        whileInView: { transition: { staggerChildren: 0.1 } },
-      }}
-      className="max-w-6xl mx-auto mt-20"
-    >
+    <div className="max-w-6xl mx-auto mt-20">
       <SectionDivider />
       <SectionTitle
         lead=""
@@ -63,30 +70,78 @@ export function Audience() {
         after=" quienes cuidan la ciudad."
         className="max-w-4xl"
       />
-      <motion.p variants={fadeUp} className={`mt-5 max-w-2xl ${type.lead}`}>
+      <p className={`mt-5 max-w-2xl ${type.lead}`}>
         Nuestra prioridad: centrales y equipos que miran muchas cámaras y
         necesitan decidir rápido y entregar evidencia que se sostenga.
-      </motion.p>
-      <ul className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-        {AUDIENCES.map(({ icon: Icon, title, text }) => (
-          <motion.li
-            key={title}
-            variants={fadeUp}
-            data-icon-trigger=""
-            className="takya-audience-card group flex flex-col rounded-[24px] p-6"
-          >
-            <Icon
-              size={26}
-              aria-hidden="true"
-              className="takya-audience-icon text-[#E05D44]"
-            />
-            <strong className={`mt-4 ${type.h3} text-[#1B3B2B]`}>
-              {title}
-            </strong>
-            <span className={`mt-2 ${type.body} text-[#1B3B2B]`}>{text}</span>
-          </motion.li>
-        ))}
-      </ul>
-    </motion.div>
+      </p>
+
+      <LayoutGroup>
+        <ul className="takya-audience">
+          {AUDIENCES.map(({ icon: Icon, title, tag, pain, gain }, index) => {
+            const open = index === active;
+            return (
+              <motion.li
+                key={title}
+                layout={!reduce}
+                transition={spring}
+                className="takya-audience-panel"
+                data-open={open}
+                onPointerEnter={(event) => {
+                  if (event.pointerType === "mouse") setActive(index);
+                }}
+              >
+                <button
+                  type="button"
+                  className="takya-audience-trigger"
+                  aria-expanded={open}
+                  aria-controls={`audiencia-${index}`}
+                  onClick={() => setActive(index)}
+                  onFocus={() => setActive(index)}
+                >
+                  <motion.span
+                    layout={!reduce}
+                    transition={spring}
+                    className="takya-audience-icon"
+                    aria-hidden="true"
+                  >
+                    <Icon size={open ? 30 : 24} />
+                  </motion.span>
+                  <motion.span
+                    layout={!reduce ? "position" : false}
+                    transition={spring}
+                    className="takya-audience-name"
+                  >
+                    {title}
+                  </motion.span>
+                </button>
+                <AnimatePresence initial={false}>
+                  {open ? (
+                    <motion.div
+                      id={`audiencia-${index}`}
+                      className="takya-audience-body"
+                      initial={reduce ? false : { opacity: 0, y: 14 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={reduce ? undefined : { opacity: 0 }}
+                      transition={
+                        reduce
+                          ? { duration: 0 }
+                          : { delay: 0.12, duration: 0.35 }
+                      }
+                    >
+                      <span className="takya-audience-tag">{tag}</span>
+                      <p className="takya-audience-pain">{pain}</p>
+                      <p className="takya-audience-gain">
+                        <ArrowUpRight size={20} aria-hidden="true" />
+                        {gain}
+                      </p>
+                    </motion.div>
+                  ) : null}
+                </AnimatePresence>
+              </motion.li>
+            );
+          })}
+        </ul>
+      </LayoutGroup>
+    </div>
   );
 }

@@ -105,8 +105,7 @@ export function PracticeGuide({
     <>
       <div className="demo-section-heading">
         <div>
-          <p className="demo-eyebrow">Aprender haciendo</p>
-          <h1>Un paso a la vez.</h1>
+          <h1>Guía</h1>
           <p>
             Puedes volver a mirar y repetir el ejercicio cuando lo necesites.
           </p>

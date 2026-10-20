@@ -10,6 +10,9 @@ import {
   CircleCheck,
   CircleHelp,
   Clock3,
+  Eye,
+  Hand,
+  Lock,
   FolderOpen,
   MapPin,
   RadioTower,
@@ -91,6 +94,13 @@ const OUTCOMES: Record<
   DISMISSED: { label: "Descartar", detail: "No corresponde", icon: X },
 };
 const DESTINATIONS = ["Supervisión municipal", "Equipo en terreno"] as const;
+const STEP_ICONS = [
+  { label: "Fuente", icon: RadioTower },
+  { label: "Análisis", icon: ScanSearch },
+  { label: "Resultado", icon: Eye },
+  { label: "Decisión", icon: Hand },
+  { label: "Evidencia", icon: Lock },
+];
 
 function clock() {
   return new Date().toLocaleTimeString("es-CL", { hour12: false });
@@ -220,7 +230,6 @@ export function AnalysisSimulator({
     decidir: 3,
     proteger: 4,
   }[phase];
-  const steps = ["Fuente", "Análisis", "Resultado", "Decisión", "Evidencia"];
   const cuesShown = source.finding
     ? basura.cues.filter((_, index) => progress >= (index + 1) * 0.35)
     : [];
@@ -228,18 +237,14 @@ export function AnalysisSimulator({
   return (
     <div className="analysis-sim">
       <header className="analysis-sim-heading">
-        <div>
-          <p className="demo-eyebrow">Analizar</p>
-          <h1>De la cámara a la evidencia protegida.</h1>
-          <p>
-            Elige una fuente. TAKYA busca lo relevante, tú decides y la
-            evidencia queda sellada.
-          </p>
-        </div>
+        <span className="analysis-sim-mark" aria-hidden="true">
+          <ScanSearch />
+        </span>
+        <h1>Analizar</h1>
         {phase !== "fuente" ? (
           <button
             type="button"
-            className="demo-button demo-button-secondary"
+            className="demo-button demo-button-secondary analysis-sim-restart"
             onClick={restart}
           >
             <RotateCcw aria-hidden="true" /> Empezar de nuevo
@@ -247,8 +252,20 @@ export function AnalysisSimulator({
         ) : null}
       </header>
 
-      <ol className="analysis-sim-steps" aria-label="Recorrido">
-        {steps.map((label, index) => (
+      {/* Camino de pictogramas: el tramo recorrido se llena. */}
+      <ol className="analysis-path" aria-label="Recorrido">
+        <motion.span
+          className="analysis-path-fill"
+          aria-hidden="true"
+          initial={false}
+          animate={{ scaleX: stepIndex / (STEP_ICONS.length - 1) }}
+          transition={
+            reduce
+              ? { duration: 0 }
+              : { type: "spring", stiffness: 120, damping: 20 }
+          }
+        />
+        {STEP_ICONS.map(({ label, icon: StepIcon }, index) => (
           <li
             key={label}
             data-state={
@@ -260,10 +277,22 @@ export function AnalysisSimulator({
             }
             aria-current={index === stepIndex ? "step" : undefined}
           >
-            <span aria-hidden="true">
-              {index < stepIndex ? <Check /> : index + 1}
-            </span>
-            {label}
+            <motion.span
+              className="analysis-path-icon"
+              aria-hidden="true"
+              animate={
+                index === stepIndex && !reduce
+                  ? { scale: [1, 1.12, 1] }
+                  : { scale: 1 }
+              }
+              transition={{
+                duration: 1.4,
+                repeat: index === stepIndex ? Infinity : 0,
+              }}
+            >
+              {index < stepIndex ? <Check /> : <StepIcon />}
+            </motion.span>
+            <span>{label}</span>
           </li>
         ))}
       </ol>
@@ -278,39 +307,42 @@ export function AnalysisSimulator({
           transition={{ duration: reduce ? 0 : 0.25 }}
         >
           {phase === "fuente" ? (
-            <>
-              <h2>¿De dónde viene el video?</h2>
-              <div className="analysis-sim-choices">
-                <button
-                  type="button"
-                  className="analysis-sim-choice"
-                  onClick={() => {
-                    setMode("senal");
-                    setPhase("camara");
-                  }}
-                >
-                  <span className="analysis-sim-choice-icon is-live">
-                    <RadioTower aria-hidden="true" />
-                  </span>
-                  <strong>Señal transmitida</strong>
-                  <small>Conecta una cámara en vivo</small>
-                </button>
-                <button
-                  type="button"
-                  className="analysis-sim-choice"
-                  onClick={() => {
-                    setMode("archivo");
-                    setPhase("camara");
-                  }}
-                >
-                  <span className="analysis-sim-choice-icon">
-                    <FolderOpen aria-hidden="true" />
-                  </span>
-                  <strong>Abrir archivo</strong>
-                  <small>Una grabación exportada del grabador</small>
-                </button>
-              </div>
-            </>
+            <div className="analysis-tiles">
+              <motion.button
+                type="button"
+                className="analysis-tile is-live"
+                whileHover={reduce ? undefined : { y: -6 }}
+                whileTap={reduce ? undefined : { scale: 0.97 }}
+                onClick={() => {
+                  setMode("senal");
+                  setPhase("camara");
+                }}
+              >
+                <span className="analysis-tile-art" aria-hidden="true">
+                  <i />
+                  <i />
+                  <RadioTower />
+                </span>
+                <strong>En vivo</strong>
+                <small>Señal de una cámara</small>
+              </motion.button>
+              <motion.button
+                type="button"
+                className="analysis-tile"
+                whileHover={reduce ? undefined : { y: -6 }}
+                whileTap={reduce ? undefined : { scale: 0.97 }}
+                onClick={() => {
+                  setMode("archivo");
+                  setPhase("camara");
+                }}
+              >
+                <span className="analysis-tile-art" aria-hidden="true">
+                  <FolderOpen />
+                </span>
+                <strong>Archivo</strong>
+                <small>Grabación del grabador</small>
+              </motion.button>
+            </div>
           ) : null}
 
           {phase === "camara" ? (
