@@ -3,12 +3,25 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useCallback, useEffect, useRef, useState } from "react";
-import { BookOpen, Camera, Settings2, TriangleAlert } from "lucide-react";
+import {
+  Accessibility,
+  BookOpen,
+  Camera,
+  ChevronLeft,
+  ChevronRight,
+  Contrast,
+  Settings2,
+  Snowflake,
+  TriangleAlert,
+  Type,
+} from "lucide-react";
 import {
   ChevronDown,
   House,
   History,
   Bot,
+  Eye,
+  EyeOff,
   LogOut,
   Moon,
   Pause,
@@ -62,6 +75,8 @@ function profileForRole(profile: Profile, role: Role): Profile {
   };
 }
 
+const MENU_KEY = "takya.demo.menuOculto";
+
 export function DemoShell() {
   const {
     simulation: state,
@@ -77,6 +92,26 @@ export function DemoShell() {
   const [resetOpen, setResetOpen] = useState(false);
   const [logoutOpen, setLogoutOpen] = useState(false);
   const [aiOpen, setAiOpen] = useState(false);
+  // Menú lateral plegable: deja la pantalla de trabajo completa. Se recuerda
+  // en este navegador.
+  const [menuHidden, setMenuHidden] = useState(() => {
+    if (typeof window === "undefined") return false;
+    try {
+      return window.localStorage.getItem(MENU_KEY) === "1";
+    } catch {
+      return false;
+    }
+  });
+  const toggleMenu = () => {
+    setMenuHidden((hidden) => {
+      try {
+        window.localStorage.setItem(MENU_KEY, hidden ? "0" : "1");
+      } catch {
+        /* La preferencia dura mientras la página esté abierta. */
+      }
+      return !hidden;
+    });
+  };
   const mainRef = useRef<HTMLElement>(null);
   const previousView = useRef(nav.view);
   const addIncident = useCallback(
@@ -198,7 +233,7 @@ export function DemoShell() {
   return (
     <div
       data-overview={isOverview}
-      className={`demo-shell ${state.preferences.largeText ? "demo-large" : ""} ${state.preferences.solid ? "demo-solid" : ""} ${state.preferences.highContrast ? "demo-high-contrast" : ""} ${state.preferences.motionOff ? "demo-motion-off" : ""} ${state.preferences.backgroundOff ? "demo-background-off" : ""} ${state.preferences.nightMode ? "demo-night" : ""}`}
+      className={`demo-shell ${state.preferences.largeText ? "demo-large" : ""} ${state.preferences.solid ? "demo-solid" : ""} ${state.preferences.highContrast ? "demo-high-contrast" : ""} ${state.preferences.motionOff ? "demo-motion-off" : ""} ${state.preferences.backgroundOff ? "demo-background-off" : ""} ${state.preferences.nightMode ? "demo-night" : ""} ${menuHidden ? "demo-menu-hidden" : ""}`}
     >
       <div className="demo-backdrop" aria-hidden="true">
         <Image src="/background2.png" alt="" fill sizes="100vw" />
@@ -237,6 +272,66 @@ export function DemoShell() {
             Modo práctica
           </span>
           <div className="demo-header-tools">
+            {/* Accesibilidad rápida: menú corto (popover nativo, cierra con Esc
+                o tocando fuera). */}
+            <button
+              type="button"
+              className="demo-tool"
+              popoverTarget="demo-a11y"
+            >
+              <Accessibility aria-hidden="true" />
+              <span>Accesibilidad</span>
+            </button>
+            <div id="demo-a11y" popover="auto" className="demo-a11y-panel">
+              <p className="demo-a11y-title">Accesibilidad</p>
+              {(
+                [
+                  ["largeText", "Texto grande", Type],
+                  ["highContrast", "Alto contraste", Contrast],
+                  ["motionOff", "Sin movimiento", Snowflake],
+                ] as const
+              ).map(([key, label, Icon]) => (
+                <button
+                  key={key}
+                  type="button"
+                  className="demo-a11y-option"
+                  aria-pressed={state.preferences[key]}
+                  onClick={() => send({ type: "PREFERENCE", preference: key })}
+                >
+                  <Icon aria-hidden="true" />
+                  <span>{label}</span>
+                  <span className="demo-switch" aria-hidden="true" />
+                </button>
+              ))}
+              <button
+                type="button"
+                className="demo-a11y-more"
+                onClick={() => {
+                  document.getElementById("demo-a11y")?.hidePopover();
+                  nav.navigate("settings");
+                }}
+              >
+                <Settings2 aria-hidden="true" />
+                Más ajustes
+              </button>
+            </div>
+            <button
+              type="button"
+              className="demo-tool"
+              aria-pressed={!state.preferences.mascotHidden}
+              onClick={() =>
+                send({ type: "PREFERENCE", preference: "mascotHidden" })
+              }
+            >
+              {state.preferences.mascotHidden ? (
+                <Eye aria-hidden="true" />
+              ) : (
+                <EyeOff aria-hidden="true" />
+              )}
+              <span>
+                {state.preferences.mascotHidden ? "Mostrar K8" : "Ocultar K8"}
+              </span>
+            </button>
             <button
               type="button"
               className="demo-tool demo-night-toggle"
@@ -257,10 +352,35 @@ export function DemoShell() {
           </div>
         </header>
         <div className="demo-body">
+          {menuHidden ? (
+            <button
+              type="button"
+              className="demo-nav-reveal"
+              aria-label="Mostrar menú"
+              title="Mostrar menú"
+              aria-expanded="false"
+              aria-controls="demo-nav"
+              onClick={toggleMenu}
+            >
+              <ChevronRight aria-hidden="true" />
+            </button>
+          ) : null}
           <nav
+            id="demo-nav"
             className="demo-nav demo-panel"
             aria-label="Secciones de la consola"
           >
+            <button
+              type="button"
+              className="demo-nav-collapse"
+              aria-label="Ocultar menú"
+              title="Ocultar menú"
+              aria-expanded="true"
+              aria-controls="demo-nav"
+              onClick={toggleMenu}
+            >
+              <ChevronLeft aria-hidden="true" />
+            </button>
             {navigation.map(({ id, label, icon: Icon }) => (
               <button
                 type="button"

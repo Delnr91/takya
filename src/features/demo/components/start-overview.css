@@ -769,19 +769,9 @@
 .start-preview {
   padding-top: 12px;
 }
-.demo-shell[data-overview="true"] .demo-k8 {
-  position: absolute;
-  width: 76px;
-  height: 90px;
-  bottom: 12px;
-  right: 20px;
-}
-.demo-shell[data-overview="true"] .demo-k8-stage {
-  width: 76px;
-  height: 86px;
-}
+/* K8 conserva su tamaño y su esquina también en Inicio (ver demo.css). */
 .demo-shell[data-overview="true"] .demo-footer {
-  padding-right: 105px;
+  padding-right: 170px;
 }
 @media (min-width: 1200px) {
   .start-case-action {
@@ -981,5 +971,39 @@
   }
   .start-milestones li[data-complete="true"]:not(:last-child)::after {
     transition: none;
+  }
+}
+
+/* Columna principal: el caso y, debajo, los accesos en una fila ancha. */
+.start-main {
+  display: grid;
+  gap: 16px;
+  min-width: 0;
+  align-content: start;
+}
+.start-main .start-shortcuts {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+.start-main .start-shortcut {
+  min-height: 84px;
+}
+@media (max-width: 900px) {
+  /* En una columna: caso, bandeja, progreso y al final los accesos. */
+  .start-main {
+    display: contents;
+  }
+  .start-main .start-focus {
+    order: 1;
+  }
+  .start-side {
+    order: 2;
+  }
+  .start-main .start-shortcuts {
+    order: 3;
+  }
+}
+@media (max-width: 560px) {
+  .start-main .start-shortcuts {
+    grid-template-columns: minmax(0, 1fr);
   }
 }

@@ -85,7 +85,7 @@ export function SettingsPanel({
           <div className="demo-settings-heading">
             <Pictogram icon={UserRound} small />
             <div>
-              <p className="demo-eyebrow">01 · Identidad de práctica</p>
+              <p className="demo-eyebrow">Identidad de práctica</p>
               <h2>Tu perfil</h2>
             </div>
           </div>
@@ -123,7 +123,7 @@ export function SettingsPanel({
           <div className="demo-settings-heading">
             <Pictogram icon={Type} small />
             <div>
-              <p className="demo-eyebrow">02 · Accesibilidad</p>
+              <p className="demo-eyebrow">Accesibilidad</p>
               <h2>Visualización</h2>
             </div>
           </div>
@@ -209,7 +209,7 @@ export function SettingsPanel({
           <div className="demo-settings-heading">
             <Pictogram icon={Activity} small />
             <div>
-              <p className="demo-eyebrow">03 · Simulación</p>
+              <p className="demo-eyebrow">Simulación</p>
               <h2>Llegada de casos</h2>
             </div>
           </div>
@@ -250,7 +250,7 @@ export function SettingsPanel({
           <div className="demo-settings-heading">
             <Pictogram icon={ShieldCheck} small />
             <div>
-              <p className="demo-eyebrow">04 · Datos de práctica</p>
+              <p className="demo-eyebrow">Datos de práctica</p>
               <h2>Guardar o terminar</h2>
             </div>
           </div>

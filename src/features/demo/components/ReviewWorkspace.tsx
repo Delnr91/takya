@@ -105,7 +105,23 @@ export function ReviewWorkspace({
             {content.place}
           </p>
         </div>
-        <StatusBadge incident={incident} />
+        <div className="demo-case-actions">
+          <StatusBadge incident={incident} />
+          <button
+            type="button"
+            className="demo-help-toggle"
+            aria-expanded={showHelp}
+            aria-controls="incident-help"
+            onClick={() => setShowHelp(!showHelp)}
+          >
+            {showHelp ? (
+              <PanelRightClose aria-hidden="true" />
+            ) : (
+              <PanelRightOpen aria-hidden="true" />
+            )}
+            {showHelp ? "Ocultar lectura" : "Lectura del caso"}
+          </button>
+        </div>
       </div>
       {profile.role === "SUPERVISOR" ? (
         <div className="demo-notice">
@@ -148,22 +164,6 @@ export function ReviewWorkspace({
           </li>
         ))}
       </ol>
-      <div className="incident-focus-tools">
-        <button
-          type="button"
-          className="demo-button demo-button-secondary"
-          aria-expanded={showHelp}
-          aria-controls="incident-help"
-          onClick={() => setShowHelp(!showHelp)}
-        >
-          {showHelp ? (
-            <PanelRightClose aria-hidden="true" />
-          ) : (
-            <PanelRightOpen aria-hidden="true" />
-          )}
-          {showHelp ? "Ocultar ayuda lateral" : "Mostrar ayuda lateral"}
-        </button>
-      </div>
       <motion.div
         layout={!reduce}
         className={`demo-review-grid ${showHelp ? "" : "incident-focus-mode"}`}

@@ -3351,3 +3351,300 @@
 .demo-night .demo-panel {
   background: rgba(255, 255, 255, 0.8);
 }
+
+/* ══ Tipografía única de rótulos (antes monoespaciada de 11 px) ══ */
+.demo-eyebrow {
+  font-family: inherit;
+  font-size: 0.74em;
+  font-weight: 750;
+  letter-spacing: 0.12em;
+  color: #526b59;
+}
+
+/* ══ Lectura del caso: botón junto al estado y panel compacto ══ */
+.demo-case-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 8px;
+}
+.demo-help-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 44px;
+  padding: 8px 14px;
+  border: 1px solid var(--demo-line);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.72);
+  color: var(--demo-ink);
+  font-size: 0.8em;
+  font-weight: 650;
+  cursor: pointer;
+}
+.demo-help-toggle svg {
+  width: 18px;
+  height: 18px;
+}
+.demo-help-toggle[aria-expanded="true"] {
+  border-color: #c9d6c3;
+  background: #e5ece1;
+}
+.demo-help-toggle:focus-visible {
+  outline: 3px solid #2f6b45;
+  outline-offset: 2px;
+}
+.incident-brief h2 {
+  font-size: 1.05em;
+}
+@media (min-width: 1201px) {
+  /* El panel acompaña al desplazarse y termina antes de la zona de K8. */
+  #incident-help {
+    position: sticky;
+    top: 16px;
+    max-height: calc(100dvh - 210px);
+    overflow-y: auto;
+    scrollbar-width: thin;
+  }
+}
+
+/* ══ Menú lateral plegable y barra compacta ══ */
+.demo-menu-toggle {
+  flex-shrink: 0;
+}
+.demo-menu-hidden .demo-nav {
+  display: none;
+}
+.demo-menu-hidden .demo-body {
+  grid-template-columns: minmax(0, 1fr);
+}
+@media (min-width: 801px) {
+  /* La barra cabe entera en un notebook y acompaña al desplazarse. */
+  .demo-nav {
+    min-height: 0;
+    max-height: calc(100dvh - 40px);
+    overflow-y: auto;
+    scrollbar-width: none;
+  }
+  .demo-nav button {
+    padding: 12px 4px;
+  }
+  .demo-shell[data-overview="true"] .demo-nav button {
+    padding: 10px 4px;
+  }
+}
+/* Botón cuadrado con flecha: oculta la barra; otra flecha la trae de vuelta. */
+.demo-nav .demo-nav-collapse,
+.demo-nav-reveal {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  min-height: 44px;
+  padding: 0;
+  border: 1px solid var(--demo-line);
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.7);
+  color: var(--demo-ink);
+  cursor: pointer;
+}
+.demo-nav .demo-nav-collapse {
+  align-self: center;
+  margin-bottom: 4px;
+}
+.demo-nav .demo-nav-collapse:hover,
+.demo-nav-reveal:hover {
+  background: #e6eddf;
+}
+.demo-nav .demo-nav-collapse > svg,
+.demo-nav-reveal > svg {
+  width: 22px;
+  height: 22px;
+}
+.demo-nav-reveal {
+  position: sticky;
+  top: 16px;
+  z-index: 25;
+  align-self: start;
+  margin-bottom: 12px;
+  box-shadow: 0 8px 22px #102c2124;
+}
+.demo-nav .demo-nav-collapse:focus-visible,
+.demo-nav-reveal:focus-visible {
+  outline: 3px solid #2f6b45;
+  outline-offset: 2px;
+}
+.demo-menu-hidden .demo-body {
+  display: block;
+}
+@media (max-width: 800px) {
+  /* Menú arriba en teléfonos: la flecha ocupa una celda propia y discreta. */
+  .demo-nav .demo-nav-collapse {
+    display: none;
+  }
+}
+
+/* Perfil al pie: avatar, rol con flecha y salida, en una tarjeta compacta. */
+.demo-nav-profile {
+  gap: 2px;
+  padding-top: 8px;
+}
+.demo-nav-role {
+  grid-template-columns: 1fr;
+  gap: 2px;
+  padding: 6px 2px 4px;
+}
+.demo-nav-role > svg:first-child {
+  width: 34px;
+  height: 34px;
+  padding: 8px;
+  justify-self: center;
+}
+.demo-nav-role select {
+  padding: 0 12px 0 0;
+  background-image: none;
+  font-size: 0.68em;
+}
+.demo-nav-role > svg:last-child {
+  right: 8px;
+  bottom: 10px;
+  width: 12px;
+  height: 12px;
+}
+.demo-nav .demo-nav-logout {
+  min-height: 46px;
+  gap: 2px;
+  padding: 6px 4px;
+}
+.demo-nav .demo-nav-logout > svg {
+  width: 20px;
+  height: 20px;
+}
+/* La flecha queda fija arriba de la barra; nada se comprime al faltar alto. */
+.demo-nav > * {
+  flex-shrink: 0;
+}
+.demo-nav .demo-nav-collapse {
+  position: sticky;
+  top: 0;
+  z-index: 3;
+  background: #f6f7f2;
+  box-shadow: 0 6px 12px -6px #102c2126;
+}
+@media (min-width: 801px) {
+  /* La barra nunca supera el alto útil: la flecha queda siempre a la vista
+     y el resto se desplaza dentro de la barra si hace falta. */
+  .demo-nav {
+    max-height: calc(100dvh - 130px);
+  }
+  .demo-nav button {
+    padding: 9px 4px;
+  }
+}
+/* Espacio al final para que K8 (fijo en su esquina) nunca tape contenido. */
+.demo-main {
+  padding-bottom: 150px;
+}
+@media (max-width: 700px) {
+  .demo-main {
+    padding-bottom: 110px;
+  }
+}
+
+/* ══ Accesibilidad rápida en la cabecera ══ */
+.demo-a11y-panel {
+  position: fixed;
+  inset: 92px 24px auto auto;
+  width: min(300px, calc(100vw - 24px));
+  margin: 0;
+  padding: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.9);
+  border-radius: 20px;
+  background: rgba(250, 251, 247, 0.96);
+  color: var(--demo-ink);
+  font-size: calc(18px * var(--demo-scale));
+  box-shadow: 0 24px 60px #102c2133;
+  backdrop-filter: blur(20px);
+}
+.demo-a11y-title {
+  margin: 2px 4px 10px;
+  color: #526b59;
+  font-size: 0.74em;
+  font-weight: 750;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+.demo-a11y-option,
+.demo-a11y-more {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  min-height: 52px;
+  padding: 8px 10px;
+  border: 0;
+  border-radius: 12px;
+  background: transparent;
+  color: var(--demo-ink);
+  font-size: 0.88em;
+  font-weight: 650;
+  text-align: left;
+  cursor: pointer;
+}
+.demo-a11y-option:hover,
+.demo-a11y-more:hover {
+  background: #e9efe4;
+}
+.demo-a11y-option > svg,
+.demo-a11y-more > svg {
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+}
+.demo-a11y-option > span:nth-of-type(1) {
+  flex: 1;
+}
+.demo-a11y-more {
+  margin-top: 6px;
+  border-top: 1px solid var(--demo-line);
+  border-radius: 0 0 12px 12px;
+  color: var(--demo-muted);
+}
+.demo-a11y-option:focus-visible,
+.demo-a11y-more:focus-visible {
+  outline: 3px solid #2f6b45;
+  outline-offset: 1px;
+}
+.demo-night .demo-a11y-panel {
+  filter: invert(1) hue-rotate(180deg);
+}
+@media (max-width: 520px) {
+  .demo-a11y-panel {
+    inset: 132px 12px auto 12px;
+    width: auto;
+  }
+  /* Tres herramientas en columnas: pictograma arriba y palabra abajo. */
+  .demo-header-tools {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    flex-basis: 100%;
+    gap: 4px;
+  }
+  .demo-header-tools > .demo-tool,
+  .demo-header-tools > .demo-tool.demo-night-toggle {
+    flex-direction: column;
+    gap: 3px;
+    min-width: 0;
+    min-height: 52px;
+    padding: 6px 2px;
+    font-size: 0.68em !important;
+    line-height: 1.15;
+  }
+}
+.demo-a11y-option[aria-pressed="true"] .demo-switch {
+  background: #315b3a;
+}
+.demo-a11y-option[aria-pressed="true"] .demo-switch::before {
+  transform: translateX(16px);
+}
