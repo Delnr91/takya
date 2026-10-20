@@ -2,25 +2,45 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowUpRight } from "@/components/icons";
+import type { PointerEvent } from "react";
+import { ArrowUpRight, Compass, LogIn } from "@/components/icons";
 import { HomeVideoBackground } from "./HomeVideoBackground";
 import { motion } from "framer-motion";
 import { useCurtainNavigation } from "@/components/ui/CurtainNavigation";
+import "./home.css";
 
 const destinations = [
   {
     number: "01 / VISIÓN",
     title: "Conocer el Proyecto",
+    hint: "Problema, solución e impacto",
+    icon: Compass,
     href: "/landing",
     isPrimary: false,
   },
   {
     number: "02 / DEMO",
     title: "Consola Interactiva",
+    hint: "Prueba un turno de operador",
+    icon: LogIn,
     href: "/login",
     isPrimary: true,
   },
 ] as const;
+
+// Foco que sigue al puntero dentro de la tarjeta (idea de «Spotlight»).
+function moveSpotlight(event: PointerEvent<HTMLAnchorElement>) {
+  if (event.pointerType === "touch") return;
+  const box = event.currentTarget.getBoundingClientRect();
+  event.currentTarget.style.setProperty(
+    "--spot-x",
+    `${event.clientX - box.left}px`,
+  );
+  event.currentTarget.style.setProperty(
+    "--spot-y",
+    `${event.clientY - box.top}px`,
+  );
+}
 
 export function HomeSplash() {
   const navigate = useCurtainNavigation();
@@ -131,12 +151,20 @@ export function HomeSplash() {
                 event.preventDefault();
                 navigate(destination.href);
               }}
-              className={`group relative flex min-h-[88px] flex-col justify-between overflow-hidden rounded-3xl border p-5 text-ivory backdrop-blur-2xl backdrop-saturate-150 transition-all duration-500 lg:min-h-28 lg:p-6 ${
+              onPointerMove={moveSpotlight}
+              className={`takya-home-card group relative flex min-h-[88px] flex-col justify-between overflow-hidden rounded-3xl border p-5 text-ivory backdrop-blur-2xl backdrop-saturate-150 transition-all duration-500 lg:min-h-28 lg:p-6 ${
                 destination.isPrimary
                   ? "border-[#E05D44]/30 bg-gradient-to-br from-[#1B3B2B]/70 to-[#0C1410]/90 shadow-[inset_0_1px_2px_rgba(224,93,68,0.3),0_8px_32px_rgba(0,0,0,0.8)] hover:border-[#E05D44]/60"
                   : "border-white/10 bg-gradient-to-br from-[#7D9B8A]/10 to-[#0C1410]/60 shadow-[inset_0_1px_1px_rgba(255,255,255,0.15),0_8px_32px_rgba(0,0,0,0.6)] hover:border-[#7D9B8A]/40"
               }`}
             >
+              <span className="takya-home-spot" aria-hidden="true" />
+              {/* Luz que recorre el borde de la tarjeta principal */}
+              {destination.isPrimary ? (
+                <svg className="takya-home-trail" aria-hidden="true">
+                  <rect width="100%" height="100%" rx="24" pathLength="100" />
+                </svg>
+              ) : null}
               {/* Brillo sutil de fondo en el botón primario */}
               {destination.isPrimary && (
                 <div className="absolute -right-10 -top-10 w-32 h-32 bg-[#E05D44]/20 blur-3xl rounded-full pointer-events-none group-hover:bg-[#E05D44]/30 transition-colors"></div>
@@ -153,8 +181,20 @@ export function HomeSplash() {
                   />
                 </motion.div>
               </span>
-              <span className="takya-home-card-title relative z-10 font-display text-xl font-semibold tracking-tight text-[#F4F1EA] group-hover:text-white lg:text-2xl">
-                {destination.title}
+              <span className="relative z-10 flex items-center gap-3">
+                <span
+                  className={`takya-home-card-icon ${destination.isPrimary ? "is-primary" : ""}`}
+                >
+                  <destination.icon size={22} aria-hidden="true" />
+                </span>
+                <span className="min-w-0">
+                  <span className="takya-home-card-title block font-display text-xl font-semibold tracking-tight text-[#F4F1EA] group-hover:text-white lg:text-2xl">
+                    {destination.title}
+                  </span>
+                  <span className="block text-sm font-medium text-[#F4F1EA]/75">
+                    {destination.hint}
+                  </span>
+                </span>
               </span>
             </Link>
           </motion.div>
