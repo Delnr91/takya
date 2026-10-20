@@ -127,6 +127,7 @@ export function createSimulation(
       motionOff: false,
       backgroundOff: false,
       mascotHidden: false,
+      nightMode: false,
     },
     audit: incidents.map((incident) => ({
       id: `${sessionId}-${incident.id}`,

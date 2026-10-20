@@ -51,3 +51,5 @@ export { LockIcon as Lock } from "./lock";
 export { CpuIcon as Cpu } from "./cpu";
 export { EarthIcon as Earth } from "./earth";
 export { FileCheckIcon as FileCheck } from "./file-check";
+export { MoonIcon as Moon } from "./moon";
+export { SunIcon as Sun } from "./sun";

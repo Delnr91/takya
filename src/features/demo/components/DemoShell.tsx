@@ -9,14 +9,14 @@ import {
   House,
   History,
   Bot,
-  Eye,
-  EyeOff,
   LogOut,
+  Moon,
   Pause,
   Play,
   Plus,
   RotateCcw,
   ShieldCheck,
+  Sun,
   UserRound,
 } from "@/components/icons";
 import { useDemoSession } from "../hooks/useDemoSession";
@@ -198,7 +198,7 @@ export function DemoShell() {
   return (
     <div
       data-overview={isOverview}
-      className={`demo-shell ${state.preferences.largeText ? "demo-large" : ""} ${state.preferences.solid ? "demo-solid" : ""} ${state.preferences.highContrast ? "demo-high-contrast" : ""} ${state.preferences.motionOff ? "demo-motion-off" : ""} ${state.preferences.backgroundOff ? "demo-background-off" : ""}`}
+      className={`demo-shell ${state.preferences.largeText ? "demo-large" : ""} ${state.preferences.solid ? "demo-solid" : ""} ${state.preferences.highContrast ? "demo-high-contrast" : ""} ${state.preferences.motionOff ? "demo-motion-off" : ""} ${state.preferences.backgroundOff ? "demo-background-off" : ""} ${state.preferences.nightMode ? "demo-night" : ""}`}
     >
       <div className="demo-backdrop" aria-hidden="true">
         <Image src="/background2.png" alt="" fill sizes="100vw" />
@@ -237,73 +237,24 @@ export function DemoShell() {
             Modo práctica
           </span>
           <div className="demo-header-tools">
-            <Link className="demo-tool" href="/demo?mode=analysis">
-              <Eye aria-hidden="true" />
-              <span>Analizar archivo</span>
-            </Link>
             <button
               type="button"
-              className="demo-tool demo-mascot-toggle"
-              aria-label={
-                state.preferences.mascotHidden ? "Mostrar K8" : "Ocultar K8"
-              }
-              aria-pressed={!state.preferences.mascotHidden}
+              className="demo-tool demo-night-toggle"
+              aria-pressed={state.preferences.nightMode}
               onClick={() =>
-                send({ type: "PREFERENCE", preference: "mascotHidden" })
+                send({ type: "PREFERENCE", preference: "nightMode" })
               }
             >
-              {state.preferences.mascotHidden ? (
-                <Eye aria-hidden="true" />
+              {state.preferences.nightMode ? (
+                <Sun aria-hidden="true" />
               ) : (
-                <EyeOff aria-hidden="true" />
+                <Moon aria-hidden="true" />
               )}
               <span>
-                {state.preferences.mascotHidden ? "Mostrar K8" : "Ocultar K8"}
+                {state.preferences.nightMode ? "Modo día" : "Modo noche"}
               </span>
             </button>
-            <button
-              type="button"
-              className="demo-tool"
-              aria-current={nav.view === "settings" ? "page" : undefined}
-              onClick={() => nav.navigate("settings")}
-            >
-              <Settings2 aria-hidden="true" />
-              <span>Ajustes</span>
-            </button>
-            <button
-              type="button"
-              className="demo-tool"
-              onClick={() => setLogoutOpen(true)}
-            >
-              <LogOut aria-hidden="true" />
-              <span>Cerrar sesión</span>
-            </button>
           </div>
-          <label className="demo-profile">
-            <UserRound aria-hidden="true" />
-            <span>
-              <small>Rol de práctica</small>
-              <select
-                aria-label="Rol de práctica"
-                value={state.profile.role}
-                onChange={(event) =>
-                  send({
-                    type: "PROFILE",
-                    profile: profileForRole(
-                      state.profile,
-                      event.target.value === "SUPERVISOR"
-                        ? "SUPERVISOR"
-                        : "OPERATOR",
-                    ),
-                  })
-                }
-              >
-                <option value="OPERATOR">Operador</option>
-                <option value="SUPERVISOR">Supervisión</option>
-              </select>
-            </span>
-            <ChevronDown size={14} aria-hidden="true" />
-          </label>
         </header>
         <div className="demo-body">
           <nav
@@ -329,9 +280,40 @@ export function DemoShell() {
                 ) : null}
               </button>
             ))}
-            <span className="demo-nav-mark" aria-hidden="true">
-              T/
-            </span>
+            {/* Perfil al pie de la barra: rol de práctica y salida. */}
+            <div className="demo-nav-profile">
+              <label className="demo-nav-role">
+                <UserRound aria-hidden="true" />
+                <span className="sr-only">Rol de práctica</span>
+                <select
+                  aria-label="Rol de práctica"
+                  value={state.profile.role}
+                  onChange={(event) =>
+                    send({
+                      type: "PROFILE",
+                      profile: profileForRole(
+                        state.profile,
+                        event.target.value === "SUPERVISOR"
+                          ? "SUPERVISOR"
+                          : "OPERATOR",
+                      ),
+                    })
+                  }
+                >
+                  <option value="OPERATOR">Operador</option>
+                  <option value="SUPERVISOR">Supervisión</option>
+                </select>
+                <ChevronDown size={14} aria-hidden="true" />
+              </label>
+              <button
+                type="button"
+                className="demo-nav-logout"
+                onClick={() => setLogoutOpen(true)}
+              >
+                <LogOut aria-hidden="true" />
+                <span>Salir</span>
+              </button>
+            </div>
           </nav>
           <main
             ref={mainRef}

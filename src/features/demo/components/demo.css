@@ -2280,7 +2280,6 @@
   background: rgba(255, 255, 255, 0.73);
   border-color: rgba(255, 255, 255, 0.92);
   backdrop-filter: blur(22px) saturate(1.18);
-  -webkit-backdrop-filter: blur(22px) saturate(1.18);
   box-shadow:
     0 15px 46px #102c2117,
     inset 0 1px 0 #ffffffde;
@@ -2336,7 +2335,6 @@
     0 18px 42px #123b293c,
     inset 0 1px 1px #fff;
   backdrop-filter: blur(18px);
-  -webkit-backdrop-filter: blur(18px);
   transition:
     transform 0.25s ease,
     box-shadow 0.25s ease,
@@ -2699,7 +2697,6 @@
   background: transparent;
   box-shadow: none;
   backdrop-filter: none;
-  -webkit-backdrop-filter: none;
   touch-action: none;
 }
 .demo-k8:hover,
@@ -3185,4 +3182,172 @@
   .demo-shell .demo-practice-label svg {
     display: none;
   }
+}
+
+/* ══ Marco ordenado: cabecera precisa, perfil al pie de la barra ══ */
+.demo-header {
+  min-height: 76px;
+}
+.demo-header-tools {
+  margin-left: auto;
+}
+.demo-night-toggle {
+  min-width: 132px;
+}
+/* Perfil (rol de práctica y salida) al pie de la barra lateral. */
+.demo-nav-profile {
+  display: grid;
+  gap: 6px;
+  margin-top: auto;
+  padding-top: 10px;
+  border-top: 1px solid var(--demo-line);
+}
+.demo-nav-role {
+  position: relative;
+  display: grid;
+  justify-items: center;
+  gap: 4px;
+  padding: 8px 2px 6px;
+  border-radius: 14px;
+  cursor: pointer;
+}
+.demo-nav-role:hover {
+  background: #e6eddf;
+}
+.demo-nav-role > svg:first-child {
+  width: 40px;
+  height: 40px;
+  padding: 9px;
+  border-radius: 50%;
+  background: #e5ece1;
+  color: #244d37;
+}
+.demo-nav-role select {
+  width: 100%;
+  min-height: 28px;
+  border: 0;
+  background: transparent;
+  color: var(--demo-ink);
+  font-size: 0.72em;
+  font-weight: 700;
+  text-align: center;
+  text-align-last: center;
+  appearance: none;
+  cursor: pointer;
+}
+.demo-nav-role > svg:last-child {
+  position: absolute;
+  right: 6px;
+  bottom: 13px;
+  color: var(--demo-muted);
+}
+.demo-nav-role:focus-within {
+  outline: 3px solid #2f6b45;
+  outline-offset: 1px;
+}
+.demo-nav .demo-nav-logout {
+  min-height: 52px;
+  padding: 8px 4px;
+  color: var(--demo-muted);
+  font-size: 0.78em;
+}
+@media (max-width: 800px) {
+  /* En pantallas angostas, rol y salida viven en Ajustes. */
+  .demo-nav-profile {
+    display: none;
+  }
+  .demo-header-tools {
+    order: 0;
+    flex-basis: auto;
+    margin-left: 0;
+    border-top: 0;
+    padding-top: 0;
+  }
+  .demo-header-tools > button {
+    flex: none;
+  }
+}
+@media (max-width: 520px) {
+  .demo-header-tools {
+    display: flex;
+  }
+  .demo-header-tools > .demo-tool.demo-night-toggle {
+    flex-direction: row;
+    min-width: 0;
+    min-height: 44px;
+    padding: 6px 10px;
+    font-size: 0.72em !important;
+  }
+  /* Menú en 4 columnas: aparece Ajustes (rol y salida) sin perder legibilidad. */
+  .demo-nav {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+  .demo-nav button[data-view="settings"] {
+    display: flex;
+  }
+  .demo-nav button,
+  .demo-nav button[data-view="guide"] {
+    font-size: 0.78em;
+  }
+}
+
+/* ══ Glassmorfismo (día) ══ */
+.demo-shell:not(.demo-solid):not(.demo-night) .demo-panel {
+  background: rgba(255, 255, 255, 0.58);
+  border-color: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(26px) saturate(1.45);
+  box-shadow:
+    0 18px 50px #102c211a,
+    0 1px 2px #102c210f,
+    inset 0 1px 0 #ffffffe6;
+}
+.demo-shell:not(.demo-solid):not(.demo-night) .start-overview {
+  --start-paper: rgba(252, 251, 247, 0.64);
+  --start-border: rgba(255, 255, 255, 0.85);
+}
+.demo-shell:not(.demo-solid):not(.demo-night)
+  :is(.start-focus, .start-inbox, .start-progress, .start-shortcut) {
+  backdrop-filter: blur(20px) saturate(1.35);
+  box-shadow:
+    0 14px 40px #102c2114,
+    inset 0 1px 0 #ffffffd9;
+}
+
+/* ══ Modo noche: menos brillo para turnos largos ══
+   La interfaz se oscurece invirtiendo su luz y conservando el tono; videos,
+   fotos y lienzos se restauran para que la evidencia se vea tal cual. */
+.demo-shell.demo-night {
+  background: #0b1310;
+  color-scheme: dark;
+}
+.demo-night .demo-backdrop img {
+  opacity: 0.16;
+  filter: saturate(0.5);
+}
+.demo-night .demo-backdrop-wash {
+  background: linear-gradient(135deg, #0b1310f2, #0e1915f5 58%, #0b1310f0);
+}
+.demo-night .demo-backdrop .cojeev-depth-field {
+  opacity: 0.25;
+}
+.demo-night .demo-app {
+  filter: invert(1) hue-rotate(180deg);
+}
+.demo-night .demo-app :is(video, canvas, img:not(.demo-logo), .start-monitor),
+.demo-night .demo-dialog:not(.k8-quick-dialog) {
+  filter: invert(1) hue-rotate(180deg);
+}
+.demo-night .demo-app .start-monitor :is(video, img, canvas) {
+  filter: none;
+}
+/* Paneles: sin sombras (invertidas serían brillos) y un vidrio más denso. */
+.demo-night .demo-panel,
+.demo-night .start-focus,
+.demo-night .start-inbox,
+.demo-night .start-progress,
+.demo-night .start-shortcut {
+  box-shadow: none;
+}
+.demo-night .demo-panel {
+  background: rgba(255, 255, 255, 0.8);
 }

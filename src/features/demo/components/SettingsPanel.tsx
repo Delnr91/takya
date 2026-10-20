@@ -94,7 +94,8 @@ export function SettingsPanel({
             <strong>
               {state.profile.role === "OPERATOR" ? "Operador" : "Supervisión"}
             </strong>
-            . Puedes cambiar el rol en la cabecera para recorrer ambas vistas.
+            . Puedes cambiar el rol al pie de la barra lateral para recorrer
+            ambas vistas.
           </p>
           <form onSubmit={saveName} className="demo-settings-form">
             <label className="demo-field">
@@ -158,6 +159,11 @@ export function SettingsPanel({
             {(
               [
                 [
+                  "nightMode",
+                  "Modo noche",
+                  "Colores oscuros y suaves para los turnos de noche.",
+                ],
+                [
                   "highContrast",
                   "Alto contraste",
                   "Refuerza los bordes y los textos.",
@@ -171,6 +177,11 @@ export function SettingsPanel({
                   "backgroundOff",
                   "Fondo simple",
                   "Quita los elementos decorativos del fondo.",
+                ],
+                [
+                  "mascotHidden",
+                  "Ocultar a K8",
+                  "Quita la mascota flotante. Puedes llamarla desde K8 IA.",
                 ],
               ] as const
             ).map(([key, title, description]) => (

@@ -204,6 +204,7 @@ export const simulationSchema = z
       motionOff: z.boolean().default(false),
       backgroundOff: z.boolean().default(false),
       mascotHidden: z.boolean().default(false),
+      nightMode: z.boolean().default(false),
     }),
   })
   .superRefine((value, ctx) => {
