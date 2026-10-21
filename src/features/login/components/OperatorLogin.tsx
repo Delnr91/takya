@@ -63,16 +63,25 @@ export function OperatorLogin() {
       return;
     }
     setPhase("locking");
-    // En pantallas bajas la tarjeta parte arriba: el candado baja al centro.
+    // El candado siempre se cierra al centro de la pantalla, venga la tarjeta
+    // de la columna derecha (escritorio) o de abajo de la bienvenida (teléfono).
     const rect = card.getBoundingClientRect();
-    const fromTop = getComputedStyle(main).alignItems === "start";
-    const y = fromTop ? window.innerHeight / 2 - LOCK_SIZE / 2 - rect.top : 0;
 
     await animate(
-      ".takya-login-content, .takya-login-watermark",
+      ".takya-login-content, .takya-login-watermark, .takya-login-welcome, .takya-login-sweep",
       { opacity: 0, scale: 0.96 },
       { duration: 0.16, ease: "easeIn" },
     );
+    // La tarjeta sale del flujo en su mismo lugar y desde ahí viaja al centro.
+    Object.assign(card.style, {
+      position: "fixed",
+      top: `${rect.top}px`,
+      left: `${rect.left}px`,
+      width: `${rect.width}px`,
+      height: `${rect.height}px`,
+      margin: "0",
+      zIndex: "5",
+    });
     // El candado aparece y se cierra mientras la tarjeta termina de asentarse:
     // no se espera el reposo del resorte.
     void animate(
@@ -82,7 +91,8 @@ export function OperatorLogin() {
         height: LOCK_SIZE,
         borderRadius: 34,
         backgroundColor: "#1b3b2b",
-        y,
+        top: window.innerHeight / 2 - LOCK_SIZE / 2,
+        left: window.innerWidth / 2 - LOCK_SIZE / 2,
       },
       { type: "spring", stiffness: 260, damping: 28 },
     );
@@ -125,186 +135,251 @@ export function OperatorLogin() {
         <Image src="/background2.png" alt="" fill sizes="100vw" />
       </div>
 
-      <section className="takya-login-card" aria-labelledby="takya-login-title">
-        <div className="takya-login-watermark" aria-hidden="true">
-          <Image
-            src="/brand/01_maestros_svg/takya-a-simbolo-bosque.svg"
-            alt=""
-            width={194}
-            height={210}
-          />
-        </div>
+      <div className="takya-login-layout">
+        <WelcomePanel />
 
-        <div
-          className="takya-login-content"
-          inert={
-            phase === "locking" || phase === "locked" || phase === "instant"
-          }
+        <section
+          className="takya-login-card"
+          aria-labelledby="takya-login-title"
         >
-          <div className="takya-login-intro">
-            <div className="takya-login-top">
-              <Image
-                src="/brand/principal-bosque.svg"
-                alt="TAKYA"
-                width={148}
-                height={36}
-                className="takya-login-logo"
-                loading="eager"
-              />
-              <Link href="/home" className="takya-login-back">
-                <ArrowLeft size={20} aria-hidden="true" />
-                Volver al inicio
-              </Link>
-            </div>
-
-            <p className="takya-login-eyebrow">
-              Acceso privado <span>Demo</span>
-            </p>
-            <h1 id="takya-login-title">Tu turno, con más claridad.</h1>
-            <p className="takya-login-lead">
-              Revisa casos, compara fuentes y decide con un motivo.
-            </p>
-
-            <div className="takya-login-role">
-              <span className="takya-login-pictogram" aria-hidden="true">
-                <Eye size={24} className="takya-login-blink" />
-              </span>
-              <span>
-                <strong>Entras como Operador</strong>
-                <small>Observa, comprende y decide.</small>
-              </span>
-            </div>
+          <span className="takya-login-sweep" aria-hidden="true" />
+          <div className="takya-login-watermark" aria-hidden="true">
+            <Image
+              src="/brand/01_maestros_svg/takya-a-simbolo-bosque.svg"
+              alt=""
+              width={194}
+              height={210}
+            />
           </div>
 
-          <div className="takya-login-action">
-            <form
-              noValidate
-              onSubmit={async (event) => {
-                event.preventDefault();
-                if (phase !== "idle") return;
-                if (!password) {
-                  setError("Escribe la contraseña para entrar.");
-                  return;
-                }
-                setPhase("checking");
-                setError("");
-                try {
-                  const response = await fetch("/api/access", {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({ username: ACCESS_USER, password }),
-                  });
-                  if (!response.ok) {
-                    const body = (await response.json().catch(() => null)) as {
-                      message?: string;
-                    } | null;
-                    setError(body?.message ?? "No se pudo validar el acceso.");
+          <div
+            className="takya-login-content"
+            inert={
+              phase === "locking" || phase === "locked" || phase === "instant"
+            }
+          >
+            <div className="takya-login-intro">
+              <div className="takya-login-top">
+                <Image
+                  src="/brand/principal-bosque.svg"
+                  alt="TAKYA"
+                  width={148}
+                  height={36}
+                  className="takya-login-logo"
+                  loading="eager"
+                />
+                <Link href="/home" className="takya-login-back">
+                  <ArrowLeft size={20} aria-hidden="true" />
+                  Volver al inicio
+                </Link>
+              </div>
+
+              <p className="takya-login-eyebrow">
+                Acceso privado <span>Demo</span>
+              </p>
+              <h1 id="takya-login-title">Tu turno, con más claridad.</h1>
+              <p className="takya-login-lead">
+                Revisa casos, compara fuentes y decide con un motivo.
+              </p>
+
+              <div className="takya-login-role">
+                <span className="takya-login-pictogram" aria-hidden="true">
+                  <Eye size={24} className="takya-login-blink" />
+                </span>
+                <span>
+                  <strong>Entras como Operador</strong>
+                  <small>Observa, comprende y decide.</small>
+                </span>
+              </div>
+            </div>
+
+            <div className="takya-login-action">
+              <form
+                noValidate
+                onSubmit={async (event) => {
+                  event.preventDefault();
+                  if (phase !== "idle") return;
+                  if (!password) {
+                    setError("Escribe la contraseña para entrar.");
+                    return;
+                  }
+                  setPhase("checking");
+                  setError("");
+                  try {
+                    const response = await fetch("/api/access", {
+                      method: "POST",
+                      headers: { "Content-Type": "application/json" },
+                      body: JSON.stringify({ username: ACCESS_USER, password }),
+                    });
+                    if (!response.ok) {
+                      const body = (await response
+                        .json()
+                        .catch(() => null)) as {
+                        message?: string;
+                      } | null;
+                      setError(
+                        body?.message ?? "No se pudo validar el acceso.",
+                      );
+                      setPhase("idle");
+                      return;
+                    }
+                  } catch {
+                    setError("No se pudo conectar. Intenta de nuevo.");
                     setPhase("idle");
                     return;
                   }
-                } catch {
-                  setError("No se pudo conectar. Intenta de nuevo.");
-                  setPhase("idle");
-                  return;
-                }
-                setPassword("");
-                beginPractice(
-                  profileSchema.parse({
-                    name: OPERATOR_NAME,
-                    role: "OPERATOR",
-                  }),
-                );
-                void lockAndEnter();
-              }}
-            >
-              <div className="takya-login-field">
-                <label htmlFor="takya-login-user">Usuario</label>
-                <input
-                  id="takya-login-user"
-                  type="text"
-                  name="username"
-                  value={ACCESS_USER}
-                  readOnly
-                  autoComplete="username"
-                />
-              </div>
-              <div className="takya-login-field">
-                <label htmlFor="takya-login-password">Contraseña</label>
-                <input
-                  id="takya-login-password"
-                  type="password"
-                  name="password"
-                  value={password}
-                  maxLength={256}
-                  autoComplete="current-password"
-                  enterKeyHint="go"
-                  aria-invalid={error ? true : undefined}
-                  aria-describedby={
-                    error
-                      ? "takya-login-error takya-login-demo-note"
-                      : "takya-login-demo-note"
-                  }
-                  onChange={(event) => {
-                    setPassword(event.target.value);
-                    setError("");
-                  }}
-                />
-              </div>
-              {error ? (
-                <p
-                  id="takya-login-error"
-                  className="takya-login-error"
-                  role="alert"
-                >
-                  {error}
-                </p>
-              ) : null}
-
-              <button
-                type="submit"
-                className="takya-login-submit"
-                disabled={phase !== "idle"}
+                  setPassword("");
+                  beginPractice(
+                    profileSchema.parse({
+                      name: OPERATOR_NAME,
+                      role: "OPERATOR",
+                    }),
+                  );
+                  void lockAndEnter();
+                }}
               >
-                <LogIn size={22} aria-hidden="true" />
-                {phase === "checking" ? "Comprobando…" : "Iniciar sesión"}
-              </button>
-            </form>
+                <div className="takya-login-field">
+                  <label htmlFor="takya-login-user">Usuario</label>
+                  <input
+                    id="takya-login-user"
+                    type="text"
+                    name="username"
+                    value={ACCESS_USER}
+                    readOnly
+                    autoComplete="username"
+                  />
+                </div>
+                <div className="takya-login-field">
+                  <label htmlFor="takya-login-password">Contraseña</label>
+                  <input
+                    id="takya-login-password"
+                    type="password"
+                    name="password"
+                    value={password}
+                    maxLength={256}
+                    autoComplete="current-password"
+                    enterKeyHint="go"
+                    aria-invalid={error ? true : undefined}
+                    aria-describedby={
+                      error
+                        ? "takya-login-error takya-login-demo-note"
+                        : "takya-login-demo-note"
+                    }
+                    onChange={(event) => {
+                      setPassword(event.target.value);
+                      setError("");
+                    }}
+                  />
+                </div>
+                {error ? (
+                  <p
+                    id="takya-login-error"
+                    className="takya-login-error"
+                    role="alert"
+                  >
+                    {error}
+                  </p>
+                ) : null}
 
-            <p id="takya-login-demo-note" className="takya-login-note">
-              <ShieldCheck size={18} aria-hidden="true" />
-              Acceso privado del equipo TAKYA. La demo se presenta en persona o
-              con una conexión autorizada.
-            </p>
+                <button
+                  type="submit"
+                  className="takya-login-submit"
+                  disabled={phase !== "idle"}
+                >
+                  <LogIn size={22} aria-hidden="true" />
+                  {phase === "checking" ? "Comprobando…" : "Iniciar sesión"}
+                </button>
+              </form>
+
+              <p id="takya-login-demo-note" className="takya-login-note">
+                <ShieldCheck size={18} aria-hidden="true" />
+                Acceso privado del equipo TAKYA. La demo se presenta en persona
+                o con una conexión autorizada.
+              </p>
+            </div>
           </div>
-        </div>
 
-        <div className="takya-login-lock" aria-hidden="true">
-          <span className="takya-login-lock-ring" />
-          <svg
-            viewBox="0 0 24 24"
-            width="52"
-            height="52"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          >
-            <path
-              className="takya-login-lock-shackle"
-              d="M7 11V7a5 5 0 0 1 10 0v4"
-            />
-            <g className="takya-login-lock-body">
-              <rect x="3" y="11" width="18" height="11" rx="2" />
-              <circle cx="12" cy="16.5" r="1.4" fill="currentColor" />
-            </g>
-          </svg>
-        </div>
-      </section>
+          <div className="takya-login-lock" aria-hidden="true">
+            <span className="takya-login-lock-ring" />
+            <svg
+              viewBox="0 0 24 24"
+              width="52"
+              height="52"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
+              <path
+                className="takya-login-lock-shackle"
+                d="M7 11V7a5 5 0 0 1 10 0v4"
+              />
+              <g className="takya-login-lock-body">
+                <rect x="3" y="11" width="18" height="11" rx="2" />
+                <circle cx="12" cy="16.5" r="1.4" fill="currentColor" />
+              </g>
+            </svg>
+          </div>
+        </section>
+      </div>
 
       <p className="takya-login-lock-caption" role="status">
         {PHASE_MESSAGE[phase]}
       </p>
     </main>
+  );
+}
+
+/**
+ * Bienvenida del software (no de la web pública): el afiche de la marca a
+ * sangre, con un movimiento lento, y el lema en tipografía grande.
+ */
+function WelcomePanel() {
+  return (
+    <aside className="takya-login-welcome" aria-label="Bienvenida a TAKYA">
+      <div className="takya-login-welcome-art" aria-hidden="true">
+        <Image
+          src="/brand/bg-poster.png"
+          alt=""
+          fill
+          sizes="(min-width: 1024px) 60vw, 100vw"
+          priority
+        />
+      </div>
+      <div className="takya-login-welcome-shade" aria-hidden="true" />
+      <div className="takya-login-welcome-body">
+        <div className="takya-login-welcome-top">
+          <Image
+            src="/brand/01_maestros_svg/takya-a-principal-marfil.svg"
+            alt="TAKYA"
+            width={148}
+            height={36}
+            className="takya-login-welcome-logo"
+            priority
+          />
+          <span className="takya-login-welcome-chip">
+            <i aria-hidden="true" /> Plataforma de operación
+          </span>
+        </div>
+
+        <div className="takya-login-welcome-hero">
+          <p className="takya-login-welcome-eyebrow">Bienvenido a TAKYA</p>
+          <p className="takya-login-welcome-title">
+            Comprender
+            <br />
+            antes de <span>actuar.</span>
+          </p>
+          <p className="takya-login-welcome-lead">
+            Tus cámaras vigilan. TAKYA te dice qué mirar, y tú decides.
+          </p>
+        </div>
+
+        <p className="takya-login-welcome-foot">
+          <span>Demo con casos grabados</span>
+          <span>Programa Nómada UCN · Antofagasta</span>
+        </p>
+      </div>
+    </aside>
   );
 }

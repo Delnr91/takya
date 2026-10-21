@@ -548,3 +548,281 @@
     transition: none;
   }
 }
+
+/* ══ Home del software: bienvenida al costado + acceso ══
+   Escritorio y iPad horizontal: dos columnas (bienvenida | acceso).
+   Teléfono y iPad vertical: la bienvenida se reduce a una franja arriba. */
+.takya-login-layout {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  justify-items: center;
+  gap: 16px;
+  width: min(100%, 1240px);
+}
+.takya-login-welcome {
+  position: relative;
+  isolation: isolate;
+  width: min(100%, 440px);
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  border-radius: 28px;
+  background: #0d1411;
+  color: #f4f1ea;
+  box-shadow:
+    0 30px 70px -30px #0f2a1fb3,
+    inset 0 1px 0 rgba(255, 255, 255, 0.25);
+  animation: takya-login-in 420ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+/* Afiche de la marca con un acercamiento lento (Ken Burns). */
+.takya-login-welcome-art {
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+}
+.takya-login-welcome-art img {
+  object-fit: cover;
+  object-position: 30% 22%;
+  animation: takya-login-drift 24s ease-in-out infinite alternate;
+}
+@keyframes takya-login-drift {
+  from {
+    transform: scale(1.04) translate3d(0, 0, 0);
+  }
+  to {
+    transform: scale(1.14) translate3d(-2%, 2%, 0);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .takya-login-welcome-art img {
+    animation: none;
+  }
+}
+.takya-login-welcome-shade {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(
+    180deg,
+    rgba(8, 14, 11, 0.1) 0%,
+    rgba(8, 14, 11, 0.15) 45%,
+    rgba(8, 14, 11, 0.7) 80%,
+    rgba(8, 14, 11, 0.85)
+  );
+}
+.takya-login-welcome-body {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  height: 100%;
+  padding: 20px 22px;
+}
+.takya-login-welcome-top {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+.takya-login-welcome-logo {
+  width: 120px;
+  height: auto;
+}
+.takya-login-welcome-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 12px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.12);
+  font-family: var(--font-jetbrains), monospace;
+  font-size: 0.62em;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  backdrop-filter: blur(12px);
+}
+.takya-login-welcome-chip i {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #a5c8ae;
+  box-shadow: 0 0 10px #a5c8ae;
+}
+.takya-login-welcome-eyebrow {
+  margin: 0;
+  color: #cfe0d3;
+  font-size: 0.9em;
+  font-weight: 600;
+}
+.takya-login-welcome-title {
+  margin: 0;
+  font-size: 2em;
+  font-weight: 800;
+  line-height: 0.95;
+  letter-spacing: -0.045em;
+}
+.takya-login-welcome-title span {
+  color: #e05d44;
+}
+.takya-login-welcome-lead {
+  margin: 8px 0 0;
+  color: #e7eee8;
+  font-size: 0.95em;
+  font-weight: 600;
+}
+/* En teléfono la franja solo muestra marca, saludo y la frase. */
+.takya-login-welcome-foot {
+  display: none;
+}
+
+@media (min-width: 1024px) and (min-height: 640px) {
+  .takya-login {
+    padding: 24px;
+  }
+  .takya-login-layout {
+    grid-template-columns: minmax(0, 1.2fr) minmax(380px, 460px);
+    align-items: stretch;
+    gap: 24px;
+  }
+  .takya-login-welcome {
+    width: 100%;
+    min-height: min(720px, calc(100dvh - 48px));
+    border-radius: 32px;
+  }
+  .takya-login-welcome-body {
+    gap: 0;
+    padding: 36px 40px;
+  }
+  .takya-login-welcome-logo {
+    width: 150px;
+  }
+  .takya-login-welcome-chip {
+    font-size: 0.66em;
+  }
+  .takya-login-welcome-hero {
+    margin-top: auto;
+  }
+  .takya-login-welcome-eyebrow {
+    font-size: 1.15em;
+  }
+  .takya-login-welcome-title {
+    font-size: clamp(3.6rem, 6.2vw, 6rem);
+  }
+  .takya-login-welcome-lead {
+    margin-top: 16px;
+    font-size: 1.2em;
+  }
+  .takya-login-welcome-foot {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 8px;
+    margin: 28px 0 0;
+    color: #cfe0d3;
+    font-family: var(--font-jetbrains), monospace;
+    font-size: 0.62em;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+  .takya-login-card {
+    align-self: center;
+  }
+  /* La marca ya está en la bienvenida: la tarjeta queda solo con la acción. */
+  .takya-login-card .takya-login-logo {
+    display: none;
+  }
+  .takya-login-card .takya-login-top {
+    justify-content: flex-end;
+  }
+}
+
+/* Tarjeta de acceso en vidrio líquido con borde blanco translúcido que gira. */
+.takya-login-card {
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.78),
+    rgba(255, 255, 255, 0.46) 55%,
+    rgba(255, 255, 255, 0.66)
+  );
+  box-shadow:
+    0 30px 70px -28px #0f2a1f66,
+    inset 0 1px 0 rgba(255, 255, 255, 0.95),
+    inset 0 -1px 0 rgba(255, 255, 255, 0.5),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.35);
+  backdrop-filter: blur(28px) saturate(185%);
+}
+@property --login-sweep {
+  syntax: "<angle>";
+  inherits: false;
+  initial-value: 0deg;
+}
+.takya-login-sweep {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  padding: 2px;
+  border-radius: inherit;
+  background: conic-gradient(
+    from var(--login-sweep),
+    rgba(255, 255, 255, 0) 0deg,
+    rgba(255, 255, 255, 0) 150deg,
+    rgba(255, 255, 255, 0.3) 215deg,
+    rgba(255, 255, 255, 0.95) 270deg,
+    rgba(255, 255, 255, 0.35) 320deg,
+    rgba(255, 255, 255, 0) 360deg
+  );
+  mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  mask-composite: exclude;
+  pointer-events: none;
+  animation: takya-login-sweep 5s linear infinite;
+}
+@keyframes takya-login-sweep {
+  to {
+    --login-sweep: 360deg;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .takya-login-sweep {
+    animation: none;
+    --login-sweep: 300deg;
+  }
+}
+/* Al cerrar el candado la tarjeta pierde el vidrio y queda verde bosque. */
+.takya-login.is-locking .takya-login-card {
+  background-image: none;
+  backdrop-filter: none;
+}
+/* Teléfono y iPad vertical: franja compacta (logo + lema) y la tarjeta sin
+   repetir la marca, para que «Iniciar sesión» quede a la vista. */
+@media (max-width: 1023px), (max-height: 639px) {
+  .takya-login-welcome-chip,
+  .takya-login-welcome-lead,
+  .takya-login-card .takya-login-logo {
+    display: none;
+  }
+  .takya-login-card .takya-login-top {
+    justify-content: flex-end;
+  }
+  .takya-login-welcome-body {
+    gap: 8px;
+    padding: 16px 20px 18px;
+  }
+  .takya-login-welcome-logo {
+    width: 104px;
+  }
+  .takya-login-welcome-eyebrow {
+    font-size: 0.8em;
+  }
+  .takya-login-welcome-title {
+    font-size: 1.75em;
+  }
+  .takya-login-card .takya-login-eyebrow {
+    margin-top: 0;
+  }
+}

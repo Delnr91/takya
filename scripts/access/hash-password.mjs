@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 // Genera la contraseña de la demo privada y los valores para .env.local o Vercel.
 // Uso: node scripts/access/hash-password.mjs <archivo-de-salida-privado>
+// Para fijar una contraseña elegida: TAKYA_PASSWORD='…' node scripts/access/hash-password.mjs <archivo>
 // Escribe la contraseña y las variables en ese archivo (permisos 0600); no las imprime.
 import { randomBytes, scryptSync } from "node:crypto";
 import { writeFileSync } from "node:fs";
@@ -11,7 +12,9 @@ if (!out) {
   process.exit(1);
 }
 const words = randomBytes(18).toString("base64url");
-const password = `${words.slice(0, 6)}-${words.slice(6, 12)}-${words.slice(12, 18)}`;
+const password =
+  process.env.TAKYA_PASSWORD ||
+  `${words.slice(0, 6)}-${words.slice(6, 12)}-${words.slice(12, 18)}`;
 const salt = randomBytes(16);
 const [N, r, p] = [16384, 8, 1];
 const hash = scryptSync(password, salt, 32, {
