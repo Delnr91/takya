@@ -153,19 +153,28 @@ export function LandingPage() {
           transition={{ duration: 0.8 }}
           className="absolute top-0 left-0 right-0 z-50 flex items-center justify-between w-full max-w-[1440px] mx-auto px-6 py-6 md:fixed md:px-12"
         >
-          <div
-            className="flex items-center cursor-pointer"
+          <button
+            type="button"
+            aria-label="TAKYA, volver arriba"
+            className="takya-logo-capsule"
             onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+            onPointerMove={(event) => {
+              const box = event.currentTarget.getBoundingClientRect();
+              event.currentTarget.style.setProperty(
+                "--gx",
+                `${Math.round(((event.clientX - box.left) / box.width) * 100)}%`,
+              );
+            }}
           >
             <Image
               src="/brand/02_png_transparentes/takya-a-principal-bosque-2048.png"
-              alt="TAKYA"
+              alt=""
               width={160}
               height={40}
-              className="h-auto w-40 md:w-44 drop-shadow-sm"
+              className="relative h-auto w-36 md:w-40"
               priority
             />
-          </div>
+          </button>
 
           {/* Menú Píldora */}
           <nav className="hidden xl:flex items-center whitespace-nowrap space-x-8 rounded-full px-8 py-3 bg-white/70 backdrop-blur-2xl border border-white/80 shadow-[inset_0_1px_1px_rgba(255,255,255,0.8),0_4px_20px_rgba(27,59,43,0.06)] text-xs font-mono uppercase tracking-wider text-[#1B3B2B]">

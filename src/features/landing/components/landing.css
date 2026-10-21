@@ -1276,3 +1276,78 @@ li:nth-child(4) > .takya-ods-tile::after {
     --takya-sweep: 300deg;
   }
 }
+
+/* Logo en una cápsula de vidrio líquido, par de «Conversemos»: borde en
+   movimiento y un reflejo que sigue al puntero (--gx) al pasar por encima. */
+.takya-logo-capsule {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  padding: 10px 20px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.75);
+  border-radius: 999px;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.78),
+    rgba(255, 255, 255, 0.42) 55%,
+    rgba(255, 255, 255, 0.65)
+  );
+  box-shadow:
+    0 14px 30px -16px #1b3b2b80,
+    inset 0 1px 0 rgba(255, 255, 255, 0.95),
+    inset 0 -1px 0 rgba(255, 255, 255, 0.5);
+  backdrop-filter: blur(18px) saturate(180%);
+  cursor: pointer;
+  transition: transform 0.25s ease;
+}
+.takya-logo-capsule::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    60% 140% at var(--gx, 50%) 0%,
+    rgba(255, 255, 255, 0.95),
+    transparent 60%
+  );
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+.takya-logo-capsule:hover {
+  transform: translateY(-1px);
+}
+.takya-logo-capsule:hover::before {
+  opacity: 1;
+}
+.takya-logo-capsule::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  padding: 1.5px;
+  border-radius: inherit;
+  background: conic-gradient(
+    from var(--takya-sweep),
+    transparent 0deg,
+    transparent 230deg,
+    #a5c8ae 275deg,
+    #e05d44 330deg,
+    transparent 360deg
+  );
+  mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  mask-composite: exclude;
+  animation: takya-sweep 5s linear infinite;
+  pointer-events: none;
+}
+.takya-logo-capsule:focus-visible {
+  outline: 3px solid #e05d44;
+  outline-offset: 3px;
+}
+@media (prefers-reduced-motion: reduce) {
+  .takya-logo-capsule::after {
+    animation: none;
+    --takya-sweep: 300deg;
+  }
+}
