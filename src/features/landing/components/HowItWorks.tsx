@@ -95,20 +95,6 @@ export function HowItWorks() {
             </span>
             <h3 className={`mt-5 ${type.h3} text-[#1B3B2B]`}>{title}</h3>
             <p className={`mt-2 ${type.body} text-[#1B3B2B]`}>{text}</p>
-            {index === 0 ? (
-              <span className="mt-4 flex flex-wrap gap-2">
-                <span
-                  className={`${type.label} rounded-full bg-[#1B3B2B] px-3 py-1 text-[#F4F1EA]`}
-                >
-                  Grabación · hoy
-                </span>
-                <span
-                  className={`${type.label} rounded-full border border-[#1B3B2B]/40 px-3 py-1 text-[#1B3B2B]`}
-                >
-                  En vivo · piloto
-                </span>
-              </span>
-            ) : null}
             {index < STEPS.length - 1 ? (
               <SketchArrow
                 delay={0.4 + index * 0.15}
