@@ -1373,3 +1373,112 @@
     transform: none;
   }
 }
+
+/* ══ Jerarquía: marca a la izquierda, una sola columna de acceso a la derecha ══ */
+.takya-login-layout,
+.takya-login[data-theme="night"] .takya-login-layout {
+  grid-template-rows: auto;
+}
+.takya-login-card,
+.takya-login[data-theme="night"] .takya-login-card {
+  grid-row: 1;
+}
+.takya-login-card h1,
+.takya-login-lead,
+.takya-login[data-theme="night"] .takya-login-card h1,
+.takya-login[data-theme="night"] .takya-login-lead {
+  position: static;
+  width: auto;
+  height: auto;
+  overflow: visible;
+  clip-path: none;
+  white-space: normal;
+}
+.takya-login-card h1 {
+  display: block;
+  margin: 8px 0 6px;
+  font-size: 2em;
+  font-weight: 800;
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+  text-align: center;
+}
+.takya-login-lead {
+  display: block;
+  max-width: 34ch;
+  margin: 0 auto;
+  text-align: center;
+}
+.takya-login-card .takya-login-role {
+  margin-top: 22px;
+}
+
+/* Logo en cápsula de vidrio, igual que en la landing; vuelve a /home. */
+.takya-login-brand {
+  position: fixed;
+  top: max(16px, env(safe-area-inset-top));
+  left: max(16px, env(safe-area-inset-left));
+  z-index: 4;
+  display: inline-flex;
+  align-items: center;
+  padding: 10px 20px;
+  border: 1px solid rgba(255, 255, 255, 0.75);
+  border-radius: 999px;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.82),
+    rgba(255, 255, 255, 0.5) 55%,
+    rgba(255, 255, 255, 0.7)
+  );
+  box-shadow:
+    0 14px 30px -16px #0f2a1f99,
+    inset 0 1px 0 rgba(255, 255, 255, 0.95),
+    inset 0 -1px 0 rgba(255, 255, 255, 0.5);
+  backdrop-filter: blur(18px) saturate(180%);
+  transition: transform 0.25s ease;
+}
+.takya-login-brand img {
+  width: 128px;
+  height: auto;
+}
+.takya-login-brand:hover {
+  transform: translateY(-1px);
+}
+.takya-login-brand:focus-visible {
+  outline: 3px solid #e05d44;
+  outline-offset: 3px;
+}
+
+/* Lema de la marca en el espacio libre de la imagen (arriba a la izquierda). */
+.takya-login-tagline {
+  position: fixed;
+  top: calc(max(16px, env(safe-area-inset-top)) + 78px);
+  left: max(28px, env(safe-area-inset-left));
+  z-index: 1;
+  margin: 0;
+  color: var(--login-ink);
+  font-size: clamp(1.9rem, 2.6vw, 2.6rem);
+  font-weight: 800;
+  line-height: 0.98;
+  letter-spacing: -0.045em;
+  text-shadow: 0 2px 24px rgba(0, 0, 0, 0.35);
+  pointer-events: none;
+}
+.takya-login-tagline span {
+  color: #e05d44;
+}
+.takya-login[data-theme="day"] .takya-login-tagline {
+  text-shadow: none;
+}
+/* Teléfono e iPad vertical: solo la cápsula del logo; el lema no cabe. */
+@media (max-width: 1023px), (max-height: 639px) {
+  .takya-login-tagline {
+    display: none;
+  }
+  .takya-login {
+    padding-top: calc(max(16px, env(safe-area-inset-top)) + 72px);
+  }
+  .takya-login-card h1 {
+    font-size: 1.6em;
+  }
+}

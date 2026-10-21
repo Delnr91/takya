@@ -6,7 +6,7 @@ import { useEffect, useState, useSyncExternalStore } from "react";
 import { useRouter } from "next/navigation";
 import { useAnimate, useReducedMotion } from "framer-motion";
 import { Eye } from "lucide-react";
-import { ArrowLeft, LogIn, Moon, ShieldCheck, Sun } from "@/components/icons";
+import { LogIn, Moon, ShieldCheck, Sun } from "@/components/icons";
 import { readTheme, subscribeTheme, writeTheme, type Theme } from "@/lib/theme";
 import { profileSchema } from "@/features/demo/schemas/simulation";
 import { beginPractice } from "@/features/demo/model/profile";
@@ -76,7 +76,7 @@ export function OperatorLogin() {
     const rect = card.getBoundingClientRect();
 
     await animate(
-      ".takya-login-content, .takya-login-watermark, .takya-login-welcome, .takya-login-sweep",
+      ".takya-login-content, .takya-login-watermark, .takya-login-brand, .takya-login-tagline",
       { opacity: 0, scale: 0.96 },
       { duration: 0.16, ease: "easeIn" },
     );
@@ -169,9 +169,8 @@ export function OperatorLogin() {
         </span>
       </button>
 
+      <BrandCorner />
       <div className="takya-login-layout">
-        <WelcomePanel theme={theme} />
-
         <section
           className="takya-login-card"
           aria-labelledby="takya-login-title"
@@ -193,27 +192,12 @@ export function OperatorLogin() {
             }
           >
             <div className="takya-login-intro">
-              <div className="takya-login-top">
-                <Image
-                  src="/brand/principal-bosque.svg"
-                  alt="TAKYA"
-                  width={148}
-                  height={36}
-                  className="takya-login-logo"
-                  loading="eager"
-                />
-                <Link href="/home" className="takya-login-back">
-                  <ArrowLeft size={20} aria-hidden="true" />
-                  Volver al inicio
-                </Link>
-              </div>
-
               <p className="takya-login-eyebrow">
                 Acceso privado <span>Demo</span>
               </p>
-              <h1 id="takya-login-title">Tu turno, con más claridad.</h1>
+              <h1 id="takya-login-title">Bienvenido a TAKYA</h1>
               <p className="takya-login-lead">
-                Revisa casos, compara fuentes y decide con un motivo.
+                Tus cámaras vigilan. TAKYA te dice qué mirar, y tú decides.
               </p>
 
               <div className="takya-login-role">
@@ -366,45 +350,33 @@ export function OperatorLogin() {
 }
 
 /**
- * Bienvenida del software (no de la web pública): texto directo sobre el
- * afiche de la marca, que es el fondo de toda la pantalla.
+ * Marca del home del software: el logo en su cápsula de vidrio (como en la
+ * landing, vuelve a /home) y el lema en grande en el espacio libre de la
+ * imagen. El saludo y el acceso van juntos en la columna derecha.
  */
-function WelcomePanel({ theme }: { theme: Theme }) {
+function BrandCorner() {
   return (
-    <aside className="takya-login-welcome" aria-label="Bienvenida a TAKYA">
-      <div className="takya-login-welcome-body">
-        <div className="takya-login-welcome-top">
-          <Image
-            src={
-              theme === "night"
-                ? "/brand/01_maestros_svg/takya-a-principal-marfil.svg"
-                : "/brand/01_maestros_svg/takya-a-principal-bosque.svg"
-            }
-            alt="TAKYA"
-            width={148}
-            height={36}
-            className="takya-login-welcome-logo"
-            priority
-          />
-        </div>
-
-        <div className="takya-login-welcome-hero">
-          <p className="takya-login-welcome-eyebrow">Bienvenido a TAKYA</p>
-          <p className="takya-login-welcome-title">
-            Comprender
-            <br />
-            antes de <span>actuar.</span>
-          </p>
-          <p className="takya-login-welcome-lead">
-            Tus cámaras vigilan. TAKYA te dice qué mirar, y tú decides.
-          </p>
-        </div>
-
-        <p className="takya-login-welcome-foot">
-          <span>Demo con casos grabados</span>
-          <span>Programa Nómada UCN · Antofagasta</span>
-        </p>
-      </div>
-    </aside>
+    <>
+      <Link
+        href="/home"
+        className="takya-login-brand"
+        aria-label="TAKYA, volver al inicio"
+      >
+        <Image
+          src="/brand/01_maestros_svg/takya-a-principal-bosque.svg"
+          alt=""
+          width={148}
+          height={36}
+          priority
+        />
+      </Link>
+      <p className="takya-login-tagline">
+        Comprender
+        <br />
+        antes de
+        <br />
+        <span>actuar.</span>
+      </p>
+    </>
   );
 }
