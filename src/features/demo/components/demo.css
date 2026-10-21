@@ -3651,11 +3651,13 @@
 
 /* ══ App simple: barra lateral fija (sticky) sin desplazamiento ══
    Cabe bajo la cabecera al inicio y queda quieta al desplazar el contenido;
-   los botones se reparten el alto disponible. */
+   los botones se reparten el alto disponible. El alto usa svh (el viewport
+   pequeño): en iPad, Safari oculta su barra al hacer scroll y dvh cambiaba,
+   así que la barra se encogía y crecía. Con svh queda igual desde que carga. */
 @media (min-width: 801px) {
   .demo-nav {
     top: 16px;
-    height: calc(100dvh - 140px);
+    height: calc(100svh - 140px);
     min-height: 470px;
     max-height: none;
     overflow: hidden;
@@ -3735,5 +3737,41 @@
   .demo-section-heading > :not(div):not(.demo-pictogram) {
     grid-column: 1 / -1;
     justify-self: start;
+  }
+}
+
+/* ══ Móvil ══
+   Herramientas de la cabecera: «Accesibilidad» tiene una columna más ancha
+   para que la palabra no se corte; selectores con área táctil de 44 px y K8
+   más pequeño para que no tape las tarjetas. */
+@media (max-width: 520px) {
+  .demo-header-tools {
+    grid-template-columns: minmax(0, 1.3fr) repeat(3, minmax(0, 1fr));
+  }
+  .demo-header-tools > .demo-tool,
+  .demo-header-tools > .demo-tool span {
+    overflow-wrap: normal;
+    word-break: normal;
+    hyphens: manual;
+  }
+  .demo-rate select,
+  .demo-profile select {
+    min-height: 44px;
+  }
+  .demo-k8 {
+    width: 84px;
+    height: 84px;
+    right: 8px;
+    bottom: 8px;
+  }
+  .demo-k8-stage {
+    width: 80px;
+    height: 80px;
+  }
+}
+@media (max-width: 360px) {
+  .demo-header-tools > .demo-tool,
+  .demo-header-tools > .demo-tool.demo-night-toggle {
+    font-size: 0.62em !important;
   }
 }
