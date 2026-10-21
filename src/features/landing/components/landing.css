@@ -1079,16 +1079,19 @@
   position: absolute;
   inset: 0;
   z-index: 2;
-  padding: 1.5px;
+  padding: 2px;
   border-radius: inherit;
+  /* Borde líquido: tonos translúcidos con un brillo blanco, en una franja
+     ancha y suave, para que se sienta vidrio girando y no una línea de color. */
   background: conic-gradient(
     from var(--takya-sweep),
-    transparent 0deg,
-    transparent 230deg,
-    #a5c8ae 270deg,
-    #e05d44 325deg,
-    #f4b3a5 345deg,
-    transparent 360deg
+    rgba(255, 255, 255, 0) 0deg,
+    rgba(255, 255, 255, 0) 150deg,
+    rgba(165, 200, 174, 0.28) 210deg,
+    rgba(255, 255, 255, 0.85) 265deg,
+    rgba(244, 179, 165, 0.35) 310deg,
+    rgba(224, 93, 68, 0.18) 340deg,
+    rgba(255, 255, 255, 0) 360deg
   );
   mask:
     linear-gradient(#000 0 0) content-box,
