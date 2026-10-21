@@ -384,9 +384,6 @@ function WelcomePanel({ theme }: { theme: Theme }) {
             className="takya-login-welcome-logo"
             priority
           />
-          <span className="takya-login-welcome-chip">
-            <i aria-hidden="true" /> Plataforma de operación
-          </span>
         </div>
 
         <div className="takya-login-welcome-hero">

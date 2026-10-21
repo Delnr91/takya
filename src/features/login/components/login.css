@@ -1076,3 +1076,190 @@
     padding-bottom: 20px;
   }
 }
+
+/* ══ Sin tarjeta: bienvenida y acceso directo sobre la imagen ══
+   Misma composición en día y noche: la imagen a la izquierda y, a la
+   derecha, una sola columna centrada con la bienvenida y el formulario. */
+.takya-login-card {
+  padding: 0;
+  overflow: visible;
+  border: 0;
+  border-radius: 0;
+  background: none;
+  box-shadow: none;
+  backdrop-filter: none;
+}
+.takya-login-card .takya-login-watermark,
+.takya-login-card .takya-login-sweep {
+  display: none;
+}
+/* Durante el candado vuelve a ser un bloque sólido. */
+.takya-login.is-locking .takya-login-card {
+  overflow: visible;
+}
+.takya-login-layout {
+  width: min(100%, 460px);
+}
+.takya-login-welcome,
+.takya-login-card {
+  width: 100%;
+}
+@media (min-width: 1024px) and (min-height: 640px) {
+  .takya-login-layout,
+  .takya-login[data-theme="night"] .takya-login-layout {
+    width: min(100%, 1240px);
+    grid-template-columns: minmax(0, 1fr) minmax(380px, 440px);
+    grid-template-rows: auto auto;
+    align-content: center;
+    column-gap: 48px;
+    row-gap: 22px;
+  }
+  .takya-login-welcome,
+  .takya-login[data-theme="night"] .takya-login-welcome {
+    grid-column: 2;
+    grid-row: 1;
+    min-height: 0;
+  }
+  .takya-login-card,
+  .takya-login[data-theme="night"] .takya-login-card {
+    grid-column: 2;
+    grid-row: 2;
+    padding: 0;
+  }
+  .takya-login-welcome-body {
+    padding: 0;
+  }
+  .takya-login-welcome-hero {
+    margin-top: 14px;
+  }
+  .takya-login-welcome-title {
+    font-size: clamp(2.4rem, 3.2vw, 3.1rem);
+  }
+  .takya-login-welcome-lead {
+    margin-top: 10px;
+    font-size: 1em;
+  }
+  .takya-login-welcome-foot {
+    display: none;
+  }
+  .takya-login-card h1,
+  .takya-login-lead {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+}
+/* Teléfono y iPad vertical: todo en una columna centrada sobre la imagen. */
+@media (max-width: 1023px), (max-height: 639px) {
+  .takya-login-card h1,
+  .takya-login-lead {
+    display: none;
+  }
+  .takya-login-welcome-lead {
+    display: block;
+  }
+}
+
+/* Noche: textos y controles claros sobre la imagen oscura. */
+.takya-login[data-theme="night"] {
+  --login-ink: #f4f1ea;
+  --login-muted: #cbd8ce;
+  --login-accent: #a5c8ae;
+}
+.takya-login[data-theme="night"] .takya-login-eyebrow span {
+  border-color: rgba(165, 200, 174, 0.5);
+  background: rgba(165, 200, 174, 0.14);
+}
+.takya-login[data-theme="night"] .takya-login-role {
+  border-color: rgba(255, 255, 255, 0.22);
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(14px);
+}
+.takya-login[data-theme="night"] .takya-login-pictogram {
+  background: #a5c8ae;
+  color: #10261c;
+}
+.takya-login[data-theme="night"] .takya-login-field input {
+  border-color: rgba(255, 255, 255, 0.28);
+  background: rgba(255, 255, 255, 0.1);
+  color: #f4f1ea;
+  backdrop-filter: blur(14px);
+}
+.takya-login[data-theme="night"] .takya-login-field input[readonly] {
+  background: rgba(255, 255, 255, 0.05);
+  color: #cbd8ce;
+}
+.takya-login[data-theme="night"] .takya-login-field input:focus-visible {
+  border-color: #a5c8ae;
+  box-shadow: 0 0 0 4px rgba(165, 200, 174, 0.3);
+}
+.takya-login[data-theme="night"] .takya-login-submit {
+  background: #f4f1ea;
+  color: #10261c;
+}
+.takya-login[data-theme="night"] .takya-login-error {
+  color: #f4b3a5;
+}
+.takya-login[data-theme="night"] .takya-login-back {
+  color: #cbd8ce;
+}
+.takya-login[data-theme="night"] .takya-login-back:hover {
+  color: #fff;
+}
+/* Día: la foto se aclara del lado del formulario para que se lea. */
+.takya-login[data-theme="day"] .takya-login-backdrop::after {
+  background: linear-gradient(
+    90deg,
+    rgba(244, 241, 234, 0.1) 0%,
+    rgba(244, 241, 234, 0.35) 45%,
+    rgba(244, 241, 234, 0.9) 65%,
+    rgba(244, 241, 234, 0.95) 100%
+  );
+}
+.takya-login[data-theme="day"] .takya-login-backdrop img {
+  object-position: 25% 40%;
+}
+@media (max-width: 1023px), (max-height: 639px) {
+  .takya-login[data-theme="day"] .takya-login-backdrop::after {
+    background: linear-gradient(
+      180deg,
+      rgba(244, 241, 234, 0.2) 0%,
+      rgba(244, 241, 234, 0.85) 35%,
+      rgba(244, 241, 234, 0.95) 100%
+    );
+  }
+  .takya-login[data-theme="night"] .takya-login-backdrop::after {
+    background: linear-gradient(
+      180deg,
+      rgba(8, 12, 10, 0.1) 0%,
+      rgba(8, 12, 10, 0.7) 40%,
+      rgba(8, 12, 10, 0.88) 100%
+    );
+  }
+}
+/* Como la referencia: saludo y formulario centrados en su columna. */
+.takya-login-welcome-body,
+.takya-login-welcome-hero {
+  align-items: center;
+  text-align: center;
+}
+.takya-login-welcome-top {
+  justify-content: center;
+}
+.takya-login-card .takya-login-top {
+  justify-content: center;
+}
+.takya-login-card .takya-login-eyebrow {
+  justify-content: center;
+}
+.takya-login-card .takya-login-note {
+  justify-content: center;
+  text-align: center;
+}
+.takya-login-theme {
+  top: max(16px, env(safe-area-inset-top));
+  bottom: auto;
+}
