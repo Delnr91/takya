@@ -153,11 +153,10 @@ export function LandingPage() {
           transition={{ duration: 0.8 }}
           className="absolute top-0 left-0 right-0 z-50 flex items-center justify-between w-full max-w-[1440px] mx-auto px-6 py-6 md:fixed md:px-12"
         >
-          <button
-            type="button"
-            aria-label="TAKYA, volver arriba"
+          <Link
+            href="/home"
+            aria-label="TAKYA, volver al inicio"
             className="takya-logo-capsule"
-            onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
             onPointerMove={(event) => {
               const box = event.currentTarget.getBoundingClientRect();
               event.currentTarget.style.setProperty(
@@ -174,7 +173,7 @@ export function LandingPage() {
               className="relative h-auto w-36 md:w-40"
               priority
             />
-          </button>
+          </Link>
 
           {/* Menú Píldora */}
           <nav className="hidden xl:flex items-center whitespace-nowrap space-x-8 rounded-full px-8 py-3 bg-white/70 backdrop-blur-2xl border border-white/80 shadow-[inset_0_1px_1px_rgba(255,255,255,0.8),0_4px_20px_rgba(27,59,43,0.06)] text-xs font-mono uppercase tracking-wider text-[#1B3B2B]">

@@ -1120,8 +1120,8 @@
   }
 }
 
-/* ODS: cuadro de color oficial en vidrio líquido, con reflejos, un destello
-   periódico y otro que sigue al puntero (--gx/--gy) mientras se inclina. */
+/* ODS: cuadro de color oficial como pin esmaltado (de los que se ponen en
+   un gorro): borde metálico, relieve, sombra corta y un destello periódico. */
 .takya-ods-tile {
   position: relative;
   display: grid;
@@ -1129,34 +1129,39 @@
   width: 64px;
   height: 64px;
   overflow: hidden;
-  border: 1px solid rgba(255, 255, 255, 0.45);
+  border: 2.5px solid transparent;
   border-radius: 18px;
   background:
     linear-gradient(
-      160deg,
-      rgba(255, 255, 255, 0.42) 0%,
-      rgba(255, 255, 255, 0.08) 42%,
-      rgba(0, 0, 0, 0.08) 100%
-    ),
-    var(--ods);
+        160deg,
+        rgba(255, 255, 255, 0.4) 0%,
+        rgba(255, 255, 255, 0.06) 45%,
+        rgba(0, 0, 0, 0.1) 100%
+      )
+      padding-box,
+    linear-gradient(var(--ods), var(--ods)) padding-box,
+    linear-gradient(145deg, #ffffff, #c9cdc8 35%, #f4f4f2 55%, #9ea39d)
+      border-box;
   box-shadow:
-    0 14px 26px -12px color-mix(in srgb, var(--ods) 70%, transparent),
-    inset 0 1px 0 rgba(255, 255, 255, 0.7),
-    inset 0 -2px 4px rgba(0, 0, 0, 0.18),
-    inset 0 0 0 1px rgba(255, 255, 255, 0.15);
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.18);
-  will-change: transform;
+    0 2px 0 #8d928c,
+    0 4px 0 rgba(27, 59, 43, 0.12),
+    0 12px 18px -8px rgba(27, 59, 43, 0.45),
+    inset 0 2px 1px rgba(255, 255, 255, 0.55),
+    inset 0 -3px 4px rgba(0, 0, 0, 0.22);
+  text-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.25),
+    0 -1px 0 rgba(0, 0, 0, 0.2);
 }
 .takya-ods-tile::before {
   content: "";
   position: absolute;
-  inset: 0;
-  background: radial-gradient(
-    circle at var(--gx, 28%) var(--gy, 18%),
-    rgba(255, 255, 255, 0.6),
-    transparent 46%
+  inset: 3px 6px auto;
+  height: 40%;
+  border-radius: 12px 12px 40% 40%;
+  background: linear-gradient(
+    rgba(255, 255, 255, 0.45),
+    rgba(255, 255, 255, 0)
   );
-  mix-blend-mode: soft-light;
   pointer-events: none;
 }
 .takya-ods-tile::after {
