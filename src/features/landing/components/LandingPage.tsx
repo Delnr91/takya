@@ -3,7 +3,7 @@
 import React, { useEffect, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowUpRight, LogIn } from "@/components/icons";
+import { ArrowUpRight } from "@/components/icons";
 import { MotionConfig, motion, type Variants } from "framer-motion";
 import { ProblemMetrics } from "./ProblemMetrics";
 import { PrinciplesMarquee } from "./PrinciplesMarquee";
@@ -211,20 +211,13 @@ export function LandingPage() {
           </nav>
 
           <div className="flex items-center gap-2 md:gap-3">
-            <Link
-              href="/login"
-              className="inline-flex min-h-10 items-center justify-center whitespace-nowrap rounded-full border border-[#1B3B2B]/25 bg-white/75 px-3 text-xs font-bold uppercase tracking-wider text-[#1B3B2B] shadow-sm backdrop-blur-2xl transition-colors hover:border-[#1B3B2B] hover:bg-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#E05D44] sm:px-5"
-            >
-              <span className="sm:hidden">Ver demo</span>
-              <span className="hidden sm:inline">Explorar demo</span>
-            </Link>
             <a
               href="#criterio"
               onClick={(e) => {
                 e.preventDefault();
                 scrollTo("criterio");
               }}
-              className="hidden md:inline-flex items-center justify-center rounded-full bg-[#E05D44] px-6 py-2.5 text-xs font-mono uppercase tracking-wider font-bold text-white shadow-md hover:bg-[#c94b34] transition-all hover:scale-105 active:scale-95 cursor-pointer"
+              className="inline-flex min-h-11 items-center justify-center whitespace-nowrap rounded-full bg-[#E05D44] px-4 py-2.5 md:px-6 text-xs font-mono uppercase tracking-wider font-bold text-white shadow-md hover:bg-[#c94b34] transition-all hover:scale-105 active:scale-95 cursor-pointer"
             >
               Conversemos <ArrowUpRight className="ml-2 h-4 w-4" />
             </a>
@@ -280,13 +273,6 @@ export function LandingPage() {
                   tuya.
                 </p>
                 <div className="flex flex-wrap items-center gap-4">
-                  <Link
-                    href="/login"
-                    className="flex items-center gap-2 rounded-full bg-[#E05D44] px-8 py-3.5 text-xs font-mono uppercase tracking-wider font-bold text-white shadow-md hover:bg-[#c94b34] transition-all"
-                  >
-                    <LogIn size={17} aria-hidden="true" />
-                    Probar la demo
-                  </Link>
                   <a
                     href="#como-funciona"
                     onClick={(e) => {
@@ -299,7 +285,7 @@ export function LandingPage() {
                   </a>
                 </div>
                 <p className={`mt-4 ${type.note}`}>
-                  Demo abierta · sin registro · con casos grabados
+                  Demostración en persona · con casos grabados
                 </p>
               </motion.div>
             </div>
@@ -444,8 +430,8 @@ export function LandingPage() {
                 className="mb-6"
               />
               <p className={type.lead}>
-                Prueba la demo ahora o agenda una presentación para tu central,
-                empresa o institución. Te respondemos directamente.
+                Agenda una demostración para tu central, empresa o institución.
+                Te respondemos directamente.
               </p>
             </div>
 
@@ -453,20 +439,13 @@ export function LandingPage() {
               <GrainGradient colors={["#E05D44", "#DBBA95", "#A5C8AE"]} />
               <div className="relative flex flex-col gap-4 rounded-[20px] border border-white/70 bg-[#F4F1EA]/85 p-6 backdrop-blur-xl">
                 <p className={`${type.label} text-[#1B3B2B]`}>
-                  Consola de práctica · abierta
+                  Demostración en persona
                 </p>
                 <p className={`${type.body} text-[#1B3B2B]`}>
-                  Entra con un usuario y recorre un turno de operador con casos
-                  grabados. Es una simulación: el sistema real se instala en tu
-                  central.
+                  Te mostramos un turno de operador con casos grabados, en tu
+                  central o en línea con un acceso autorizado. El sistema real
+                  se instala en tu central.
                 </p>
-                <Link
-                  href="/login"
-                  className="inline-flex min-h-12 items-center justify-center gap-2 rounded-full bg-[#1B3B2B] px-6 py-3.5 font-mono text-xs font-bold uppercase tracking-wider text-[#F4F1EA] transition-colors hover:bg-[#234b37]"
-                >
-                  <LogIn size={18} aria-hidden="true" />
-                  Probar la demo
-                </Link>
                 <Link
                   href="https://wa.me/56900000000?text=Hola,%20quisiera%20agendar%20una%20demostración%20de%20TAKYA."
                   target="_blank"

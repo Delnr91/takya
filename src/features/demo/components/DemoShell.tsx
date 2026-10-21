@@ -695,9 +695,13 @@ export function DemoShell() {
             <button
               type="button"
               className="demo-button demo-button-exit"
-              onClick={() => {
+              onClick={async () => {
                 setArrivals(false);
                 endPractice();
+                // Cierra también el acceso privado emitido por el servidor.
+                await fetch("/api/access", { method: "DELETE" }).catch(
+                  () => undefined,
+                );
                 window.location.replace("/login");
               }}
             >

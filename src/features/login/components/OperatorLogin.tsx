@@ -9,15 +9,17 @@ import { Eye } from "lucide-react";
 import { ArrowLeft, LogIn, ShieldCheck } from "@/components/icons";
 import { profileSchema } from "@/features/demo/schemas/simulation";
 import { beginPractice } from "@/features/demo/model/profile";
+import { ACCESS_USER } from "@/lib/access-shared";
 import "./login.css";
 
-const DEFAULT_NAME = "Operador 03";
+const OPERATOR_NAME = "Centinela";
 const LOCK_SIZE = 112;
 
-type Phase = "idle" | "locking" | "locked" | "instant";
+type Phase = "idle" | "checking" | "locking" | "locked" | "instant";
 
 const PHASE_MESSAGE: Record<Phase, string> = {
   idle: "",
+  checking: "Comprobando el acceso…",
   locking: "Asegurando tu sesión…",
   locked: "Listo. Abriendo la consola…",
   instant: "Abriendo la consola…",
@@ -25,22 +27,23 @@ const PHASE_MESSAGE: Record<Phase, string> = {
 
 const MAIN_CLASS: Record<Phase, string> = {
   idle: "takya-login",
+  checking: "takya-login",
   locking: "takya-login is-locking",
   locked: "takya-login is-locking",
   instant: "takya-login is-instant",
 };
 
 /**
- * Acceso de demostración solo para operador: entra con el usuario, sin
- * contraseña. No es autenticación; abre la práctica en esta pestaña. Sin
- * asistentes ni ayudas en esta pantalla (superficie mínima); la supervisión y
- * los ajustes de accesibilidad están dentro de la consola.
+ * Acceso privado a la demo: usuario fijo «centinela» y una contraseña que
+ * valida el servidor (/api/access), que emite una cookie HttpOnly. Sin
+ * asistentes ni ayudas en esta pantalla (superficie mínima); los ajustes de
+ * accesibilidad están dentro de la consola.
  */
 export function OperatorLogin() {
   const router = useRouter();
   const [scope, animate] = useAnimate<HTMLElement>();
   const reduceMotion = useReducedMotion();
-  const [name, setName] = useState(DEFAULT_NAME);
+  const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [phase, setPhase] = useState<Phase>("idle");
 
@@ -132,7 +135,12 @@ export function OperatorLogin() {
           />
         </div>
 
-        <div className="takya-login-content" inert={phase !== "idle"}>
+        <div
+          className="takya-login-content"
+          inert={
+            phase === "locking" || phase === "locked" || phase === "instant"
+          }
+        >
           <div className="takya-login-intro">
             <div className="takya-login-top">
               <Image
@@ -150,7 +158,7 @@ export function OperatorLogin() {
             </div>
 
             <p className="takya-login-eyebrow">
-              Acceso de práctica <span>Demo</span>
+              Acceso privado <span>Demo</span>
             </p>
             <h1 id="takya-login-title">Tu turno, con más claridad.</h1>
             <p className="takya-login-lead">
@@ -171,18 +179,41 @@ export function OperatorLogin() {
           <div className="takya-login-action">
             <form
               noValidate
-              onSubmit={(event) => {
+              onSubmit={async (event) => {
                 event.preventDefault();
-                const result = profileSchema.safeParse({
-                  name: name.trim(),
-                  role: "OPERATOR",
-                });
-                if (!result.success) {
-                  setError("Escribe tu usuario para entrar.");
+                if (phase !== "idle") return;
+                if (!password) {
+                  setError("Escribe la contraseña para entrar.");
                   return;
                 }
-                if (phase !== "idle") return;
-                beginPractice(result.data);
+                setPhase("checking");
+                setError("");
+                try {
+                  const response = await fetch("/api/access", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ username: ACCESS_USER, password }),
+                  });
+                  if (!response.ok) {
+                    const body = (await response.json().catch(() => null)) as {
+                      message?: string;
+                    } | null;
+                    setError(body?.message ?? "No se pudo validar el acceso.");
+                    setPhase("idle");
+                    return;
+                  }
+                } catch {
+                  setError("No se pudo conectar. Intenta de nuevo.");
+                  setPhase("idle");
+                  return;
+                }
+                setPassword("");
+                beginPractice(
+                  profileSchema.parse({
+                    name: OPERATOR_NAME,
+                    role: "OPERATOR",
+                  }),
+                );
                 void lockAndEnter();
               }}
             >
@@ -191,12 +222,21 @@ export function OperatorLogin() {
                 <input
                   id="takya-login-user"
                   type="text"
-                  value={name}
-                  maxLength={32}
-                  // Usuario de práctica: que el navegador no lo guarde ni lo sugiera.
-                  autoComplete="off"
-                  autoCapitalize="words"
-                  spellCheck={false}
+                  name="username"
+                  value={ACCESS_USER}
+                  readOnly
+                  autoComplete="username"
+                />
+              </div>
+              <div className="takya-login-field">
+                <label htmlFor="takya-login-password">Contraseña</label>
+                <input
+                  id="takya-login-password"
+                  type="password"
+                  name="password"
+                  value={password}
+                  maxLength={256}
+                  autoComplete="current-password"
                   enterKeyHint="go"
                   aria-invalid={error ? true : undefined}
                   aria-describedby={
@@ -205,7 +245,7 @@ export function OperatorLogin() {
                       : "takya-login-demo-note"
                   }
                   onChange={(event) => {
-                    setName(event.target.value);
+                    setPassword(event.target.value);
                     setError("");
                   }}
                 />
@@ -226,14 +266,14 @@ export function OperatorLogin() {
                 disabled={phase !== "idle"}
               >
                 <LogIn size={22} aria-hidden="true" />
-                Iniciar sesión
+                {phase === "checking" ? "Comprobando…" : "Iniciar sesión"}
               </button>
             </form>
 
             <p id="takya-login-demo-note" className="takya-login-note">
               <ShieldCheck size={18} aria-hidden="true" />
-              Modo demo: entras solo con tu usuario, sin contraseña. Nada sale
-              de este navegador.
+              Acceso privado del equipo TAKYA. La demo se presenta en persona o
+              con una conexión autorizada.
             </p>
           </div>
         </div>
