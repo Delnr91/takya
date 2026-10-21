@@ -214,11 +214,13 @@
   border-radius: inherit;
   background: conic-gradient(
     from var(--takya-sweep),
-    transparent 0deg,
-    transparent 250deg,
-    #7d9b8a 290deg,
-    #e05d44 330deg,
-    transparent 360deg
+    rgba(255, 255, 255, 0) 0deg,
+    rgba(255, 255, 255, 0) 150deg,
+    rgba(165, 200, 174, 0.28) 210deg,
+    rgba(255, 255, 255, 0.85) 265deg,
+    rgba(244, 179, 165, 0.35) 310deg,
+    rgba(224, 93, 68, 0.18) 340deg,
+    rgba(255, 255, 255, 0) 360deg
   );
   mask:
     linear-gradient(#000 0 0) content-box,
@@ -240,12 +242,13 @@
   padding: 2px;
   background: conic-gradient(
     from var(--takya-sweep),
-    transparent 0deg,
-    transparent 200deg,
-    #a5c8ae 250deg,
-    #e05d44 310deg,
-    #f4b3a5 340deg,
-    transparent 360deg
+    rgba(255, 255, 255, 0) 0deg,
+    rgba(255, 255, 255, 0) 150deg,
+    rgba(165, 200, 174, 0.28) 210deg,
+    rgba(255, 255, 255, 0.85) 265deg,
+    rgba(244, 179, 165, 0.35) 310deg,
+    rgba(224, 93, 68, 0.18) 340deg,
+    rgba(255, 255, 255, 0) 360deg
   );
   animation-duration: 4s;
 }
@@ -469,12 +472,13 @@
   border-radius: inherit;
   background: conic-gradient(
     from var(--takya-sweep),
-    transparent 0deg,
-    transparent 200deg,
-    #ffffff 250deg,
-    #1b3b2b 310deg,
-    #e05d44 340deg,
-    transparent 360deg
+    rgba(255, 255, 255, 0) 0deg,
+    rgba(255, 255, 255, 0) 150deg,
+    rgba(165, 200, 174, 0.28) 210deg,
+    rgba(255, 255, 255, 0.85) 265deg,
+    rgba(244, 179, 165, 0.35) 310deg,
+    rgba(224, 93, 68, 0.18) 340deg,
+    rgba(255, 255, 255, 0) 360deg
   );
   mask:
     linear-gradient(#000 0 0) content-box,
@@ -791,12 +795,13 @@
   border-radius: inherit;
   background: conic-gradient(
     from var(--takya-sweep),
-    transparent 0deg,
-    transparent 200deg,
-    #a5c8ae 250deg,
-    #e05d44 310deg,
-    #f4b3a5 340deg,
-    transparent 360deg
+    rgba(255, 255, 255, 0) 0deg,
+    rgba(255, 255, 255, 0) 150deg,
+    rgba(165, 200, 174, 0.28) 210deg,
+    rgba(255, 255, 255, 0.85) 265deg,
+    rgba(244, 179, 165, 0.35) 310deg,
+    rgba(224, 93, 68, 0.18) 340deg,
+    rgba(255, 255, 255, 0) 360deg
   );
   mask:
     linear-gradient(#000 0 0) content-box,
@@ -999,12 +1004,13 @@
   border-radius: inherit;
   background: conic-gradient(
     from var(--takya-sweep),
-    transparent 0deg,
-    transparent 220deg,
-    #a5c8ae 265deg,
-    #e05d44 320deg,
-    #f4b3a5 345deg,
-    transparent 360deg
+    rgba(255, 255, 255, 0) 0deg,
+    rgba(255, 255, 255, 0) 150deg,
+    rgba(165, 200, 174, 0.28) 210deg,
+    rgba(255, 255, 255, 0.85) 265deg,
+    rgba(244, 179, 165, 0.35) 310deg,
+    rgba(224, 93, 68, 0.18) 340deg,
+    rgba(255, 255, 255, 0) 360deg
   );
   mask:
     linear-gradient(#000 0 0) content-box,
@@ -1231,11 +1237,12 @@ li:nth-child(4) > .takya-ods-tile::after {
   border-radius: inherit;
   background: conic-gradient(
     from var(--takya-sweep),
-    transparent 0deg,
-    transparent 230deg,
-    #ffffff 290deg,
-    #f4b3a5 330deg,
-    transparent 360deg
+    rgba(255, 255, 255, 0) 0deg,
+    rgba(255, 255, 255, 0) 170deg,
+    rgba(255, 255, 255, 0.25) 230deg,
+    rgba(255, 255, 255, 0.9) 280deg,
+    rgba(255, 230, 220, 0.35) 325deg,
+    rgba(255, 255, 255, 0) 360deg
   );
   mask:
     linear-gradient(#000 0 0) content-box,
