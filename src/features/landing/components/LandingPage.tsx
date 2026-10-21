@@ -3,6 +3,7 @@
 import React, { useEffect, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { Play } from "lucide-react";
 import { ArrowUpRight } from "@/components/icons";
 import { MotionConfig, motion, type Variants } from "framer-motion";
 import { ProblemMetrics } from "./ProblemMetrics";
@@ -279,9 +280,13 @@ export function LandingPage() {
                       e.preventDefault();
                       scrollTo("como-funciona");
                     }}
-                    className="rounded-full border border-[#1B3B2B] bg-transparent px-8 py-3.5 text-xs font-mono uppercase tracking-wider font-bold text-[#1B3B2B] hover:bg-[#1B3B2B] hover:text-white transition-all cursor-pointer"
+                    className="takya-hero-cta group"
                   >
+                    <span className="takya-hero-cta-play" aria-hidden="true">
+                      <Play size={16} fill="currentColor" />
+                    </span>
                     Ver cómo funciona
+                    <span className="takya-hero-cta-time">18 s</span>
                   </a>
                 </div>
                 <p className={`mt-4 ${type.note}`}>

@@ -887,3 +887,103 @@
     animation: none;
   }
 }
+
+/* CTA principal del hero: lleva directo a la escena de «Cómo funciona». */
+.takya-hero-cta {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  min-height: 60px;
+  padding: 8px 22px 8px 8px;
+  overflow: hidden;
+  border-radius: 999px;
+  background: #1b3b2b;
+  color: #f4f1ea;
+  font-family: var(--font-jetbrains), monospace;
+  font-size: 0.8rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  box-shadow:
+    0 18px 36px -16px #1b3b2bb3,
+    inset 0 1px 0 rgba(255, 255, 255, 0.18);
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
+}
+.takya-hero-cta::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    110deg,
+    transparent 35%,
+    rgba(255, 255, 255, 0.22) 50%,
+    transparent 65%
+  );
+  transform: translateX(-100%);
+  animation: takya-cta-shine 3.6s ease-in-out infinite;
+  pointer-events: none;
+}
+.takya-hero-cta:hover {
+  transform: translateY(-2px);
+  box-shadow:
+    0 24px 44px -16px #1b3b2bcc,
+    inset 0 1px 0 rgba(255, 255, 255, 0.18);
+}
+.takya-hero-cta:focus-visible {
+  outline: 3px solid #e05d44;
+  outline-offset: 3px;
+}
+.takya-hero-cta-play {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: #e05d44;
+  color: #fff;
+}
+.takya-hero-cta-play svg {
+  margin-left: 2px;
+}
+.takya-hero-cta-play::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border: 2px solid #e05d44;
+  border-radius: 50%;
+  animation: takya-cta-ring 2s ease-out infinite;
+}
+.takya-hero-cta-time {
+  padding: 3px 8px;
+  border-radius: 999px;
+  background: rgba(244, 241, 234, 0.14);
+  color: #f4b3a5;
+  font-size: 0.7rem;
+  letter-spacing: 0.08em;
+}
+@keyframes takya-cta-shine {
+  60%,
+  100% {
+    transform: translateX(100%);
+  }
+}
+@keyframes takya-cta-ring {
+  from {
+    opacity: 0.8;
+    transform: scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: scale(1.6);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .takya-hero-cta::after,
+  .takya-hero-cta-play::before {
+    animation: none;
+  }
+}
