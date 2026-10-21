@@ -1,14 +1,6 @@
 "use client";
 
 import { motion, type Variants } from "framer-motion";
-import {
-  CircleHelp,
-  Cpu,
-  EyeOff,
-  FileCheck,
-  Layers3,
-  UserCheck,
-} from "@/components/icons";
 import { AnimatedNumber } from "./AnimatedNumber";
 import { SectionDivider } from "./HandDrawn";
 import { type } from "./typography";
@@ -16,32 +8,26 @@ import { SectionTitle } from "./SectionTitle";
 
 const PRINCIPLES = [
   {
-    icon: UserCheck,
     title: "Humano al mando",
     text: "La inteligencia artificial sugiere. La persona decide y deja registrado por qué.",
   },
   {
-    icon: EyeOff,
     title: "Sin biometría",
     text: "No reconoce rostros ni identidades. Tampoco vigila al operador.",
   },
   {
-    icon: Cpu,
     title: "Se instala en tu central",
     text: "El video no sale de ahí: se analiza en un computador de la central, sin enviarlo a la nube.",
   },
   {
-    icon: FileCheck,
     title: "Evidencia sellada",
     text: "Cada entrega va firmada y cifrada. Cualquiera puede comprobar, incluso sin internet, que nadie la alteró.",
   },
   {
-    icon: CircleHelp,
     title: "Muestra lo que no sabe",
     text: "Si falta la hora real, la identidad o el contexto, lo dice. Sin falsas certezas.",
   },
   {
-    icon: Layers3,
     title: "Con lo que ya existe",
     text: "Trabaja con las grabaciones del equipo que ya tienes, sin cambiar cámaras.",
   },
@@ -133,18 +119,8 @@ export function TrustByDesign() {
           }}
           className="grid gap-x-10 gap-y-8 sm:grid-cols-2 lg:col-span-7"
         >
-          {PRINCIPLES.map(({ icon: Icon, title, text }) => (
-            <motion.li
-              key={title}
-              variants={fadeUp}
-              data-icon-trigger=""
-              className="group flex gap-4 pt-5"
-            >
-              <Icon
-                size={24}
-                aria-hidden="true"
-                className="mt-1 shrink-0 text-[#1B3B2B] transition-colors group-hover:text-[#E05D44]"
-              />
+          {PRINCIPLES.map(({ title, text }) => (
+            <motion.li key={title} variants={fadeUp} className="pt-5">
               <span>
                 <strong className={`block ${type.h3} text-[#1B3B2B]`}>
                   {title}
@@ -159,7 +135,7 @@ export function TrustByDesign() {
             variants={fadeUp}
             className={`sm:col-span-2 pt-5 ${type.body} text-[#1B3B2B]`}
           >
-            Pensado para la{""}
+            Pensado para la{" "}
             <a
               href="https://www.bcn.cl/leychile/navegar?idNorma=1209272"
               target="_blank"
@@ -167,8 +143,7 @@ export function TrustByDesign() {
               className="underline decoration-[#E05D44] decoration-2 underline-offset-4 hover:text-[#E05D44]"
             >
               Ley 21.719
-            </a>
-            {""}
+            </a>{" "}
             de protección de datos personales, vigente desde el 1 de diciembre
             de 2026. Cada implementación se revisa con asesoría legal.
           </motion.li>

@@ -3,25 +3,21 @@
 import { useState } from "react";
 import { motion, useReducedMotion, type PanInfo } from "framer-motion";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import { Layers3, ShieldCheck, UserCheck } from "@/components/icons";
 import { GrainGradient } from "@/components/ui/GrainGradient";
 import { type } from "./typography";
 
 const PILLARS = [
   {
-    icon: Layers3,
     label: "Pilar I · Correlación",
     title: "Encontrar contexto.",
     text: "Agrupamos señales dispersas y cámaras que pertenecen a un mismo hecho, para entregar una historia continua y sin duplicados.",
   },
   {
-    icon: ShieldCheck,
     label: "Pilar II · Explicación",
     title: "Entender la prioridad.",
     text: "Explicamos en lenguaje simple el porqué de cada sugerencia antes de actuar. Sin cajas negras.",
   },
   {
-    icon: UserCheck,
     label: "Pilar III · Decisión humana",
     title: "Conservar el control.",
     text: "La persona valida, decide y registra su criterio. La inteligencia artificial propone; el operador tiene la última palabra.",
@@ -62,7 +58,7 @@ export function PillarsCarousel() {
         <ChevronLeft aria-hidden="true" />
       </button>
       <div className="takya-pillars-stage">
-        {PILLARS.map(({ icon: Icon, label, title, text }, index) => {
+        {PILLARS.map(({ label, title, text }, index) => {
           let offset = index - active;
           if (offset > count / 2) offset -= count;
           if (offset < -count / 2) offset += count;
@@ -72,7 +68,6 @@ export function PillarsCarousel() {
               key={title}
               className="takya-pillar"
               aria-hidden={!isActive}
-              data-icon-trigger=""
               drag={isActive && !reduce ? "x" : false}
               dragConstraints={{ left: 0, right: 0 }}
               dragElastic={0.25}
@@ -91,9 +86,6 @@ export function PillarsCarousel() {
               }
               transition={{ type: "spring", stiffness: 220, damping: 26 }}
             >
-              <span className="takya-pillar-icon" aria-hidden="true">
-                <Icon size={28} />
-              </span>
               <span className={`${type.label} text-[#7D9B8A]`}>{label}</span>
               <h3 className={`mt-3 ${type.h3} text-[#1B3B2B]`}>{title}</h3>
               <p className={`mt-3 ${type.body} text-[#1B3B2B]`}>{text}</p>

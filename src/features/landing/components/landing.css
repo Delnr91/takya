@@ -53,8 +53,12 @@
   text-transform: uppercase;
   white-space: nowrap;
 }
-.takya-marquee-track li svg {
-  color: #e05d44;
+/* Separador sencillo entre principios (sin íconos). */
+.takya-marquee-track li i {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #e05d44;
 }
 @keyframes takya-marquee {
   to {
@@ -143,21 +147,6 @@
   outline: 3px solid #e05d44;
   outline-offset: -6px;
   border-radius: 24px;
-}
-.takya-audience-icon {
-  display: grid;
-  place-items: center;
-  width: 56px;
-  height: 56px;
-  border-radius: 18px;
-  background: #fbe4dc;
-  color: #e05d44;
-}
-.takya-audience-panel[data-open="true"] .takya-audience-icon {
-  width: 68px;
-  height: 68px;
-  background: rgba(244, 241, 234, 0.16);
-  color: #f4f1ea;
 }
 .takya-audience-name {
   font-family: var(--font-sora), sans-serif;
@@ -260,16 +249,6 @@
 }
 .takya-pillar:active {
   cursor: grabbing;
-}
-.takya-pillar-icon {
-  display: grid;
-  place-items: center;
-  width: 56px;
-  height: 56px;
-  margin-bottom: 18px;
-  border-radius: 18px;
-  background: #fbe4dc;
-  color: #e05d44;
 }
 .takya-pillars-arrow {
   position: absolute;

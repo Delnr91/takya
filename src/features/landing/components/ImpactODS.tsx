@@ -1,7 +1,6 @@
 "use client";
 
 import { motion, type Variants } from "framer-motion";
-import { Earth, MapPin } from "@/components/icons";
 import { ContourLines, SectionDivider } from "./HandDrawn";
 import { type } from "./typography";
 import { SectionTitle } from "./SectionTitle";
@@ -77,18 +76,12 @@ export function ImpactODS() {
             after="."
           />
         </div>
-        <div className="flex-1 max-w-md" data-icon-trigger="">
+        <div className="flex-1 max-w-md">
           <p
             className={`flex flex-wrap items-center gap-x-5 gap-y-2 ${type.label} text-[#1B3B2B]`}
           >
-            <span className="inline-flex items-center gap-2">
-              <MapPin size={16} aria-hidden="true" />
-              Antofagasta, Chile
-            </span>
-            <span className="inline-flex items-center gap-2">
-              <Earth size={16} aria-hidden="true" />
-              Programa Nómada UCN
-            </span>
+            <span>Antofagasta, Chile</span>
+            <span>Programa Nómada UCN</span>
           </p>
           <p className={`mt-4 ${type.lead}`}>
             Una alineación propuesta y medible con los Objetivos de Desarrollo

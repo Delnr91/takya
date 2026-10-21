@@ -7,41 +7,31 @@ import {
   motion,
   useReducedMotion,
 } from "framer-motion";
-import {
-  ArrowUpRight,
-  FileCheck,
-  Layers3,
-  RadioTower,
-  ShieldCheck,
-} from "@/components/icons";
+import { ArrowUpRight } from "@/components/icons";
 import { SectionTitle } from "./SectionTitle";
 import { SectionDivider } from "./HandDrawn";
 import { type } from "./typography";
 
 const AUDIENCES = [
   {
-    icon: RadioTower,
     title: "Centrales municipales",
     tag: "Prioridad 1",
     pain: "Cientos de cámaras y pocas personas mirándolas.",
     gain: "TAKYA ordena lo que pasó y dice qué revisar primero.",
   },
   {
-    icon: ShieldCheck,
     title: "Seguridad privada y condominios",
     tag: "Prioridad 1",
     pain: "Después de un hecho, buscar el minuto exacto toma horas.",
     gain: "Encuentra el momento y lo entrega listo para presentar.",
   },
   {
-    icon: Layers3,
     title: "Comercio, industria y minería",
     tag: "Siguiente paso",
     pain: "Perímetros extensos y grabaciones largas.",
     gain: "Foco en lo que importa, sin mirar horas de video.",
   },
   {
-    icon: FileCheck,
     title: "Policías y fiscalía",
     tag: "Quien recibe",
     pain: "Videos grabados con el celular, sin huella ni registro.",
@@ -77,7 +67,7 @@ export function Audience() {
 
       <LayoutGroup>
         <ul className="takya-audience">
-          {AUDIENCES.map(({ icon: Icon, title, tag, pain, gain }, index) => {
+          {AUDIENCES.map(({ title, tag, pain, gain }, index) => {
             const open = index === active;
             return (
               <motion.li
@@ -98,14 +88,6 @@ export function Audience() {
                   onClick={() => setActive(index)}
                   onFocus={() => setActive(index)}
                 >
-                  <motion.span
-                    layout={!reduce}
-                    transition={spring}
-                    className="takya-audience-icon"
-                    aria-hidden="true"
-                  >
-                    <Icon size={open ? 30 : 24} />
-                  </motion.span>
                   <motion.span
                     layout={!reduce ? "position" : false}
                     transition={spring}
