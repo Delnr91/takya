@@ -2,7 +2,7 @@ import { AnimatedNumber } from "./AnimatedNumber";
 import { type } from "./typography";
 
 const cardBase =
-  "group relative flex flex-col justify-between overflow-hidden rounded-[28px] border p-7 backdrop-blur-2xl transition-[transform,box-shadow] duration-300 motion-safe:hover:-translate-y-1 sm:p-9";
+  "takya-metric group relative flex flex-col justify-between overflow-hidden rounded-[28px] border p-7 backdrop-blur-2xl transition-[transform,box-shadow] duration-300 motion-safe:hover:-translate-y-1 sm:p-9";
 
 export function ProblemMetrics() {
   return (
@@ -69,11 +69,11 @@ export function ProblemMetrics() {
           <p className={`${type.label} text-[#1B3B2B]`}>
             Lo que cambia con TAKYA
           </p>
-          <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:gap-8">
+          <div className="my-auto flex flex-col gap-4 pt-6 sm:flex-row sm:items-center sm:gap-8">
             <p className={type.stat}>
               <AnimatedNumber value={1} />
             </p>
-            <p className={`max-w-sm pb-1 ${type.body} text-[#1B3B2B]`}>
+            <p className={`max-w-md ${type.lead} text-[#1B3B2B]`}>
               caso a la vez, explicado: qué se vio, qué no se sabe y quién
               decidió.{" "}
               <span className="text-[#E05D44]">

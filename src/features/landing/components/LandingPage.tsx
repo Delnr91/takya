@@ -218,7 +218,7 @@ export function LandingPage() {
                 e.preventDefault();
                 scrollTo("criterio");
               }}
-              className="inline-flex min-h-11 items-center justify-center whitespace-nowrap rounded-full bg-[#E05D44] px-4 py-2.5 md:px-6 text-xs font-mono uppercase tracking-wider font-bold text-white shadow-md hover:bg-[#c94b34] transition-all hover:scale-105 active:scale-95 cursor-pointer"
+              className="takya-liquid-orange inline-flex min-h-11 items-center justify-center whitespace-nowrap rounded-full px-4 py-2.5 md:px-6 text-xs font-mono uppercase tracking-wider font-bold text-white transition-transform hover:scale-105 active:scale-95 cursor-pointer"
             >
               Conversemos <ArrowUpRight className="ml-2 h-4 w-4" />
             </a>
@@ -361,12 +361,12 @@ export function LandingPage() {
                 mirarlas.
               </p>
               <p className={`${type.body} text-[#1B3B2B]`}>
-                Mirar pantallas por horas agota: la atención{""}
+                Mirar pantallas por horas agota: la atención{" "}
                 <span className="font-extrabold text-[#E05D44]">
                   cae con el tiempo
-                </span>
-                {""}y una señal importante se pierde entre muchas. TAKYA ordena
-                lo que pasó y explica qué revisar primero, para que la persona
+                </span>{" "}
+                y una señal importante se pierde entre muchas. TAKYA ordena lo
+                que pasó y explica qué revisar primero, para que la persona
                 decida con contexto.
               </p>
             </div>

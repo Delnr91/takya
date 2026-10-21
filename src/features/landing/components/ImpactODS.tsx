@@ -1,6 +1,13 @@
 "use client";
 
-import { motion, type Variants } from "framer-motion";
+import type { CSSProperties, PointerEvent } from "react";
+import {
+  motion,
+  useMotionValue,
+  useReducedMotion,
+  useSpring,
+  type Variants,
+} from "framer-motion";
 import { ContourLines, SectionDivider } from "./HandDrawn";
 import { type } from "./typography";
 import { SectionTitle } from "./SectionTitle";
@@ -100,27 +107,76 @@ export function ImpactODS() {
         }}
         className="max-w-6xl mx-auto mt-16 grid gap-10 sm:grid-cols-2 lg:grid-cols-4"
       >
-        {GOALS.map(({ number, color, ink, title, text, status }) => (
-          <motion.li
-            key={number}
-            variants={fadeUp}
-            className="flex flex-col pt-6"
-          >
-            <span
-              className="grid size-16 place-items-center rounded-2xl font-display text-3xl font-extrabold"
-              style={{ backgroundColor: color, color: ink }}
-            >
-              <span className="sr-only">ODS </span>
-              {number}
-            </span>
-            <span className={`mt-5 ${type.label} text-[#1B3B2B]/80`}>
-              {status}
-            </span>
-            <h3 className={`mt-2 ${type.h3} text-[#1B3B2B]`}>{title}</h3>
-            <p className={`mt-2 ${type.body} text-[#1B3B2B]`}>{text}</p>
-          </motion.li>
+        {GOALS.map((goal) => (
+          <GoalItem key={goal.number} {...goal} />
         ))}
       </motion.ul>
     </section>
+  );
+}
+
+/**
+ * Un ODS con su cuadro de color en vidrio líquido: reflejos, un destello que
+ * lo recorre y una inclinación 3D que sigue al puntero sobre el bloque.
+ */
+function GoalItem({
+  number,
+  color,
+  ink,
+  title,
+  text,
+  status,
+}: (typeof GOALS)[number]) {
+  const reduce = useReducedMotion();
+  const rotateX = useSpring(useMotionValue(0), { stiffness: 260, damping: 18 });
+  const rotateY = useSpring(useMotionValue(0), { stiffness: 260, damping: 18 });
+
+  function onMove(event: PointerEvent<HTMLLIElement>) {
+    if (reduce || event.pointerType !== "mouse") return;
+    const tile =
+      event.currentTarget.querySelector<HTMLElement>(".takya-ods-tile");
+    if (!tile) return;
+    const box = tile.getBoundingClientRect();
+    const x = (event.clientX - box.left) / box.width;
+    const y = (event.clientY - box.top) / box.height;
+    const cx = Math.max(-1.5, Math.min(1.5, x - 0.5));
+    const cy = Math.max(-1.5, Math.min(1.5, y - 0.5));
+    rotateY.set(cx * 26);
+    rotateX.set(-cy * 26);
+    tile.style.setProperty("--gx", `${Math.round(x * 100)}%`);
+    tile.style.setProperty("--gy", `${Math.round(y * 100)}%`);
+  }
+
+  function onLeave() {
+    rotateX.set(0);
+    rotateY.set(0);
+  }
+
+  return (
+    <motion.li
+      variants={fadeUp}
+      className="flex flex-col pt-6"
+      onPointerMove={onMove}
+      onPointerLeave={onLeave}
+    >
+      <motion.span
+        className="takya-ods-tile font-display text-3xl font-extrabold"
+        style={
+          {
+            "--ods": color,
+            color: ink,
+            rotateX,
+            rotateY,
+            transformPerspective: 420,
+          } as CSSProperties
+        }
+      >
+        <span className="sr-only">ODS </span>
+        <span className="relative">{number}</span>
+      </motion.span>
+      <span className={`mt-5 ${type.label} text-[#1B3B2B]/80`}>{status}</span>
+      <h3 className={`mt-2 ${type.h3} text-[#1B3B2B]`}>{title}</h3>
+      <p className={`mt-2 ${type.body} text-[#1B3B2B]`}>{text}</p>
+    </motion.li>
   );
 }
