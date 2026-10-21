@@ -997,3 +997,52 @@
     animation: none;
   }
 }
+
+/* Barra de conceptos del hero: Liquid Glass con el mismo borde en movimiento. */
+.takya-benefits {
+  position: relative;
+  border: 1px solid rgba(255, 255, 255, 0.75);
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.8),
+    rgba(255, 255, 255, 0.45) 55%,
+    rgba(255, 255, 255, 0.68)
+  );
+  box-shadow:
+    0 24px 50px -26px #1b3b2b80,
+    inset 0 1px 0 rgba(255, 255, 255, 0.95),
+    inset 0 -1px 0 rgba(255, 255, 255, 0.5);
+  backdrop-filter: blur(24px) saturate(180%);
+}
+.takya-benefits::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  padding: 2px;
+  border-radius: inherit;
+  background: conic-gradient(
+    from var(--takya-sweep),
+    transparent 0deg,
+    transparent 220deg,
+    #a5c8ae 265deg,
+    #e05d44 320deg,
+    #f4b3a5 345deg,
+    transparent 360deg
+  );
+  mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  mask-composite: exclude;
+  animation: takya-sweep 6s linear infinite;
+  pointer-events: none;
+}
+.takya-benefits > a:hover {
+  background: rgba(255, 255, 255, 0.7);
+}
+@media (prefers-reduced-motion: reduce) {
+  .takya-benefits::after,
+  .takya-hero-cta::after {
+    animation: none;
+    --takya-sweep: 300deg;
+  }
+}

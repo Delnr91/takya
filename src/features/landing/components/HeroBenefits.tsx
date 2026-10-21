@@ -40,7 +40,7 @@ export function HeroBenefits({
   return (
     <nav
       aria-label="Lo que hace TAKYA"
-      className="grid w-full max-w-5xl grid-cols-2 gap-2 rounded-[28px] border border-white/80 bg-white/70 p-3 shadow-md backdrop-blur-2xl md:grid-cols-4 md:rounded-full md:p-2"
+      className="takya-benefits grid w-full max-w-5xl grid-cols-2 gap-2 rounded-[28px] p-3 md:grid-cols-4 md:rounded-full md:p-2"
     >
       {BENEFITS.map(({ icon: Icon, label, text, target }, index) => (
         <a
