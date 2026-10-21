@@ -48,7 +48,7 @@ export function Audience() {
   const [active, setActive] = useState(0);
   const spring = reduce
     ? { duration: 0 }
-    : { type: "spring" as const, stiffness: 260, damping: 30 };
+    : { type: "spring" as const, stiffness: 480, damping: 40, mass: 0.8 };
 
   return (
     <div className="max-w-6xl mx-auto mt-20">
@@ -101,13 +101,13 @@ export function Audience() {
                     <motion.dl
                       id={`audiencia-${index}`}
                       className="takya-audience-body"
-                      initial={reduce ? false : { opacity: 0, y: 14 }}
+                      initial={reduce ? false : { opacity: 0, y: 8 }}
                       animate={{ opacity: 1, y: 0 }}
                       exit={reduce ? undefined : { opacity: 0 }}
                       transition={
                         reduce
                           ? { duration: 0 }
-                          : { delay: 0.12, duration: 0.35 }
+                          : { delay: 0.06, duration: 0.2 }
                       }
                     >
                       <div className="takya-audience-row">
