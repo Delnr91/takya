@@ -419,9 +419,9 @@ export function LandingPage() {
             whileInView="whileInView"
             viewport={{ once: true, margin: "-100px" }}
             variants={fadeUpVariants}
-            className="max-w-6xl mx-auto pt-6 flex flex-col md:flex-row items-start justify-between gap-12"
+            className="max-w-6xl mx-auto pt-6 flex flex-col items-center gap-12 text-center"
           >
-            <div className="max-w-xl">
+            <div className="mx-auto max-w-xl">
               <span className={type.eyebrow}>CONVERSACIÓN DIRECTA</span>
               <SectionTitle
                 lead="Conoce TAKYA"
@@ -435,7 +435,7 @@ export function LandingPage() {
               </p>
             </div>
 
-            <div className="takya-gradient-panel relative w-full overflow-hidden rounded-[28px] p-3 pt-28 shadow-[0_24px_70px_rgba(27,59,43,0.18)] md:w-[440px] md:self-center">
+            <div className="takya-gradient-panel relative w-full overflow-hidden rounded-[28px] p-3 pt-28 shadow-[0_24px_70px_rgba(27,59,43,0.18)] md:w-[440px]">
               <GrainGradient colors={["#E05D44", "#DBBA95", "#A5C8AE"]} />
               <div className="relative flex flex-col gap-4 rounded-[20px] border border-white/70 bg-[#F4F1EA]/85 p-6 backdrop-blur-xl">
                 <p className={`${type.label} text-[#1B3B2B]`}>
