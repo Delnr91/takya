@@ -920,28 +920,6 @@
     transform 0.25s ease,
     box-shadow 0.25s ease;
 }
-.takya-hero-cta::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  padding: 2px;
-  border-radius: inherit;
-  background: conic-gradient(
-    from var(--takya-sweep),
-    transparent 0deg,
-    transparent 200deg,
-    #a5c8ae 250deg,
-    #e05d44 310deg,
-    #f4b3a5 340deg,
-    transparent 360deg
-  );
-  mask:
-    linear-gradient(#000 0 0) content-box,
-    linear-gradient(#000 0 0);
-  mask-composite: exclude;
-  animation: takya-sweep 4s linear infinite;
-  pointer-events: none;
-}
 .takya-hero-cta:hover {
   transform: translateY(-2px);
   box-shadow:
@@ -992,7 +970,6 @@
   }
 }
 @media (prefers-reduced-motion: reduce) {
-  .takya-hero-cta::after,
   .takya-hero-cta-play::before {
     animation: none;
   }
@@ -1063,8 +1040,7 @@
   backdrop-filter: blur(8px) saturate(200%);
 }
 @media (prefers-reduced-motion: reduce) {
-  .takya-benefits::after,
-  .takya-hero-cta::after {
+  .takya-benefits::after {
     animation: none;
     --takya-sweep: 300deg;
   }
@@ -1320,34 +1296,12 @@ li:nth-child(4) > .takya-ods-tile::after {
 .takya-logo-capsule:hover::before {
   opacity: 1;
 }
-.takya-logo-capsule::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  padding: 1.5px;
-  border-radius: inherit;
-  background: conic-gradient(
-    from var(--takya-sweep),
-    transparent 0deg,
-    transparent 230deg,
-    #a5c8ae 275deg,
-    #e05d44 330deg,
-    transparent 360deg
-  );
-  mask:
-    linear-gradient(#000 0 0) content-box,
-    linear-gradient(#000 0 0);
-  mask-composite: exclude;
-  animation: takya-sweep 5s linear infinite;
-  pointer-events: none;
-}
 .takya-logo-capsule:focus-visible {
   outline: 3px solid #e05d44;
   outline-offset: 3px;
 }
 @media (prefers-reduced-motion: reduce) {
-  .takya-logo-capsule::after {
-    animation: none;
-    --takya-sweep: 300deg;
+  .takya-logo-capsule::before {
+    transition: none;
   }
 }
