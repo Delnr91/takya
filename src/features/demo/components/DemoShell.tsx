@@ -1,5 +1,6 @@
 "use client";
 
+import { readTheme, writeTheme } from "@/lib/theme";
 import Image from "next/image";
 import Link from "next/link";
 import { useCallback, useEffect, useRef, useState } from "react";
@@ -126,6 +127,23 @@ export function DemoShell() {
       }),
     [send],
   );
+  // Modo día/noche compartido con el login: al entrar se toma el elegido allá
+  // y cada cambio aquí queda guardado para la próxima vez.
+  const hasState = Boolean(state);
+  const nightMode = state?.preferences.nightMode ?? false;
+  const themeSynced = useRef(false);
+  useEffect(() => {
+    if (!hasState) return;
+    if (!themeSynced.current) {
+      themeSynced.current = true;
+      const saved = readTheme();
+      if (saved && (saved === "night") !== nightMode) {
+        send({ type: "PREFERENCE", preference: "nightMode" });
+        return;
+      }
+    }
+    writeTheme(nightMode ? "night" : "day");
+  }, [hasState, nightMode, send]);
   const atCapacity = (state?.incidents.length ?? 0) >= MAX_INCIDENTS;
   const legacySupervisor = state?.profile.role === "SUPERVISOR";
   useEffect(() => {

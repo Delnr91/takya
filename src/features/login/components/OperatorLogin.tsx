@@ -2,11 +2,12 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useSyncExternalStore } from "react";
 import { useRouter } from "next/navigation";
 import { useAnimate, useReducedMotion } from "framer-motion";
 import { Eye } from "lucide-react";
-import { ArrowLeft, LogIn, ShieldCheck } from "@/components/icons";
+import { ArrowLeft, LogIn, Moon, ShieldCheck, Sun } from "@/components/icons";
+import { readTheme, subscribeTheme, writeTheme, type Theme } from "@/lib/theme";
 import { profileSchema } from "@/features/demo/schemas/simulation";
 import { beginPractice } from "@/features/demo/model/profile";
 import { ACCESS_USER } from "@/lib/access-shared";
@@ -46,6 +47,13 @@ export function OperatorLogin() {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [phase, setPhase] = useState<Phase>("idle");
+  // Mismo modo día/noche que la consola (ver src/lib/theme.ts).
+  const theme = useSyncExternalStore<Theme>(
+    subscribeTheme,
+    () => readTheme() ?? "day",
+    () => "day",
+  );
+  const toggleTheme = () => writeTheme(theme === "night" ? "day" : "night");
 
   // La consola queda precargada para que aparezca apenas cierre el candado.
   useEffect(() => {
@@ -130,13 +138,37 @@ export function OperatorLogin() {
   }
 
   return (
-    <main ref={scope} className={MAIN_CLASS[phase]}>
+    <main ref={scope} className={MAIN_CLASS[phase]} data-theme={theme}>
       <div className="takya-login-backdrop" aria-hidden="true">
-        <Image src="/brand/bg-poster.png" alt="" fill sizes="100vw" priority />
+        <Image
+          key={theme}
+          src={
+            theme === "night"
+              ? "/brand/login-guardian-noche.png"
+              : "/background.png"
+          }
+          alt=""
+          fill
+          sizes="100vw"
+          priority
+        />
       </div>
+      <button
+        type="button"
+        className="takya-login-theme"
+        aria-pressed={theme === "night"}
+        onClick={toggleTheme}
+      >
+        {theme === "night" ? (
+          <Sun size={18} aria-hidden="true" />
+        ) : (
+          <Moon size={18} aria-hidden="true" />
+        )}
+        {theme === "night" ? "Modo día" : "Modo noche"}
+      </button>
 
       <div className="takya-login-layout">
-        <WelcomePanel />
+        <WelcomePanel theme={theme} />
 
         <section
           className="takya-login-card"
@@ -335,13 +367,17 @@ export function OperatorLogin() {
  * Bienvenida del software (no de la web pública): texto directo sobre el
  * afiche de la marca, que es el fondo de toda la pantalla.
  */
-function WelcomePanel() {
+function WelcomePanel({ theme }: { theme: Theme }) {
   return (
     <aside className="takya-login-welcome" aria-label="Bienvenida a TAKYA">
       <div className="takya-login-welcome-body">
         <div className="takya-login-welcome-top">
           <Image
-            src="/brand/01_maestros_svg/takya-a-principal-marfil.svg"
+            src={
+              theme === "night"
+                ? "/brand/01_maestros_svg/takya-a-principal-marfil.svg"
+                : "/brand/01_maestros_svg/takya-a-principal-bosque.svg"
+            }
             alt="TAKYA"
             width={148}
             height={36}
