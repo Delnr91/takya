@@ -81,10 +81,13 @@ El verificador offline aceptó el paquete. También **rechazó** un byte alterad
 | Antofagasta: la central municipal pasó de 30 a 130 cámaras, con operación continua y refuerzo de operadores | [F] [Municipalidad de Antofagasta, 11-05-2026](https://www.municipalidaddeantofagasta.cl/index.php/noticias/4555-con-mas-operarios-y-el-apoyo-de-carabineros-operaran-desde-central-de-camaras-de-televigilancia) | Usable con fuente |
 | «Avanzar hacia 1.000 cámaras» en la comuna | [R] Comunicación municipal; no se encontró un proyecto financiado | Solo como escenario de dimensionamiento |
 | Proyecto regional de 1.245 cámaras y 64 pórticos lectores de patentes | [R] Citado por informes de IA; nadie del equipo leyó la fuente primaria | **No usar** hasta abrir la nota oficial |
+| **Central municipal de Antofagasta: 1 operador por cada 30 cámaras; ya son 160 cámaras.** La psicóloga encargada de criminología calificó la proporción de excesiva y reconoció el dolor y la carga cognitiva | [R] Reunión presencial, octubre 2026 ([doc. 14](../estrategia/14_VALIDACION_EN_TERRENO.md)); falta ficha y autorización para citar | **Métrica central del pitch**, con atribución al cargo |
 | Operadores de condominios observan entre 2 y 5 cámaras | [R] Entrevistas relatadas por el fundador; falta ficha de muestra | Hallazgo cualitativo, con atribución |
 | Perfil laboral: ofertas piden enseñanza media; algunas aceptan sin experiencia | [F] [Concurso Colina](https://www.colina.cl/wp-content/uploads/2020/10/concurso_operador_central_camaras.pdf), [OMIL Antofagasta, turno 7×7](https://omil.municipalidaddeantofagasta.cl/index.php/ofertas-laborales/job-detail/job-operador-cctv-antofagasta-7x7-rotativo-d%C3%8Da%E2%80%93noche-12331) | Ejemplos de contratación, no estadística nacional |
 
 **Formulación defendible del usuario:** *operadores de videovigilancia con habilidades digitales diversas, expuestos a tareas repetitivas, turnos largos, interrupciones y sobrecarga de información.* La edad no se usa como sustituto de la habilidad digital.
+
+**¿Es mucho 1 : 30?** En una cárcel, la detección de eventos cayó a ~64 % con 16 pantallas simultáneas, frente a ~83 % con 4 (Tickner y Poulton, 1973, citado en [Frontiers in Human Neuroscience, 2013](https://www.frontiersin.org/journals/human-neuroscience/articles/10.3389/fnhum.2013.00615/full)) [F]. La industria suele fijar el techo en 10–16 cámaras de visualización continua [R]. Treinta cámaras por operador duplican ese techo: **TAKYA cambia la tarea de «mirar todo» a «revisar excepciones»** ([doc. 14 §2](../estrategia/14_VALIDACION_EN_TERRENO.md)).
 
 ### 2.2 Fatiga cognitiva y observación: qué dice la investigación
 
