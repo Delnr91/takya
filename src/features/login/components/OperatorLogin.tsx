@@ -145,7 +145,7 @@ export function OperatorLogin() {
           src={
             theme === "night"
               ? "/brand/login-guardian-noche.png"
-              : "/background.png"
+              : "/brand/login-guardian-dia.png"
           }
           alt=""
           fill

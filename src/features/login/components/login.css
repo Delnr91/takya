@@ -1482,3 +1482,33 @@
     font-size: 1.6em;
   }
 }
+
+/* ══ Modo día con el guardián (misma composición que la noche) ══ */
+.takya-login[data-theme="day"] .takya-login-backdrop img {
+  object-position: 22% 50%;
+  animation-duration: 36s;
+}
+.takya-login[data-theme="day"] .takya-login-backdrop::after {
+  background:
+    linear-gradient(
+      90deg,
+      rgba(244, 241, 234, 0) 0%,
+      rgba(244, 241, 234, 0) 45%,
+      rgba(244, 241, 234, 0.55) 68%,
+      rgba(244, 241, 234, 0.75) 100%
+    ),
+    linear-gradient(180deg, rgba(244, 241, 234, 0) 70%, #f4f1ea99);
+}
+@media (max-width: 1023px), (max-height: 639px) {
+  .takya-login[data-theme="day"] .takya-login-backdrop img {
+    object-position: 30% 20%;
+  }
+  .takya-login[data-theme="day"] .takya-login-backdrop::after {
+    background: linear-gradient(
+      180deg,
+      rgba(244, 241, 234, 0.1) 0%,
+      rgba(244, 241, 234, 0.8) 40%,
+      rgba(244, 241, 234, 0.92) 100%
+    );
+  }
+}
