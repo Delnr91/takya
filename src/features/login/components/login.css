@@ -826,3 +826,68 @@
     margin-top: 0;
   }
 }
+
+/* ══ Fondo a pantalla completa: el afiche de la marca ══
+   La bienvenida va escrita directo sobre la imagen (sin tarjeta) y el acceso
+   queda en vidrio a la derecha. */
+.takya-login {
+  background: #0d1411;
+}
+.takya-login-backdrop img {
+  object-fit: cover;
+  object-position: 28% 25%;
+  opacity: 1;
+  animation: takya-login-drift 28s ease-in-out infinite alternate;
+}
+.takya-login-backdrop::after {
+  background:
+    linear-gradient(
+      90deg,
+      rgba(8, 14, 11, 0.15) 0%,
+      rgba(8, 14, 11, 0.1) 45%,
+      rgba(8, 14, 11, 0.45) 100%
+    ),
+    linear-gradient(180deg, rgba(8, 14, 11, 0) 40%, rgba(8, 14, 11, 0.75) 100%);
+}
+@media (prefers-reduced-motion: reduce) {
+  .takya-login-backdrop img {
+    animation: none;
+  }
+}
+.takya-login-welcome {
+  overflow: visible;
+  border: 0;
+  border-radius: 0;
+  background: none;
+  box-shadow: none;
+}
+.takya-login-welcome-body {
+  padding-left: 4px;
+  padding-right: 4px;
+}
+.takya-login-welcome-title,
+.takya-login-welcome-lead {
+  text-shadow: 0 2px 24px rgba(0, 0, 0, 0.45);
+}
+@media (min-width: 1024px) and (min-height: 640px) {
+  .takya-login-welcome {
+    min-height: min(760px, calc(100dvh - 48px));
+  }
+  .takya-login-welcome-body {
+    padding: 16px 8px;
+  }
+}
+/* El mensaje del candado va sobre fondo oscuro. */
+.takya-login.is-locking .takya-login-lock-caption {
+  color: #f4f1ea;
+}
+/* Sobre el fondo oscuro el vidrio necesita más blanco para que el texto
+   mantenga su contraste. */
+.takya-login-card {
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.92),
+    rgba(250, 251, 248, 0.82) 55%,
+    rgba(255, 255, 255, 0.88)
+  );
+}

@@ -132,7 +132,7 @@ export function OperatorLogin() {
   return (
     <main ref={scope} className={MAIN_CLASS[phase]}>
       <div className="takya-login-backdrop" aria-hidden="true">
-        <Image src="/background2.png" alt="" fill sizes="100vw" />
+        <Image src="/brand/bg-poster.png" alt="" fill sizes="100vw" priority />
       </div>
 
       <div className="takya-login-layout">
@@ -332,22 +332,12 @@ export function OperatorLogin() {
 }
 
 /**
- * Bienvenida del software (no de la web pública): el afiche de la marca a
- * sangre, con un movimiento lento, y el lema en tipografía grande.
+ * Bienvenida del software (no de la web pública): texto directo sobre el
+ * afiche de la marca, que es el fondo de toda la pantalla.
  */
 function WelcomePanel() {
   return (
     <aside className="takya-login-welcome" aria-label="Bienvenida a TAKYA">
-      <div className="takya-login-welcome-art" aria-hidden="true">
-        <Image
-          src="/brand/bg-poster.png"
-          alt=""
-          fill
-          sizes="(min-width: 1024px) 60vw, 100vw"
-          priority
-        />
-      </div>
-      <div className="takya-login-welcome-shade" aria-hidden="true" />
       <div className="takya-login-welcome-body">
         <div className="takya-login-welcome-top">
           <Image
