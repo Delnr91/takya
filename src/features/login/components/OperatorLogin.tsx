@@ -156,15 +156,17 @@ export function OperatorLogin() {
       <button
         type="button"
         className="takya-login-theme"
+        data-theme={theme}
         aria-pressed={theme === "night"}
+        aria-label={
+          theme === "night" ? "Cambiar a modo día" : "Cambiar a modo noche"
+        }
+        title={theme === "night" ? "Modo día" : "Modo noche"}
         onClick={toggleTheme}
       >
-        {theme === "night" ? (
-          <Sun size={18} aria-hidden="true" />
-        ) : (
-          <Moon size={18} aria-hidden="true" />
-        )}
-        {theme === "night" ? "Modo día" : "Modo noche"}
+        <span key={theme} className="takya-login-theme-icon" aria-hidden="true">
+          {theme === "night" ? <Moon size={22} /> : <Sun size={22} />}
+        </span>
       </button>
 
       <div className="takya-login-layout">

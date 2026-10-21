@@ -1263,3 +1263,113 @@
   top: max(16px, env(safe-area-inset-top));
   bottom: auto;
 }
+
+/* ══ Botón Día/Noche como pin esmaltado (igual que los ODS) ══
+   Muestra el modo actual: sol de día, luna de noche. Borde metálico, relieve,
+   sombra corta y destello; al tocarlo se hunde y el ícono gira. */
+.takya-login-theme {
+  display: grid;
+  place-items: center;
+  width: 52px;
+  height: 52px;
+  min-height: 0;
+  padding: 0;
+  overflow: hidden;
+  border: 2.5px solid transparent;
+  border-radius: 50%;
+  background:
+    linear-gradient(
+        160deg,
+        rgba(255, 255, 255, 0.45) 0%,
+        rgba(255, 255, 255, 0.06) 45%,
+        rgba(0, 0, 0, 0.12) 100%
+      )
+      padding-box,
+    linear-gradient(var(--pin), var(--pin)) padding-box,
+    linear-gradient(145deg, #ffffff, #c9cdc8 35%, #f4f4f2 55%, #9ea39d)
+      border-box;
+  box-shadow:
+    0 2px 0 #8d928c,
+    0 4px 0 rgba(27, 59, 43, 0.15),
+    0 12px 18px -8px rgba(15, 30, 22, 0.55),
+    inset 0 2px 1px rgba(255, 255, 255, 0.55),
+    inset 0 -3px 4px rgba(0, 0, 0, 0.25);
+  color: var(--pin-ink);
+  backdrop-filter: none;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+.takya-login-theme[data-theme="day"] {
+  --pin: #f3a447;
+  --pin-ink: #fff8e6;
+}
+.takya-login-theme[data-theme="night"] {
+  --pin: #1d3a4f;
+  --pin-ink: #f4f1ea;
+}
+.takya-login-theme::before {
+  content: "";
+  position: absolute;
+  inset: 3px 7px auto;
+  height: 42%;
+  border-radius: 50% 50% 40% 40%;
+  background: linear-gradient(rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0));
+  pointer-events: none;
+}
+.takya-login-theme::after {
+  content: "";
+  position: absolute;
+  inset: -40%;
+  background: linear-gradient(
+    115deg,
+    transparent 42%,
+    rgba(255, 255, 255, 0.6) 50%,
+    transparent 58%
+  );
+  transform: translateX(-70%);
+  animation: takya-ods-glint 5s ease-in-out infinite;
+  pointer-events: none;
+}
+@keyframes takya-ods-glint {
+  0%,
+  70% {
+    transform: translateX(-70%);
+  }
+  100% {
+    transform: translateX(70%);
+  }
+}
+.takya-login-theme:hover {
+  transform: translateY(-2px) rotate(-6deg);
+}
+.takya-login-theme:active {
+  transform: translateY(2px) scale(0.96);
+  box-shadow:
+    0 0 0 #8d928c,
+    0 4px 8px -4px rgba(15, 30, 22, 0.5),
+    inset 0 2px 1px rgba(255, 255, 255, 0.4),
+    inset 0 -2px 3px rgba(0, 0, 0, 0.3);
+}
+.takya-login-theme-icon {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  filter: drop-shadow(0 1px 0 rgba(0, 0, 0, 0.25));
+  animation: takya-theme-spin 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+@keyframes takya-theme-spin {
+  from {
+    opacity: 0;
+    transform: rotate(-120deg) scale(0.5);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .takya-login-theme::after,
+  .takya-login-theme-icon {
+    animation: none;
+  }
+  .takya-login-theme:hover {
+    transform: none;
+  }
+}
