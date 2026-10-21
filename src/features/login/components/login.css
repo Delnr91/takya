@@ -221,6 +221,13 @@
   border-color: #2f6b45;
   box-shadow: 0 0 0 4px #2f6b4540;
 }
+/* Usuario fijo del acceso privado: se ve, pero no se edita. */
+.takya-login-field input[readonly] {
+  border-style: dashed;
+  background: rgba(229, 236, 225, 0.7);
+  color: var(--login-muted);
+  cursor: default;
+}
 .takya-login-field input[aria-invalid="true"] {
   border-color: #a5352a;
 }
@@ -539,5 +546,969 @@
   .takya-login-submit,
   .takya-login-field input {
     transition: none;
+  }
+}
+
+/* ══ Home del software: bienvenida al costado + acceso ══
+   Escritorio y iPad horizontal: dos columnas (bienvenida | acceso).
+   Teléfono y iPad vertical: la bienvenida se reduce a una franja arriba. */
+.takya-login-layout {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  justify-items: center;
+  gap: 16px;
+  width: min(100%, 1240px);
+}
+.takya-login-welcome {
+  position: relative;
+  isolation: isolate;
+  width: min(100%, 440px);
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  border-radius: 28px;
+  background: #0d1411;
+  color: #f4f1ea;
+  box-shadow:
+    0 30px 70px -30px #0f2a1fb3,
+    inset 0 1px 0 rgba(255, 255, 255, 0.25);
+  animation: takya-login-in 420ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+/* Afiche de la marca con un acercamiento lento (Ken Burns). */
+.takya-login-welcome-art {
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+}
+.takya-login-welcome-art img {
+  object-fit: cover;
+  object-position: 30% 22%;
+  animation: takya-login-drift 24s ease-in-out infinite alternate;
+}
+@keyframes takya-login-drift {
+  from {
+    transform: scale(1.04) translate3d(0, 0, 0);
+  }
+  to {
+    transform: scale(1.14) translate3d(-2%, 2%, 0);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .takya-login-welcome-art img {
+    animation: none;
+  }
+}
+.takya-login-welcome-shade {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(
+    180deg,
+    rgba(8, 14, 11, 0.1) 0%,
+    rgba(8, 14, 11, 0.15) 45%,
+    rgba(8, 14, 11, 0.7) 80%,
+    rgba(8, 14, 11, 0.85)
+  );
+}
+.takya-login-welcome-body {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  height: 100%;
+  padding: 20px 22px;
+}
+.takya-login-welcome-top {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+.takya-login-welcome-logo {
+  width: 120px;
+  height: auto;
+}
+.takya-login-welcome-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 12px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.12);
+  font-family: var(--font-jetbrains), monospace;
+  font-size: 0.62em;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  backdrop-filter: blur(12px);
+}
+.takya-login-welcome-chip i {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #a5c8ae;
+  box-shadow: 0 0 10px #a5c8ae;
+}
+.takya-login-welcome-eyebrow {
+  margin: 0;
+  color: #cfe0d3;
+  font-size: 0.9em;
+  font-weight: 600;
+}
+.takya-login-welcome-title {
+  margin: 0;
+  font-size: 2em;
+  font-weight: 800;
+  line-height: 0.95;
+  letter-spacing: -0.045em;
+}
+.takya-login-welcome-title span {
+  color: #e05d44;
+}
+.takya-login-welcome-lead {
+  margin: 8px 0 0;
+  color: #e7eee8;
+  font-size: 0.95em;
+  font-weight: 600;
+}
+/* En teléfono la franja solo muestra marca, saludo y la frase. */
+.takya-login-welcome-foot {
+  display: none;
+}
+
+@media (min-width: 1024px) and (min-height: 640px) {
+  .takya-login {
+    padding: 24px;
+  }
+  .takya-login-layout {
+    grid-template-columns: minmax(0, 1.2fr) minmax(380px, 460px);
+    align-items: stretch;
+    gap: 24px;
+  }
+  .takya-login-welcome {
+    width: 100%;
+    min-height: min(720px, calc(100dvh - 48px));
+    border-radius: 32px;
+  }
+  .takya-login-welcome-body {
+    gap: 0;
+    padding: 36px 40px;
+  }
+  .takya-login-welcome-logo {
+    width: 150px;
+  }
+  .takya-login-welcome-chip {
+    font-size: 0.66em;
+  }
+  .takya-login-welcome-hero {
+    margin-top: auto;
+  }
+  .takya-login-welcome-eyebrow {
+    font-size: 1.15em;
+  }
+  .takya-login-welcome-title {
+    font-size: clamp(3.6rem, 6.2vw, 6rem);
+  }
+  .takya-login-welcome-lead {
+    margin-top: 16px;
+    font-size: 1.2em;
+  }
+  .takya-login-welcome-foot {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 8px;
+    margin: 28px 0 0;
+    color: #cfe0d3;
+    font-family: var(--font-jetbrains), monospace;
+    font-size: 0.62em;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+  .takya-login-card {
+    align-self: center;
+  }
+  /* La marca ya está en la bienvenida: la tarjeta queda solo con la acción. */
+  .takya-login-card .takya-login-logo {
+    display: none;
+  }
+  .takya-login-card .takya-login-top {
+    justify-content: flex-end;
+  }
+}
+
+/* Tarjeta de acceso en vidrio líquido con borde blanco translúcido que gira. */
+.takya-login-card {
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.78),
+    rgba(255, 255, 255, 0.46) 55%,
+    rgba(255, 255, 255, 0.66)
+  );
+  box-shadow:
+    0 30px 70px -28px #0f2a1f66,
+    inset 0 1px 0 rgba(255, 255, 255, 0.95),
+    inset 0 -1px 0 rgba(255, 255, 255, 0.5),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.35);
+  backdrop-filter: blur(28px) saturate(185%);
+}
+@property --login-sweep {
+  syntax: "<angle>";
+  inherits: false;
+  initial-value: 0deg;
+}
+.takya-login-sweep {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  padding: 2px;
+  border-radius: inherit;
+  background: conic-gradient(
+    from var(--login-sweep),
+    rgba(255, 255, 255, 0) 0deg,
+    rgba(255, 255, 255, 0) 150deg,
+    rgba(255, 255, 255, 0.3) 215deg,
+    rgba(255, 255, 255, 0.95) 270deg,
+    rgba(255, 255, 255, 0.35) 320deg,
+    rgba(255, 255, 255, 0) 360deg
+  );
+  mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  mask-composite: exclude;
+  pointer-events: none;
+  animation: takya-login-sweep 5s linear infinite;
+}
+@keyframes takya-login-sweep {
+  to {
+    --login-sweep: 360deg;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .takya-login-sweep {
+    animation: none;
+    --login-sweep: 300deg;
+  }
+}
+/* Al cerrar el candado la tarjeta pierde el vidrio y queda verde bosque. */
+.takya-login.is-locking .takya-login-card {
+  background-image: none;
+  backdrop-filter: none;
+}
+/* Teléfono y iPad vertical: franja compacta (logo + lema) y la tarjeta sin
+   repetir la marca, para que «Iniciar sesión» quede a la vista. */
+@media (max-width: 1023px), (max-height: 639px) {
+  .takya-login-welcome-chip,
+  .takya-login-welcome-lead,
+  .takya-login-card .takya-login-logo {
+    display: none;
+  }
+  .takya-login-card .takya-login-top {
+    justify-content: flex-end;
+  }
+  .takya-login-welcome-body {
+    gap: 8px;
+    padding: 16px 20px 18px;
+  }
+  .takya-login-welcome-logo {
+    width: 104px;
+  }
+  .takya-login-welcome-eyebrow {
+    font-size: 0.8em;
+  }
+  .takya-login-welcome-title {
+    font-size: 1.75em;
+  }
+  .takya-login-card .takya-login-eyebrow {
+    margin-top: 0;
+  }
+}
+
+/* ══ Fondo a pantalla completa: el afiche de la marca ══
+   La bienvenida va escrita directo sobre la imagen (sin tarjeta) y el acceso
+   queda en vidrio a la derecha. */
+.takya-login {
+  background: #0d1411;
+}
+.takya-login-backdrop img {
+  object-fit: cover;
+  object-position: 28% 25%;
+  opacity: 1;
+  animation: takya-login-drift 28s ease-in-out infinite alternate;
+}
+.takya-login-backdrop::after {
+  background:
+    linear-gradient(
+      90deg,
+      rgba(8, 14, 11, 0.15) 0%,
+      rgba(8, 14, 11, 0.1) 45%,
+      rgba(8, 14, 11, 0.45) 100%
+    ),
+    linear-gradient(180deg, rgba(8, 14, 11, 0) 40%, rgba(8, 14, 11, 0.75) 100%);
+}
+@media (prefers-reduced-motion: reduce) {
+  .takya-login-backdrop img {
+    animation: none;
+  }
+}
+.takya-login-welcome {
+  overflow: visible;
+  border: 0;
+  border-radius: 0;
+  background: none;
+  box-shadow: none;
+}
+.takya-login-welcome-body {
+  padding-left: 4px;
+  padding-right: 4px;
+}
+.takya-login-welcome-title,
+.takya-login-welcome-lead {
+  text-shadow: 0 2px 24px rgba(0, 0, 0, 0.45);
+}
+@media (min-width: 1024px) and (min-height: 640px) {
+  .takya-login-welcome {
+    min-height: min(760px, calc(100dvh - 48px));
+  }
+  .takya-login-welcome-body {
+    padding: 16px 8px;
+  }
+}
+/* El mensaje del candado va sobre fondo oscuro. */
+.takya-login.is-locking .takya-login-lock-caption {
+  color: #f4f1ea;
+}
+/* Sobre el fondo oscuro el vidrio necesita más blanco para que el texto
+   mantenga su contraste. */
+.takya-login-card {
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.92),
+    rgba(250, 251, 248, 0.82) 55%,
+    rgba(255, 255, 255, 0.88)
+  );
+}
+
+/* ══ Modo día (igual que la consola por defecto) ══
+   Fondo claro de la costa de Antofagasta, texto verde bosque; el modo noche
+   usa el afiche oscuro. Ambos comparten la preferencia con la consola. */
+.takya-login[data-theme="day"] {
+  background: #f4f1ea;
+}
+.takya-login[data-theme="day"] .takya-login-backdrop img {
+  object-position: 80% 30%;
+}
+.takya-login[data-theme="day"] .takya-login-backdrop::after {
+  background:
+    linear-gradient(
+      90deg,
+      rgba(244, 241, 234, 0.92) 0%,
+      rgba(244, 241, 234, 0.6) 40%,
+      rgba(244, 241, 234, 0.15) 70%,
+      rgba(244, 241, 234, 0.35) 100%
+    ),
+    linear-gradient(180deg, rgba(244, 241, 234, 0) 55%, #f4f1eacc 100%);
+}
+.takya-login[data-theme="day"] .takya-login-welcome {
+  color: #1b3b2b;
+}
+.takya-login[data-theme="day"] .takya-login-welcome-title,
+.takya-login[data-theme="day"] .takya-login-welcome-lead {
+  text-shadow: none;
+}
+.takya-login[data-theme="day"] .takya-login-welcome-eyebrow,
+.takya-login[data-theme="day"] .takya-login-welcome-lead,
+.takya-login[data-theme="day"] .takya-login-welcome-foot {
+  color: #2f4a3c;
+}
+.takya-login[data-theme="day"] .takya-login-welcome-chip {
+  border-color: rgba(27, 59, 43, 0.2);
+  background: rgba(255, 255, 255, 0.6);
+}
+.takya-login[data-theme="day"].is-locking .takya-login-lock-caption {
+  color: var(--login-ink);
+}
+
+/* Botón Día/Noche: vidrio, arriba a la derecha. */
+.takya-login-theme {
+  position: fixed;
+  top: max(16px, env(safe-area-inset-top));
+  right: 16px;
+  z-index: 4;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 44px;
+  padding: 0 14px;
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.7);
+  color: var(--login-ink);
+  font: inherit;
+  font-size: 0.8em;
+  font-weight: 700;
+  box-shadow:
+    0 10px 24px -14px #0f2a1f80,
+    inset 0 1px 0 #fff;
+  backdrop-filter: blur(16px) saturate(170%);
+  cursor: pointer;
+}
+.takya-login-theme:focus-visible {
+  outline: 3px solid #e05d44;
+  outline-offset: 2px;
+}
+.takya-login.is-locking .takya-login-theme {
+  opacity: 0;
+  pointer-events: none;
+}
+@media (max-width: 1023px), (max-height: 639px) {
+  .takya-login-theme {
+    top: auto;
+    bottom: max(16px, env(safe-area-inset-bottom));
+  }
+}
+
+/* ══ Composición con el guardián (modo noche) ══
+   El guardián ocupa la izquierda de la imagen; en escritorio la bienvenida y
+   el acceso van juntos en la columna derecha, como en la referencia. */
+.takya-login[data-theme="night"] .takya-login-backdrop img {
+  object-position: 22% 50%;
+  animation-duration: 36s;
+}
+.takya-login[data-theme="night"] .takya-login-backdrop::after {
+  background:
+    linear-gradient(
+      90deg,
+      rgba(8, 12, 10, 0) 0%,
+      rgba(8, 12, 10, 0) 45%,
+      rgba(8, 12, 10, 0.35) 70%,
+      rgba(8, 12, 10, 0.55) 100%
+    ),
+    linear-gradient(180deg, rgba(8, 12, 10, 0) 70%, rgba(8, 12, 10, 0.6));
+}
+@media (min-width: 1024px) and (min-height: 640px) {
+  .takya-login[data-theme="night"] .takya-login-layout {
+    grid-template-columns: minmax(0, 1fr) minmax(400px, 470px);
+    grid-template-rows: auto auto;
+    align-content: center;
+    column-gap: 40px;
+    row-gap: 18px;
+  }
+  .takya-login[data-theme="night"] .takya-login-welcome {
+    grid-column: 2;
+    grid-row: 1;
+    min-height: 0;
+    width: 100%;
+  }
+  .takya-login[data-theme="night"] .takya-login-card {
+    grid-column: 2;
+    grid-row: 2;
+    width: 100%;
+  }
+  .takya-login[data-theme="night"] .takya-login-welcome-body {
+    padding: 0 4px;
+  }
+  .takya-login[data-theme="night"] .takya-login-welcome-hero {
+    margin-top: 18px;
+  }
+  .takya-login[data-theme="night"] .takya-login-welcome-title {
+    font-size: clamp(2.6rem, 3.6vw, 3.4rem);
+  }
+  .takya-login[data-theme="night"] .takya-login-welcome-lead {
+    margin-top: 10px;
+    font-size: 1em;
+  }
+  .takya-login[data-theme="night"] .takya-login-welcome-foot {
+    display: none;
+  }
+  /* La bienvenida ya presenta: la tarjeta deja solo la acción (el título
+     queda para lectores de pantalla). */
+  .takya-login[data-theme="night"] .takya-login-card h1,
+  .takya-login[data-theme="night"] .takya-login-lead {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+  .takya-login[data-theme="night"] .takya-login-card {
+    padding-top: 22px;
+  }
+}
+/* Teléfono: se ve la cabeza del guardián arriba. */
+@media (max-width: 1023px), (max-height: 639px) {
+  .takya-login[data-theme="night"] .takya-login-backdrop img {
+    object-position: 30% 20%;
+  }
+}
+/* El botón Día/Noche va abajo a la derecha en todos los tamaños. */
+.takya-login-theme {
+  top: auto;
+  bottom: max(16px, env(safe-area-inset-bottom));
+}
+@media (min-width: 1024px) and (min-height: 640px) {
+  .takya-login[data-theme="night"] .takya-login-layout {
+    row-gap: 14px;
+  }
+  .takya-login[data-theme="night"] .takya-login-card .takya-login-role {
+    margin-top: 12px;
+  }
+  .takya-login[data-theme="night"] .takya-login-card form {
+    gap: 10px;
+    margin-top: 14px;
+  }
+  .takya-login[data-theme="night"] .takya-login-note {
+    margin-top: 12px;
+  }
+}
+@media (min-width: 1024px) and (min-height: 640px) {
+  .takya-login[data-theme="night"] .takya-login-welcome-title {
+    font-size: clamp(2.4rem, 3.2vw, 3.1rem);
+  }
+  .takya-login[data-theme="night"] .takya-login-welcome-hero {
+    margin-top: 12px;
+  }
+  .takya-login[data-theme="night"] .takya-login-card {
+    padding-bottom: 20px;
+  }
+}
+
+/* ══ Sin tarjeta: bienvenida y acceso directo sobre la imagen ══
+   Misma composición en día y noche: la imagen a la izquierda y, a la
+   derecha, una sola columna centrada con la bienvenida y el formulario. */
+.takya-login-card {
+  padding: 0;
+  overflow: visible;
+  border: 0;
+  border-radius: 0;
+  background: none;
+  box-shadow: none;
+  backdrop-filter: none;
+}
+.takya-login-card .takya-login-watermark,
+.takya-login-card .takya-login-sweep {
+  display: none;
+}
+/* Durante el candado vuelve a ser un bloque sólido. */
+.takya-login.is-locking .takya-login-card {
+  overflow: visible;
+}
+.takya-login-layout {
+  width: min(100%, 460px);
+}
+.takya-login-welcome,
+.takya-login-card {
+  width: 100%;
+}
+@media (min-width: 1024px) and (min-height: 640px) {
+  .takya-login-layout,
+  .takya-login[data-theme="night"] .takya-login-layout {
+    width: min(100%, 1240px);
+    grid-template-columns: minmax(0, 1fr) minmax(380px, 440px);
+    grid-template-rows: auto auto;
+    align-content: center;
+    column-gap: 48px;
+    row-gap: 22px;
+  }
+  .takya-login-welcome,
+  .takya-login[data-theme="night"] .takya-login-welcome {
+    grid-column: 2;
+    grid-row: 1;
+    min-height: 0;
+  }
+  .takya-login-card,
+  .takya-login[data-theme="night"] .takya-login-card {
+    grid-column: 2;
+    grid-row: 2;
+    padding: 0;
+  }
+  .takya-login-welcome-body {
+    padding: 0;
+  }
+  .takya-login-welcome-hero {
+    margin-top: 14px;
+  }
+  .takya-login-welcome-title {
+    font-size: clamp(2.4rem, 3.2vw, 3.1rem);
+  }
+  .takya-login-welcome-lead {
+    margin-top: 10px;
+    font-size: 1em;
+  }
+  .takya-login-welcome-foot {
+    display: none;
+  }
+  .takya-login-card h1,
+  .takya-login-lead {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+}
+/* Teléfono y iPad vertical: todo en una columna centrada sobre la imagen. */
+@media (max-width: 1023px), (max-height: 639px) {
+  .takya-login-card h1,
+  .takya-login-lead {
+    display: none;
+  }
+  .takya-login-welcome-lead {
+    display: block;
+  }
+}
+
+/* Noche: textos y controles claros sobre la imagen oscura. */
+.takya-login[data-theme="night"] {
+  --login-ink: #f4f1ea;
+  --login-muted: #cbd8ce;
+  --login-accent: #a5c8ae;
+}
+.takya-login[data-theme="night"] .takya-login-eyebrow span {
+  border-color: rgba(165, 200, 174, 0.5);
+  background: rgba(165, 200, 174, 0.14);
+}
+.takya-login[data-theme="night"] .takya-login-role {
+  border-color: rgba(255, 255, 255, 0.22);
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(14px);
+}
+.takya-login[data-theme="night"] .takya-login-pictogram {
+  background: #a5c8ae;
+  color: #10261c;
+}
+.takya-login[data-theme="night"] .takya-login-field input {
+  border-color: rgba(255, 255, 255, 0.28);
+  background: rgba(255, 255, 255, 0.1);
+  color: #f4f1ea;
+  backdrop-filter: blur(14px);
+}
+.takya-login[data-theme="night"] .takya-login-field input[readonly] {
+  background: rgba(255, 255, 255, 0.05);
+  color: #cbd8ce;
+}
+.takya-login[data-theme="night"] .takya-login-field input:focus-visible {
+  border-color: #a5c8ae;
+  box-shadow: 0 0 0 4px rgba(165, 200, 174, 0.3);
+}
+.takya-login[data-theme="night"] .takya-login-submit {
+  background: #f4f1ea;
+  color: #10261c;
+}
+.takya-login[data-theme="night"] .takya-login-error {
+  color: #f4b3a5;
+}
+.takya-login[data-theme="night"] .takya-login-back {
+  color: #cbd8ce;
+}
+.takya-login[data-theme="night"] .takya-login-back:hover {
+  color: #fff;
+}
+/* Día: la foto se aclara del lado del formulario para que se lea. */
+.takya-login[data-theme="day"] .takya-login-backdrop::after {
+  background: linear-gradient(
+    90deg,
+    rgba(244, 241, 234, 0.1) 0%,
+    rgba(244, 241, 234, 0.35) 45%,
+    rgba(244, 241, 234, 0.9) 65%,
+    rgba(244, 241, 234, 0.95) 100%
+  );
+}
+.takya-login[data-theme="day"] .takya-login-backdrop img {
+  object-position: 25% 40%;
+}
+@media (max-width: 1023px), (max-height: 639px) {
+  .takya-login[data-theme="day"] .takya-login-backdrop::after {
+    background: linear-gradient(
+      180deg,
+      rgba(244, 241, 234, 0.2) 0%,
+      rgba(244, 241, 234, 0.85) 35%,
+      rgba(244, 241, 234, 0.95) 100%
+    );
+  }
+  .takya-login[data-theme="night"] .takya-login-backdrop::after {
+    background: linear-gradient(
+      180deg,
+      rgba(8, 12, 10, 0.1) 0%,
+      rgba(8, 12, 10, 0.7) 40%,
+      rgba(8, 12, 10, 0.88) 100%
+    );
+  }
+}
+/* Como la referencia: saludo y formulario centrados en su columna. */
+.takya-login-welcome-body,
+.takya-login-welcome-hero {
+  align-items: center;
+  text-align: center;
+}
+.takya-login-welcome-top {
+  justify-content: center;
+}
+.takya-login-card .takya-login-top {
+  justify-content: center;
+}
+.takya-login-card .takya-login-eyebrow {
+  justify-content: center;
+}
+.takya-login-card .takya-login-note {
+  justify-content: center;
+  text-align: center;
+}
+.takya-login-theme {
+  top: max(16px, env(safe-area-inset-top));
+  bottom: auto;
+}
+
+/* ══ Botón Día/Noche como pin esmaltado (igual que los ODS) ══
+   Muestra el modo actual: sol de día, luna de noche. Borde metálico, relieve,
+   sombra corta y destello; al tocarlo se hunde y el ícono gira. */
+.takya-login-theme {
+  display: grid;
+  place-items: center;
+  width: 52px;
+  height: 52px;
+  min-height: 0;
+  padding: 0;
+  overflow: hidden;
+  border: 2.5px solid transparent;
+  border-radius: 50%;
+  background:
+    linear-gradient(
+        160deg,
+        rgba(255, 255, 255, 0.45) 0%,
+        rgba(255, 255, 255, 0.06) 45%,
+        rgba(0, 0, 0, 0.12) 100%
+      )
+      padding-box,
+    linear-gradient(var(--pin), var(--pin)) padding-box,
+    linear-gradient(145deg, #ffffff, #c9cdc8 35%, #f4f4f2 55%, #9ea39d)
+      border-box;
+  box-shadow:
+    0 2px 0 #8d928c,
+    0 4px 0 rgba(27, 59, 43, 0.15),
+    0 12px 18px -8px rgba(15, 30, 22, 0.55),
+    inset 0 2px 1px rgba(255, 255, 255, 0.55),
+    inset 0 -3px 4px rgba(0, 0, 0, 0.25);
+  color: var(--pin-ink);
+  backdrop-filter: none;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+.takya-login-theme[data-theme="day"] {
+  --pin: #f3a447;
+  --pin-ink: #fff8e6;
+}
+.takya-login-theme[data-theme="night"] {
+  --pin: #1d3a4f;
+  --pin-ink: #f4f1ea;
+}
+.takya-login-theme::before {
+  content: "";
+  position: absolute;
+  inset: 3px 7px auto;
+  height: 42%;
+  border-radius: 50% 50% 40% 40%;
+  background: linear-gradient(rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0));
+  pointer-events: none;
+}
+.takya-login-theme::after {
+  content: "";
+  position: absolute;
+  inset: -40%;
+  background: linear-gradient(
+    115deg,
+    transparent 42%,
+    rgba(255, 255, 255, 0.6) 50%,
+    transparent 58%
+  );
+  transform: translateX(-70%);
+  animation: takya-ods-glint 5s ease-in-out infinite;
+  pointer-events: none;
+}
+@keyframes takya-ods-glint {
+  0%,
+  70% {
+    transform: translateX(-70%);
+  }
+  100% {
+    transform: translateX(70%);
+  }
+}
+.takya-login-theme:hover {
+  transform: translateY(-2px) rotate(-6deg);
+}
+.takya-login-theme:active {
+  transform: translateY(2px) scale(0.96);
+  box-shadow:
+    0 0 0 #8d928c,
+    0 4px 8px -4px rgba(15, 30, 22, 0.5),
+    inset 0 2px 1px rgba(255, 255, 255, 0.4),
+    inset 0 -2px 3px rgba(0, 0, 0, 0.3);
+}
+.takya-login-theme-icon {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  filter: drop-shadow(0 1px 0 rgba(0, 0, 0, 0.25));
+  animation: takya-theme-spin 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+@keyframes takya-theme-spin {
+  from {
+    opacity: 0;
+    transform: rotate(-120deg) scale(0.5);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .takya-login-theme::after,
+  .takya-login-theme-icon {
+    animation: none;
+  }
+  .takya-login-theme:hover {
+    transform: none;
+  }
+}
+
+/* ══ Jerarquía: marca a la izquierda, una sola columna de acceso a la derecha ══ */
+.takya-login-layout,
+.takya-login[data-theme="night"] .takya-login-layout {
+  grid-template-rows: auto;
+}
+.takya-login-card,
+.takya-login[data-theme="night"] .takya-login-card {
+  grid-row: 1;
+}
+.takya-login-card h1,
+.takya-login-lead,
+.takya-login[data-theme="night"] .takya-login-card h1,
+.takya-login[data-theme="night"] .takya-login-lead {
+  position: static;
+  width: auto;
+  height: auto;
+  overflow: visible;
+  clip-path: none;
+  white-space: normal;
+}
+.takya-login-card h1 {
+  display: block;
+  margin: 8px 0 6px;
+  font-size: 2em;
+  font-weight: 800;
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+  text-align: center;
+}
+.takya-login-lead {
+  display: block;
+  max-width: 34ch;
+  margin: 0 auto;
+  text-align: center;
+}
+.takya-login-card .takya-login-role {
+  margin-top: 22px;
+}
+
+/* Logo en cápsula de vidrio, igual que en la landing; vuelve a /home. */
+.takya-login-brand {
+  position: fixed;
+  top: max(16px, env(safe-area-inset-top));
+  left: max(16px, env(safe-area-inset-left));
+  z-index: 4;
+  display: inline-flex;
+  align-items: center;
+  padding: 10px 20px;
+  border: 1px solid rgba(255, 255, 255, 0.75);
+  border-radius: 999px;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.82),
+    rgba(255, 255, 255, 0.5) 55%,
+    rgba(255, 255, 255, 0.7)
+  );
+  box-shadow:
+    0 14px 30px -16px #0f2a1f99,
+    inset 0 1px 0 rgba(255, 255, 255, 0.95),
+    inset 0 -1px 0 rgba(255, 255, 255, 0.5);
+  backdrop-filter: blur(18px) saturate(180%);
+  transition: transform 0.25s ease;
+}
+.takya-login-brand img {
+  width: 128px;
+  height: auto;
+}
+.takya-login-brand:hover {
+  transform: translateY(-1px);
+}
+.takya-login-brand:focus-visible {
+  outline: 3px solid #e05d44;
+  outline-offset: 3px;
+}
+
+/* Lema de la marca en el espacio libre de la imagen (arriba a la izquierda). */
+.takya-login-tagline {
+  position: fixed;
+  top: calc(max(16px, env(safe-area-inset-top)) + 78px);
+  left: max(28px, env(safe-area-inset-left));
+  z-index: 1;
+  margin: 0;
+  color: var(--login-ink);
+  font-size: clamp(1.9rem, 2.6vw, 2.6rem);
+  font-weight: 800;
+  line-height: 0.98;
+  letter-spacing: -0.045em;
+  text-shadow: 0 2px 24px rgba(0, 0, 0, 0.35);
+  pointer-events: none;
+}
+.takya-login-tagline span {
+  color: #e05d44;
+}
+.takya-login[data-theme="day"] .takya-login-tagline {
+  text-shadow: none;
+}
+/* Teléfono e iPad vertical: solo la cápsula del logo; el lema no cabe. */
+@media (max-width: 1023px), (max-height: 639px) {
+  .takya-login-tagline {
+    display: none;
+  }
+  .takya-login {
+    padding-top: calc(max(16px, env(safe-area-inset-top)) + 72px);
+  }
+  .takya-login-card h1 {
+    font-size: 1.6em;
+  }
+}
+
+/* ══ Modo día con el guardián (misma composición que la noche) ══ */
+.takya-login[data-theme="day"] .takya-login-backdrop img {
+  object-position: 22% 50%;
+  animation-duration: 36s;
+}
+.takya-login[data-theme="day"] .takya-login-backdrop::after {
+  background:
+    linear-gradient(
+      90deg,
+      rgba(244, 241, 234, 0) 0%,
+      rgba(244, 241, 234, 0) 45%,
+      rgba(244, 241, 234, 0.55) 68%,
+      rgba(244, 241, 234, 0.75) 100%
+    ),
+    linear-gradient(180deg, rgba(244, 241, 234, 0) 70%, #f4f1ea99);
+}
+@media (max-width: 1023px), (max-height: 639px) {
+  .takya-login[data-theme="day"] .takya-login-backdrop img {
+    object-position: 30% 20%;
+  }
+  .takya-login[data-theme="day"] .takya-login-backdrop::after {
+    background: linear-gradient(
+      180deg,
+      rgba(244, 241, 234, 0.1) 0%,
+      rgba(244, 241, 234, 0.8) 40%,
+      rgba(244, 241, 234, 0.92) 100%
+    );
   }
 }

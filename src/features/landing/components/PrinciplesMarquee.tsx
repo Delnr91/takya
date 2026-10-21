@@ -1,27 +1,18 @@
-import {
-  CircleHelp,
-  Cpu,
-  EyeOff,
-  FileCheck,
-  Lock,
-  UserCheck,
-} from "@/components/icons";
-
 const PRINCIPLES = [
-  { icon: UserCheck, label: "Humano al mando" },
-  { icon: EyeOff, label: "Sin biometría" },
-  { icon: Cpu, label: "Se instala en tu central" },
-  { icon: Lock, label: "Evidencia sellada" },
-  { icon: CircleHelp, label: "Muestra lo que no sabe" },
-  { icon: FileCheck, label: "Verificable sin internet" },
+  "Humano al mando",
+  "Sin biometría",
+  "Se instala en tu central",
+  "Evidencia sellada",
+  "Muestra lo que no sabe",
+  "Verificable sin internet",
 ];
 
 function Track({ hidden = false }: { hidden?: boolean }) {
   return (
     <ul className="takya-marquee-track" aria-hidden={hidden || undefined}>
-      {PRINCIPLES.map(({ icon: Icon, label }) => (
-        <li key={label} data-icon-trigger="">
-          <Icon size={18} aria-hidden="true" />
+      {PRINCIPLES.map((label) => (
+        <li key={label}>
+          <i aria-hidden="true" />
           {label}
         </li>
       ))}

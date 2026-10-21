@@ -321,3 +321,12 @@
     padding-top: 220px;
   }
 }
+/* Los párrafos de la consola son grises por defecto; dentro del escenario
+   oscuro el texto vuelve a ser claro para que se lea. */
+.k8-stage .k8-bubble-answer {
+  color: #f4f1ea;
+}
+.k8-stage .k8-bubble-question,
+.k8-stage .k8-hint {
+  color: #b8cbbc;
+}

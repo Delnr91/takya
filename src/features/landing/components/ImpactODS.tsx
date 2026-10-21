@@ -1,7 +1,7 @@
 "use client";
 
+import type { CSSProperties } from "react";
 import { motion, type Variants } from "framer-motion";
-import { Earth, MapPin } from "@/components/icons";
 import { ContourLines, SectionDivider } from "./HandDrawn";
 import { type } from "./typography";
 import { SectionTitle } from "./SectionTitle";
@@ -77,18 +77,12 @@ export function ImpactODS() {
             after="."
           />
         </div>
-        <div className="flex-1 max-w-md" data-icon-trigger="">
+        <div className="flex-1 max-w-md">
           <p
             className={`flex flex-wrap items-center gap-x-5 gap-y-2 ${type.label} text-[#1B3B2B]`}
           >
-            <span className="inline-flex items-center gap-2">
-              <MapPin size={16} aria-hidden="true" />
-              Antofagasta, Chile
-            </span>
-            <span className="inline-flex items-center gap-2">
-              <Earth size={16} aria-hidden="true" />
-              Programa Nómada UCN
-            </span>
+            <span>Antofagasta, Chile</span>
+            <span>Programa Nómada UCN</span>
           </p>
           <p className={`mt-4 ${type.lead}`}>
             Una alineación propuesta y medible con los Objetivos de Desarrollo
@@ -107,27 +101,35 @@ export function ImpactODS() {
         }}
         className="max-w-6xl mx-auto mt-16 grid gap-10 sm:grid-cols-2 lg:grid-cols-4"
       >
-        {GOALS.map(({ number, color, ink, title, text, status }) => (
-          <motion.li
-            key={number}
-            variants={fadeUp}
-            className="flex flex-col pt-6"
-          >
-            <span
-              className="grid size-16 place-items-center rounded-2xl font-display text-3xl font-extrabold"
-              style={{ backgroundColor: color, color: ink }}
-            >
-              <span className="sr-only">ODS </span>
-              {number}
-            </span>
-            <span className={`mt-5 ${type.label} text-[#1B3B2B]/80`}>
-              {status}
-            </span>
-            <h3 className={`mt-2 ${type.h3} text-[#1B3B2B]`}>{title}</h3>
-            <p className={`mt-2 ${type.body} text-[#1B3B2B]`}>{text}</p>
-          </motion.li>
+        {GOALS.map((goal) => (
+          <GoalItem key={goal.number} {...goal} />
         ))}
       </motion.ul>
     </section>
+  );
+}
+
+/** Un ODS con su cuadro de color como pin esmaltado: relieve, sombra y destello. */
+function GoalItem({
+  number,
+  color,
+  ink,
+  title,
+  text,
+  status,
+}: (typeof GOALS)[number]) {
+  return (
+    <motion.li variants={fadeUp} className="flex flex-col pt-6">
+      <span
+        className="takya-ods-tile font-display text-3xl font-extrabold"
+        style={{ "--ods": color, color: ink } as CSSProperties}
+      >
+        <span className="sr-only">ODS </span>
+        <span className="relative">{number}</span>
+      </span>
+      <span className={`mt-5 ${type.label} text-[#1B3B2B]/80`}>{status}</span>
+      <h3 className={`mt-2 ${type.h3} text-[#1B3B2B]`}>{title}</h3>
+      <p className={`mt-2 ${type.body} text-[#1B3B2B]`}>{text}</p>
+    </motion.li>
   );
 }
