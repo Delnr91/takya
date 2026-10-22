@@ -2,6 +2,59 @@
 
 > Para quienes continúen el proyecto: lean este archivo antes de modificar la aplicación y actualícenlo al cerrar cada entrega. Registren el estado real y la verificación realizada.
 
+## Estado actual del software — v3.0.1 estable (22 de octubre de 2026)
+
+Ficha de memoria para retomar sin contexto. Detalle de cada entrega más abajo, en orden inverso.
+
+### Producto y decisiones vigentes
+
+- **Qué es:** apoyo a operadores de videovigilancia (Programa Nómada UCN, Antofagasta). Diferenciadores acordados por el equipo: **protección de evidencia** verificable y **plataforma inclusiva** (lectura fácil, pictogramas, voz). El en vivo es futuro («piloto»); hoy se muestra análisis de grabaciones con señal simulada.
+- **Validación en terreno (doc. 14):** central municipal con **1 operador por cada 30 cámaras** (160 cámaras); la psicóloga encargada confirmó el dolor y la carga cognitiva. PDI y Carabineros visitados. Contactos de evidencia digital y preguntas en `docs/estrategia/14_VALIDACION_EN_TERRENO.md` y `docs/validacion/VISITA_PDI_POLICIAS.md`.
+- **Acceso (decisión del equipo):** la landing es pública y sin botones a la demo; la demo es privada y se entra solo desde `/home`, con usuario fijo `centinela` y una contraseña de equipo. Se presenta en persona o con un acceso autorizado.
+- **No afirmar:** validez judicial, «en vivo», cifras de precisión, «somos los únicos». La decisión siempre la toma una persona.
+
+### Rutas y flujo
+
+- `/` → `/home` (pública): dos botones 3D de vidrio («Conocer el Proyecto», «Consola Interactiva») con transición de **gota de vidrio líquido** (`src/components/ui/CurtainNavigation.tsx`).
+- `/landing` (pública): hero con CTA «Ver cómo funciona», barra de conceptos con lente líquida, cifras, pilares, «Pensado para», **Cómo funciona** como escena animada (video real en «Recibir», zona, detección, revisión y sello), confianza, ODS como pines esmaltados y contacto centrado.
+- `/login` (pública): home del software. Imagen del **guardián** de día/noche (`public/brand/login-guardian-dia.png` y `-noche.png`), lema a la izquierda, bienvenida y formulario a la derecha sin tarjeta, pin de día/noche. Tras validar entra con navegación completa a `/demo`.
+- `/demo` (privada): consola. **Analizar** (Fuente → Análisis → Resultado → «Revisar el caso») crea el caso con `ANALYSIS_DETECT` y lo abre en la revisión. **Revisión de cualquier caso:** Observar → Comprender → Decidir (tarjetas 3D, motivo, destino, volver) → **Proteger** (sellado real con animación del candado, verificar, probar alteración, descargar paquete y clave). Casos (lista y carrusel), Cámaras (video en bucle), Historial, Guía, K8 IA, Ajustes.
+
+### Acceso privado (cómo funciona)
+
+- `src/proxy.ts` protege `/demo`, `/api/analysis` y `/api/k8`. `POST /api/access` compara la contraseña con una huella **scrypt** y emite una cookie HttpOnly firmada con HMAC (8 h); 5 intentos fallidos bloquean 15 min; mismo origen obligatorio. `DELETE` cierra el acceso.
+- Variables (Vercel, proyecto **takya-app**, equipo **incluyemes-projects**, entorno Production): `TAKYA_DEMO_PASSWORD_HASH` y `TAKYA_ACCESS_SECRET`. Se generan con `TAKYA_PASSWORD='…' node scripts/access/hash-password.mjs <archivo-privado>`; el archivo privado del equipo vive fuera del repositorio. **La contraseña y los valores nunca van al código ni a Git.**
+- Si falta configuración, `/api/access` responde 503 con `diagnostico` (existe / formato válido, sin valores). Ojo: takya.cl redirige a www.takya.cl.
+
+### Diseño (lenguaje Liquid Glass)
+
+- Vidrio blanco translúcido con reflejos; borde líquido translúcido que gira (`--takya-sweep`, `--demo-sweep`); botones 3D que sobresalen y se hunden al tocar; pictogramas como **pines esmaltados** (borde metálico, relieve, destello); sin íconos chicos delante de los textos.
+- Archivos: `src/features/landing/components/landing.css`, `src/features/login/components/login.css`, `src/features/demo/components/demo-liquid.css` (consola), `analysis-sim.css`, `evidence-protection.css`, `k8-assistant.css`, `src/features/home/components/home.css`.
+- Modo noche: la consola se invierte entera (`.demo-night .demo-app`); el modo se comparte entre login y consola con `takya.theme` (`src/lib/theme.ts`).
+- iPad horizontal (Air 4, ≤ 900 px de alto): encabezado fijo y barra lateral fija a todo el alto (`100svh`), teclas sin superponerse; K8 IA ajustado al alto.
+
+### Cómo trabajar y publicar
+
+- `main` se despliega solo en Vercel. Flujo usado: rama → push (`git push https://github.com/delnr91/takya.git <rama>:refs/heads/<rama>`) → PR con `gh api` → esperar el estado de Vercel → fusionar.
+- Antes de publicar: `npx tsc --noEmit -p .`, `npx eslint src`, `bash scripts/orch/check-frozen.sh` (si cambia algo congelado a propósito: `bash scripts/orch/snapshot-frozen.sh`) y `npx next build`.
+- Etiquetas: v1.0.0–v2.0.2 (1 de octubre), **v3.0.0** y **v3.0.1** (estables de esta entrega).
+
+### Pendientes
+
+- Vista de **3 cámaras por operador** (agrupar, expandir y cambiar con movimiento) — solo pensada.
+- Sugerencia de TAKYA en «Decidir» (sin preseleccionar) y KPI del turno (tiempo a decisión, ruido, coincidencia con la sugerencia, carga y pausas).
+- Barra inferior con «Más» para teléfono (propuesta, sin aprobar).
+- Corpus autorizado, medición del detector con video real y prueba con operadores.
+
+## Liquid Glass, demo privada y flujo único — 21 y 22 de octubre de 2026
+
+- Acceso privado (PR #8): proxy, `/api/access` con scrypt + HMAC, login con `centinela`, landing sin botones de demo. Doc. 14 de validación en terreno.
+- Landing y home (PR #8–#14): íconos solo donde orientan; tarjetas, cifras, pilares, ODS y CTA en Liquid Glass; «Cómo funciona» animado con video real; logo en cápsula que vuelve a `/home`; transición de gota líquida.
+- Login (PR #8, #15, #16): home del software con el guardián día/noche, jerarquía única, pin día/noche, entrada completa tras el candado, mensaje de error con espacio reservado y alto estable en iPad.
+- Consola (PR #10, #11, #17–#19): Liquid Glass, pines, teclas 3D con lente líquida, alertas destacadas, K8 IA con degradado y alma centrada, interruptores 3D, ajustes para iPad horizontal y **un solo flujo de decisión** con paso Proteger.
+- Acceso en producción: las variables no existían en takya-app; se cargaron por el conector de Vercel (Production, tipo sensitive) y se verificó con una clave incorrecta: 401 «usuario o contraseña incorrectos» (configurado). El servidor tolera comillas, espacios y el nombre pegado en los valores.
+- Verificado en cada PR: TypeScript, ESLint, congelados, build y estado de Vercel. Navegador: flujo Analizar → Revisar → Observar → Comprender → Decidir → Proteger; día, noche, 1366, 1180 × 740/820, 820 × 1180, 375 y 320 px.
+
 ## Cierre de lo pendiente de Astra, auditoría de Argon e iconos — 19 de octubre de 2026
 
 - Unida `feat/iconos-animados` (lucide-animated, 43 iconos con `<svg>` como raíz, compatibles con LucideIcon) a `build/demo-final`. Check de congelados OK.
