@@ -1298,3 +1298,34 @@
     height: 28px;
   }
 }
+
+/* ══ iPad horizontal: marco fijo a pantalla completa ══
+   Encabezado fijo arriba y barra fija justo debajo hasta el borde inferior;
+   el contenido corre por detrás. Teclas a tamaño normal, sin superponerse. */
+@media (min-width: 801px) and (max-height: 900px) {
+  .demo-header {
+    position: sticky;
+    top: 10px;
+    z-index: 40;
+    backdrop-filter: blur(24px) saturate(180%);
+  }
+  .demo-nav {
+    top: 96px !important;
+    height: calc(100svh - 108px) !important;
+    padding: 8px 6px;
+    gap: 4px;
+  }
+  .demo-nav > button[data-view] {
+    gap: 4px;
+    font-size: 0.8em;
+  }
+  .demo-nav-key {
+    width: 44px;
+    height: 36px;
+    border-radius: 12px;
+  }
+  .demo-nav-key svg {
+    width: 21px;
+    height: 21px;
+  }
+}
