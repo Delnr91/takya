@@ -460,3 +460,121 @@
     clip-path: inset(50%);
   }
 }
+
+/* ── Borde líquido translúcido que gira, como en la landing ── */
+@property --demo-sweep {
+  syntax: "<angle>";
+  inherits: false;
+  initial-value: 0deg;
+}
+.demo-main .demo-panel:not([style*="sticky"]),
+.start-focus,
+.start-inbox,
+.start-progress {
+  position: relative;
+}
+.demo-main .demo-panel::before,
+.start-focus::before,
+.start-inbox::before,
+.start-progress::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  padding: 1.5px;
+  border-radius: inherit;
+  background: conic-gradient(
+    from var(--demo-sweep),
+    rgba(255, 255, 255, 0) 0deg,
+    rgba(255, 255, 255, 0) 150deg,
+    rgba(165, 200, 174, 0.3) 210deg,
+    rgba(255, 255, 255, 0.9) 265deg,
+    rgba(244, 179, 165, 0.35) 310deg,
+    rgba(224, 93, 68, 0.16) 340deg,
+    rgba(255, 255, 255, 0) 360deg
+  );
+  mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  mask-composite: exclude;
+  pointer-events: none;
+  animation: demo-sweep 8s linear infinite;
+}
+.start-inbox::before {
+  animation-delay: -2.5s;
+}
+.start-progress::before {
+  animation-delay: -5s;
+}
+@keyframes demo-sweep {
+  to {
+    --demo-sweep: 360deg;
+  }
+}
+
+/* ── Atajos como botones 3D que sobresalen ── */
+.start-shortcut {
+  position: relative;
+  border: 1px solid rgba(255, 255, 255, 0.95);
+  border-radius: 20px;
+  background:
+    linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.98),
+      rgba(255, 255, 255, 0.7) 55%,
+      rgba(229, 236, 225, 0.75)
+    ),
+    #f4f1ea;
+  box-shadow:
+    0 5px 0 #c3cdbf,
+    0 18px 26px -14px rgba(15, 30, 22, 0.45),
+    inset 0 1px 0 #fff;
+  transition:
+    transform 0.16s ease,
+    box-shadow 0.16s ease;
+}
+.start-shortcut:hover {
+  transform: translateY(-3px);
+  border-color: rgba(255, 255, 255, 0.95);
+  background:
+    linear-gradient(
+      180deg,
+      #fff,
+      rgba(255, 255, 255, 0.8) 55%,
+      rgba(229, 236, 225, 0.85)
+    ),
+    #f4f1ea;
+  box-shadow:
+    0 8px 0 #c3cdbf,
+    0 24px 30px -14px rgba(15, 30, 22, 0.5),
+    inset 0 1px 0 #fff;
+}
+.start-shortcut:active {
+  transform: translateY(4px);
+  box-shadow:
+    0 1px 0 #c3cdbf,
+    0 6px 10px -8px rgba(15, 30, 22, 0.45),
+    inset 0 2px 4px rgba(0, 0, 0, 0.06);
+}
+.start-shortcut-icon {
+  box-shadow:
+    0 3px 0 #b9c4b6,
+    inset 0 1px 0 #fff;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .demo-main .demo-panel::before,
+  .start-focus::before,
+  .start-inbox::before,
+  .start-progress::before {
+    animation: none;
+    --demo-sweep: 300deg;
+  }
+}
+.demo-motion-off .demo-main .demo-panel::before,
+.demo-motion-off .start-focus::before,
+.demo-motion-off .start-inbox::before,
+.demo-motion-off .start-progress::before {
+  animation: none;
+  --demo-sweep: 300deg;
+}
