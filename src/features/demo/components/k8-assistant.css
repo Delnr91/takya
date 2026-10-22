@@ -568,3 +568,52 @@
     inset: 48px 0 280px;
   }
 }
+
+/* ══ K8 IA en iPad horizontal y notebooks (≤ 900 px de alto) ══
+   El escenario se ajusta al alto disponible y todo queda centrado. */
+@media (min-width: 801px) and (max-height: 900px) {
+  .k8-stage,
+  .k8-stage-content {
+    min-height: min(600px, calc(100svh - 150px));
+  }
+  .k8-stage-content {
+    align-content: end;
+    justify-items: center;
+    gap: 12px;
+    padding: 70px 20px 22px;
+  }
+  .k8-stage-soul {
+    inset: 50px 0 120px;
+  }
+  .k8-stage:has(.k8-bubble) .k8-stage-soul {
+    inset: 50px 0 220px;
+  }
+  .k8-mic {
+    width: 92px;
+    height: 92px;
+  }
+  .k8-mic > svg {
+    width: 28px;
+    height: 28px;
+  }
+  .k8-status {
+    top: 16px;
+  }
+  .k8-bubble {
+    padding: 14px 18px;
+  }
+  .k8-bubble-answer {
+    font-size: 1.05em;
+  }
+  .k8-tiles {
+    gap: 10px;
+  }
+  .k8-tile {
+    min-height: 72px;
+    padding: 10px 14px;
+  }
+  .k8-tile-icon {
+    width: 46px;
+    height: 46px;
+  }
+}
