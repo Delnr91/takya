@@ -2,6 +2,7 @@
 
 import { readTheme, writeTheme } from "@/lib/theme";
 import Image from "next/image";
+import { motion, useReducedMotion } from "framer-motion";
 import Link from "next/link";
 import { useCallback, useEffect, useRef, useState } from "react";
 import {
@@ -56,6 +57,7 @@ import { AnalysisSimulator } from "./AnalysisSimulator";
 import { CojeevDepthBackground } from "@/components/ui/CojeevDepthBackground";
 import "./demo.css";
 import "./incident-media.css";
+import "./demo-liquid.css";
 
 const navigation = [
   { id: "turn", label: "Inicio", icon: House },
@@ -90,6 +92,7 @@ export function DemoShell() {
     storageUnavailable,
   } = useDemoSession();
   const nav = useDemoNavigation();
+  const reduceMotion = useReducedMotion();
   const [arrivals, setArrivals] = useState(false);
   const [interval, setIntervalSeconds] = useState(30);
   const [resetOpen, setResetOpen] = useState(false);
@@ -280,7 +283,11 @@ export function DemoShell() {
       </a>
       <div className="demo-app">
         <header className="demo-header demo-panel">
-          <Link href="/home" aria-label="TAKYA, volver al inicio">
+          <Link
+            href="/home"
+            aria-label="TAKYA, volver al inicio"
+            className="demo-logo-capsule"
+          >
             <Image
               src="/brand/principal-bosque.svg"
               alt="TAKYA"
@@ -295,95 +302,105 @@ export function DemoShell() {
             <strong>Centro de operación</strong>
             <span>Comprender antes de actuar</span>
           </div>
-          <span className="demo-practice-label">
-            <ShieldCheck size={15} aria-hidden="true" />
-            Modo práctica
-          </span>
           <div className="demo-header-tools">
-            {/* Accesibilidad rápida: menú corto (popover nativo, cierra con Esc
+            {/* Utilidades globales agrupadas en una bandeja (íconos con su
+                nombre al pasar el puntero); la cuenta va aparte, al final. */}
+            <div className="demo-header-utilities">
+              {/* Accesibilidad rápida: menú corto (popover nativo, cierra con Esc
                 o tocando fuera). */}
-            <button
-              type="button"
-              className="demo-tool"
-              popoverTarget="demo-a11y"
-            >
-              <Accessibility aria-hidden="true" />
-              <span>Accesibilidad</span>
-            </button>
-            <div id="demo-a11y" popover="auto" className="demo-a11y-panel">
-              <p className="demo-a11y-title">Accesibilidad</p>
-              {(
-                [
-                  ["largeText", "Texto grande", Type],
-                  ["highContrast", "Alto contraste", Contrast],
-                  ["motionOff", "Sin movimiento", Snowflake],
-                ] as const
-              ).map(([key, label, Icon]) => (
-                <button
-                  key={key}
-                  type="button"
-                  className="demo-a11y-option"
-                  aria-pressed={state.preferences[key]}
-                  onClick={() => send({ type: "PREFERENCE", preference: key })}
-                >
-                  <Icon aria-hidden="true" />
-                  <span>{label}</span>
-                  <span className="demo-switch" aria-hidden="true" />
-                </button>
-              ))}
               <button
                 type="button"
-                className="demo-a11y-more"
-                onClick={() => {
-                  document.getElementById("demo-a11y")?.hidePopover();
-                  nav.navigate("settings");
-                }}
+                className="demo-tool"
+                popoverTarget="demo-a11y"
+                title="Accesibilidad"
               >
-                <Settings2 aria-hidden="true" />
-                Más ajustes
+                <Accessibility aria-hidden="true" />
+                <span>Accesibilidad</span>
+              </button>
+              <div id="demo-a11y" popover="auto" className="demo-a11y-panel">
+                <p className="demo-a11y-title">Accesibilidad</p>
+                {(
+                  [
+                    ["largeText", "Texto grande", Type],
+                    ["highContrast", "Alto contraste", Contrast],
+                    ["motionOff", "Sin movimiento", Snowflake],
+                  ] as const
+                ).map(([key, label, Icon]) => (
+                  <button
+                    key={key}
+                    type="button"
+                    className="demo-a11y-option"
+                    aria-pressed={state.preferences[key]}
+                    onClick={() =>
+                      send({ type: "PREFERENCE", preference: key })
+                    }
+                  >
+                    <Icon aria-hidden="true" />
+                    <span>{label}</span>
+                    <span className="demo-switch" aria-hidden="true" />
+                  </button>
+                ))}
+                <button
+                  type="button"
+                  className="demo-a11y-more"
+                  onClick={() => {
+                    document.getElementById("demo-a11y")?.hidePopover();
+                    nav.navigate("settings");
+                  }}
+                >
+                  <Settings2 aria-hidden="true" />
+                  Más ajustes
+                </button>
+              </div>
+              <button
+                type="button"
+                className="demo-tool"
+                title={
+                  state.preferences.mascotHidden ? "Mostrar K8" : "Ocultar K8"
+                }
+                aria-pressed={!state.preferences.mascotHidden}
+                onClick={() =>
+                  send({ type: "PREFERENCE", preference: "mascotHidden" })
+                }
+              >
+                {state.preferences.mascotHidden ? (
+                  <Eye aria-hidden="true" />
+                ) : (
+                  <EyeOff aria-hidden="true" />
+                )}
+                <span>
+                  {state.preferences.mascotHidden ? "Mostrar K8" : "Ocultar K8"}
+                </span>
+              </button>
+              <button
+                type="button"
+                className="demo-tool demo-night-toggle"
+                title={state.preferences.nightMode ? "Modo día" : "Modo noche"}
+                aria-pressed={state.preferences.nightMode}
+                onClick={() =>
+                  send({ type: "PREFERENCE", preference: "nightMode" })
+                }
+              >
+                {state.preferences.nightMode ? (
+                  <Sun aria-hidden="true" />
+                ) : (
+                  <Moon aria-hidden="true" />
+                )}
+                <span>
+                  {state.preferences.nightMode ? "Modo día" : "Modo noche"}
+                </span>
               </button>
             </div>
-            <button
-              type="button"
-              className="demo-tool"
-              aria-pressed={!state.preferences.mascotHidden}
-              onClick={() =>
-                send({ type: "PREFERENCE", preference: "mascotHidden" })
-              }
-            >
-              {state.preferences.mascotHidden ? (
-                <Eye aria-hidden="true" />
-              ) : (
-                <EyeOff aria-hidden="true" />
-              )}
-              <span>
-                {state.preferences.mascotHidden ? "Mostrar K8" : "Ocultar K8"}
-              </span>
-            </button>
-            <button
-              type="button"
-              className="demo-tool demo-night-toggle"
-              aria-pressed={state.preferences.nightMode}
-              onClick={() =>
-                send({ type: "PREFERENCE", preference: "nightMode" })
-              }
-            >
-              {state.preferences.nightMode ? (
-                <Sun aria-hidden="true" />
-              ) : (
-                <Moon aria-hidden="true" />
-              )}
-              <span>
-                {state.preferences.nightMode ? "Modo día" : "Modo noche"}
-              </span>
-            </button>
             {/* Solo operador en la demo: nombre visible y salida. */}
             <button
               type="button"
               className="demo-tool demo-user-button"
               popoverTarget="demo-user"
+              title={state.profile.name}
             >
-              <UserRound aria-hidden="true" />
+              <span className="demo-user-avatar" aria-hidden="true">
+                <UserRound />
+              </span>
               <span>{state.profile.name}</span>
             </button>
             <div
@@ -460,7 +477,23 @@ export function DemoShell() {
                     : undefined
                 }
               >
-                <Icon aria-hidden="true" />
+                {/* Lente líquida: se desliza a la tecla activa (layoutId). */}
+                {nav.view === id ||
+                (id === "cases" && nav.view === "review") ? (
+                  <motion.span
+                    layoutId="demo-nav-lens"
+                    className="demo-nav-lens"
+                    aria-hidden="true"
+                    transition={
+                      reduceMotion || state.preferences.motionOff
+                        ? { duration: 0 }
+                        : { type: "spring", stiffness: 380, damping: 30 }
+                    }
+                  />
+                ) : null}
+                <span className="demo-nav-key" aria-hidden="true">
+                  <Icon />
+                </span>
                 <span>{label}</span>
                 {id === "cases" && metrics.pending > 0 ? (
                   <small>{metrics.pending}</small>
