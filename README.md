@@ -4,17 +4,13 @@
 
 # TAKYA · Comprender antes de actuar
 
-> **📋 Visita de validación con PDI y policías locales:** [qué mostrar, qué preguntar y qué no decir](docs/validacion/VISITA_PDI_POLICIAS.md). Recorrido de la demo en 10 pasos (Analizar → evidencia protegida → probar una alteración), preguntas por tema, hipótesis a validar y plantilla de notas.
+> **Versión estable v3.0.1 · 22 de octubre de 2026 · publicada en [takya.cl](https://takya.cl).** Landing pública sin acceso a la demo; home del software con login privado (usuario fijo `centinela` y contraseña del equipo validada en el servidor); consola en Liquid Glass con un solo flujo de decisión: **Observar → Comprender → Decidir → Proteger**. La memoria completa del software está en [ENGRAM.md](ENGRAM.md).
 >
-> **Demo publicada en [takya.cl](https://takya.cl):** login solo de operador; **Analizar** (señal en vivo simulada o archivo) con detección, decisión y **protección de evidencia real** (huella SHA-256, firma Ed25519, cifrado AES-256-GCM, verificación y prueba de alteración); K8 IA con voz; modo noche y accesibilidad en la cabecera.
-
-**Nuevo dossier de estrategia:** [documento maestro, backend sin BD, evidencia, K8, plan por roles y skills](docs/estrategia/00_INDICE_Y_ESTADO.md). Consolida el siguiente demo de carga/análisis de video y los requisitos para cerrar el pitch; sus capacidades nuevas siguen pendientes de implementación.
-
-**Demo funcional con evidencia grabada · octubre de 2026.** Seis clips ligeros permiten observar incidentes, recorrer señales, comprender contexto y registrar una decisión. Casos ofrece Lista o Carrusel con Motion. K8, el perro robot 3D, abre un chat breve centrado sin cambiar de pantalla; puedes ocultarlo desde la cabecera. El chat responde mediante Groq y guías curadas, con validación de entradas y filtro de ámbito en servidor. Home incorpora una cortina al elegir proyecto o consola. Se conserva la identidad visual V1.
+> **Validación en terreno:** [visita PDI y policías](docs/validacion/VISITA_PDI_POLICIAS.md) · [hallazgos de la central municipal, contactos de evidencia digital y decisiones de acceso](docs/estrategia/14_VALIDACION_EN_TERRENO.md).
 
 Vitrina digital de TAKYA, una propuesta de apoyo a operadores de televigilancia mediante contexto y prioridades explicables. Proyecto desarrollado para el Programa Nómada UCN en Antofagasta.
 
-> **Versión de demostración:** `/landing` presenta el proyecto; `/home` ofrece acceso audiovisual y `/login` permite elegir Operador o Supervisión. `/demo` reproduce registros grabados con señales curadas (práctica). `/demo?mode=analysis` analiza un archivo MP4 autorizado con un backend local: detector de personas en CPU, revisión y decisión validadas por el servidor y un paquete de evidencia E1/E2 verificable sin internet. No hay cámaras en vivo ni despacho real; la precisión del detector en CCTV real aún no está medida.
+> **Qué es real y qué es simulado:** las señales en vivo y el análisis se simulan con videos ya cargados (sin subir archivos, pensado para iPad); la protección de la evidencia es criptografía real en el navegador (huella SHA-256, firma Ed25519, cifrado AES-256-GCM, verificación y prueba de alteración). No hay cámaras en vivo ni despacho real. `/demo?mode=analysis&motor=local` conserva el análisis de archivo con el backend local (ver más abajo).
 
 ## Navegación rápida
 
@@ -26,13 +22,14 @@ Vitrina digital de TAKYA, una propuesta de apoyo a operadores de televigilancia 
 - **Contenido:** problema de la fatiga cognitiva, propuesta de TAKYA y criterio humano en la decisión.
 - **Repositorio:** [Delnr91/takya](https://github.com/Delnr91/takya).
 
-| Ruta       | Estado en esta entrega | Para qué sirve                                |
-| ---------- | ---------------------- | --------------------------------------------- |
-| `/`        | Pública                | Abre la entrada audiovisual `/home`.          |
-| `/landing` | Pública · V1           | Presentación institucional.                   |
-| `/home`    | Disponible             | Entrada audiovisual con enlace a `/login`.    |
-| `/login`   | Demo                   | Selección simulada de Operador o Supervisión. |
-| `/demo`    | Demo                   | Consola interactiva de práctica.              |
+| Ruta                       | Acceso   | Para qué sirve                                                            |
+| -------------------------- | -------- | ------------------------------------------------------------------------- |
+| `/`                        | Pública  | Abre `/home`.                                                             |
+| `/home`                    | Pública  | Entrada audiovisual: «Conocer el Proyecto» y «Consola Interactiva».       |
+| `/landing`                 | Pública  | Presentación del proyecto, sin botones a la demo (se muestra en persona). |
+| `/login`                   | Pública  | Home del software: bienvenida y acceso privado (día/noche).               |
+| `/demo`                    | Privada  | Consola del operador. Sin la cookie de acceso vuelve a `/login`.          |
+| `/api/k8`, `/api/analysis` | Privadas | Responden 401 sin acceso.                                                 |
 
 ## Qué muestra la landing
 
@@ -58,21 +55,20 @@ El relato usa las cifras de contexto de la documentación interna: **130 cámara
 
 ## Probar la consola
 
-Desde `/landing`, pulsa **Ver demo** en móvil o **Explorar demo** en escritorio. Desde `/home`, pulsa **Consola Interactiva**. Ambos caminos llevan a `/login`: elige un rol de práctica y entra con el botón o la tecla Enter. Si intentas abrir `/demo` sin iniciar la práctica, volverás a la pantalla de acceso. Este paso es solo navegación simulada, no autenticación real.
+Desde `/home`, pulsa **Consola Interactiva**. En `/login` el usuario es fijo (`centinela`); escribe la contraseña del equipo (pídela al equipo; no se guarda en el repositorio) y pulsa **Iniciar sesión**. El candado se cierra y abre la consola. El modo día/noche del login se comparte con la consola.
 
 <details>
-<summary><strong>Recorrido de cinco minutos</strong></summary>
+<summary><strong>Recorrido para presentar (6 a 8 minutos)</strong></summary>
 
-1. En **Inicio**, compara los avisos recibidos con los casos agrupados.
-2. En **Casos**, elige Lista o Carrusel. Abre un caso, reproduce cada **clip disponible**, usa sus momentos importantes y pulsa **Ya revisé este clip**. El número de clips varía por caso.
-3. En **Comprender**, distingue las señales visibles de lo que aún requiere confirmación.
-4. En **Decidir**, verifica, escala o descarta e indica el motivo. Si escalas, cambia a **Supervisión** y marca la derivación recibida.
-5. Pulsa el perrito 3D: K8 aparece como un organismo vivo, con una sola línea de consulta y letras grandes. **Guíame aquí** orienta según la sección. **Hablar** permite dictar si el navegador lo admite; revisa el texto y pulsa **Enviar**. **Escuchar** lee la respuesta. También puedes abrir **K8 IA** para una conversación extensa. Las fuentes quedan opcionales, sin entregar archivos técnicos como respuesta.
-6. En **Cámaras**, selecciona un caso y pulsa **Abrir este registro**: abre ese clip concreto. **Historial** conserva el mismo caso; **Volver a la evidencia** permite observarlo de nuevo sin cambiar la decisión. En **Ajustes**, cambia lectura y ritmo, edita el nombre o cierra la práctica.
+1. **Inicio:** el próximo caso, su video y el recorrido «Cámara → Grabación → TAKYA → Evidencia».
+2. **Analizar → En vivo → Cámara 07:** TAKYA revisa la señal y no encuentra nada (queda **descartado** en el historial).
+3. **Empezar de nuevo → En vivo → Cámara 12:** detecta una descarga de residuos y muestra **lo que vio** y **lo que no sabe**. Pulsa **Revisar el caso**.
+4. El caso abre en la revisión, igual que cualquier caso de **Casos**: **Observar** (revisa cada clip) → **Comprender** → **Decidir** (Verificar, Derivar o Descartar, con motivo y destino; se puede volver) → **Proteger**.
+5. **Proteger evidencia:** el candado sella paso a paso (huella, firma, cifrado). Luego **Verificar integridad** (íntegra) y **Probar una alteración** (cambia un byte y TAKYA lo detecta). **Descargar paquete** y **Descargar clave** van por canales distintos.
+6. **Historial:** quién revisó, qué decidió y por qué, con la evidencia sellada.
+7. **K8 IA:** voz primero («Hablar»), fichas de preguntas y respuestas en lectura fácil.
 
-La llegada automática comienza pausada. Puedes generar un caso manualmente, elegir el ritmo, cambiar el tamaño del texto o reiniciar la práctica. El texto principal parte de 18 px; en móvil, la navegación combina pictogramas y etiquetas, y los pasos se apilan para leerlos con comodidad. El progreso reconoce las tres revisiones iniciales sin puntuar rapidez ni favorecer una decisión.
-
-Guíame ofrece un primer paso curado según la pantalla y el rol; las consultas escritas o dictadas se responden con Groq desde las guías del proyecto. El dictado y la lectura usan las funciones de voz del navegador, no una llamada de audio con Groq. El micrófono solo se solicita al pulsar **Hablar**; algunos navegadores usan un servicio externo para transcribir. TAKYA no guarda audio ni envía videos al chat. Si el dictado falla o no está disponible, puedes escribir. Cerrar K8 detiene voz y consulta pendientes.
+En **Ajustes** se cambia lectura, ritmo de llegadas, modo noche, se reinicia la práctica o se cierra sesión (también borra el acceso del servidor).
 
 </details>
 
@@ -81,7 +77,7 @@ Los nuevos ejercicios usan registros grabados de fuego, residuos y un camión si
 <details>
 <summary><strong>Configurar el chat sin exponer claves</strong></summary>
 
-Configura `GROQ_API_KEY` en `.env.local` y en las variables privadas del servidor de Vercel. Nunca uses el prefijo `NEXT_PUBLIC_` ni subas una clave a Git. `.env*` está excluido del repositorio. Sin la variable, el chat explica que no puede responder y conserva la pregunta.
+Configura `GROQ_API_KEY` en `.env.local` y en las variables privadas del servidor de Vercel (proyecto **takya-app** del equipo **incluyemes-projects**). Nunca uses el prefijo `NEXT_PUBLIC_` ni subas una clave a Git. `.env*` está excluido del repositorio. Sin la variable, el chat explica que no puede responder y conserva la pregunta.
 
 La ruta valida origen, formato, longitud y orden de mensajes, limita solicitudes y redirige temas ajenos antes del proveedor. Los intentos rechazados y patrones de claves no se reenvían en el historial. Estos filtros reducen abuso conocido; no sustituyen autenticación ni límites distribuidos para una plataforma operativa.
 
@@ -163,7 +159,7 @@ En la puesta en marcha local del 18 de octubre de 2026 pasaron TypeScript, ESLin
 1. En Vercel, crea un proyecto e importa [Delnr91/takya](https://github.com/Delnr91/takya).
 2. Selecciona la rama `main` y deja la **raíz del proyecto** en `/`.
 3. Comprueba que Vercel detecte **Next.js** y use `npm run build`.
-4. Esta landing no necesita variables de entorno.
+4. Variables de **Production**: `TAKYA_DEMO_PASSWORD_HASH` y `TAKYA_ACCESS_SECRET` (genéralas con `TAKYA_PASSWORD='…' node scripts/access/hash-password.mjs <archivo-privado>`; sin ellas la demo queda cerrada) y, opcional, `GROQ_API_KEY`. Si `/api/access` responde 503, su campo `diagnostico` indica qué variable falta o está mal formada, sin mostrar valores.
 5. Despliega y revisa `/`, `/landing`, `/home`, `/login` y `/demo` en escritorio y móvil. La raíz abre `/home`; la presentación está en `/landing` y el acceso a la consola empieza en `/login`.
 
 Si intentaste desplegar antes de recibir el nuevo commit en `main`, vuelve a ejecutar el despliegue desde ese commit y mira el final de **Build Logs** si Vercel informa otro error.
@@ -177,7 +173,7 @@ Si conectas GitHub al proyecto de Vercel, los cambios posteriores en `main` podr
 - Presenta la consola como **demostración funcional con evidencia grabada**. El flujo se puede completar; las llegadas y la coordinación son simuladas y no hay conexión a CCTV.
 - Las cifras de contexto provienen de documentos del proyecto; evita describirlas como resultados de TAKYA.
 - El botón de WhatsApp de la versión actual usa un **número de ejemplo**. El equipo debe reemplazarlo por un canal real antes de utilizarlo como contacto comercial.
-- La landing conserva la presentación V1. La consola es una práctica visual y sus roles no representan cuentas o permisos reales.
+- La landing es pública; la demo es privada y se presenta en persona o con un acceso autorizado. El acceso de la demo es una puerta de práctica (usuario fijo y una contraseña de equipo), no un sistema de cuentas.
 
 ## Documentación del equipo
 
