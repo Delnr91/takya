@@ -330,3 +330,54 @@
 .k8-stage .k8-hint {
   color: #b8cbbc;
 }
+
+/* ══ Escenario: degradado en movimiento + alma al centro del fondo ══
+   El alma ocupa el centro de todo el escenario, detrás; el estado va arriba
+   y la conversación abajo, sin taparse. */
+.k8-stage {
+  min-height: 600px;
+  background: linear-gradient(150deg, #06100b, #163a2b 60%, #2f5e46);
+}
+.k8-stage-grain {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+}
+.k8-stage-grain canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+.k8-stage-soul {
+  inset: 0;
+  height: auto;
+  opacity: 0.9;
+}
+.k8-stage-content {
+  min-height: 600px;
+  align-content: end;
+  padding-top: 90px;
+}
+@media (max-width: 560px) {
+  .k8-stage,
+  .k8-stage-content {
+    min-height: 540px;
+  }
+  .k8-stage-soul {
+    height: auto;
+  }
+  .k8-stage-content {
+    padding-top: 80px;
+  }
+}
+/* El alma se centra en el espacio libre entre el estado y la conversación,
+   para que el chat no la tape. */
+.k8-stage-soul {
+  inset: 56px 0 230px;
+}
+@media (max-width: 560px) {
+  .k8-stage-soul {
+    inset: 48px 0 260px;
+  }
+}

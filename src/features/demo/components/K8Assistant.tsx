@@ -15,6 +15,7 @@ import {
   Type,
   Volume2,
 } from "lucide-react";
+import { GrainGradient } from "@/components/ui/GrainGradient";
 import { CognitiveFluidBackground } from "./CognitiveFluidBackground";
 import { useCognitiveChat } from "../hooks/useCognitiveChat";
 import { useQuickVoice } from "../hooks/useQuickVoice";
@@ -87,6 +88,14 @@ export function K8Assistant({ motionOff }: { motionOff: boolean }) {
         data-activity={activity}
         aria-label="Conversación con K8"
       >
+        {/* Fondo en movimiento (el de «Conversemos» en la landing) en los
+            verdes de K8, y el alma al centro, detrás de la conversación. */}
+        <div className="k8-stage-grain" aria-hidden="true">
+          <GrainGradient
+            colors={["#06100b", "#163a2b", "#2f5e46"]}
+            still={reduce}
+          />
+        </div>
         <div className="k8-stage-soul" aria-hidden="true">
           <CognitiveFluidBackground motionOff={reduce} activity={activity} />
         </div>
