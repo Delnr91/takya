@@ -105,37 +105,38 @@ export function K8Assistant({ motionOff }: { motionOff: boolean }) {
             {status}
           </span>
 
+          {/* La burbuja aparece solo cuando hay pregunta o respuesta: sin
+              saludo fijo, el alma y el botón «Hablar» invitan solos. */}
           <AnimatePresence mode="wait" initial={false}>
-            <motion.div
-              key={latest?.id ?? "hola"}
-              className="k8-bubble"
-              initial={reduce ? false : { opacity: 0, y: 14, scale: 0.98 }}
-              animate={{ opacity: 1, y: 0, scale: 1 }}
-              exit={reduce ? undefined : { opacity: 0, y: -10 }}
-              transition={{ duration: reduce ? 0 : 0.3 }}
-              aria-live="polite"
-            >
-              {latest ? (
-                <p className="k8-bubble-question">Tú: {latest.question}</p>
-              ) : null}
-              <p className="k8-bubble-answer">
-                {pending
-                  ? "Un momento…"
-                  : (answer ??
-                    "Hola, soy K8. Toca «Hablar» y pregúntame. O elige una ficha.")}
-              </p>
-              {answer && voice.canSpeak ? (
-                <button
-                  type="button"
-                  className="k8-listen"
-                  onClick={() => voice.read(answer)}
-                  aria-pressed={voice.speaking}
-                >
-                  {voice.speaking ? <Square /> : <Volume2 />}
-                  {voice.speaking ? "Detener" : "Escuchar"}
-                </button>
-              ) : null}
-            </motion.div>
+            {latest || pending ? (
+              <motion.div
+                key={latest?.id ?? "hola"}
+                className="k8-bubble"
+                initial={reduce ? false : { opacity: 0, y: 14, scale: 0.98 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                exit={reduce ? undefined : { opacity: 0, y: -10 }}
+                transition={{ duration: reduce ? 0 : 0.3 }}
+                aria-live="polite"
+              >
+                {latest ? (
+                  <p className="k8-bubble-question">Tú: {latest.question}</p>
+                ) : null}
+                <p className="k8-bubble-answer">
+                  {pending ? "Un momento…" : answer}
+                </p>
+                {answer && voice.canSpeak ? (
+                  <button
+                    type="button"
+                    className="k8-listen"
+                    onClick={() => voice.read(answer)}
+                    aria-pressed={voice.speaking}
+                  >
+                    {voice.speaking ? <Square /> : <Volume2 />}
+                    {voice.speaking ? "Detener" : "Escuchar"}
+                  </button>
+                ) : null}
+              </motion.div>
+            ) : null}
           </AnimatePresence>
 
           <div className="k8-controls">
