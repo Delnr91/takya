@@ -21,6 +21,7 @@ import { CojeevDepthBackground } from "@/components/ui/CojeevDepthBackground";
 import { type } from "./typography";
 import { SectionTitle } from "./SectionTitle";
 import { SectionDivider } from "./HandDrawn";
+import { InstitutionalBacking } from "./InstitutionalBacking";
 
 export function LandingPage() {
   const pageRef = useRef<HTMLDivElement>(null);
@@ -460,7 +461,7 @@ export function LandingPage() {
                   se instala en tu central.
                 </p>
                 <Link
-                  href="https://wa.me/56900000000?text=Hola,%20quisiera%20agendar%20una%20demostración%20de%20TAKYA."
+                  href="https://wa.me/56942415610?text=Hola,%20quisiera%20agendar%20una%20demostración%20de%20TAKYA."
                   target="_blank"
                   className="inline-flex min-h-12 items-center justify-center whitespace-nowrap rounded-full bg-[#25D366] px-6 py-3.5 font-mono text-xs font-bold uppercase tracking-wider text-[#0b2e17] transition-colors hover:bg-[#20b858]"
                 >
@@ -480,6 +481,8 @@ export function LandingPage() {
             </div>
           </motion.div>
         </section>
+
+        <InstitutionalBacking />
 
         {/* ── FOOTER INSTITUCIONAL ── */}
         <footer className="relative z-10 w-full bg-transparent">
