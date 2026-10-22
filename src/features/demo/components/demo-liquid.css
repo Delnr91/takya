@@ -737,3 +737,157 @@
   z-index: 1;
   filter: drop-shadow(0 1px 0 rgba(255, 255, 255, 0.6));
 }
+
+/* ══ Casos: filas 3D, prioridades como pines, selector y flechas en 3D ══ */
+.demo-case-row {
+  cursor: pointer;
+  border: 1px solid rgba(255, 255, 255, 0.95) !important;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.95),
+    rgba(255, 255, 255, 0.6) 55%,
+    rgba(229, 236, 225, 0.72)
+  ) !important;
+  box-shadow:
+    0 6px 0 #c3cdbf,
+    0 22px 32px -18px rgba(15, 30, 22, 0.45),
+    inset 0 1px 0 #fff !important;
+  transition:
+    transform 0.18s ease,
+    box-shadow 0.18s ease;
+}
+.demo-case-row:hover {
+  transform: translateY(-3px);
+  box-shadow:
+    0 9px 0 #c3cdbf,
+    0 28px 38px -18px rgba(15, 30, 22, 0.5),
+    inset 0 1px 0 #fff !important;
+}
+.demo-case-row:active {
+  transform: translateY(4px);
+  box-shadow:
+    0 1px 0 #c3cdbf,
+    0 8px 12px -8px rgba(15, 30, 22, 0.45) !important;
+}
+
+/* Prioridad / estado como pin esmaltado (mantiene su color). */
+.demo-badge {
+  border-width: 2px !important;
+  box-shadow:
+    0 0 0 1.5px rgba(255, 255, 255, 0.9),
+    0 3px 0 rgba(0, 0, 0, 0.14),
+    0 8px 14px -8px rgba(0, 0, 0, 0.35),
+    inset 0 1px 0 rgba(255, 255, 255, 0.85),
+    inset 0 -2px 3px rgba(0, 0, 0, 0.08);
+  background-image: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.55),
+    rgba(255, 255, 255, 0) 60%
+  );
+}
+
+/* Lista / Carrusel: teclas 3D; la elegida queda hundida. */
+.incident-view-switch button {
+  border: 1px solid rgba(255, 255, 255, 0.95);
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.98),
+    rgba(229, 236, 225, 0.75)
+  );
+  color: #1b3b2b;
+  box-shadow:
+    0 4px 0 #c3cdbf,
+    0 12px 18px -12px rgba(15, 30, 22, 0.45),
+    inset 0 1px 0 #fff;
+  transition:
+    transform 0.16s ease,
+    box-shadow 0.16s ease;
+}
+.incident-view-switch button:hover {
+  transform: translateY(-2px);
+}
+.incident-view-switch button[aria-pressed="true"] {
+  transform: translateY(3px);
+  border-color: transparent;
+  background: linear-gradient(180deg, #2c523a, #1b3b2b 55%, #163224);
+  color: #f4f1ea;
+  box-shadow:
+    0 1px 0 #0e2018,
+    inset 0 2px 4px rgba(0, 0, 0, 0.25);
+}
+
+/* Flechas del carrusel: pines redondos que se hunden al tocar. */
+.incident-carousel-side {
+  border: 2.5px solid transparent !important;
+  background:
+    linear-gradient(
+        160deg,
+        rgba(255, 255, 255, 0.75) 0%,
+        rgba(255, 255, 255, 0.1) 50%,
+        rgba(0, 0, 0, 0.06) 100%
+      )
+      padding-box,
+    linear-gradient(#f4f1ea, #e7ece2) padding-box,
+    linear-gradient(145deg, #ffffff, #c9cdc8 35%, #f4f4f2 55%, #9ea39d)
+      border-box !important;
+  box-shadow:
+    0 3px 0 #9ea39d,
+    0 14px 22px -10px rgba(15, 30, 22, 0.5),
+    inset 0 2px 1px rgba(255, 255, 255, 0.8) !important;
+  transition:
+    transform 0.16s ease,
+    box-shadow 0.16s ease;
+}
+.incident-carousel-side:hover:not(:disabled) {
+  transform: translateY(-2px) scale(1.04);
+}
+.incident-carousel-side:active:not(:disabled) {
+  transform: translateY(2px);
+  box-shadow:
+    0 0 0 #9ea39d,
+    0 6px 10px -6px rgba(15, 30, 22, 0.5),
+    inset 0 2px 4px rgba(0, 0, 0, 0.12) !important;
+}
+/* Tarjeta del carrusel en vidrio. */
+.incident-carousel-card {
+  border: 1px solid rgba(255, 255, 255, 0.9) !important;
+  box-shadow:
+    0 30px 60px -28px rgba(15, 30, 22, 0.55),
+    inset 0 1px 0 #fff !important;
+}
+
+/* ── Alertas de prioridad más visibles que el título ──
+   Pines rellenos con color fuerte, más grandes y con el ícono destacado. */
+.demo-badge {
+  gap: 8px;
+  padding: 7px 14px 7px 10px;
+  border-radius: 999px;
+  font-size: 0.82em;
+  font-weight: 800;
+  letter-spacing: 0.01em;
+}
+.demo-badge svg {
+  width: 17px;
+  height: 17px;
+}
+.demo-badge-high {
+  border-color: #b4432c !important;
+  background-color: #d4553a;
+  color: #fff;
+  text-shadow: 0 1px 0 rgba(120, 30, 10, 0.35);
+}
+.demo-badge-medium {
+  border-color: #c99a2e !important;
+  background-color: #f2c14e;
+  color: #4a3405;
+}
+.demo-badge-info {
+  border-color: #9fb59a !important;
+  background-color: #d6e2d2;
+  color: #2f4a3c;
+}
+.demo-badge-resolved {
+  border-color: #6f9a76 !important;
+  background-color: #cfe3cf;
+  color: #234a2f;
+}
