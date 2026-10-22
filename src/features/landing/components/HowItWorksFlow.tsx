@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import {
   AnimatePresence,
@@ -29,6 +28,21 @@ export function HowItWorksFlow({ steps }: { steps: FlowStep[] }) {
   const [active, setActive] = useState(0);
   const [paused, setPaused] = useState(false);
   const playing = inView && !paused && !reduce;
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+    if (active === 0 && inView && !reduce) {
+      video.currentTime = 0;
+      void video.play().catch(() => undefined);
+    } else {
+      // La zona y la detección están dibujadas sobre el fotograma 0 (el
+      // póster): al salir de «Recibir» el video vuelve ahí para calzar.
+      video.pause();
+      video.currentTime = 0;
+    }
+  }, [active, inView, reduce]);
 
   useEffect(() => {
     if (!playing) return;
@@ -58,11 +72,16 @@ export function HowItWorksFlow({ steps }: { steps: FlowStep[] }) {
           }
           transition={{ type: "spring", stiffness: 140, damping: 22 }}
         >
-          <Image
-            src="/videos/incidents/residuos-descarga.jpg"
-            alt=""
-            fill
-            sizes="(min-width: 1024px) 680px, 100vw"
+          {/* En «Recibir» corre el video real; en los demás pasos queda
+              detenido, como el fotograma sobre el que se trabaja. */}
+          <video
+            ref={videoRef}
+            className="takya-flow-video"
+            src="/videos/incidents/residuos-descarga.mp4"
+            poster="/videos/incidents/residuos-descarga.jpg"
+            muted
+            playsInline
+            preload="metadata"
           />
           <svg viewBox="0 0 640 292" preserveAspectRatio="none">
             <defs>
