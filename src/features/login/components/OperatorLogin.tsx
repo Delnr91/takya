@@ -289,15 +289,14 @@ export function OperatorLogin() {
                     }}
                   />
                 </div>
-                {error ? (
-                  <p
-                    id="takya-login-error"
-                    className="takya-login-error"
-                    role="alert"
-                  >
-                    {error}
-                  </p>
-                ) : null}
+                {/* Espacio reservado: el mensaje aparece sin mover el resto. */}
+                <p
+                  id="takya-login-error"
+                  className="takya-login-error"
+                  role="alert"
+                >
+                  {error}
+                </p>
 
                 <button
                   type="submit"
