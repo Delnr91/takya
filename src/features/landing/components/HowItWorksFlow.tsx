@@ -37,7 +37,10 @@ export function HowItWorksFlow({ steps }: { steps: FlowStep[] }) {
       video.currentTime = 0;
       void video.play().catch(() => undefined);
     } else {
+      // La zona y la detección están dibujadas sobre el fotograma 0 (el
+      // póster): al salir de «Recibir» el video vuelve ahí para calzar.
       video.pause();
+      video.currentTime = 0;
     }
   }, [active, inView, reduce]);
 
