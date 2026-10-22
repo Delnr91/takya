@@ -1329,3 +1329,38 @@
     height: 21px;
   }
 }
+
+/* ── Revisión de casos con el mismo camino de pictogramas que Analizar ── */
+.review-path {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  margin: 4px 0 20px;
+}
+.review-path::before,
+.review-path .analysis-path-fill {
+  left: 12.5%;
+  right: 12.5%;
+}
+.review-path-button {
+  display: grid;
+  justify-items: center;
+  gap: 6px;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+}
+.review-path-button:disabled {
+  cursor: default;
+  opacity: 0.55;
+}
+.review-path-button:focus-visible {
+  outline: 3px solid #e05d44;
+  outline-offset: 4px;
+  border-radius: 16px;
+}
+/* Excepción: los sellos aplicados conservan su check (es el dato, no adorno). */
+#demo-main .evidence-sealed li > svg {
+  display: block;
+}
