@@ -1327,3 +1327,66 @@ li:nth-child(4) > .takya-ods-tile::after {
   height: 100%;
   object-fit: cover;
 }
+
+/* ── Respaldo institucional ──
+   Sobre el mismo fondo claro de la página (los manuales de UCN 70 años y
+   USQAI lo permiten), sin efectos. Misma altura visual y filete entre ellos. */
+.takya-backing {
+  background: transparent;
+}
+.takya-backing > div {
+  border-top: 1px solid rgb(27 59 43 / 0.12);
+}
+.takya-backing-row {
+  --logo-h: 56px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  row-gap: 28px;
+}
+.takya-backing-row > li {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  /* Área de resguardo ≈ la altura de la «U» de USQAI. */
+  padding: 0 calc(var(--logo-h) * 0.55);
+}
+.takya-backing-row > li + li {
+  border-left: 1px solid rgb(27 59 43 / 0.18);
+}
+.takya-backing-logo {
+  display: block;
+  border-radius: 6px;
+}
+.takya-backing-logo:focus-visible {
+  outline: 2px solid #e05d44;
+  outline-offset: 6px;
+}
+.takya-backing-logo img {
+  display: block;
+  width: auto;
+  height: var(--logo-h);
+}
+.takya-backing-role {
+  font-family: var(--font-jetbrains), ui-monospace, monospace;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgb(27 59 43 / 0.7);
+}
+@media (max-width: 640px) {
+  .takya-backing-row {
+    --logo-h: 42px;
+    flex-direction: column;
+  }
+  .takya-backing-row > li {
+    padding: 0;
+  }
+  .takya-backing-row > li + li {
+    border-left: 0;
+    border-top: 1px solid rgb(27 59 43 / 0.14);
+    padding-top: 28px;
+  }
+}
