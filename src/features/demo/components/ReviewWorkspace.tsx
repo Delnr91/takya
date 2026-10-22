@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
-import { Lightbulb, PanelRightClose } from "lucide-react";
+import { Film, Hand, Lightbulb, Lock, PanelRightClose } from "lucide-react";
 import {
   ArrowLeft,
   ArrowRight,
@@ -89,11 +89,13 @@ export function ReviewWorkspace({
   const evidenceCount = incident.cameras.filter(
     (camera) => camera.available,
   ).length;
+  // Mismo camino de pictogramas que Analizar: Video → Resultado → Decisión →
+  // Evidencia.
   const steps = [
-    { title: "Observar", icon: Eye, done: evidenceComplete(incident) },
-    { title: "Comprender", icon: Lightbulb, done: incident.explanationRead },
-    { title: "Decidir", icon: ClipboardCheck, done: resolved },
-    { title: "Proteger", icon: ShieldCheck, done: Boolean(incident.evidence) },
+    { title: "Video", icon: Film, done: evidenceComplete(incident) },
+    { title: "Resultado", icon: Eye, done: incident.explanationRead },
+    { title: "Decisión", icon: Hand, done: resolved },
+    { title: "Evidencia", icon: Lock, done: Boolean(incident.evidence) },
   ];
   // Clips grabados del caso: lo que se sella en «Proteger».
   const sealClips = incident.cameras.flatMap((camera) => {
@@ -142,11 +144,32 @@ export function ReviewWorkspace({
           derivaciones; la decisión inicial corresponde al operador.
         </div>
       ) : null}
-      <ol className="demo-stepper">
+      <ol className="analysis-path review-path" aria-label="Recorrido del caso">
+        <motion.span
+          className="analysis-path-fill"
+          aria-hidden="true"
+          initial={false}
+          animate={{
+            scaleX: Math.min(
+              1,
+              Math.max(step, steps.filter((item) => item.done).length) /
+                (steps.length - 1),
+            ),
+          }}
+          transition={
+            reduce
+              ? { duration: 0 }
+              : { type: "spring", stiffness: 120, damping: 20 }
+          }
+        />
         {steps.map(({ title, icon: Icon, done }, index) => (
-          <li key={title}>
+          <li
+            key={title}
+            data-state={step === index ? "current" : done ? "done" : "wait"}
+          >
             <button
               type="button"
+              className="review-path-button"
               aria-current={step === index ? "step" : undefined}
               disabled={
                 !readOnly &&
@@ -159,21 +182,23 @@ export function ReviewWorkspace({
                       : false)
               }
               onClick={() => setStep(index)}
-              className={
-                step === index ? "is-current" : done ? "is-complete" : ""
-              }
             >
-              <span>
-                {done ? (
-                  <Check aria-hidden="true" />
-                ) : (
-                  <Icon aria-hidden="true" />
-                )}
-              </span>
-              <span>
-                <small>Paso {index + 1}</small>
-                <strong>{title}</strong>
-              </span>
+              <motion.span
+                className="analysis-path-icon"
+                aria-hidden="true"
+                animate={
+                  step === index && !reduce
+                    ? { scale: [1, 1.12, 1] }
+                    : { scale: 1 }
+                }
+                transition={{
+                  duration: 1.4,
+                  repeat: step === index ? Infinity : 0,
+                }}
+              >
+                {done && step !== index ? <Check /> : <Icon />}
+              </motion.span>
+              <span>{title}</span>
             </button>
           </li>
         ))}
@@ -265,9 +290,13 @@ export function ReviewWorkspace({
             ) : sealClips.length ? (
               <>
                 <p className="analysis-decided">
-                  Decisión registrada:{" "}
-                  <strong>{OUTCOMES[incident.decision!.outcome].label}</strong>{" "}
-                  · {incident.decision?.reason}
+                  <span className="analysis-decided-label">
+                    Decisión registrada
+                  </span>
+                  <strong>{OUTCOMES[incident.decision!.outcome].label}</strong>
+                  <span className="analysis-decided-reason">
+                    {incident.decision?.reason}
+                  </span>
                 </p>
                 <EvidenceProtection
                   input={{

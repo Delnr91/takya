@@ -5,25 +5,39 @@ import Image from "next/image";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import {
   ArrowLeft,
+  ArrowUpRight,
   Check,
   CircleCheck,
   CircleHelp,
   Clock3,
   Eye,
+  Hand,
+  Lock,
   FolderOpen,
   MapPin,
   RadioTower,
   RotateCcw,
   ScanSearch,
   Trash2,
+  X,
 } from "lucide-react";
 import { mediaClips } from "../data/media";
+import { reasons } from "../data/scenarios";
 import type { DemoCommand } from "../model/simulation";
+import { EvidenceProtection } from "./EvidenceProtection";
 import "./analysis-sim.css";
 
 type Mode = "senal" | "archivo";
 type SourceId = "vigilancia" | "basura";
-type Phase = "fuente" | "camara" | "conectando" | "analizando" | "resultado";
+type Phase =
+  | "fuente"
+  | "camara"
+  | "conectando"
+  | "analizando"
+  | "resultado"
+  | "decidir"
+  | "proteger";
+type Outcome = "VERIFIED" | "ESCALATED" | "DISMISSED";
 
 const basura = mediaClips["residuos-descarga"];
 
@@ -66,10 +80,26 @@ const CHECKS = [
   "Objetos o material",
 ];
 
+// Mismas decisiones y motivos que la revisión de casos.
+const OUTCOMES: Record<
+  Outcome,
+  { label: string; detail: string; icon: typeof Check }
+> = {
+  VERIFIED: {
+    label: "Verificar",
+    detail: "Confirmo lo que veo",
+    icon: CircleCheck,
+  },
+  ESCALATED: { label: "Derivar", detail: "Pido apoyo", icon: ArrowUpRight },
+  DISMISSED: { label: "Descartar", detail: "No corresponde", icon: X },
+};
+const DESTINATIONS = ["Supervisión municipal", "Equipo en terreno"] as const;
 const STEP_ICONS = [
   { label: "Fuente", icon: RadioTower },
   { label: "Análisis", icon: ScanSearch },
   { label: "Resultado", icon: Eye },
+  { label: "Decisión", icon: Hand },
+  { label: "Evidencia", icon: Lock },
 ];
 
 function clock() {
@@ -83,10 +113,12 @@ function clock() {
  * resulta queda en la bandeja y en el historial de la práctica.
  */
 export function AnalysisSimulator({
+  operator,
   motionOff,
   nextSequence,
   send,
   onOpenCase,
+  onHistory,
 }: {
   operator: string;
   motionOff: boolean;
@@ -100,12 +132,19 @@ export function AnalysisSimulator({
   const [mode, setMode] = useState<Mode>("senal");
   const [sourceId, setSourceId] = useState<SourceId>("vigilancia");
   const [progress, setProgress] = useState(0);
+  const [outcome, setOutcome] = useState<Outcome | null>(null);
+  const [reason, setReason] = useState("");
+  const [destination, setDestination] = useState<
+    (typeof DESTINATIONS)[number] | null
+  >(null);
+  const [savedId, setSavedId] = useState<string | null>(null);
+  const [sealed, setSealed] = useState(false);
   const [now, setNow] = useState(clock);
   const clearLogged = useRef(false);
   const video = useRef<HTMLVideoElement>(null);
   const source = SOURCES[sourceId];
   const live = mode === "senal";
-  const caseId = `DEMO-${String(nextSequence).padStart(3, "0")}`;
+  const caseId = savedId ?? `DEMO-${String(nextSequence).padStart(3, "0")}`;
 
   // Reloj de la señal «en vivo».
   useEffect(() => {
@@ -155,19 +194,31 @@ export function AnalysisSimulator({
 
   function restart() {
     clearLogged.current = false;
+    setSavedId(null);
+    setSealed(false);
+    setDestination(null);
+    setOutcome(null);
+    setReason("");
     setProgress(0);
     setPhase("fuente");
   }
 
-  // Lo detectado pasa a Casos y se revisa ahí, con el mismo flujo que
-  // cualquier caso: Observar, Comprender, Decidir y Proteger.
-  function openDetected() {
+  function registerDecision() {
+    if (!outcome) return;
+    const id = `DEMO-${String(nextSequence).padStart(3, "0")}`;
     send({
-      type: "ANALYSIS_DETECT",
+      type: "ANALYSIS_DECIDE",
       scenario: "dumping",
       camera: source.camera,
+      decision: {
+        outcome,
+        reason,
+        notes: "",
+        destination: outcome === "ESCALATED" ? destination : null,
+      },
     });
-    onOpenCase(caseId);
+    setSavedId(id);
+    setPhase("proteger");
   }
 
   const stepIndex = {
@@ -176,6 +227,8 @@ export function AnalysisSimulator({
     conectando: 1,
     analizando: 1,
     resultado: 2,
+    decidir: 3,
+    proteger: 4,
   }[phase];
   const cuesShown = source.finding
     ? basura.cues.filter((_, index) => progress >= (index + 1) * 0.35)
@@ -526,11 +579,162 @@ export function AnalysisSimulator({
               <button
                 type="button"
                 className="demo-button demo-button-primary analysis-next"
-                onClick={openDetected}
+                onClick={() => setPhase("decidir")}
               >
-                <Eye aria-hidden="true" /> Revisar el caso
+                <Check aria-hidden="true" /> Decidir qué hacer
               </button>
             </article>
+          ) : null}
+
+          {phase === "decidir" ? (
+            <>
+              <h2>¿Qué decides?</h2>
+              <div
+                className="analysis-outcomes"
+                role="radiogroup"
+                aria-label="Decisión"
+              >
+                {(Object.keys(OUTCOMES) as Outcome[]).map((key) => {
+                  const item = OUTCOMES[key];
+                  const Icon = item.icon;
+                  return (
+                    <button
+                      type="button"
+                      role="radio"
+                      aria-checked={outcome === key}
+                      key={key}
+                      className="analysis-outcome"
+                      data-outcome={key}
+                      onClick={() => {
+                        setOutcome(key);
+                        setReason("");
+                        setDestination(null);
+                      }}
+                    >
+                      <Icon aria-hidden="true" />
+                      <strong>{item.label}</strong>
+                      <small>{item.detail}</small>
+                    </button>
+                  );
+                })}
+              </div>
+              {outcome ? (
+                <fieldset className="analysis-reasons">
+                  <legend>¿Por qué?</legend>
+                  {reasons[outcome].map((item) => (
+                    <label key={item}>
+                      <input
+                        type="radio"
+                        name="analysis-reason"
+                        checked={reason === item}
+                        onChange={() => setReason(item)}
+                      />
+                      {item}
+                    </label>
+                  ))}
+                </fieldset>
+              ) : null}
+              {outcome === "ESCALATED" ? (
+                <fieldset className="analysis-reasons">
+                  <legend>¿A quién derivas?</legend>
+                  {DESTINATIONS.map((item) => (
+                    <label key={item}>
+                      <input
+                        type="radio"
+                        name="analysis-destination"
+                        checked={destination === item}
+                        onChange={() => setDestination(item)}
+                      />
+                      {item}
+                    </label>
+                  ))}
+                </fieldset>
+              ) : null}
+              <div className="analysis-actions">
+                {/* Volver sin perder nada: la decisión aún no se registra. */}
+                <button
+                  type="button"
+                  className="demo-button demo-button-secondary"
+                  onClick={() => setPhase("resultado")}
+                >
+                  <ArrowLeft aria-hidden="true" /> Volver al resultado
+                </button>
+                <button
+                  type="button"
+                  className="demo-button demo-button-primary analysis-next"
+                  disabled={
+                    !outcome ||
+                    !reason ||
+                    (outcome === "ESCALATED" && !destination)
+                  }
+                  onClick={registerDecision}
+                >
+                  <Check aria-hidden="true" /> Registrar decisión
+                </button>
+              </div>
+            </>
+          ) : null}
+
+          {phase === "proteger" && outcome ? (
+            <>
+              <p className="analysis-decided">
+                <span className="analysis-decided-label">
+                  Decisión registrada
+                </span>
+                <strong>{OUTCOMES[outcome].label}</strong>
+                <span className="analysis-decided-reason">{reason}</span>
+              </p>
+              <EvidenceProtection
+                input={{
+                  caseId,
+                  title: "Descarga de residuos",
+                  operator,
+                  decision: { outcome: OUTCOMES[outcome].label, reason },
+                  clips: [{ name: source.file, src: source.src }],
+                }}
+                onProtected={(evidence) => {
+                  setSealed(true);
+                  if (!savedId) return;
+                  send({
+                    type: "SEAL_EVIDENCE",
+                    incidentId: savedId,
+                    evidence: {
+                      sealedAt: Date.now(),
+                      fingerprint: evidence.fingerprint,
+                      signature: evidence.signature,
+                      cipher: "AES-256-GCM",
+                      bytes: evidence.bytes,
+                      clips: evidence.clips,
+                    },
+                  });
+                }}
+              />
+              {savedId ? (
+                <div className="analysis-saved">
+                  <p>
+                    {sealed
+                      ? `Caso ${savedId} guardado con su evidencia protegida.`
+                      : `Caso ${savedId} guardado en tu bandeja e historial.`}
+                  </p>
+                  <div className="analysis-actions">
+                    <button
+                      type="button"
+                      className="demo-button demo-button-secondary"
+                      onClick={() => onOpenCase(savedId)}
+                    >
+                      <ArrowUpRight aria-hidden="true" /> Ver el caso
+                    </button>
+                    <button
+                      type="button"
+                      className="demo-button demo-button-secondary"
+                      onClick={onHistory}
+                    >
+                      <Clock3 aria-hidden="true" /> Ver en el historial
+                    </button>
+                  </div>
+                </div>
+              ) : null}
+            </>
           ) : null}
         </motion.section>
       </AnimatePresence>

@@ -967,3 +967,52 @@
   background: linear-gradient(180deg, #3d7a52, #2f6b45);
   color: #fff;
 }
+
+/* ── Decisión con aire entre sus partes (Analizar y Casos) ── */
+.analysis-decide {
+  display: grid;
+  gap: 18px;
+}
+.analysis-decide h2 {
+  margin: 0;
+}
+.analysis-decide .analysis-reasons {
+  gap: 10px;
+}
+.analysis-decide .analysis-actions {
+  margin-top: 4px;
+  gap: 14px;
+}
+.analysis-actions .demo-button {
+  flex: 0 0 auto;
+}
+/* «Decisión registrada»: etiqueta, decisión y motivo ordenados. */
+.analysis-decided {
+  flex-wrap: wrap;
+  row-gap: 4px;
+  line-height: 1.4;
+}
+.analysis-decided strong {
+  margin-right: 4px;
+}
+.analysis-decided {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: baseline;
+  column-gap: 10px;
+  padding: 12px 16px;
+}
+.analysis-decided-label {
+  grid-column: 1 / -1;
+  color: #4d6a57;
+  font-size: 0.72em;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+.analysis-decided strong {
+  font-size: 1.05em;
+}
+.analysis-decided-reason {
+  color: #355739;
+}
