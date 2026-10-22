@@ -73,6 +73,25 @@ async function passwordMatches(password: string) {
   return timingSafeEqual(actual, expected);
 }
 
+// Diagnóstico seguro: solo dice si cada variable existe y si su forma es
+// válida. Nunca devuelve valores, sales, huellas ni secretos.
+function diagnose() {
+  const hash = envValue("TAKYA_DEMO_PASSWORD_HASH");
+  const parts = hash.split(":");
+  const secret = envValue("TAKYA_ACCESS_SECRET");
+  return {
+    entorno: process.env.VERCEL_ENV ?? "local",
+    huellaExiste: hash.length > 0,
+    huellaEmpiezaConScrypt: parts[0] === "scrypt",
+    huellaTiene6Partes: parts.length === 6,
+    huellaParametrosOk:
+      parts[1] === "16384" && parts[2] === "8" && parts[3] === "1",
+    huellaLargoOk: Buffer.from(parts[5] ?? "", "base64url").length >= 32,
+    secretoExiste: secret.length > 0,
+    secretoLargoOk: secret.length >= 32,
+  };
+}
+
 function cookie(value: string, maxAge: number, request: NextRequest) {
   const secure = request.nextUrl.protocol === "https:" ? "; Secure" : "";
   return `${ACCESS_COOKIE}=${value}; HttpOnly; SameSite=Lax; Path=/; Max-Age=${maxAge}${secure}`;
@@ -111,6 +130,7 @@ export async function POST(request: NextRequest) {
       {
         code: "ACCESS_NOT_CONFIGURED",
         message: "El acceso privado no está configurado.",
+        diagnostico: diagnose(),
       },
       503,
     );
