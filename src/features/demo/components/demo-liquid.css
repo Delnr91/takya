@@ -1235,3 +1235,66 @@
   align-self: end;
   min-height: 46px;
 }
+
+/* ══ iPad horizontal y pantallas bajas (≤ 900 px de alto) ══
+   Barra compacta: las ocho teclas caben sin superponerse ni cortarse, con
+   el alto estable de la pantalla (svh). El encabezado también se reduce. */
+@media (min-width: 801px) and (max-height: 900px) {
+  .demo-app {
+    padding-top: 14px;
+  }
+  .demo-header {
+    padding: 10px 20px;
+  }
+  .demo-header-utilities > .demo-tool,
+  .demo-header-utilities > .demo-tool.demo-night-toggle {
+    width: 42px;
+    min-width: 42px;
+    height: 42px;
+    min-height: 42px;
+  }
+  .demo-header-tools > .demo-user-button {
+    min-height: 42px;
+  }
+  .demo-nav {
+    top: 12px;
+    height: calc(100svh - 124px) !important;
+    min-height: 0 !important;
+    gap: 2px;
+    padding: 6px 6px;
+  }
+  .demo-nav-collapse {
+    width: 34px;
+    height: 30px;
+    flex-shrink: 0;
+  }
+  .demo-nav > button[data-view] {
+    flex: 1 1 0;
+    min-height: 0 !important;
+    gap: 3px;
+    padding: 2px 2px !important;
+    font-size: 0.72em;
+    line-height: 1.1;
+  }
+  .demo-nav-key {
+    flex-shrink: 0;
+    width: 40px;
+    height: 32px;
+    border-radius: 11px;
+  }
+  .demo-nav-key svg {
+    width: 19px;
+    height: 19px;
+  }
+  .demo-nav-lens {
+    border-radius: 14px;
+  }
+}
+@media (min-width: 801px) and (max-height: 700px) {
+  .demo-nav > button[data-view] > span:not(.demo-nav-key) {
+    font-size: 0.9em;
+  }
+  .demo-nav-key {
+    height: 28px;
+  }
+}
