@@ -1153,3 +1153,43 @@
   padding-top: 0 !important;
   border-top: 0 !important;
 }
+
+/* ── Carrusel de casos: degradado en movimiento de fondo ──
+   El de los pilares de la landing. En noche la consola se invierte: el velo
+   blanco se vuelve oscuro y el lienzo vuelve a sus colores, más tenue. */
+.incident-carousel {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+}
+.incident-carousel-bg {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  background: linear-gradient(140deg, #a5c8ae, #dbba95 55%, #e05d44);
+}
+.incident-carousel-bg canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+.incident-carousel-bg::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(255, 255, 255, 0.12);
+}
+.demo-night .incident-carousel-bg::after {
+  background: rgba(255, 255, 255, 0.55);
+}
+.incident-carousel .incident-carousel-heading,
+.incident-carousel .demo-hint {
+  position: relative;
+}
+.incident-carousel .demo-eyebrow,
+.incident-carousel .incident-carousel-heading h2,
+.incident-carousel .demo-hint {
+  color: #1b3b2b;
+}
