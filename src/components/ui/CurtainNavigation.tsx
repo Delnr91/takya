@@ -21,7 +21,7 @@ export function useCurtainNavigation() {
   return navigate;
 }
 
-/** A local wipe built with Motion's free primitives. Standard links keep native new-tab behavior. */
+/** Transición de vidrio líquido hecha con Motion. Los enlaces normales mantienen el abrir en pestaña nueva. */
 export function CurtainNavigation({ children }: { children: ReactNode }) {
   const router = useRouter();
   const pathname = usePathname();
@@ -63,34 +63,40 @@ export function CurtainNavigation({ children }: { children: ReactNode }) {
         </p>
       ) : null}
       {transition ? (
-        <div className="takya-curtain" aria-hidden="true">
-          {Array.from({ length: 6 }, (_, index) => (
-            <motion.div
-              key={index}
-              className="takya-curtain-panel"
-              initial={{ y: "100%" }}
-              animate={{ y: reveal ? "-100%" : "0%" }}
-              transition={{
-                duration: 0.4,
-                delay: index * 0.035,
-                ease: [0.76, 0, 0.24, 1],
-              }}
-              onAnimationComplete={
-                index === 5
-                  ? () => {
-                      if (reveal) {
-                        busy.current = false;
-                        setTransition(null);
-                      } else if (!transition.covered) {
-                        setTransition({ ...transition, covered: true });
-                        router.push(transition.target);
-                      }
-                    }
-                  : undefined
-              }
-            />
-          ))}
-        </div>
+        // Gota de vidrio líquido: se expande desde el centro con reflejos de
+        // la marca, cubre la pantalla y se disuelve al llegar a la siguiente.
+        <motion.div
+          className="takya-liquid-curtain"
+          aria-hidden="true"
+          initial={{ clipPath: "circle(0% at 50% 62%)", opacity: 1 }}
+          animate={
+            reveal
+              ? {
+                  clipPath: "circle(150% at 50% 62%)",
+                  opacity: 0,
+                  scale: 1.06,
+                }
+              : { clipPath: "circle(150% at 50% 62%)", opacity: 1, scale: 1 }
+          }
+          transition={{
+            duration: reveal ? 0.55 : 0.75,
+            ease: [0.76, 0, 0.24, 1],
+          }}
+          onAnimationComplete={() => {
+            if (reveal) {
+              busy.current = false;
+              setTransition(null);
+            } else if (!transition.covered) {
+              setTransition({ ...transition, covered: true });
+              router.push(transition.target);
+            }
+          }}
+        >
+          <span className="takya-liquid-orb is-a" />
+          <span className="takya-liquid-orb is-b" />
+          <span className="takya-liquid-orb is-c" />
+          <span className="takya-liquid-sheen" />
+        </motion.div>
       ) : null}
       <span className="sr-only" role="status">
         {transition ? "Abriendo la siguiente pantalla" : ""}
