@@ -1512,3 +1512,10 @@
     );
   }
 }
+
+/* El mensaje de error siempre ocupa su lugar: la bienvenida no se mueve. */
+.takya-login-error {
+  height: 1.5em;
+  margin: -4px 0 0;
+  line-height: 1.5em;
+}
