@@ -2,8 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useState, useSyncExternalStore } from "react";
-import { useRouter } from "next/navigation";
+import { useState, useSyncExternalStore } from "react";
 import { useAnimate, useReducedMotion } from "framer-motion";
 import { Eye } from "lucide-react";
 import { LogIn, Moon, ShieldCheck, Sun } from "@/components/icons";
@@ -21,9 +20,9 @@ type Phase = "idle" | "checking" | "locking" | "locked" | "instant";
 const PHASE_MESSAGE: Record<Phase, string> = {
   idle: "",
   checking: "Comprobando el acceso…",
-  locking: "Asegurando tu sesión…",
-  locked: "Listo. Abriendo la consola…",
-  instant: "Abriendo la consola…",
+  locking: "Protegiendo tu acceso…",
+  locked: "Acceso protegido. Entrando a tu turno…",
+  instant: "Entrando a tu turno…",
 };
 
 const MAIN_CLASS: Record<Phase, string> = {
@@ -41,7 +40,6 @@ const MAIN_CLASS: Record<Phase, string> = {
  * accesibilidad están dentro de la consola.
  */
 export function OperatorLogin() {
-  const router = useRouter();
   const [scope, animate] = useAnimate<HTMLElement>();
   const reduceMotion = useReducedMotion();
   const [password, setPassword] = useState("");
@@ -55,10 +53,12 @@ export function OperatorLogin() {
   );
   const toggleTheme = () => writeTheme(theme === "night" ? "day" : "night");
 
-  // La consola queda precargada para que aparezca apenas cierre el candado.
-  useEffect(() => {
-    router.prefetch("/demo");
-  }, [router]);
+  // Entrada completa (no navegación interna): así el servidor recibe la
+  // cookie de acceso recién emitida y no se usa una precarga anterior al login.
+  function enterConsole() {
+    // eslint-disable-next-line @next/next/no-location-assign-relative-destination -- entrada completa intencional tras emitir la cookie
+    window.location.assign("/demo");
+  }
 
   // Al entrar, la tarjeta se reduce a un candado que se cierra y da paso a la
   // consola. Con movimiento reducido se entra directo.
@@ -67,7 +67,7 @@ export function OperatorLogin() {
     const card = main.querySelector<HTMLElement>(".takya-login-card");
     if (reduceMotion || !card) {
       setPhase("instant");
-      router.replace("/demo");
+      enterConsole();
       return;
     }
     setPhase("locking");
@@ -134,7 +134,7 @@ export function OperatorLogin() {
       { opacity: [0.9, 0], scale: [1, 1.7] },
       { duration: 0.7, ease: "easeOut" },
     );
-    router.replace("/demo");
+    enterConsole();
   }
 
   return (
