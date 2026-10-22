@@ -1519,3 +1519,20 @@
   margin: -4px 0 0;
   line-height: 1.5em;
 }
+
+/* ══ Posición fija en iPad ══
+   Safari cambia el alto dinámico al mostrar u ocultar su barra; con el alto
+   pequeño (svh) el formulario centrado ya no se mueve. La columna se separa
+   del borde derecho y del pin de día/noche. */
+.takya-login {
+  min-height: 100svh;
+}
+@media (min-width: 1024px) and (min-height: 640px) {
+  .takya-login {
+    padding: 84px max(64px, 5vw) 32px 32px;
+  }
+  .takya-login-layout,
+  .takya-login[data-theme="night"] .takya-login-layout {
+    column-gap: 64px;
+  }
+}
