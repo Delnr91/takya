@@ -1536,3 +1536,265 @@
     column-gap: 64px;
   }
 }
+
+/* ══ Botón, pastilla «Demo» y pictograma en 3D liquid glass ══
+   Mismo lenguaje que el pin de día/noche y las teclas de la consola:
+   vidrio con brillo superior, canto inferior que da relieve y un reflejo que
+   sigue al puntero. Al tocar se hunden. */
+.takya-login-submit {
+  --mx: 50%;
+  --my: 0%;
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  border: 1px solid #10261c;
+  border-radius: 18px;
+  background:
+    radial-gradient(
+      120px 80px at var(--mx) var(--my),
+      rgba(255, 255, 255, 0.22),
+      transparent 70%
+    ),
+    linear-gradient(180deg, #2f5a40 0%, #1b3b2b 52%, #142e21 100%);
+  box-shadow:
+    0 5px 0 #0c1d15,
+    0 16px 28px -12px rgba(15, 42, 31, 0.75),
+    inset 0 1px 0 rgba(255, 255, 255, 0.35),
+    inset 0 -2px 6px rgba(0, 0, 0, 0.3);
+  text-shadow: 0 1px 0 rgba(0, 0, 0, 0.3);
+  transition:
+    transform 0.16s ease,
+    box-shadow 0.16s ease,
+    filter 0.2s ease;
+}
+/* Brillo de vidrio en la mitad superior. */
+.takya-login-submit::before {
+  content: "";
+  position: absolute;
+  inset: 2px 6px 50%;
+  z-index: -1;
+  border-radius: 14px 14px 40% 40% / 14px 14px 12px 12px;
+  background: linear-gradient(
+    rgba(255, 255, 255, 0.3),
+    rgba(255, 255, 255, 0.02)
+  );
+  pointer-events: none;
+}
+/* Destello que cruza la tecla cada pocos segundos. */
+.takya-login-submit::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(
+    110deg,
+    transparent 35%,
+    rgba(255, 255, 255, 0.22) 50%,
+    transparent 65%
+  );
+  transform: translateX(-100%);
+  animation: takya-login-shine 4.5s ease-in-out 1.5s infinite;
+  pointer-events: none;
+}
+@keyframes takya-login-shine {
+  65%,
+  100% {
+    transform: translateX(100%);
+  }
+}
+.takya-login-submit svg {
+  filter: drop-shadow(0 1px 0 rgba(0, 0, 0, 0.3));
+  transition: transform 0.2s ease;
+}
+.takya-login-submit:hover:not(:disabled) {
+  background:
+    radial-gradient(
+      140px 90px at var(--mx) var(--my),
+      rgba(255, 255, 255, 0.3),
+      transparent 70%
+    ),
+    linear-gradient(180deg, #356547 0%, #21462f 52%, #183627 100%);
+  transform: translateY(-2px);
+  box-shadow:
+    0 7px 0 #0c1d15,
+    0 20px 32px -12px rgba(15, 42, 31, 0.75),
+    inset 0 1px 0 rgba(255, 255, 255, 0.4),
+    inset 0 -2px 6px rgba(0, 0, 0, 0.3);
+}
+.takya-login-submit:hover:not(:disabled) svg {
+  transform: translateX(3px);
+}
+.takya-login-submit:active:not(:disabled) {
+  transform: translateY(4px);
+  box-shadow:
+    0 1px 0 #0c1d15,
+    0 6px 12px -8px rgba(15, 42, 31, 0.6),
+    inset 0 2px 5px rgba(0, 0, 0, 0.35);
+}
+.takya-login-submit:disabled {
+  filter: saturate(0.7);
+}
+/* Noche: tecla de vidrio marfil. */
+.takya-login[data-theme="night"] .takya-login-submit {
+  border-color: #c9c3b4;
+  background:
+    radial-gradient(
+      120px 80px at var(--mx) var(--my),
+      rgba(255, 255, 255, 0.9),
+      transparent 70%
+    ),
+    linear-gradient(180deg, #fffdf8 0%, #f4f1ea 52%, #e3ddd0 100%);
+  color: #10261c;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.6);
+  box-shadow:
+    0 5px 0 #a9a292,
+    0 16px 28px -12px rgba(0, 0, 0, 0.7),
+    inset 0 1px 0 #fff,
+    inset 0 -2px 6px rgba(27, 59, 43, 0.15);
+}
+.takya-login[data-theme="night"] .takya-login-submit::after {
+  background: linear-gradient(
+    110deg,
+    transparent 35%,
+    rgba(255, 255, 255, 0.85) 50%,
+    transparent 65%
+  );
+}
+.takya-login[data-theme="night"] .takya-login-submit svg {
+  filter: none;
+}
+.takya-login[data-theme="night"] .takya-login-submit:hover:not(:disabled) {
+  background:
+    radial-gradient(
+      140px 90px at var(--mx) var(--my),
+      #fff,
+      transparent 70%
+    ),
+    linear-gradient(180deg, #fffdf8 0%, #f7f4ee 52%, #e8e2d6 100%);
+  box-shadow:
+    0 7px 0 #a9a292,
+    0 20px 32px -12px rgba(0, 0, 0, 0.7),
+    inset 0 1px 0 #fff,
+    inset 0 -2px 6px rgba(27, 59, 43, 0.15);
+}
+.takya-login[data-theme="night"] .takya-login-submit:active:not(:disabled) {
+  box-shadow:
+    0 1px 0 #a9a292,
+    0 6px 12px -8px rgba(0, 0, 0, 0.6),
+    inset 0 2px 5px rgba(27, 59, 43, 0.25);
+}
+
+/* «Demo»: pin esmaltado pequeño con borde metálico. */
+.takya-login-eyebrow span,
+.takya-login[data-theme="night"] .takya-login-eyebrow span {
+  position: relative;
+  overflow: hidden;
+  padding: 3px 10px;
+  border: 1.5px solid transparent;
+  background:
+    linear-gradient(
+        180deg,
+        rgba(255, 255, 255, 0.6) 0%,
+        rgba(255, 255, 255, 0.05) 55%,
+        rgba(0, 0, 0, 0.06) 100%
+      )
+      padding-box,
+    linear-gradient(var(--demo-pin), var(--demo-pin)) padding-box,
+    linear-gradient(145deg, #ffffff, #c9cdc8 35%, #f4f4f2 55%, #9ea39d)
+      border-box;
+  color: var(--demo-pin-ink);
+  box-shadow:
+    0 2px 0 rgba(27, 59, 43, 0.3),
+    0 6px 10px -6px rgba(15, 30, 22, 0.5),
+    inset 0 1px 0 rgba(255, 255, 255, 0.7);
+}
+.takya-login-eyebrow span {
+  --demo-pin: #e2eedc;
+  --demo-pin-ink: #1b3b2b;
+}
+.takya-login[data-theme="night"] .takya-login-eyebrow span {
+  --demo-pin: #a5c8ae;
+  --demo-pin-ink: #10261c;
+}
+.takya-login-eyebrow span::after {
+  content: "";
+  position: absolute;
+  inset: -40%;
+  background: linear-gradient(
+    115deg,
+    transparent 42%,
+    rgba(255, 255, 255, 0.7) 50%,
+    transparent 58%
+  );
+  transform: translateX(-70%);
+  animation: takya-ods-glint 5s ease-in-out 0.8s infinite;
+  pointer-events: none;
+}
+
+/* Pictograma del rol: tecla 3D de vidrio con borde metálico. */
+.takya-login-pictogram,
+.takya-login[data-theme="night"] .takya-login-pictogram {
+  position: relative;
+  overflow: hidden;
+  border: 2px solid transparent;
+  border-radius: 14px;
+  background:
+    linear-gradient(
+        160deg,
+        rgba(255, 255, 255, 0.4) 0%,
+        rgba(255, 255, 255, 0.05) 45%,
+        rgba(0, 0, 0, 0.18) 100%
+      )
+      padding-box,
+    linear-gradient(var(--role-pin), var(--role-pin)) padding-box,
+    linear-gradient(145deg, #ffffff, #c9cdc8 35%, #f4f4f2 55%, #9ea39d)
+      border-box;
+  color: var(--role-pin-ink);
+  box-shadow:
+    0 3px 0 #0c1d15,
+    0 10px 16px -8px rgba(15, 30, 22, 0.6),
+    inset 0 2px 1px rgba(255, 255, 255, 0.45),
+    inset 0 -3px 4px rgba(0, 0, 0, 0.25);
+  transition: transform 0.25s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+.takya-login-pictogram {
+  --role-pin: #1b3b2b;
+  --role-pin-ink: #f4f1ea;
+}
+.takya-login[data-theme="night"] .takya-login-pictogram {
+  --role-pin: #a5c8ae;
+  --role-pin-ink: #10261c;
+  box-shadow:
+    0 3px 0 #5f7f68,
+    0 10px 16px -8px rgba(0, 0, 0, 0.6),
+    inset 0 2px 1px rgba(255, 255, 255, 0.55),
+    inset 0 -3px 4px rgba(0, 0, 0, 0.2);
+}
+.takya-login-pictogram::before {
+  content: "";
+  position: absolute;
+  inset: 2px 5px auto;
+  height: 42%;
+  border-radius: 10px 10px 40% 40%;
+  background: linear-gradient(rgba(255, 255, 255, 0.45), transparent);
+  pointer-events: none;
+}
+.takya-login-pictogram svg {
+  position: relative;
+  filter: drop-shadow(0 1px 0 rgba(0, 0, 0, 0.3));
+}
+.takya-login-role:hover .takya-login-pictogram {
+  transform: translateY(-2px) rotate(-5deg);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .takya-login-submit::after,
+  .takya-login-eyebrow span::after {
+    animation: none;
+    opacity: 0;
+  }
+  .takya-login-submit,
+  .takya-login-pictogram {
+    transition: none;
+  }
+}
