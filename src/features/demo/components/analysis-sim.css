@@ -802,3 +802,130 @@
     animation: none;
   }
 }
+
+/* ══ Analizar en 3D y vidrio líquido ══
+   Fuente, cámaras y decisión son botones que sobresalen (relieve con borde
+   inferior, se levantan al pasar y se hunden al tocar); los pictogramas son
+   pines esmaltados; la prioridad es un pin destacado. */
+.analysis-tile,
+.analysis-sim-source,
+.analysis-outcome {
+  position: relative;
+  border: 1px solid rgba(255, 255, 255, 0.95);
+  background:
+    linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.95),
+      rgba(255, 255, 255, 0.6) 55%,
+      rgba(229, 236, 225, 0.72)
+    ),
+    rgba(244, 241, 234, 0.6);
+  box-shadow:
+    0 6px 0 #c3cdbf,
+    0 22px 34px -18px rgba(15, 30, 22, 0.45),
+    inset 0 1px 0 #fff;
+  backdrop-filter: blur(18px) saturate(170%);
+  transition:
+    transform 0.18s ease,
+    box-shadow 0.18s ease;
+}
+.analysis-tile:hover,
+.analysis-sim-source:hover,
+.analysis-outcome:hover {
+  transform: translateY(-4px);
+  box-shadow:
+    0 10px 0 #c3cdbf,
+    0 30px 40px -18px rgba(15, 30, 22, 0.5),
+    inset 0 1px 0 #fff;
+}
+.analysis-tile:active,
+.analysis-sim-source:active,
+.analysis-outcome:active {
+  transform: translateY(5px);
+  box-shadow:
+    0 1px 0 #c3cdbf,
+    0 8px 12px -8px rgba(15, 30, 22, 0.45),
+    inset 0 2px 5px rgba(0, 0, 0, 0.06);
+}
+/* Opción elegida: queda hundida, con borde verde. */
+.analysis-outcome[aria-checked="true"],
+.analysis-outcome[aria-checked="true"]:hover {
+  transform: translateY(4px);
+  border: 2px solid #2f6b45;
+  background: linear-gradient(
+    180deg,
+    rgba(229, 236, 225, 0.98),
+    rgba(214, 228, 211, 0.9)
+  );
+  box-shadow:
+    0 2px 0 #9fb59a,
+    inset 0 3px 6px rgba(27, 59, 43, 0.1);
+}
+
+/* Pictogramas como pines esmaltados con borde metálico. */
+.analysis-tile-art {
+  border: 3px solid transparent;
+  border-radius: 50%;
+  background:
+    linear-gradient(
+        160deg,
+        rgba(255, 255, 255, 0.55) 0%,
+        rgba(255, 255, 255, 0.08) 50%,
+        rgba(0, 0, 0, 0.06) 100%
+      )
+      padding-box,
+    linear-gradient(#e5ece1, #d6e2d2) padding-box,
+    linear-gradient(145deg, #ffffff, #c9cdc8 35%, #f4f4f2 55%, #9ea39d)
+      border-box;
+  box-shadow:
+    0 4px 0 #9ea39d,
+    0 16px 22px -12px rgba(15, 30, 22, 0.45),
+    inset 0 2px 1px rgba(255, 255, 255, 0.7),
+    inset 0 -3px 4px rgba(0, 0, 0, 0.12);
+}
+.analysis-tile.is-live .analysis-tile-art {
+  background:
+    linear-gradient(
+        160deg,
+        rgba(255, 255, 255, 0.5) 0%,
+        rgba(255, 255, 255, 0.06) 50%,
+        rgba(0, 0, 0, 0.06) 100%
+      )
+      padding-box,
+    linear-gradient(#fbe4dc, #f6cfc2) padding-box,
+    linear-gradient(145deg, #ffffff, #c9cdc8 35%, #f4f4f2 55%, #9ea39d)
+      border-box;
+}
+
+/* Cámaras: el video corre en bucle como señal simulada. */
+.analysis-sim-thumb video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Prioridad: pin destacado. */
+.analysis-priority {
+  border: 2px solid transparent;
+  background:
+    linear-gradient(
+        180deg,
+        rgba(255, 255, 255, 0.6),
+        rgba(255, 255, 255, 0.05) 55%
+      )
+      padding-box,
+    linear-gradient(#fbefe2, #f6dcc2) padding-box,
+    linear-gradient(145deg, #ffffff, #e3b98d 40%, #fff3e6 60%, #c08a57)
+      border-box;
+  box-shadow:
+    0 3px 0 #c08a57,
+    0 10px 16px -10px rgba(138, 74, 28, 0.6),
+    inset 0 1px 0 #fff;
+}
+
+/* Caso guardado: sin línea separadora. */
+.analysis-saved {
+  border-top: 0 !important;
+}

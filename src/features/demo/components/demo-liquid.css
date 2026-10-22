@@ -696,3 +696,44 @@
     0 1px 0 #b9c9b4,
     inset 0 2px 4px rgba(27, 59, 43, 0.08);
 }
+
+/* ── Pictogramas como pines esmaltados ──
+   Conservan su color de fondo (tono de cada sección) y suman borde metálico,
+   relieve, brillo y sombra, para leerse de un vistazo. */
+.demo-pictogram,
+.analysis-sim-mark,
+.analysis-path-icon,
+.start-case-glyph,
+.start-shortcut-icon,
+.start-inbox-case .start-case-glyph {
+  position: relative;
+  overflow: hidden;
+  box-shadow:
+    0 0 0 2px rgba(255, 255, 255, 0.95),
+    0 0 0 3.5px #b4bab3,
+    0 5px 0 1px #9ea39d,
+    0 14px 20px -10px rgba(15, 30, 22, 0.45),
+    inset 0 2px 1px rgba(255, 255, 255, 0.7),
+    inset 0 -3px 4px rgba(0, 0, 0, 0.12) !important;
+}
+.demo-pictogram::after,
+.analysis-sim-mark::after,
+.analysis-path-icon::after,
+.start-case-glyph::after,
+.start-shortcut-icon::after {
+  content: "";
+  position: absolute;
+  inset: 0 12% 52%;
+  border-radius: 0 0 50% 50%;
+  background: linear-gradient(rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0));
+  pointer-events: none;
+}
+.demo-pictogram > svg,
+.analysis-sim-mark > svg,
+.analysis-path-icon > svg,
+.start-case-glyph > svg,
+.start-shortcut-icon > svg {
+  position: relative;
+  z-index: 1;
+  filter: drop-shadow(0 1px 0 rgba(255, 255, 255, 0.6));
+}

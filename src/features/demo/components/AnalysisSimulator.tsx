@@ -364,11 +364,16 @@ export function AnalysisSimulator({
                     onClick={() => analyze(id)}
                   >
                     <span className="analysis-sim-thumb">
-                      <Image
-                        src={SOURCES[id].poster}
-                        alt=""
-                        fill
-                        sizes="(max-width: 700px) 90vw, 360px"
+                      {/* Señal simulada: el video corre en bucle, sin sonido. */}
+                      <video
+                        src={SOURCES[id].src}
+                        poster={SOURCES[id].poster}
+                        muted
+                        loop
+                        autoPlay
+                        playsInline
+                        preload="metadata"
+                        aria-hidden="true"
                       />
                       {live ? (
                         <span className="analysis-sim-live">
@@ -697,7 +702,6 @@ export function AnalysisSimulator({
               {savedId ? (
                 <div className="analysis-saved">
                   <p>
-                    <CircleCheck aria-hidden="true" />
                     {sealed
                       ? `Caso ${savedId} guardado con su evidencia protegida.`
                       : `Caso ${savedId} guardado en tu bandeja e historial.`}
