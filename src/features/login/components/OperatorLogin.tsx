@@ -302,6 +302,18 @@ export function OperatorLogin() {
                   type="submit"
                   className="takya-login-submit"
                   disabled={phase !== "idle"}
+                  onPointerMove={(event) => {
+                    // El reflejo del vidrio sigue al puntero.
+                    const box = event.currentTarget.getBoundingClientRect();
+                    event.currentTarget.style.setProperty(
+                      "--mx",
+                      `${event.clientX - box.left}px`,
+                    );
+                    event.currentTarget.style.setProperty(
+                      "--my",
+                      `${event.clientY - box.top}px`,
+                    );
+                  }}
                 >
                   <LogIn size={22} aria-hidden="true" />
                   {phase === "checking" ? "Comprobando…" : "Iniciar sesión"}
