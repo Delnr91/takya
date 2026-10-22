@@ -5,7 +5,6 @@ import {
   ArrowLeft,
   ArrowRight,
   Check,
-  CheckCheck,
   CircleHelp,
   ClipboardCheck,
   Eye,
@@ -13,7 +12,6 @@ import {
   MapPin,
   Send,
   ShieldCheck,
-  X,
   PanelRightOpen,
 } from "@/components/icons";
 import { scenarios, statusLabels } from "../data/scenarios";
@@ -25,6 +23,9 @@ import {
   type DemoCommand,
 } from "../model/simulation";
 import { DecisionDialog } from "./DecisionDialog";
+import { DecisionCards, OUTCOMES } from "./DecisionCards";
+import { EvidenceProtection } from "./EvidenceProtection";
+import { clipForId } from "../data/media";
 import { EvidenceViewer } from "./EvidenceViewer";
 import { ExplanationPanel } from "./ExplanationPanel";
 import { Pictogram, StatusBadge, timeLabel } from "./DemoPrimitives";
@@ -54,13 +55,18 @@ export function ReviewWorkspace({
   const [step, setStep] = useState(
     inspect
       ? 0
-      : isResolved(incident) || incident.explanationRead
-        ? 2
-        : evidenceComplete(incident)
-          ? 1
-          : 0,
+      : isResolved(incident)
+        ? 3
+        : incident.explanationRead
+          ? 2
+          : evidenceComplete(incident)
+            ? 1
+            : 0,
   );
   const [outcome, setOutcome] = useState<Outcome | null>(null);
+  // Si se selló en esta visita, se mantiene la tarjeta completa (verificar,
+  // probar una alteración y descargar); el resumen es para casos ya sellados.
+  const [sealedHere, setSealedHere] = useState(false);
   const [showHelp, setShowHelp] = useState(true);
   const stepContent = useRef<HTMLElement>(null);
   const previousStep = useRef(step);
@@ -87,7 +93,13 @@ export function ReviewWorkspace({
     { title: "Observar", icon: Eye, done: evidenceComplete(incident) },
     { title: "Comprender", icon: Lightbulb, done: incident.explanationRead },
     { title: "Decidir", icon: ClipboardCheck, done: resolved },
+    { title: "Proteger", icon: ShieldCheck, done: Boolean(incident.evidence) },
   ];
+  // Clips grabados del caso: lo que se sella en «Proteger».
+  const sealClips = incident.cameras.flatMap((camera) => {
+    const clip = clipForId(camera.clipId);
+    return clip ? [{ name: `${clip.id}.mp4`, src: clip.src }] : [];
+  });
   return (
     <>
       <button type="button" className="demo-back" onClick={onBack}>
@@ -142,7 +154,9 @@ export function ReviewWorkspace({
                   ? !evidenceComplete(incident)
                   : index === 2
                     ? !incident.explanationRead
-                    : false)
+                    : index === 3
+                      ? !resolved
+                      : false)
               }
               onClick={() => setStep(index)}
               className={
@@ -204,57 +218,90 @@ export function ReviewWorkspace({
             />
           ) : null}
           {step === 2 && !resolved ? (
-            <div className="demo-decisions">
-              <p className="demo-eyebrow">Tu criterio cierra la revisión</p>
-              <h2>¿Qué corresponde hacer?</h2>
-              <p>
-                Elige una acción. Después podrás indicar el motivo y confirmar.
-              </p>
-              <button
-                type="button"
-                className="demo-decision"
-                disabled={!canDecide(incident) || readOnly}
-                onClick={() => setOutcome("VERIFIED")}
-              >
-                <Pictogram icon={CheckCheck} />
-                <span>
-                  <strong>Verificar</strong>
-                  <small>Confirmar lo observado y dejarlo registrado.</small>
-                </span>
-                <ArrowRight aria-hidden="true" />
-              </button>
-              <button
-                type="button"
-                className="demo-decision"
-                disabled={!canDecide(incident) || readOnly}
-                onClick={() => setOutcome("ESCALATED")}
-              >
-                <Pictogram icon={Send} tone="orange" />
-                <span>
-                  <strong>Escalar</strong>
-                  <small>Solicitar apoyo para una revisión en terreno.</small>
-                </span>
-                <ArrowRight aria-hidden="true" />
-              </button>
-              <button
-                type="button"
-                className="demo-decision"
-                disabled={!canDecide(incident) || readOnly}
-                onClick={() => setOutcome("DISMISSED")}
-              >
-                <Pictogram icon={X} tone="neutral" />
-                <span>
-                  <strong>Descartar</strong>
-                  <small>
-                    Explicar por qué el aviso no requiere continuar.
-                  </small>
-                </span>
-                <ArrowRight aria-hidden="true" />
-              </button>
+            <DecisionCards
+              disabled={!canDecide(incident) || readOnly}
+              onBack={() => setStep(1)}
+              onConfirm={(decision) => {
+                send({ type: "DECIDE", incidentId: incident.id, decision });
+                setStep(3);
+              }}
+            />
+          ) : null}
+          {step === 3 ? (
+            !resolved ? (
               <p className="demo-hint">
-                Si falta contexto, puedes volver a observar antes de decidir.
+                Primero registra tu decisión; luego se protege la evidencia.
               </p>
-            </div>
+            ) : incident.evidence && !sealedHere ? (
+              <div className="demo-resolution">
+                <Pictogram icon={ShieldCheck} />
+                <p className="demo-eyebrow">Evidencia protegida</p>
+                <h2>
+                  {OUTCOMES[incident.decision!.outcome].label} ·{" "}
+                  {incident.decision?.reason}
+                </h2>
+                <p className="demo-lead">
+                  Huella {incident.evidence.fingerprint.slice(0, 16)}… · firma{" "}
+                  {incident.evidence.signature} · cifrado AES-256-GCM.
+                </p>
+                <div className="demo-action-row">
+                  <button
+                    type="button"
+                    className="demo-button demo-button-secondary"
+                    onClick={onHistory}
+                  >
+                    <History aria-hidden="true" />
+                    Ver el registro
+                  </button>
+                  <button
+                    type="button"
+                    className="demo-button demo-button-primary"
+                    onClick={onNext}
+                  >
+                    Continuar práctica <ArrowRight aria-hidden="true" />
+                  </button>
+                </div>
+              </div>
+            ) : sealClips.length ? (
+              <>
+                <p className="analysis-decided">
+                  Decisión registrada:{" "}
+                  <strong>{OUTCOMES[incident.decision!.outcome].label}</strong>{" "}
+                  · {incident.decision?.reason}
+                </p>
+                <EvidenceProtection
+                  input={{
+                    caseId: incident.id,
+                    title: content.title,
+                    operator: profile.name,
+                    decision: {
+                      outcome: OUTCOMES[incident.decision!.outcome].label,
+                      reason: incident.decision?.reason ?? "",
+                    },
+                    clips: sealClips,
+                  }}
+                  onProtected={(evidence) => {
+                    setSealedHere(true);
+                    send({
+                      type: "SEAL_EVIDENCE",
+                      incidentId: incident.id,
+                      evidence: {
+                        sealedAt: Date.now(),
+                        fingerprint: evidence.fingerprint,
+                        signature: evidence.signature,
+                        cipher: "AES-256-GCM",
+                        bytes: evidence.bytes,
+                        clips: evidence.clips,
+                      },
+                    });
+                  }}
+                />
+              </>
+            ) : (
+              <p className="demo-hint">
+                Este caso de práctica no tiene video grabado para sellar.
+              </p>
+            )
           ) : null}
           {step === 2 && resolved ? (
             <div className="demo-resolution">
@@ -326,9 +373,12 @@ export function ReviewWorkspace({
                 <button
                   type="button"
                   className="demo-button demo-button-primary"
-                  onClick={onNext}
+                  onClick={() => setStep(3)}
                 >
-                  Continuar práctica <ArrowRight aria-hidden="true" />
+                  {incident.evidence
+                    ? "Ver la evidencia"
+                    : "Proteger evidencia"}{" "}
+                  <ArrowRight aria-hidden="true" />
                 </button>
               </div>
             </div>

@@ -32,8 +32,16 @@ async function key(secret: string) {
   );
 }
 
+/** Lee una variable tolerando errores comunes al pegarla en el panel:
+ * espacios, comillas o el nombre incluido («NOMBRE=valor»). */
+export function envValue(name: string) {
+  let value = (process.env[name] ?? "").trim();
+  if (value.startsWith(`${name}=`)) value = value.slice(name.length + 1);
+  return value.replace(/^["']+|["']+$/g, "").trim();
+}
+
 function accessSecret() {
-  const secret = process.env.TAKYA_ACCESS_SECRET ?? "";
+  const secret = envValue("TAKYA_ACCESS_SECRET");
   // Sin un secreto suficiente, el acceso queda cerrado.
   return secret.length >= 32 ? secret : null;
 }

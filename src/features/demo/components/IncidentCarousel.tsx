@@ -5,6 +5,7 @@ import type { Incident } from "../schemas/simulation";
 import { scenarios } from "../data/scenarios";
 import { IncidentPoster } from "./IncidentPoster";
 import { StatusBadge } from "./DemoPrimitives";
+import { GrainGradient } from "@/components/ui/GrainGradient";
 
 export function IncidentCarousel({
   incidents,
@@ -47,6 +48,13 @@ export function IncidentCarousel({
         }
       }}
     >
+      {/* Fondo en movimiento, el de los pilares de la landing. */}
+      <div className="incident-carousel-bg" aria-hidden="true">
+        <GrainGradient
+          colors={["#A5C8AE", "#DBBA95", "#E05D44"]}
+          still={Boolean(reduced)}
+        />
+      </div>
       <div className="incident-carousel-heading">
         <div>
           <p className="demo-eyebrow">Explora la evidencia</p>

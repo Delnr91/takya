@@ -208,3 +208,138 @@
     animation: none;
   }
 }
+
+/* ══ Candado como pin 3D y tarjeta final limpia ══ */
+.evidence-lock {
+  position: relative;
+  border: 3px solid transparent;
+  border-radius: 50%;
+  background:
+    linear-gradient(
+        160deg,
+        rgba(255, 255, 255, 0.55) 0%,
+        rgba(255, 255, 255, 0.08) 50%,
+        rgba(0, 0, 0, 0.06) 100%
+      )
+      padding-box,
+    linear-gradient(#e5ece1, #d6e2d2) padding-box,
+    linear-gradient(145deg, #ffffff, #c9cdc8 35%, #f4f4f2 55%, #9ea39d)
+      border-box;
+  box-shadow:
+    0 4px 0 #9ea39d,
+    0 16px 24px -12px rgba(15, 30, 22, 0.5),
+    inset 0 2px 1px rgba(255, 255, 255, 0.7),
+    inset 0 -3px 4px rgba(0, 0, 0, 0.12);
+}
+.evidence-lock.is-locked {
+  background:
+    linear-gradient(
+        160deg,
+        rgba(255, 255, 255, 0.35) 0%,
+        rgba(255, 255, 255, 0.04) 50%,
+        rgba(0, 0, 0, 0.15) 100%
+      )
+      padding-box,
+    linear-gradient(#2f5e46, #1b3b2b) padding-box,
+    linear-gradient(145deg, #ffffff, #c9cdc8 35%, #f4f4f2 55%, #9ea39d)
+      border-box;
+}
+/* Mientras sella: un anillo de luz gira alrededor del candado. */
+@property --evidence-ring {
+  syntax: "<angle>";
+  inherits: false;
+  initial-value: 0deg;
+}
+.evidence-lock-ring {
+  position: absolute;
+  inset: -9px;
+  padding: 3px;
+  border-radius: 50%;
+  background: conic-gradient(
+    from var(--evidence-ring),
+    transparent 0deg,
+    #a5c8ae 120deg,
+    #2f6b45 200deg,
+    transparent 260deg
+  );
+  mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  mask-composite: exclude;
+  animation: evidence-ring 1s linear infinite;
+}
+@keyframes evidence-ring {
+  to {
+    --evidence-ring: 360deg;
+  }
+}
+.evidence-lock.is-sealing {
+  animation: evidence-breathe 1.2s ease-in-out infinite;
+}
+@keyframes evidence-breathe {
+  50% {
+    transform: scale(1.05);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .evidence-lock-ring,
+  .evidence-lock.is-sealing {
+    animation: none;
+  }
+}
+
+/* Sellos aplicados: tres pastillas en una fila, en vez de tres filas. */
+.evidence-sealed {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.evidence-sealed li {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 14px 8px 8px;
+  border: 1px solid rgba(255, 255, 255, 0.95);
+  border-radius: 999px;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.95),
+    rgba(229, 236, 225, 0.8)
+  );
+  color: #1b3b2b;
+  font-weight: 750;
+  box-shadow:
+    0 3px 0 #c3cdbf,
+    inset 0 1px 0 #fff;
+}
+.evidence-sealed li svg {
+  width: 22px;
+  height: 22px;
+  padding: 4px;
+  border-radius: 50%;
+  background: #2f6b45;
+  color: #fff;
+}
+
+/* Datos del paquete en vidrio, entrega sin línea ni ícono suelto. */
+.evidence-facts > div {
+  border: 1px solid rgba(255, 255, 255, 0.95) !important;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.85),
+    rgba(255, 255, 255, 0.5)
+  ) !important;
+  box-shadow:
+    0 8px 18px -14px rgba(15, 30, 22, 0.45),
+    inset 0 1px 0 #fff;
+}
+.evidence-delivery {
+  padding-top: 4px;
+  border-top: 0;
+}
+.evidence-delivery p {
+  display: block;
+}

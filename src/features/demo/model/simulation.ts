@@ -38,6 +38,7 @@ export type DemoCommand =
       decision: Decision;
     }
   | { type: "ADD_INCIDENT"; scenario: Scenario }
+  | { type: "ANALYSIS_DETECT"; scenario: Scenario; camera: string }
   | { type: "PROFILE"; profile: Profile }
   | { type: "PREFERENCE"; preference: keyof Simulation["preferences"] };
 export type DemoEvent = DemoCommand & EventMeta;
@@ -268,6 +269,34 @@ export function transition(
         incident.id,
         "INCIDENT_RECEIVED",
         "Tres avisos simulados agrupados en un nuevo caso.",
+        true,
+      ),
+    );
+  }
+  if (event.type === "ANALYSIS_DETECT") {
+    // Lo detectado al analizar entra como un caso más: se revisa y se decide
+    // en la misma revisión de Casos (un solo flujo de decisión).
+    if (state.incidents.length >= MAX_INCIDENTS)
+      return fail(
+        "La práctica llegó a 30 casos. Reiníciala para comenzar otra sesión.",
+      );
+    const detected = createIncident(
+      event.scenario,
+      state.nextSequence,
+      event.at,
+    );
+    return ok(
+      appendAudit(
+        {
+          ...state,
+          incidents: [...state.incidents, detected],
+          nextSequence: state.nextSequence + 1,
+          selectedId: detected.id,
+        },
+        event,
+        detected.id,
+        "INCIDENT_RECEIVED",
+        `Detectado al analizar ${event.camera}.`,
         true,
       ),
     );

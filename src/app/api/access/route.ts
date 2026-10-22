@@ -6,6 +6,7 @@ import {
   ACCESS_COOKIE,
   ACCESS_TTL_SECONDS,
   ACCESS_USER,
+  envValue,
   signAccess,
 } from "@/lib/access";
 import { isSameOriginRequest } from "@/features/demo/model/chat";
@@ -47,7 +48,7 @@ function json(body: object, status: number, headers: HeadersInit = {}) {
 
 // Formato: scrypt:<N>:<r>:<p>:<sal base64url>:<hash base64url> (scripts/access/hash-password.mjs).
 async function passwordMatches(password: string) {
-  const stored = process.env.TAKYA_DEMO_PASSWORD_HASH ?? "";
+  const stored = envValue("TAKYA_DEMO_PASSWORD_HASH");
   const parts = stored.split(":");
   if (parts.length !== 6 || parts[0] !== "scrypt") return null;
   const [, n, r, p, salt, hash] = parts;

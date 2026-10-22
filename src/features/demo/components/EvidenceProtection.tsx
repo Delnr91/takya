@@ -5,7 +5,6 @@ import { motion, useReducedMotion } from "framer-motion";
 import {
   Check,
   Download,
-  FileCheck,
   KeyRound,
   Lock,
   ShieldAlert,
@@ -47,6 +46,12 @@ const STEPS: {
   },
 ];
 
+const SEALING_TEXT: Record<Exclude<SealStep, "listo">, string> = {
+  huella: "Calculando la huella del video…",
+  firma: "Firmando con TAKYA…",
+  cifrado: "Cifrando el video…",
+};
+
 export type ProtectedEvidence = {
   fingerprint: string;
   signature: SealResult["pkg"]["firma"]["algoritmo"];
@@ -80,8 +85,21 @@ export function EvidenceProtection({
   async function protect() {
     setError("");
     setCheck(null);
+    // El sellado real tarda menos de un segundo: se muestra paso a paso, con
+    // el candado cerrándose, durante al menos ~2,6 s para que se entienda.
+    setStep("huella");
+    const timers = reduce
+      ? []
+      : [
+          window.setTimeout(() => setStep("firma"), 900),
+          window.setTimeout(() => setStep("cifrado"), 1750),
+        ];
     try {
-      const sealed = await sealEvidence(input, setStep);
+      const [sealed] = await Promise.all([
+        sealEvidence(input, reduce ? setStep : () => undefined),
+        new Promise((resolve) => window.setTimeout(resolve, reduce ? 0 : 2600)),
+      ]);
+      timers.forEach((id) => window.clearTimeout(id));
       setResult(sealed);
       onProtected?.({
         fingerprint: sealed.fingerprint,
@@ -90,6 +108,7 @@ export function EvidenceProtection({
         clips: sealed.pkg.manifiesto.clips.length,
       });
     } catch (problem) {
+      timers.forEach((id) => window.clearTimeout(id));
       setStep(null);
       setError(
         problem instanceof Error
@@ -118,19 +137,24 @@ export function EvidenceProtection({
     <section className="evidence-protect" aria-labelledby="evidence-title">
       <div className="evidence-head">
         <motion.span
-          className={`evidence-lock ${result ? "is-locked" : ""}`}
+          className={`evidence-lock ${result ? "is-locked" : ""} ${running ? "is-sealing" : ""}`}
           aria-hidden="true"
           animate={result && !reduce ? { scale: [1, 0.9, 1.06, 1] } : undefined}
           transition={{ duration: 0.6 }}
         >
+          {running ? <span className="evidence-lock-ring" /> : null}
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
             <motion.path
               d="M7 11V7a5 5 0 0 1 10 0v4"
               strokeWidth="2"
               strokeLinecap="round"
               initial={false}
-              animate={{ y: result ? 0 : -4 }}
-              transition={{ type: "spring", stiffness: 500, damping: 18 }}
+              animate={{ y: result ? 0 : running ? [-4, -1, -4] : -4 }}
+              transition={
+                running
+                  ? { duration: 1.1, repeat: Infinity, ease: "easeInOut" }
+                  : { type: "spring", stiffness: 500, damping: 18 }
+              }
             />
             <rect x="3" y="11" width="18" height="11" rx="2" strokeWidth="2" />
             <circle cx="12" cy="16.5" r="1.4" fill="currentColor" />
@@ -139,37 +163,54 @@ export function EvidenceProtection({
         <div>
           <p className="demo-eyebrow">Proteger la evidencia</p>
           <h2 id="evidence-title">
-            {result ? "Evidencia protegida." : "Sella la evidencia del caso."}
+            {result
+              ? "Evidencia protegida."
+              : running
+                ? "Protegiendo la evidencia…"
+                : "Sella la evidencia del caso."}
           </h2>
-          <p>
+          <p role={running ? "status" : undefined}>
             {result
               ? "Nadie puede cambiarla sin que se note. Lista para entregar."
-              : "TAKYA guarda el original intacto y lo sella para entregarlo."}
+              : running
+                ? SEALING_TEXT[step as Exclude<SealStep, "listo">]
+                : "TAKYA guarda el original intacto y lo sella para entregarlo."}
           </p>
         </div>
       </div>
 
-      <ol className="evidence-steps">
-        {STEPS.map((item, index) => {
-          const state =
-            index < doneIndex
-              ? "done"
-              : index === doneIndex
-                ? "current"
-                : "wait";
-          return (
-            <li key={item.id} data-state={running || result ? state : "wait"}>
-              <span className="evidence-step-icon" aria-hidden="true">
-                {index < doneIndex ? <Check /> : index + 1}
-              </span>
-              <span>
-                <strong>{item.label}</strong>
-                <small>{item.detail}</small>
-              </span>
+      {result ? (
+        <ul className="evidence-sealed" aria-label="Sellos aplicados">
+          {STEPS.map((item) => (
+            <li key={item.id} title={item.detail}>
+              <Check aria-hidden="true" />
+              {item.label}
             </li>
-          );
-        })}
-      </ol>
+          ))}
+        </ul>
+      ) : (
+        <ol className="evidence-steps">
+          {STEPS.map((item, index) => {
+            const state =
+              index < doneIndex
+                ? "done"
+                : index === doneIndex
+                  ? "current"
+                  : "wait";
+            return (
+              <li key={item.id} data-state={running || result ? state : "wait"}>
+                <span className="evidence-step-icon" aria-hidden="true">
+                  {index < doneIndex ? <Check /> : index + 1}
+                </span>
+                <span>
+                  <strong>{item.label}</strong>
+                  <small>{item.detail}</small>
+                </span>
+              </li>
+            );
+          })}
+        </ol>
+      )}
 
       {error ? (
         <p className="evidence-error" role="alert">
@@ -266,12 +307,9 @@ export function EvidenceProtection({
 
           <div className="evidence-delivery">
             <p>
-              <FileCheck aria-hidden="true" />
-              <span>
-                <strong>¿Qué se hace con la evidencia?</strong> Se entrega a
-                Carabineros, PDI o Fiscalía. Quien la recibe comprueba con el
-                verificador que nadie la modificó.
-              </span>
+              <strong>¿Qué se hace con la evidencia?</strong> Se entrega a
+              Carabineros, PDI o Fiscalía. Quien la recibe comprueba con el
+              verificador que nadie la modificó.
             </p>
             <div className="evidence-actions">
               <button
