@@ -929,3 +929,41 @@
 .analysis-saved {
   border-top: 0 !important;
 }
+
+/* ── Íconos chicos como mini pines 3D ── */
+.analysis-incident-icon {
+  position: relative;
+  overflow: hidden;
+  border-radius: 50% !important;
+  box-shadow:
+    0 0 0 2px rgba(255, 255, 255, 0.95),
+    0 0 0 3.5px #b4bab3,
+    0 5px 0 1px #9ea39d,
+    0 14px 20px -10px rgba(15, 30, 22, 0.45),
+    inset 0 2px 1px rgba(255, 255, 255, 0.7),
+    inset 0 -3px 4px rgba(0, 0, 0, 0.12);
+}
+.analysis-incident-grid h3 svg,
+.analysis-decided > svg {
+  flex-shrink: 0;
+  box-sizing: content-box;
+  width: 18px;
+  height: 18px;
+  padding: 6px;
+  border-radius: 50%;
+  background: linear-gradient(180deg, #ffffff, #e5ece1);
+  color: #244d37;
+  box-shadow:
+    0 0 0 1.5px #c3cbc1,
+    0 3px 0 #b4bab3,
+    0 8px 12px -8px rgba(15, 30, 22, 0.45),
+    inset 0 1px 0 #fff;
+}
+.analysis-incident-grid > div:last-child h3 svg {
+  color: #8a4a1c;
+  background: linear-gradient(180deg, #fff7ee, #fbe9d6);
+}
+.analysis-decided > svg {
+  background: linear-gradient(180deg, #3d7a52, #2f6b45);
+  color: #fff;
+}

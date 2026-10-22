@@ -650,18 +650,28 @@ export function AnalysisSimulator({
                   ))}
                 </fieldset>
               ) : null}
-              <button
-                type="button"
-                className="demo-button demo-button-primary analysis-next"
-                disabled={
-                  !outcome ||
-                  !reason ||
-                  (outcome === "ESCALATED" && !destination)
-                }
-                onClick={registerDecision}
-              >
-                <Check aria-hidden="true" /> Registrar decisión
-              </button>
+              <div className="analysis-actions">
+                {/* Volver sin perder nada: la decisión aún no se registra. */}
+                <button
+                  type="button"
+                  className="demo-button demo-button-secondary"
+                  onClick={() => setPhase("resultado")}
+                >
+                  <ArrowLeft aria-hidden="true" /> Volver al resultado
+                </button>
+                <button
+                  type="button"
+                  className="demo-button demo-button-primary analysis-next"
+                  disabled={
+                    !outcome ||
+                    !reason ||
+                    (outcome === "ESCALATED" && !destination)
+                  }
+                  onClick={registerDecision}
+                >
+                  <Check aria-hidden="true" /> Registrar decisión
+                </button>
+              </div>
             </>
           ) : null}
 
